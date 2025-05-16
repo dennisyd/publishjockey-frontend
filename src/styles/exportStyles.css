@@ -1,0 +1,138 @@
+/* Export Document Styles */
+
+/* Title Page */
+.title-page {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  page-break-after: always;
+  text-align: center;
+}
+
+.title-page .book-title {
+  font-size: 2.5em;
+  margin-bottom: 2em;
+  font-weight: bold;
+}
+
+.title-page .author {
+  font-size: 1.5em;
+  margin-top: 2em;
+}
+
+/* Table of Contents */
+.toc {
+  page-break-after: always;
+  margin: 2em 0;
+}
+
+.toc h1 {
+  font-size: 1.8em;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.toc ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc li {
+  margin-bottom: 0.5em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toc a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.toc a:hover {
+  text-decoration: underline;
+}
+
+.toc .page-ref {
+  margin-left: 0.5em;
+}
+
+/* Chapter formatting */
+.chapter {
+  page-break-before: always;
+}
+
+.chapter:first-child {
+  page-break-before: avoid;
+}
+
+.chapter-title {
+  font-size: 1.8em;
+  text-align: center;
+  margin-bottom: 2em;
+  margin-top: 3em;
+}
+
+/* Numbered headings */
+.numbered-heading {
+  font-weight: bold;
+}
+
+/* Document sections */
+.section {
+  margin-bottom: 2em;
+}
+
+/* Page margins and layout for PDF */
+@page {
+  margin: 0.75in;
+}
+
+/* No separator page mode */
+.no-separator .chapter {
+  page-break-before: auto;
+  margin-top: 3em;
+}
+
+/* Bleed settings */
+.with-bleed {
+  margin: -0.125in;
+  padding: 0.125in;
+}
+
+/* Heading levels */
+h1 {
+  font-size: 1.8em;
+  margin-top: 1em;
+  margin-bottom: 0.8em;
+}
+
+h2 {
+  font-size: 1.5em;
+  margin-top: 0.8em;
+  margin-bottom: 0.6em;
+}
+
+h3 {
+  font-size: 1.2em;
+  margin-top: 0.6em;
+  margin-bottom: 0.4em;
+}
+
+/* Print-specific styles */
+@media print {
+  body {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 12pt;
+    line-height: 1.5;
+  }
+  
+  /* Ensure proper page breaks */
+  p {
+    orphans: 3;
+    widows: 3;
+  }
+} 

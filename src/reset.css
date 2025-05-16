@@ -1,0 +1,51 @@
+/* Basic CSS reset to ensure proper layout rendering */
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+body {
+  font-family: 'Inter', 'Roboto', 'Arial', sans-serif;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  isolation: isolate; /* Creates a new stacking context */
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+  margin: 0;
+  padding: 0;
+}
+
+/* Fix for common hidden overflow issues */
+.MuiDrawer-root, 
+.MuiDrawer-paper {
+  display: flex !important;
+  visibility: visible !important;
+  position: static;
+  z-index: 1000;
+}
+
+/* Force MUI Drawer to be visible */
+.MuiDrawer-root {
+  width: auto !important;
+  height: 100% !important;
+}
+
+.MuiStack-root {
+  height: 100%;
+  width: 100%;
+} 
