@@ -551,12 +551,23 @@ const UserManagement: React.FC = () => {
   const [deleteConfirmDialogOpen, setDeleteConfirmDialogOpen] = useState(false);
   const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
   const [suspendDialogOpen, setSuspendDialogOpen] = useState(false);
-  const [suspensionReason, setSuspensionReason] = useState('');
   const [sendNotificationDialogOpen, setSendNotificationDialogOpen] = useState(false);
   const [bulkActionDialogOpen, setBulkActionDialogOpen] = useState(false);
   
   // Success and error messages
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  
+  // Suspension reasons
+  const SUSPEND_REASONS = [
+    'Account Misuse',
+    'Spam',
+    'Inappropriate Content',
+    'Payment Issues',
+    'Violation of Terms',
+    'Other'
+  ];
+  const [suspensionReason, setSuspensionReason] = useState('');
+  const [customReason, setCustomReason] = useState('');
   
   // Load users
   const loadUsers = async () => {
@@ -574,7 +585,7 @@ const UserManagement: React.FC = () => {
         sortOrder
       );
       
-      setUsers(response.users);
+      setUsers(response.users.map(u => ({ ...u, id: u.id || u._id })));
       setTotalUsers(response.pagination.totalUsers);
       setTotalPages(response.pagination.totalPages);
     } catch (err: any) {
@@ -711,15 +722,16 @@ const UserManagement: React.FC = () => {
         await adminService.unsuspendUser(user.id);
         setSuccessMessage('User activated successfully');
       } else {
-        if (!suspensionReason) {
+        let reasonToSend = suspensionReason === 'Other' ? customReason : suspensionReason;
+        if (!reasonToSend) {
           setCurrentUser(user);
           setSuspendDialogOpen(true);
           setLoading(false);
           return;
         }
-        
-        await adminService.suspendUser(user.id, suspensionReason);
+        await adminService.suspendUser(user.id, reasonToSend);
         setSuspensionReason('');
+        setCustomReason('');
         setSuspendDialogOpen(false);
         setSuccessMessage('User suspended successfully');
       }
@@ -828,6 +840,19 @@ const UserManagement: React.FC = () => {
     }
     
     return <Chip label={subscription} color={color} size="small" />;
+  };
+  
+  // Open suspend dialog and clear reason
+  const openSuspendDialog = (user: AdminUser) => {
+    console.log('Opening suspend dialog for user:', user);
+    if (!user || !user.id) {
+      alert('Invalid user selected for suspension.');
+      return;
+    }
+    setCurrentUser(user);
+    setSuspensionReason('');
+    setCustomReason('');
+    setSuspendDialogOpen(true);
   };
   
   return (
@@ -1007,9 +1032,14 @@ const UserManagement: React.FC = () => {
                       <Tooltip title={user.isSuspended ? 'Activate User' : 'Suspend User'}>
                         <IconButton 
                           onClick={() => {
+                            console.log('Suspend/unsuspend icon clicked for user:', user);
+                            if (!user.id) {
+                              alert('Invalid user selected.');
+                              return;
+                            }
                             setCurrentUser(user);
                             if (!user.isSuspended) {
-                              setSuspendDialogOpen(true);
+                              openSuspendDialog(user);
                             } else {
                               handleToggleUserSuspension(user);
                             }
@@ -1062,7 +1092,10 @@ const UserManagement: React.FC = () => {
         user={currentUser}
         loginHistory={userLoginHistory}
         recentActivity={userRecentActivity}
-        onClose={() => setUserDetailsDialogOpen(false)}
+        onClose={() => {
+          setUserDetailsDialogOpen(false);
+          setCurrentUser(null);
+        }}
       />
       
       {/* Edit User Dialog */}
@@ -1104,22 +1137,41 @@ const UserManagement: React.FC = () => {
         <DialogTitle>Suspend User Account</DialogTitle>
         <DialogContent>
           <DialogContentText sx={{ mb: 2 }}>
-            Please provide a reason for suspending this user account.
+            Please select a reason for suspending this user account.
           </DialogContentText>
-          <TextField
-            label="Suspension Reason"
-            fullWidth
-            value={suspensionReason}
-            onChange={(e) => setSuspensionReason(e.target.value)}
-          />
+          <FormControl fullWidth sx={{ mb: 2 }}>
+            <InputLabel>Suspension Reason</InputLabel>
+            <Select
+              value={suspensionReason}
+              label="Suspension Reason"
+              onChange={(e) => setSuspensionReason(e.target.value)}
+              autoFocus
+            >
+              {SUSPEND_REASONS.map((reason) => (
+                <MenuItem key={reason} value={reason}>{reason}</MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          {suspensionReason === 'Other' && (
+            <TextField
+              label="Custom Reason"
+              fullWidth
+              value={customReason}
+              onChange={(e) => setCustomReason(e.target.value)}
+              autoFocus
+            />
+          )}
         </DialogContent>
         <DialogActions>
           <Button onClick={() => setSuspendDialogOpen(false)}>Cancel</Button>
-          <Button 
-            variant="contained" 
-            color="error" 
+          <Button
+            variant="contained"
+            color="error"
             onClick={() => currentUser && handleToggleUserSuspension(currentUser)}
-            disabled={!suspensionReason}
+            disabled={
+              !suspensionReason ||
+              (suspensionReason === 'Other' && !customReason)
+            }
           >
             Suspend Account
           </Button>

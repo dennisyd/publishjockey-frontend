@@ -3142,6 +3142,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 // Create form data
                 const formData = new FormData();
                 formData.append('file', file); // Use 'file' as the field name
+                formData.append('projectId', projectId); // Add projectId for backend validation
                 
                 // Try standard endpoints for file upload
                 fetch('http://localhost:3002/api/uploads', {

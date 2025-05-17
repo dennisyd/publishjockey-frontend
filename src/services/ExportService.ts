@@ -224,11 +224,14 @@ export class ExportService {
 
       try {
         console.log(`Making API call to ${API_URL}${endpoint}`);
-        // Make the actual API call to the export backend
+        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:3002${endpoint}`,
           {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
+            headers: {
+              'Content-Type': 'application/json',
+              ...(token ? { 'Authorization': 'Bearer ' + token } : {})
+            },
             body: JSON.stringify(exportPayload)
           }
         );

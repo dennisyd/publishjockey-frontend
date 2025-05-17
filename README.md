@@ -87,6 +87,13 @@ Create a `.env` file in apps/frontend if you want to override defaults.
 ### Session Issues:
 - If you see 401 errors, log in again to refresh your session.
 
+## FAQ
+
+### Images & Media
+
+**Q: How can I insert an image without displaying a caption?**  
+**A:** To add an image without a visible caption, simply enter a single space in the caption field when uploading or inserting your image. This will ensure that no caption text appears below the image in your exported book.
+
 ## License
 
 MIT

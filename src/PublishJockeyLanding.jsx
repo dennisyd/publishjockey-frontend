@@ -2810,6 +2810,16 @@ const FAQ = () => {
           id: "panel13",
           question: "Can I use PublishJockey to publish textbooks or academic materials?",
           answer: "Not at this time. While PublishJockey is great for general book formatting, publishing textbooks—especially those with complex mathematical equations, footnotes, and academic references—requires additional functionality. However, if there is enough demand, we may consider expanding the application to support these features in the future."
+        },
+        {
+          id: "image-caption",
+          question: "How can I insert an image without displaying a caption?",
+          answer: "To add an image without a visible caption, simply enter a single space in the caption field when uploading or inserting your image. This will ensure that no caption text appears below the image in your exported book."
+        },
+        {
+          id: "image-resize",
+          question: "How do I resize an image in my book?",
+          answer: "To resize an image, set the scale factor to a value less than 1 (for example, 0.7 to make it 70% of the original size). The default scale is 1, but this may be too large for some books. You can adjust the scale factor at any time—there's no need to re-import your image. We recommend exporting and reviewing your book to ensure images appear as intended, and adjusting the scale as needed for best print results."
         }
       ]
     },
