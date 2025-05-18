@@ -62,7 +62,7 @@ export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
   console.log("ProtectedRoute - Rendering with sidebar");
   
   return (
-    <div className="sidebar-container">
+    <div className="sidebar-container" style={{ flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
       {/* Sidebar */}
       <div data-sidebar className="sidebar" style={{
         display: 'flex',
@@ -113,7 +113,7 @@ export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
       </div>
 
       {/* Main Content */}
-      <div className="main-content">
+      <div className="main-content" style={{ paddingBottom: '0' }}>
         {element}
       </div>
 

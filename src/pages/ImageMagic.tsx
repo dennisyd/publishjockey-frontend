@@ -15,13 +15,17 @@ import {
   Select,
   MenuItem,
   SelectChangeEvent,
-  Grid
+  Grid,
+  Card
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import InfoIcon from '@mui/icons-material/Info';
 import ImageIcon from '@mui/icons-material/Image';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import ScheduleIcon from '@mui/icons-material/Schedule';
+import RefreshIcon from '@mui/icons-material/Refresh';
 import axios from 'axios';
 import { useAuth } from '../auth/AuthContext';
 
@@ -268,12 +272,23 @@ const ImageMagic: React.FC = () => {
       // More detailed error logging
       if (err.response) {
         console.error('Error response:', err.response.data);
-        setError(err.response.data.error || 'Failed to process image. Server returned an error.');
+        
+        // Check if image is likely too small (less than 100KB)
+        const isImageTooSmall = file.size < 100 * 1024;
+        const errorDetails = err.response.data.details || '';
+        
+        if (isImageTooSmall) {
+          setError(`The image failed to convert. Your source image (${Math.round(file.size / 1024)} KB) is likely too small for high-quality upscaling. Please use a larger image with more resolution.`);
+        } else if (errorDetails.toLowerCase().includes('small') || errorDetails.toLowerCase().includes('resolution')) {
+          setError(`Image processing failed: ${errorDetails}. Please try using a larger image with higher resolution.`);
+        } else {
+          setError(err.response.data.error || 'Failed to process image. Please check that your image meets the minimum size requirements.');
+        }
       } else if (err.request) {
         console.error('Error request:', err.request);
         setError('No response from server. Please try again later.');
       } else {
-        setError('Failed to process image. ' + err.message);
+        setError('Failed to process image: ' + (err.message || 'Unknown error occurred'));
       }
     } finally {
       setLoading(false);
@@ -346,6 +361,17 @@ const ImageMagic: React.FC = () => {
                 ? `File: ${file.name} (${Math.round(file.size / 1024)} KB)` 
                 : 'Drag and drop an image here, or click to select'}
             </Typography>
+            {!file && (
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 1, mb: 1 }}>
+                Recommended: Images larger than 1000x1500 pixels (at least 200KB) for best results
+              </Typography>
+            )}
+            {file && file.size < 100 * 1024 && (
+              <Typography variant="caption" color="warning.main" sx={{ mt: 1, mb: 1, display: 'block' }}>
+                Warning: Your image is quite small ({Math.round(file.size / 1024)} KB). For high-quality KDP covers, 
+                larger images (200KB+) are recommended.
+              </Typography>
+            )}
             <Button 
               component="label"
               startIcon={<FileUploadIcon />}
@@ -380,26 +406,47 @@ const ImageMagic: React.FC = () => {
           
           {/* Success Message and Download Link */}
           {success && (
-            <Alert severity="success" sx={{ mt: 2 }}>
-              <Typography variant="body1" gutterBottom>
-                {success.message}
+            <Card elevation={3} sx={{ mt: 4, p: 3 }}>
+              <Typography variant="h6" gutterBottom color="success.main">
+                <CheckCircleOutlineIcon sx={{ verticalAlign: 'middle', mr: 1 }} />
+                Image Successfully Upscaled!
               </Typography>
-              <Typography variant="body2" gutterBottom>
-                Original: {success.originalSize?.width}x{success.originalSize?.height} pixels<br />
-                New: {success.newSize?.width}x{success.newSize?.height} pixels @ {success.dpi} DPI<br />
-                Book Size: {success.bookSize}
-              </Typography>
-              <Button 
-                variant="contained" 
-                color="primary" 
-                startIcon={<DownloadIcon />}
-                href={`${API_URL}${success.outputPath}`}
-                target="_blank"
-                sx={{ mt: 2 }}
-              >
-                Download KDP-Ready Cover
-              </Button>
-            </Alert>
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 1, mb: 2 }}>
+                <Typography variant="body2">
+                  Original size: {success.originalSize.width}x{success.originalSize.height} pixels
+                </Typography>
+                <Typography variant="body2">
+                  New size: {success.newSize.width}x{success.newSize.height} pixels ({success.dpi} DPI)
+                </Typography>
+                <Typography variant="body2">
+                  Book size: {success.bookSize}
+                </Typography>
+                <Typography variant="body2" color="warning.main" sx={{ mt: 1, fontWeight: 500 }}>
+                  <ScheduleIcon sx={{ fontSize: 18, mr: 0.5, verticalAlign: 'middle' }} />
+                  Note: This file will be automatically deleted after 15 minutes. Please download it now.
+                </Typography>
+              </Box>
+              <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  startIcon={<DownloadIcon />}
+                  href={`${API_URL}${success.outputPath}`}
+                  target="_blank"
+                  sx={{ mt: 2 }}
+                >
+                  Download KDP-Ready Cover
+                </Button>
+                <Button
+                  variant="outlined"
+                  onClick={handleReset}
+                  startIcon={<RefreshIcon />}
+                  sx={{ mt: 2 }}
+                >
+                  Process Another Image
+                </Button>
+              </Box>
+            </Card>
           )}
           
           {/* Action Buttons */}
@@ -438,8 +485,11 @@ const ImageMagic: React.FC = () => {
               • Amazon KDP requires high-resolution book covers at 300 DPI<br />
               • ImageMagic supports all popular KDP book sizes from 5"x8" to 8.5"x11"<br />
               • The recommended pixel size for a 6"x9" book is 3600x5400 pixels<br />
+              • For best results, upload images with at least 1000x1500 pixels and 200KB+ file size<br />
+              • Very small images (under 100KB) may lack sufficient detail for quality upscaling<br />
               • ImageMagic automatically upscales your image to the appropriate size<br />
-              • For best results, start with the highest quality image you have
+              • Processed files are temporarily stored and automatically deleted after 15 minutes<br />
+              • Be sure to download your upscaled image promptly
             </Typography>
           </Grid>
         </Grid>

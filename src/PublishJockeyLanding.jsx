@@ -36,7 +36,6 @@ import Testimonials from './components/Testimonials';
 import { useRef, useState, useEffect } from 'react';
 import { useAuth } from './auth/AuthContext';
 import MenuIcon from '@mui/icons-material/Menu';
-import Footer from './components/Footer';
 import multer from 'multer';
 import path from 'path';
 import fs from 'fs';
@@ -142,7 +141,7 @@ const PublishJockeyLanding = () => {
       minHeight: '100vh',
       position: 'relative',
       overflow: 'visible',
-      paddingBottom: '70px'
+      paddingBottom: '0' // Changed from 70px to 0
     }}>
       <LandingHeader openTerms={handleOpenTerms} />
       
@@ -179,9 +178,6 @@ const PublishJockeyLanding = () => {
       <Box component="section" id="faq" sx={{ scrollMarginTop: '90px', py: { xs: 1, md: 1.4 }, background: 'linear-gradient(180deg, #f8fafc 0%, #ffffff 100%)', position: 'relative', zIndex: 1 }}>
         <FAQ />
       </Box>
-      
-      {/* Footer */}
-      <Footer />
       
       {/* Fixed bottom banner */}
       <Box

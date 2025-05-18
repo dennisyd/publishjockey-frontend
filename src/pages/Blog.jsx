@@ -31,6 +31,17 @@ const Blog = () => {
       readTime: '5 min read'
     },
     {
+      id: 'ai-covers-for-kdp',
+      title: 'Creating KDP-Ready Book Covers with AI: No Designer Needed',
+      excerpt: 'Learn how to create professional book covers using AI tools like ChatGPT and upscale them for Amazon KDP using PublishJockey\'s ImageMagic utility.',
+      imageUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+      date: 'June 15, 2024',
+      author: 'The PublishJockey Team',
+      authorAvatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
+      category: 'Cover Design',
+      readTime: '6 min read'
+    },
+    {
       id: 'book-formatting-truth',
       title: 'The Truth About Book Formatting: What Self-Publishers Need to Know',
       excerpt: 'Discover the hidden challenges of book formatting and why modern tools are transforming the self-publishing landscape.',

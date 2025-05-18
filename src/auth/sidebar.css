@@ -18,7 +18,8 @@
   display: flex !important;
   flex-direction: row !important;
   width: 100% !important;
-  height: 100vh !important;
+  height: auto !important;
+  min-height: 500px !important;
   overflow: hidden !important;
   background-color: #f5f6fa !important;
 }
@@ -53,5 +54,6 @@
 .main-content {
   flex: 1 !important;
   padding: 24px !important;
+  padding-bottom: 50px !important;
   overflow-y: auto !important;
 } 
