@@ -611,7 +611,7 @@ const LandingHeader = ({ openTerms }) => {
 
               {/* Common links for both authenticated and anonymous users */}
               <Button 
-                href="#testimonials"
+                href="/#testimonials"
                 sx={{ 
                   color: 'text.primary',
                   textTransform: 'none',
@@ -2756,6 +2756,11 @@ const FAQ = () => {
       category: "Publishing & Exporting",
       icon: <ImportExportIcon />,
       questions: [
+        {
+          id: "panel-imagemagic",
+          question: "What can I do if my AI-generated book cover is too low resolution for KDP?",
+          answer: "This is a common problem with AI image generators. While they create beautiful cover designs, they often produce images at resolutions too low for professional publishing. That's exactly why we built ImageMagic! This tool automatically upscales your .png or .jpg files to meet the high-resolution requirements for Amazon KDP (and other publishing platforms). Simply upload your low-resolution AI-generated image, select a book size (or let it auto-detect), and ImageMagic will increase the resolution to 300 DPI - making your cover print-ready without any visible quality loss."
+        },
         {
           id: "panel16",
           question: "How long does it take to generate my professional manuscript?",

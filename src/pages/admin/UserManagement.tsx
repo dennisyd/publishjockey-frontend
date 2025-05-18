@@ -585,7 +585,7 @@ const UserManagement: React.FC = () => {
         sortOrder
       );
       
-      setUsers(response.users.map(u => ({ ...u, id: u.id || u._id })));
+      setUsers(response.users.map(u => ({ ...u, id: u.id || (u as any)._id })));
       setTotalUsers(response.pagination.totalUsers);
       setTotalPages(response.pagination.totalPages);
     } catch (err: any) {

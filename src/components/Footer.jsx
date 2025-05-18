@@ -1,9 +1,18 @@
 import React from 'react';
 import { Box, Container, Grid, Typography, Divider } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import PublishJockeyLogo from '../assets/publishjockey_logo.png';
 
 const Footer = () => {
+  const navigate = useNavigate();
+
+  // Function to handle navigation and scroll to top
+  const handleNavigation = (path) => {
+    navigate(path);
+    window.scrollTo(0, 0);
+  };
+
   return (
     <Box component="footer" sx={{ bgcolor: '#1f2937', color: 'white', py: 4 }}>
       <Container maxWidth="lg">
@@ -22,16 +31,44 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/features" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Features</Box>
+                    <Box 
+                      component="a" 
+                      href="/features"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/features'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Features
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/pricing" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Pricing</Box>
+                    <Box 
+                      component="a" 
+                      href="/pricing"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/pricing'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Pricing
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/how-it-works" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>How it Works</Box>
+                    <Box 
+                      component="a" 
+                      href="/how-it-works"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/how-it-works'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      How it Works
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/testimonials" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Testimonials</Box>
+                    <Box 
+                      component="a" 
+                      href="/testimonials"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/testimonials'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Testimonials
+                    </Box>
                   </Box>
                 </Box>
               </Grid>
@@ -41,16 +78,43 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/about" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>About</Box>
+                    <Box 
+                      component="a" 
+                      href="/about"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/about'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      About
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/submit-testimonial" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Share Your Story</Box>
+                    <Box 
+                      component="a" 
+                      href="/submit-testimonial"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/submit-testimonial'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Share Your Story
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/blog" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Blog</Box>
+                    <Box 
+                      component="a" 
+                      href="/blog"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/blog'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Blog
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/contact" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Contact</Box>
+                    <Box 
+                      component={RouterLink} 
+                      to="/contact" 
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}
+                    >
+                      Contact
+                    </Box>
                   </Box>
                 </Box>
               </Grid>
@@ -60,10 +124,24 @@ const Footer = () => {
                 </Typography>
                 <Box component="ul" sx={{ listStyle: 'none', p: 0, m: 0 }}>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/privacy" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Privacy</Box>
+                    <Box 
+                      component="a" 
+                      href="/privacy"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/privacy'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Privacy
+                    </Box>
                   </Box>
                   <Box component="li" sx={{ mb: 1 }}>
-                    <Box component={RouterLink} to="/terms" sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', '&:hover': { opacity: 1 } }}>Terms</Box>
+                    <Box 
+                      component="a" 
+                      href="/terms"
+                      onClick={(e) => { e.preventDefault(); handleNavigation('/terms'); }}
+                      sx={{ color: 'white', opacity: 0.8, textDecoration: 'none', cursor: 'pointer', '&:hover': { opacity: 1 } }}
+                    >
+                      Terms
+                    </Box>
                   </Box>
                 </Box>
               </Grid>

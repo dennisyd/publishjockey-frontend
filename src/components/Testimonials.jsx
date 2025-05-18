@@ -194,12 +194,27 @@ const Testimonials = () => {
                 color: 'primary.main',
                 textDecoration: 'none',
                 fontWeight: 600,
-                '&:hover': { textDecoration: 'underline' }
+                '&:hover': { textDecoration: 'underline' },
+                marginRight: 4
               }}
             >
               Share Your Story →
             </Typography>
           )}
+          <Typography
+            component={RouterLink}
+            to="/testimonials"
+            sx={{
+              color: 'primary.main',
+              textDecoration: 'none',
+              fontWeight: 600,
+              '&:hover': { textDecoration: 'underline' },
+              display: 'inline-block',
+              marginLeft: isAuthenticated ? 4 : 0
+            }}
+          >
+            View All Testimonials →
+          </Typography>
         </Box>
       </Container>
     </Box>

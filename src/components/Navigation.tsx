@@ -82,6 +82,9 @@ const Navigation: React.FC = () => {
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
             {isAuthenticated ? (
               <>
+                <Button color="inherit" component={Link} to="/">
+                  Home
+                </Button>
                 <Button color="inherit" component={Link} to="/dashboard">
                   Dashboard
                 </Button>
@@ -92,6 +95,9 @@ const Navigation: React.FC = () => {
                 )}
                 <Button color="inherit" component={Link} to="/split-doctor">
                   SplitDoctor
+                </Button>
+                <Button color="inherit" component={Link} to="/image-magic">
+                  ImageMagic
                 </Button>
                 <Button color="inherit" component={Link} to="/contact">
                   Contact
@@ -146,6 +152,10 @@ const Navigation: React.FC = () => {
                     <MenuItem onClick={() => { handleUserMenuClose(); navigate('/split-doctor'); }}>
                       <SplitscreenIcon fontSize="small" sx={{ mr: 1.5 }} />
                       SplitDoctor
+                    </MenuItem>
+                    <MenuItem onClick={() => { handleUserMenuClose(); navigate('/image-magic'); }}>
+                      <SplitscreenIcon fontSize="small" sx={{ mr: 1.5 }} />
+                      ImageMagic
                     </MenuItem>
                     <MenuItem onClick={() => { handleUserMenuClose(); navigate('/settings'); }}>
                       Settings
@@ -229,6 +239,9 @@ const Navigation: React.FC = () => {
               </MenuItem>
               {isAuthenticated ? (
                 [
+                  <MenuItem key="home" onClick={() => { navigate('/'); handleMobileMenuClose(); }}>
+                    Home
+                  </MenuItem>,
                   <MenuItem key="dashboard" onClick={() => { navigate('/dashboard'); handleMobileMenuClose(); }}>
                     Dashboard
                   </MenuItem>,
@@ -239,6 +252,9 @@ const Navigation: React.FC = () => {
                   ),
                   <MenuItem key="split-doctor" onClick={() => { navigate('/split-doctor'); handleMobileMenuClose(); }}>
                     SplitDoctor
+                  </MenuItem>,
+                  <MenuItem key="image-magic" onClick={() => { navigate('/image-magic'); handleMobileMenuClose(); }}>
+                    ImageMagic
                   </MenuItem>,
                   <MenuItem key="contact" onClick={() => { navigate('/contact'); handleMobileMenuClose(); }}>
                     Contact

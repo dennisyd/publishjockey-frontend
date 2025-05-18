@@ -20,6 +20,7 @@ import {
 } from '@mui/icons-material';
 import { useAuth } from '../../auth/AuthContext';
 import UserManagement from './UserManagement';
+import TestimonialApproval from '../../components/admin/TestimonialApproval';
 import * as adminService from '../../services/adminService';
 
 interface TabPanelProps {
@@ -184,7 +185,12 @@ const AdminDashboard: React.FC = () => {
       <TabPanel value={tabValue} index={2}>
         <Box sx={{ p: 3 }}>
           <Typography variant="h5" gutterBottom>Content Management</Typography>
-          <Typography>Content management features will be implemented here.</Typography>
+          <Box sx={{ mt: 3 }}>
+            <Typography variant="h6" gutterBottom>Testimonial Approval</Typography>
+            <Paper sx={{ p: 2, mb: 4 }}>
+              <TestimonialApproval />
+            </Paper>
+          </Box>
         </Box>
       </TabPanel>
       

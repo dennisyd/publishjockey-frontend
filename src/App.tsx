@@ -13,6 +13,7 @@ import AdminDashboard from './pages/admin/AdminDashboard';
 import SubmitTestimonial from './pages/SubmitTestimonial';
 import ContactPage from './pages/ContactPage';
 import SplitDoctor from './pages/SplitDoctor';
+import ImageMagic from './pages/ImageMagic';
 import About from './About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
@@ -21,6 +22,9 @@ import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
 import Pricing from './pages/Pricing';
 import AccountSettings from './pages/AccountSettings';
+import Features from './pages/Features';
+import HowItWorks from './pages/HowItWorks';
+import TestimonialsPage from './pages/TestimonialsPage';
 
 // Import auth components
 import Login from './auth/Login';
@@ -46,6 +50,7 @@ import BookIcon from '@mui/icons-material/Book';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SplitscreenIcon from '@mui/icons-material/Splitscreen';
+import ImageIcon from '@mui/icons-material/Image';
 
 // Clean, neutral MUI theme
 const theme = createTheme({
@@ -80,6 +85,7 @@ function App() {
   const navItems = [
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },
     { label: 'SplitDoctor', path: '/split-doctor', icon: <SplitscreenIcon /> },
+    { label: 'ImageMagic', path: '/image-magic', icon: <ImageIcon /> },
     { label: 'Settings', path: '/settings', icon: <SettingsIcon /> },
     { label: 'Instructions', path: '/instructions', icon: <HelpOutlineIcon /> },
   ];
@@ -108,6 +114,9 @@ function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/terms" element={<Terms />} />
             <Route path="/pricing" element={<Pricing />} />
+            <Route path="/features" element={<Features />} />
+            <Route path="/how-it-works" element={<HowItWorks />} />
+            <Route path="/testimonials" element={<TestimonialsPage />} />
             
             {/* Protected routes with sidebar layout */}
             <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} navItems={navItems} />} />
@@ -118,6 +127,7 @@ function App() {
             <Route path="/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
             <Route path="/users/:userId/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
             <Route path="/split-doctor" element={<ProtectedRoute element={<SplitDoctor />} navItems={navItems} />} />
+            <Route path="/image-magic" element={<ProtectedRoute element={<ImageMagic />} navItems={navItems} />} />
           </Routes>
         </Router>
       </ThemeProvider>

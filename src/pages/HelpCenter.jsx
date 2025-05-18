@@ -14,6 +14,10 @@ import {
 // Example help topics (expand as needed)
 const helpTopics = [
   {
+    question: 'What is ImageMagic and how does it help with AI-generated images?',
+    answer: 'AI has evolved and is a great tool for generating colorful images, however, they tend to be too low in resolution for publishing. ImageMagic attempts to upscale your .png or .jpg files to meet the requirements for Amazon KDP. While it may be used for other publishing platforms, it has been specifically tested with Amazon KDP requirements. Simply upload your image, select a book size (or let it auto-detect), and ImageMagic will upscale it to 300 DPI resolution suitable for publishing.'
+  },
+  {
     question: 'How do I import my manuscript?',
     answer: 'Go to your dashboard, click "Import Manuscript," and select your file from Word, Google Docs, or Markdown.'
   },
