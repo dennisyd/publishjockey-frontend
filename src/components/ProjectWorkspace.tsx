@@ -986,15 +986,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           isbn: projectIsbn || ''
         });
         
+        // Remove automatic download: do NOT create or click an anchor here
+        // Only show the export completion dialog (handled by ExportTimingManager)
+        // If needed, you can use fileUrl for logging or debugging, but do not use it to trigger a download
         console.log('Export successful, file URL:', fileUrl);
-        
-        // Create a temporary anchor element to trigger download
-        const a = document.createElement('a');
-        a.href = fileUrl;
-        a.download = `${projectTitle.replace(/\s+/g, '-')}.${format}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
         
         setNotification({
           open: true,

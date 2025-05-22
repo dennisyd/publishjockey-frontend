@@ -351,10 +351,11 @@ const PublishJockeyLanding = () => {
 const TickerTape = () => {
   // Ticker items with icons
   const tickerItems = [
-    { text: "⚡ PDFs in 15 seconds. EPUB & Word docs in under 2." },
+    { text: "⚡ PDFs generated in ~60 seconds. EPUBs in ~2 seconds. Word docs in ~2 seconds." },
     { text: "🧠 Real-time preview shows your content before you publish." },
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
+    { text: "💰 Bulk pricing $59.80 per book or less." },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
     { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
@@ -949,16 +950,13 @@ const Hero = ({ handleRegister }) => {
                 border: '1px solid rgba(255,255,255,0.2)'
               }}>
                 <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.75rem', mb: 0 }}>2,500+</Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.8, fontSize: '0.875rem' }}>Authors</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Minutes not Weeks</Typography>
                 </Box>
                 <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.75rem', mb: 0 }}>15,000+</Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.8, fontSize: '0.875rem' }}>Books</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Professional Quality</Typography>
                 </Box>
                 <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.75rem', mb: 0 }}>4.9/5</Typography>
-                  <Typography variant="body2" sx={{ opacity: 0.8, fontSize: '0.875rem' }}>Rating</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Starting at $79</Typography>
                 </Box>
               </Box>
             </Box>
@@ -2760,7 +2758,7 @@ const FAQ = () => {
         {
           id: "panel16",
           question: "How long does it take to generate my professional manuscript?",
-          answer: "After you make your final edits in the PublishJockey system, your manuscript is generated almost instantly. PDF files typically take about 15 seconds, while EPUB and Word documents are usually ready in under 2 seconds. Unlike other services, PublishJockey lets you immediately view your polished manuscript—so you know exactly what you're getting before you publish."
+          answer: "After you make your final edits in the PublishJockey system, your manuscript is generated almost instantly. PDF files typically take less than 60 seconds, while EPUB and Word documents are usually ready in under 2 seconds. Unlike other services, PublishJockey lets you immediately view your polished manuscript—so you know exactly what you're getting before you publish."
         },
         {
           id: "panel15",

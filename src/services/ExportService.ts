@@ -1,42 +1,45 @@
-import { ExportSettings } from '../components/ExportModal';
-import { DocumentAssemblyService } from './DocumentAssemblyService';
-import { MarkdownFormatter } from './MarkdownFormatter';
-import { FormatAdapter } from './FormatAdapter';
-import { ValidationService } from './ValidationService';
-import { EXPORT_FORMATS } from '../constants/FormatConstants';
-import axios from 'axios';
+import { ExportSettings } from "../components/ExportModal"
+import { DocumentAssemblyService } from "./DocumentAssemblyService"
+import { MarkdownFormatter } from "./MarkdownFormatter"
+import { FormatAdapter } from "./FormatAdapter"
+import { ValidationService } from "./ValidationService"
+import { EXPORT_FORMATS } from "../constants/FormatConstants"
+import axios from "axios"
 
 // Define API URL for the export backend
-const API_URL = 'http://localhost:3002';
+const API_URL = "http://localhost:3002"
 
 interface Section {
-  id: string;
-  title: string;
-  content: string;
-  level: number;
-  matter?: string;
+  id: string
+  title: string
+  content: string
+  level: number
+  matter?: string
 }
 
 interface Project {
-  id: string;
-  title: string;
+  id: string
+  title: string
   /** Optional author for the project */
-  author?: string;
+  author?: string
   /** Optional subtitle for the project */
-  subtitle?: string;
-  sections: Section[];
+  subtitle?: string
+  sections: Section[]
 }
 
 interface ExportFormat {
-  format: string;
+  format: string
 }
 
 interface ExportResult {
-  blob: Blob | null;
-  filename: string;
-  success: boolean;
-  message: string;
+  blob: Blob | null
+  filename: string
+  success: boolean
+  message: string
 }
+
+// Add a flag to prevent automatic URL creation that would trigger download notifications
+const skipUrlCreation = true;
 
 /**
  * Service for handling document exports with different formats
@@ -49,110 +52,137 @@ export class ExportService {
    * @returns Promise resolving to the export result (URL, file data, etc.)
    */
   public static async exportProject(
-    project: Project, 
-    settings: ExportSettings
+    project: Project,
+    settings: ExportSettings,
   ): Promise<string> {
-    console.log('ExportProject called with settings:', settings);
-    
+    console.log("ExportProject called with settings:", settings)
+
+    // Start timing the export process
+    const exportFormat = settings.format === "docx" ? "word" : settings.format
+    if ((window as any).exportTiming) {
+      ;(window as any).exportTiming.startExport(exportFormat, project.title)
+    }
+
     try {
       // Validate that project is not null and has required fields
       if (!project || !project.title) {
-        console.error('Invalid project provided to exportProject');
-        throw new Error('Invalid project data. Please ensure the project has a title.');
+        console.error("Invalid project provided to exportProject")
+        throw new Error(
+          "Invalid project data. Please ensure the project has a title.",
+        )
       }
-      
+
       // Validate that project has sections
-      if (!project.sections || !Array.isArray(project.sections) || project.sections.length === 0) {
-        console.error('Project has no sections to export');
-        throw new Error('No content to export. Please add content to at least one section.');
+      if (
+        !project.sections ||
+        !Array.isArray(project.sections) ||
+        project.sections.length === 0
+      ) {
+        console.error("Project has no sections to export")
+        throw new Error(
+          "No content to export. Please add content to at least one section.",
+        )
       }
-      
+
       // Ensure each section has a matter property
-      const sectionsWithMatter = project.sections.map(s => {
+      const sectionsWithMatter = project.sections.map((s) => {
         // Determine matter from section ID prefix
-        let matter = 'main'; // Default to main matter
-        if (s.id.startsWith('front:')) {
-          matter = 'front';
-        } else if (s.id.startsWith('main:')) {
-          matter = 'main';
-        } else if (s.id.startsWith('back:')) {
-          matter = 'back';
+        let matter = "main" // Default to main matter
+        if (s.id.startsWith("front:")) {
+          matter = "front"
+        } else if (s.id.startsWith("main:")) {
+          matter = "main"
+        } else if (s.id.startsWith("back:")) {
+          matter = "back"
         }
-        
+
         return {
           ...s,
-          matter
-        };
-      });
-      
-      console.log(`Processing ${sectionsWithMatter.length} sections for export`);
-      
+          matter,
+        }
+      })
+
+      console.log(`Processing ${sectionsWithMatter.length} sections for export`)
+
       if (sectionsWithMatter.length === 0) {
-        console.error('No sections to export');
-        throw new Error('No content to export. Please add content to at least one section.');
+        console.error("No sections to export")
+        throw new Error(
+          "No content to export. Please add content to at least one section.",
+        )
       }
-      
+
       // Format sections using the centralized MarkdownFormatter
       // This is now the ONLY place where chapter formatting should happen
       const formattedSections = MarkdownFormatter.formatSectionsForExport(
         sectionsWithMatter,
         {
           useChapterPrefix: settings.useChapterPrefix !== false,
-          chapterLabelFormat: settings.chapterLabelFormat || 'number'
-        }
-      );
-      
+          chapterLabelFormat: settings.chapterLabelFormat || "number",
+        },
+      )
+
       // Ensure all sections have the required 'level' property
-      const sectionsWithLevel = formattedSections.map(s => ({
+      const sectionsWithLevel = formattedSections.map((s) => ({
         ...s,
-        level: 0 // Default level to 0 since this property doesn't exist in the original objects
-      }));
-      
+        level: 0, // Default level to 0 since this property doesn't exist in the original objects
+      }))
+
       // Validate formatted sections before export
-      this.validateSectionsBeforeExport(sectionsWithLevel);
-      
+      this.validateSectionsBeforeExport(sectionsWithLevel)
+
       // Adapt content for the specific export format
-      const adaptedSections = sectionsWithLevel.map(section => ({
+      const adaptedSections = sectionsWithLevel.map((section) => ({
         ...section,
-        content: FormatAdapter.adaptForExport(section.content, settings.format)
-      }));
-      
+        content: FormatAdapter.adaptForExport(section.content, settings.format),
+      }))
+
       // Find the title page section if it exists
-      const titlePageSection = this.findTitlePageSection(adaptedSections);
-      
-      console.log('Title page found?', titlePageSection ? 'YES' : 'NO');
+      const titlePageSection = this.findTitlePageSection(adaptedSections)
+
+      console.log("Title page found?", titlePageSection ? "YES" : "NO")
       if (titlePageSection) {
-        console.log('Using title page content from frontend:', titlePageSection.id);
+        console.log(
+          "Using title page content from frontend:",
+          titlePageSection.id,
+        )
       } else {
-        console.log('No title page section found. A simple title page will be used if needed.');
+        console.log(
+          "No title page section found. A simple title page will be used if needed.",
+        )
       }
-      
+
       // Create a simple title page content as fallback if needed - ONLY if no title page exists in frontend
-      let fallbackTitlePage: string | undefined = undefined;
+      let fallbackTitlePage: string | undefined = undefined
       if (settings.includeTitlePage && !titlePageSection) {
-        fallbackTitlePage = `# ${project.title}\n\n`;
+        fallbackTitlePage = `# ${project.title}\n\n`
         if (project.subtitle) {
-          fallbackTitlePage += `## ${project.subtitle}\n\n`;
+          fallbackTitlePage += `## ${project.subtitle}\n\n`
         }
         if (project.author) {
-          fallbackTitlePage += `By ${project.author}\n\n`;
+          fallbackTitlePage += `By ${project.author}\n\n`
         }
-        console.log('Created fallback title page content');
+        console.log("Created fallback title page content")
       }
-      
+
       // Prepare the new payload with explicit TOC settings
       const exportPayload = {
-        sections: adaptedSections.map(s => {
+        sections: adaptedSections.map((s) => {
           // Ensure matter is valid (debug validation)
-          if (s.matter !== 'front' && s.matter !== 'main' && s.matter !== 'back') {
-            console.warn(`Invalid matter type for section ${s.id}, defaulting to 'main'`);
-            s.matter = 'main';
+          if (
+            s.matter !== "front" &&
+            s.matter !== "main" &&
+            s.matter !== "back"
+          ) {
+            console.warn(
+              `Invalid matter type for section ${s.id}, defaulting to 'main'`,
+            )
+            s.matter = "main"
           }
 
           // Ensure content exists and is string
-          const content = s.content || '';
-          if (!content || typeof content !== 'string') {
-            console.warn(`Empty or invalid content for section ${s.id}`);
+          const content = s.content || ""
+          if (!content || typeof content !== "string") {
+            console.warn(`Empty or invalid content for section ${s.id}`)
           }
 
           return {
@@ -160,146 +190,311 @@ export class ExportService {
             title: s.title,
             content: content,
             matter: s.matter, // Explicitly set matter property
-            isTitlePage: s.id === 'front:Title Page' || s.title?.toLowerCase() === 'title page'
-          };
+            isTitlePage:
+              s.id === "front:Title Page" ||
+              s.title?.toLowerCase() === "title page",
+          }
         }),
         exportOptions: {
           ...settings,
           // Turn OFF chapter formatting in the backend since we've already done it here
           useChapterPrefix: false,
           // No automatically generated title page if one exists in the frontend
-          includeTitlePage: titlePageSection ? true : (fallbackTitlePage ? true : false),
+          includeTitlePage: titlePageSection
+            ? true
+            : fallbackTitlePage
+              ? true
+              : false,
           generateTitlePage: false, // NEVER generate a title page in the backend
           forceTitleFirst: titlePageSection ? true : false, // Only force title first if we have a title page
           metadata: {
             title: project.title,
-            author: project.author || 'Anonymous',
-            subtitle: project.subtitle || '',  // Ensure subtitle is properly passed
-            date: new Date().toISOString().split('T')[0]
+            author: project.author || "Anonymous",
+            subtitle: project.subtitle || "", // Ensure subtitle is properly passed
+            date: new Date().toISOString().split("T")[0],
           },
           // If title page exists, use its content directly, otherwise use fallback
-          titlePageContent: titlePageSection ? titlePageSection.content : fallbackTitlePage,
+          titlePageContent: titlePageSection
+            ? titlePageSection.content
+            : fallbackTitlePage,
           // Use the user's selected TOC level
           includeToc: settings.includeToc,
           tocEnabled: settings.includeToc, // Add this for backend compatibility
           tocDepth: 2, // Always use depth 2 for TOC
           // Ensure front matter sections flow correctly
-          frontMatterContinuous: settings.frontMatterContinuous !== false // Default to true if not explicitly set
+          frontMatterContinuous: settings.frontMatterContinuous !== false, // Default to true if not explicitly set
         },
         title: project.title,
-        author: project.author || 'Anonymous', // Include author in top-level payload
-        subtitle: project.subtitle || ''  // Include subtitle in top-level payload
-      };
+        author: project.author || "Anonymous", // Include author in top-level payload
+        subtitle: project.subtitle || "", // Include subtitle in top-level payload
+      }
 
-      console.log('Sending payload to export backend with TOC depth:', 
-        exportPayload.exportOptions.tocDepth
-      );
-      
-      console.log('Export sections summary:', 
-        JSON.stringify({
-          sectionCount: exportPayload.sections.length,
-          sectionSummary: exportPayload.sections.map(s => ({
-            id: s.id, 
-            title: s.title, 
-            matter: s.matter,
-            contentLength: s.content.length
-          })),
-          titlePage: titlePageSection ? {
-            exists: true,
-            id: titlePageSection.id,
-            contentLength: titlePageSection.content.length
-          } : 'none'
-        }, null, 2)
-      );
+      console.log(
+        "Sending payload to export backend with TOC depth:",
+        exportPayload.exportOptions.tocDepth,
+      )
+
+      console.log(
+        "Export sections summary:",
+        JSON.stringify(
+          {
+            sectionCount: exportPayload.sections.length,
+            sectionSummary: exportPayload.sections.map((s) => ({
+              id: s.id,
+              title: s.title,
+              matter: s.matter,
+              contentLength: s.content.length,
+            })),
+            titlePage: titlePageSection
+              ? {
+                  exists: true,
+                  id: titlePageSection.id,
+                  contentLength: titlePageSection.content.length,
+                }
+              : "none",
+          },
+          null,
+          2,
+        ),
+      )
 
       // Choose endpoint based on format
-      let endpoint = '';
+      let endpoint = ""
       switch (settings.format) {
-        case 'pdf': endpoint = '/export/pdf'; break;
-        case 'epub': endpoint = '/export/epub'; break;
-        case 'html': endpoint = '/export/html'; break;
-        case 'docx': endpoint = '/export/docx'; break;
-        default: throw new Error(`Unsupported export format: ${settings.format}`);
+        case "pdf":
+          endpoint = "/export/pdf"
+          break
+        case "epub":
+          endpoint = "/export/epub"
+          break
+        case "html":
+          endpoint = "/export/html"
+          break
+        case "docx":
+          endpoint = "/export/docx"
+          break
+        default:
+          throw new Error(`Unsupported export format: ${settings.format}`)
       }
 
       try {
-        console.log(`Making API call to ${API_URL}${endpoint}`);
-        const token = localStorage.getItem('token');
-        const response = await fetch(`http://localhost:3002${endpoint}`,
-          {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-              ...(token ? { 'Authorization': 'Bearer ' + token } : {})
-            },
-            body: JSON.stringify(exportPayload)
-          }
-        );
+        console.log(`Making API call to ${API_URL}${endpoint}`)
+        const token = localStorage.getItem("token")
+        const response = await fetch(`${API_URL}${endpoint}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "Accept": "application/json",
+            ...(token ? { Authorization: "Bearer " + token } : {}),
+          },
+          body: JSON.stringify(exportPayload),
+        })
 
         if (!response.ok) {
-          const errorText = await response.text();
-          console.error(`Export server returned error ${response.status}:`, errorText);
-          throw new Error(`Export server returned error ${response.status}: ${errorText}`);
+          const errorText = await response.text()
+          console.error(
+            `Export server returned error ${response.status}:`,
+            errorText,
+          )
+          throw new Error(
+            `Export server returned error ${response.status}: ${errorText}`,
+          )
         }
 
-        console.log('Export server returned success response');
+        console.log("Export server returned success response")
+
+        // Check for the X-No-Download header
+        const noDownload = response.headers.get('x-no-download') === 'true';
+
+        // If noDownload flag is set, do not create any URLs
+        if (noDownload) {
+          console.log('X-No-Download header detected - preventing automatic download');
+          // Return an empty string to signal no download should happen
+          return '';
+        }
+
+        // First check the content type of the response
+        const contentType = response.headers.get("Content-Type") || "";
         
-        // All formats (PDF, EPUB, HTML) now return a direct file download
-        const blob = await response.blob();
-        return window.URL.createObjectURL(blob);
+        // Read the response once as text
+        const responseText = await response.text();
+        console.log("Response received as text, attempting to parse as JSON");
+        
+        // Handle the response data regardless of content type
+        try {
+          // Try to parse as JSON
+          const responseData = JSON.parse(responseText);
+          
+          console.log("Successfully parsed response data", responseData);
+          
+          // Handle new file ID format (without base64)
+          if (responseData.fileId && responseData.mimeType) {
+            console.log(
+              `Received fileId response for ${exportFormat} (${responseData.mimeType}), fileId: ${responseData.fileId}`,
+            )
+
+            // No need to create a placeholder blob - just use the fileId
+            if ((window as any).exportTiming) {
+              // Create export data package with fileId
+              const exportData = {
+                blob: null, // No blob needed, we'll use fileId directly
+                format: exportFormat,
+                fileName: responseData.fileName || `${project.title.replace(/\s+/g, "_").replace(/[^\w-]/g, "")}.${exportFormat === "word" ? "docx" : exportFormat}`,
+                fileId: responseData.fileId,
+              }
+
+              console.log('Calling finishExportWithBlob with fileId:', responseData.fileId);
+              // Pass the data with fileId directly
+              ;(window as any).exportTiming.finishExportWithBlob(exportData)
+            } else {
+              console.error('exportTiming not available on window object');
+            }
+
+            // Return empty string to prevent automatic download
+            return ""
+          }
+          
+          // Legacy handling for base64Data format (for backward compatibility)
+          else if (responseData.base64Data && responseData.mimeType) {
+            console.log(
+              `Received base64 data response for ${exportFormat} (${responseData.mimeType})`,
+            )
+
+            // Convert base64 string to blob
+            const binaryString = atob(responseData.base64Data);
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
+              bytes[i] = binaryString.charCodeAt(i);
+            }
+            const blob = new Blob([bytes], {
+              type: responseData.mimeType,
+            })
+
+            // Generate a unique file ID for server cleanup tracking
+            const fileId =
+              responseData.fileId || `${project.id || "export"}_${Date.now()}`
+
+            // Finish timing the export process and show the completion dialog with blob
+            if ((window as any).exportTiming) {
+              // Create export data package
+              const exportData = {
+                blob,
+                format: exportFormat,
+                fileName: `${project.title.replace(/\s+/g, "_").replace(/[^\w-]/g, "")}.${exportFormat === "word" ? "docx" : exportFormat}`,
+                fileId,
+              }
+
+              console.log('Calling finishExportWithBlob with blob and data');
+              // Pass the blob and metadata directly
+              ;(window as any).exportTiming.finishExportWithBlob(exportData)
+            } else {
+              console.error('exportTiming not available on window object');
+            }
+
+            // Return empty string to prevent automatic download
+            return ""
+          }
+        } catch (jsonError) {
+          console.error("Error parsing JSON response:", jsonError);
+          
+          // Try to treat the responseText as binary data instead
+          console.log("Attempting to handle response as binary data");
+          
+          try {
+            // Create a Blob from the responseText as a fallback
+            const blob = new Blob([responseText], { type: 'application/octet-stream' });
+            
+            // Generate a unique file ID for server cleanup tracking
+            const fileId = `${project.id || "export"}_${Date.now()}`;
+            
+            if ((window as any).exportTiming) {
+              // Store the blob in memory instead of creating a dataURL
+              const exportData = {
+                blob,
+                format: exportFormat,
+                fileName: `${project.title.replace(/\s+/g, "_").replace(/[^\w-]/g, "")}.${exportFormat === "word" ? "docx" : exportFormat}`,
+                fileId,
+              };
+              
+              // Pass the blob and metadata directly instead of a dataURL
+              (window as any).exportTiming.finishExportWithBlob(exportData);
+            }
+            
+            return "";
+          } catch (blobError) {
+            console.error("Failed to create blob from response text:", blobError);
+            return "";
+          }
+        }
+
+        // If content type is not JSON or JSON parsing failed, handle as binary
+        console.log("Handling response as binary data")
+
+        // We can't read the response body again with response.blob() since we've already read it with response.text()
+        // Instead, log an error message and return an empty string
+        console.error("Error: Response body already consumed, cannot read as blob");
+        return "";
       } catch (error) {
-        console.error('Error during API call to export backend:', error);
-        throw new Error(`Failed to communicate with export server: ${(error as Error).message}`);
+        console.error("Error during API call to export backend:", error)
+        throw new Error(
+          `Failed to communicate with export server: ${(error as Error).message}`,
+        )
       }
     } catch (error) {
-      console.error('Error in exportProject method:', error);
-      throw error;
+      console.error("Error in exportProject method:", error)
+      throw error
     }
   }
-  
+
   /**
    * Validates sections before export to ensure they meet expected formats
    * @param sections The sections to validate
    * @throws Error if validation fails critically
    */
-  private static validateSectionsBeforeExport(sections: Array<{ 
-    id: string, 
-    title: string, 
-    content: string, 
-    matter: string 
-  }>): void {
+  private static validateSectionsBeforeExport(
+    sections: Array<{
+      id: string
+      title: string
+      content: string
+      matter: string
+    }>,
+  ): void {
     // Validate each section
-    let criticalError = false;
-    let validationMessages = [];
-    
-    sections.forEach(section => {
-      const validation = ValidationService.validateSection(section);
+    let criticalError = false
+    let validationMessages = []
+
+    sections.forEach((section) => {
+      const validation = ValidationService.validateSection(section)
       if (!validation.valid) {
         // Only treat empty content as a critical error
-        const criticalIssues = validation.issues.filter(issue => 
-          issue.code === 'EMPTY_SECTION'
-        );
-        
+        const criticalIssues = validation.issues.filter(
+          (issue) => issue.code === "EMPTY_SECTION",
+        )
+
         if (criticalIssues.length > 0) {
-          criticalError = true;
+          criticalError = true
         }
-        
+
         // Collect all validation messages
-        validationMessages.push(`Section ${section.id}: ${validation.issues.map(i => i.message).join(', ')}`);
+        validationMessages.push(
+          `Section ${section.id}: ${validation.issues.map((i) => i.message).join(", ")}`,
+        )
       }
-    });
-    
+    })
+
     // Log validation messages
     if (validationMessages.length > 0) {
-      console.warn('Validation warnings before export:', validationMessages);
+      console.warn("Validation warnings before export:", validationMessages)
     }
-    
+
     // Throw error if critical validation failed
     if (criticalError) {
-      throw new Error('Export validation failed. Some sections have empty content.');
+      throw new Error(
+        "Export validation failed. Some sections have empty content.",
+      )
     }
   }
-  
+
   /**
    * Prepares document sections from project data
    * @param project The project to convert
@@ -307,100 +502,113 @@ export class ExportService {
    */
   private static prepareDocumentSections(project: Project) {
     // Find existing title page if present
-    const existingTitlePage = project.sections.find(s => 
-      s.id === 'front:Title Page' || 
-      s.title?.toLowerCase() === 'title page'
-    );
-    
+    const existingTitlePage = project.sections.find(
+      (s) =>
+        s.id === "front:Title Page" || s.title?.toLowerCase() === "title page",
+    )
+
     // Use existing title page if found, otherwise generate one
     const titlePage = existingTitlePage || {
-      id: 'title-page',
+      id: "title-page",
       title: project.title,
       content: MarkdownFormatter.generateTitlePage(
-        project.title, 
-        project.author || 'Anonymous', 
-        project.subtitle
+        project.title,
+        project.author || "Anonymous",
+        project.subtitle,
       ),
       level: 0,
-      matter: 'front'
-    };
-    
+      matter: "front",
+    }
+
     // Ensure we don't duplicate the title page
-    const otherSections = existingTitlePage 
-      ? project.sections.filter(s => s.id !== existingTitlePage.id) 
-      : project.sections;
-    
+    const otherSections = existingTitlePage
+      ? project.sections.filter((s) => s.id !== existingTitlePage.id)
+      : project.sections
+
     // Convert other sections
-    const mainSections = otherSections.map(section => ({
+    const mainSections = otherSections.map((section) => ({
       id: section.id,
       title: section.title,
       content: section.content,
-      type: 'mainContent' as const,
-      level: section.level
-    }));
-    
+      type: "mainContent" as const,
+      level: section.level,
+    }))
+
     // Return with title page as the first section
-    return [{
-      id: titlePage.id,
-      title: titlePage.title,
-      content: titlePage.content,
-      type: 'titlePage' as const,
-      level: titlePage.level || 0
-    }, ...mainSections];
+    return [
+      {
+        id: titlePage.id,
+        title: titlePage.title,
+        content: titlePage.content,
+        type: "titlePage" as const,
+        level: titlePage.level || 0,
+      },
+      ...mainSections,
+    ]
   }
-  
+
   /**
    * Find the title page section from the project sections
    * @param sections The project sections
    * @returns The title page section if found, or null
    */
   private static findTitlePageSection(sections: Section[]): Section | null {
-    console.log('Searching for title page section among', sections.length, 'sections');
-    
+    console.log(
+      "Searching for title page section among",
+      sections.length,
+      "sections",
+    )
+
     // Check if sections is empty or not an array
     if (!sections || !Array.isArray(sections) || sections.length === 0) {
-      console.warn('No sections provided to findTitlePageSection');
-      return null;
+      console.warn("No sections provided to findTitlePageSection")
+      return null
     }
-    
+
     // First, try to find section by ID and title in front matter
-    const frontTitlePageSection = sections.find(section => 
-      (section.id === 'front:Title Page' || 
-       section.id.toLowerCase().includes('title page')) && 
-      section.matter === 'front'
-    );
-    
+    const frontTitlePageSection = sections.find(
+      (section) =>
+        (section.id === "front:Title Page" ||
+          section.id.toLowerCase().includes("title page")) &&
+        section.matter === "front",
+    )
+
     if (frontTitlePageSection) {
-      console.log('Found title page in front matter by ID:', frontTitlePageSection.id);
-      return frontTitlePageSection;
+      console.log(
+        "Found title page in front matter by ID:",
+        frontTitlePageSection.id,
+      )
+      return frontTitlePageSection
     }
-    
+
     // If not found by ID, look for any section whose title contains "title page"
-    const titlePageByTitle = sections.find(section => 
-      section.title?.toLowerCase() === 'title page' || 
-      section.title?.toLowerCase().includes('title page')
-    );
-    
+    const titlePageByTitle = sections.find(
+      (section) =>
+        section.title?.toLowerCase() === "title page" ||
+        section.title?.toLowerCase().includes("title page"),
+    )
+
     if (titlePageByTitle) {
-      console.log('Found title page by title:', titlePageByTitle.id);
-      return titlePageByTitle;
+      console.log("Found title page by title:", titlePageByTitle.id)
+      return titlePageByTitle
     }
-    
+
     // Lastly, check if any content includes a title page heading
-    const titlePageByContent = sections.find(section => 
-      section.content?.toLowerCase().includes('# title page') ||
-      section.content?.toLowerCase().includes('\\begin{titlepage}')
-    );
-    
+    const titlePageByContent = sections.find(
+      (section) =>
+        section.content?.toLowerCase().includes("# title page") ||
+        section.content?.toLowerCase().includes("\\begin{titlepage}"),
+    )
+
     if (titlePageByContent) {
-      console.log('Found title page by content:', titlePageByContent.id);
-      return titlePageByContent;
+      console.log("Found title page by content:", titlePageByContent.id)
+      return titlePageByContent
     }
-    
-    console.log('No title page section found');
-    return null;
+
+    console.log("No title page section found")
+    return null
   }
-  
+
   /**
    * Get the file extension for the export format
    * @param format The export format
@@ -408,17 +616,17 @@ export class ExportService {
    */
   private static getFileExtension(format: ExportFormat): string {
     switch (format.format) {
-      case 'pdf':
-        return 'pdf';
-      case 'epub':
-        return 'epub';
-      case 'html':
-        return 'html';
+      case "pdf":
+        return "pdf"
+      case "epub":
+        return "epub"
+      case "html":
+        return "html"
       default:
-        return 'txt';
+        return "txt"
     }
   }
-  
+
   /**
    * Generates a PDF document
    * @param content Assembled document content
@@ -429,129 +637,140 @@ export class ExportService {
   private static async generatePdf(
     content: string,
     title: string,
-    settings: ExportSettings
+    settings: ExportSettings,
   ): Promise<string> {
     try {
-      console.log('Starting PDF export process with settings:', settings);
-      
+      console.log("Starting PDF export process with settings:", settings)
+
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch('http://localhost:3002/ping', { 
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
+        const pingResponse = await fetch("http://localhost:3002/ping", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+
         if (!pingResponse.ok) {
-          throw new Error(`Server responded with status: ${pingResponse.status}`);
+          throw new Error(
+            `Server responded with status: ${pingResponse.status}`,
+          )
         }
-        
-        const pingData = await pingResponse.json();
-        console.log('Export backend ping response:', pingData);
+
+        const pingData = await pingResponse.json()
+        console.log("Export backend ping response:", pingData)
       } catch (error) {
-        console.error('Export backend not accessible:', error);
-        throw new Error(`Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`);
+        console.error("Export backend not accessible:", error)
+        throw new Error(
+          `Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`,
+        )
       }
-      
+
       // Prepare the request payload for the export backend
       const exportPayload = {
         content: content,
         title: title,
-        format: 'pdf',
-        bookSize: settings.bookSize || '6x9',
-        marginSize: settings.marginSize || 'normal',
+        format: "pdf",
+        bookSize: settings.bookSize || "6x9",
+        marginSize: settings.marginSize || "normal",
         customMargins: settings.customMargins || false,
         bleed: settings.bleed || false,
-        binding: settings.bindingType || 'perfect',
+        binding: settings.bindingType || "perfect",
         includeTitlePage: settings.includeTitlePage !== false, // Default to true
         useChapterPrefix: settings.useChapterPrefix !== false, // Default to true
-        chapterLabelFormat: settings.chapterLabelFormat || 'Chapter %d',
+        chapterLabelFormat: settings.chapterLabelFormat || "Chapter %d",
         noSeparatorPages: settings.noSeparatorPages || false,
         frontMatterContinuous: settings.frontMatterContinuous !== false, // Ensure front matter flows continuously
         tocEnabled: settings.includeToc !== false, // Default to true
         tocDepth: 2, // Always use depth 2 for TOC
         numberSections: settings.numberedHeadings || false,
-        forceTitleFirst: settings.forceTitleFirst !== false // Default to true
-      };
-      
-      console.log('Sending export request to backend:', exportPayload);
-      
+        forceTitleFirst: settings.forceTitleFirst !== false, // Default to true
+      }
+
+      console.log("Sending export request to backend:", exportPayload)
+
       // Make the actual API call to the export backend
-      const response = await fetch('http://localhost:3002/export/pdf', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3002/export/pdf", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(exportPayload)
-      });
-      
+        body: JSON.stringify(exportPayload),
+      })
+
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Export backend error:', response.status, errorText);
-        throw new Error(`Export server returned error ${response.status}: ${errorText}`);
+        const errorText = await response.text()
+        console.error("Export backend error:", response.status, errorText)
+        throw new Error(
+          `Export server returned error ${response.status}: ${errorText}`,
+        )
       }
-      
+
       // Parse the response which should contain the PDF as base64 data
-      const result = await response.json();
-      
+      const result = await response.json()
+
       if (!result.dataUrl) {
-        throw new Error('Export server did not return expected data format');
+        throw new Error("Export server did not return expected data format")
       }
-      
-      console.log('PDF export completed successfully');
-      
+
+      console.log("PDF export completed successfully")
+
       // Return the data URL from the backend
-      return result.dataUrl;
+      return result.dataUrl
     } catch (error) {
-      console.error('PDF generation failed:', error);
-      
+      console.error("PDF generation failed:", error)
+
       // Provide clearer error message for connection issues
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Cannot connect to export service. Please ensure the export backend server is running on port 3002.');
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to export service. Please ensure the export backend server is running on port 3002.",
+        )
       }
-      
-      throw new Error('Failed to generate PDF: ' + (error as Error).message);
+
+      throw new Error("Failed to generate PDF: " + (error as Error).message)
     }
   }
-  
+
   /**
    * Applies PDF-specific formatting
    * @param content Document content
    * @param settings Export settings
    * @returns Formatted content ready for PDF generation
    */
-  private static applyPdfFormatting(content: string, settings: ExportSettings): string {
+  private static applyPdfFormatting(
+    content: string,
+    settings: ExportSettings,
+  ): string {
     // Apply book size settings
-    const bookSize = settings.bookSize || '6x9';
-    const [width, height] = bookSize.split('x').map(dim => parseFloat(dim));
-    
+    const bookSize = settings.bookSize || "6x9"
+    const [width, height] = bookSize.split("x").map((dim) => parseFloat(dim))
+
     // Apply margin settings
-    let marginSize = 0.75; // default margin in inches
+    let marginSize = 0.75 // default margin in inches
     if (settings.customMargins) {
       switch (settings.marginSize) {
-        case 'narrow':
-          marginSize = 0.5;
-          break;
-        case 'wide':
-          marginSize = 1.0;
-          break;
+        case "narrow":
+          marginSize = 0.5
+          break
+        case "wide":
+          marginSize = 1.0
+          break
         default:
-          marginSize = 0.75; // normal
+          marginSize = 0.75 // normal
       }
     } else {
       // Auto-calculate margins based on book size
       // Larger books generally need larger margins
-      marginSize = Math.max(0.5, width * 0.1);
+      marginSize = Math.max(0.5, width * 0.1)
     }
-    
+
     // Apply bleed if enabled
-    const bleed = settings.bleed ? 0.125 : 0; // 1/8 inch bleed
-    
+    const bleed = settings.bleed ? 0.125 : 0 // 1/8 inch bleed
+
     // This is a simplified implementation
     // In a real app, these values would be used with a PDF generation library
-    
-    return content;
+
+    return content
   }
-  
+
   /**
    * Generates an EPUB document
    * @param content Assembled document content
@@ -562,86 +781,94 @@ export class ExportService {
   private static async generateEpub(
     content: string,
     title: string,
-    settings: ExportSettings
+    settings: ExportSettings,
   ): Promise<string> {
     try {
-      console.log('Starting EPUB export process with settings:', settings);
-      
+      console.log("Starting EPUB export process with settings:", settings)
+
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch('http://localhost:3002/ping', { 
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
+        const pingResponse = await fetch("http://localhost:3002/ping", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+
         if (!pingResponse.ok) {
-          throw new Error(`Server responded with status: ${pingResponse.status}`);
+          throw new Error(
+            `Server responded with status: ${pingResponse.status}`,
+          )
         }
-        
-        const pingData = await pingResponse.json();
-        console.log('Export backend ping response:', pingData);
+
+        const pingData = await pingResponse.json()
+        console.log("Export backend ping response:", pingData)
       } catch (error) {
-        console.error('Export backend not accessible:', error);
-        throw new Error(`Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`);
+        console.error("Export backend not accessible:", error)
+        throw new Error(
+          `Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`,
+        )
       }
-      
+
       // Prepare the request payload for the export backend
       const exportPayload = {
         content: content,
         title: title,
-        format: 'epub',
+        format: "epub",
         includeTitlePage: settings.includeTitlePage !== false, // Default to true
         useChapterPrefix: settings.useChapterPrefix !== false, // Default to true
-        chapterLabelFormat: settings.chapterLabelFormat || 'Chapter %d',
+        chapterLabelFormat: settings.chapterLabelFormat || "Chapter %d",
         noSeparatorPages: settings.noSeparatorPages || false,
         frontMatterContinuous: settings.frontMatterContinuous !== false, // Ensure front matter flows continuously
         tocEnabled: settings.includeToc !== false, // Default to true
         tocDepth: 2, // Always use depth 2 for TOC
         numberSections: settings.numberedHeadings || false,
-        author: settings.author || 'Anonymous',
-        coverImage: settings.coverImage || null
-      };
-      
-      console.log('Sending export request to backend:', exportPayload);
-      
+        author: settings.author || "Anonymous",
+        coverImage: settings.coverImage || null,
+      }
+
+      console.log("Sending export request to backend:", exportPayload)
+
       // Make the actual API call to the export backend
-      const response = await fetch('http://localhost:3002/export/epub', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3002/export/epub", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(exportPayload)
-      });
-      
+        body: JSON.stringify(exportPayload),
+      })
+
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Export backend error:', response.status, errorText);
-        throw new Error(`Export server returned error ${response.status}: ${errorText}`);
+        const errorText = await response.text()
+        console.error("Export backend error:", response.status, errorText)
+        throw new Error(
+          `Export server returned error ${response.status}: ${errorText}`,
+        )
       }
-      
+
       // Parse the response which should contain the EPUB as base64 data
-      const result = await response.json();
-      
+      const result = await response.json()
+
       if (!result.dataUrl) {
-        throw new Error('Export server did not return expected data format');
+        throw new Error("Export server did not return expected data format")
       }
-      
-      console.log('EPUB export completed successfully');
-      
+
+      console.log("EPUB export completed successfully")
+
       // Return the data URL from the backend
-      return result.dataUrl;
+      return result.dataUrl
     } catch (error) {
-      console.error('EPUB generation failed:', error);
-      
+      console.error("EPUB generation failed:", error)
+
       // Provide clearer error message for connection issues
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Cannot connect to export service. Please ensure the export backend server is running on port 3002.');
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to export service. Please ensure the export backend server is running on port 3002.",
+        )
       }
-      
-      throw new Error('Failed to generate EPUB: ' + (error as Error).message);
+
+      throw new Error("Failed to generate EPUB: " + (error as Error).message)
     }
   }
-  
+
   /**
    * Generates a DOCX document
    * @param content Assembled document content
@@ -652,84 +879,92 @@ export class ExportService {
   private static async generateDocx(
     content: string,
     title: string,
-    settings: ExportSettings
+    settings: ExportSettings,
   ): Promise<string> {
     try {
-      console.log('Starting DOCX export process with settings:', settings);
-      
+      console.log("Starting DOCX export process with settings:", settings)
+
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch('http://localhost:3002/ping', { 
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
+        const pingResponse = await fetch("http://localhost:3002/ping", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+
         if (!pingResponse.ok) {
-          throw new Error(`Server responded with status: ${pingResponse.status}`);
+          throw new Error(
+            `Server responded with status: ${pingResponse.status}`,
+          )
         }
-        
-        const pingData = await pingResponse.json();
-        console.log('Export backend ping response:', pingData);
+
+        const pingData = await pingResponse.json()
+        console.log("Export backend ping response:", pingData)
       } catch (error) {
-        console.error('Export backend not accessible:', error);
-        throw new Error(`Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`);
+        console.error("Export backend not accessible:", error)
+        throw new Error(
+          `Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`,
+        )
       }
-      
+
       // Prepare the request payload for the export backend
       const exportPayload = {
         content: content,
         title: title,
-        format: 'docx',
+        format: "docx",
         includeTitlePage: settings.includeTitlePage !== false, // Default to true
         useChapterPrefix: settings.useChapterPrefix !== false, // Default to true
-        chapterLabelFormat: settings.chapterLabelFormat || 'Chapter %d',
+        chapterLabelFormat: settings.chapterLabelFormat || "Chapter %d",
         noSeparatorPages: settings.noSeparatorPages || false,
         tocEnabled: settings.includeToc !== false, // Default to true
         tocDepth: 2, // Always use depth 2 for TOC
         numberSections: settings.numberedHeadings || false,
-        forceTitleFirst: settings.forceTitleFirst !== false // Default to true
-      };
-      
-      console.log('Sending export request to backend:', exportPayload);
-      
+        forceTitleFirst: settings.forceTitleFirst !== false, // Default to true
+      }
+
+      console.log("Sending export request to backend:", exportPayload)
+
       // Make the actual API call to the export backend
-      const response = await fetch('http://localhost:3002/export/docx', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3002/export/docx", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(exportPayload)
-      });
-      
+        body: JSON.stringify(exportPayload),
+      })
+
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Export backend error:', response.status, errorText);
-        throw new Error(`Export server returned error ${response.status}: ${errorText}`);
+        const errorText = await response.text()
+        console.error("Export backend error:", response.status, errorText)
+        throw new Error(
+          `Export server returned error ${response.status}: ${errorText}`,
+        )
       }
-      
+
       // Parse the response which should contain the DOCX as base64 data
-      const result = await response.json();
-      
+      const result = await response.json()
+
       if (!result.dataUrl) {
-        throw new Error('Export server did not return expected data format');
+        throw new Error("Export server did not return expected data format")
       }
-      
-      console.log('DOCX export completed successfully');
-      
+
+      console.log("DOCX export completed successfully")
+
       // Return the data URL from the backend
-      return result.dataUrl;
+      return result.dataUrl
     } catch (error) {
-      console.error('DOCX generation failed:', error);
-      
+      console.error("DOCX generation failed:", error)
+
       // Provide clearer error message for connection issues
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Cannot connect to export service. Please ensure the export backend server is running on port 3002.');
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to export service. Please ensure the export backend server is running on port 3002.",
+        )
       }
-      
-      throw new Error('Failed to generate DOCX: ' + (error as Error).message);
+
+      throw new Error("Failed to generate DOCX: " + (error as Error).message)
     }
   }
-  
+
   /**
    * Generates an HTML document
    * @param content Assembled document content
@@ -740,83 +975,91 @@ export class ExportService {
   private static async generateHtml(
     content: string,
     title: string,
-    settings: ExportSettings
+    settings: ExportSettings,
   ): Promise<string> {
     try {
-      console.log('Starting HTML export process with settings:', settings);
-      
+      console.log("Starting HTML export process with settings:", settings)
+
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch('http://localhost:3002/ping', { 
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' }
-        });
-        
+        const pingResponse = await fetch("http://localhost:3002/ping", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" },
+        })
+
         if (!pingResponse.ok) {
-          throw new Error(`Server responded with status: ${pingResponse.status}`);
+          throw new Error(
+            `Server responded with status: ${pingResponse.status}`,
+          )
         }
-        
-        const pingData = await pingResponse.json();
-        console.log('Export backend ping response:', pingData);
+
+        const pingData = await pingResponse.json()
+        console.log("Export backend ping response:", pingData)
       } catch (error) {
-        console.error('Export backend not accessible:', error);
-        throw new Error(`Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`);
+        console.error("Export backend not accessible:", error)
+        throw new Error(
+          `Export service is not available. Make sure the export backend is running on port 3002. Error: ${(error as Error).message}`,
+        )
       }
-      
+
       // Prepare the request payload for the export backend
       const exportPayload = {
         content: content,
         title: title,
-        format: 'html',
+        format: "html",
         includeTitlePage: settings.includeTitlePage !== false, // Default to true
         useChapterPrefix: settings.useChapterPrefix !== false, // Default to true
-        chapterLabelFormat: settings.chapterLabelFormat || 'Chapter %d',
+        chapterLabelFormat: settings.chapterLabelFormat || "Chapter %d",
         noSeparatorPages: settings.noSeparatorPages || false,
         frontMatterContinuous: settings.frontMatterContinuous !== false, // Ensure front matter flows continuously
         tocEnabled: settings.includeToc !== false, // Default to true
         tocDepth: 2, // Always use depth 2 for TOC
         numberSections: settings.numberedHeadings || false,
         forceTitleFirst: settings.forceTitleFirst !== false, // Default to true
-        stylesheet: settings.htmlStylesheet || 'default'
-      };
-      
-      console.log('Sending export request to backend:', exportPayload);
-      
+        stylesheet: settings.htmlStylesheet || "default",
+      }
+
+      console.log("Sending export request to backend:", exportPayload)
+
       // Make the actual API call to the export backend
-      const response = await fetch('http://localhost:3002/export/html', {
-        method: 'POST',
+      const response = await fetch("http://localhost:3002/export/html", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(exportPayload)
-      });
-      
+        body: JSON.stringify(exportPayload),
+      })
+
       if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Export backend error:', response.status, errorText);
-        throw new Error(`Export server returned error ${response.status}: ${errorText}`);
+        const errorText = await response.text()
+        console.error("Export backend error:", response.status, errorText)
+        throw new Error(
+          `Export server returned error ${response.status}: ${errorText}`,
+        )
       }
-      
+
       // Parse the response which should contain the HTML as text or base64 data
-      const result = await response.json();
-      
+      const result = await response.json()
+
       if (!result.dataUrl) {
-        throw new Error('Export server did not return expected data format');
+        throw new Error("Export server did not return expected data format")
       }
-      
-      console.log('HTML export completed successfully');
-      
+
+      console.log("HTML export completed successfully")
+
       // Return the data URL from the backend
-      return result.dataUrl;
+      return result.dataUrl
     } catch (error) {
-      console.error('HTML generation failed:', error);
-      
+      console.error("HTML generation failed:", error)
+
       // Provide clearer error message for connection issues
-      if (error instanceof TypeError && error.message.includes('fetch')) {
-        throw new Error('Cannot connect to export service. Please ensure the export backend server is running on port 3002.');
+      if (error instanceof TypeError && error.message.includes("fetch")) {
+        throw new Error(
+          "Cannot connect to export service. Please ensure the export backend server is running on port 3002.",
+        )
       }
-      
-      throw new Error('Failed to generate HTML: ' + (error as Error).message);
+
+      throw new Error("Failed to generate HTML: " + (error as Error).message)
     }
   }
 
@@ -828,48 +1071,52 @@ export class ExportService {
    * @returns Promise resolving to the updated project
    */
   public static async updateProjectContent(
-    projectId: string, 
+    projectId: string,
     content: Record<string, string>,
-    token?: string
+    token?: string,
   ): Promise<any> {
-    console.log('Manual content update:', {
+    console.log("Manual content update:", {
       projectId,
       contentKeys: Object.keys(content),
-      contentSize: Object.keys(content).length
-    });
-    
+      contentSize: Object.keys(content).length,
+    })
+
     // Use provided token or fallback to localStorage as a last resort
-    const authToken = token || localStorage.getItem('token');
+    const authToken = token || localStorage.getItem("token")
     if (!authToken) {
-      console.error('No auth token provided or found in localStorage!');
-      return { error: 'No auth token' };
+      console.error("No auth token provided or found in localStorage!")
+      return { error: "No auth token" }
     }
-    
+
     try {
       const res = await axios.put(
         `${API_URL}/api/projects/${projectId}`,
         { content },
-        { headers: { Authorization: `Bearer ${authToken}` } }
-      );
-      console.log('Manual update successful:', res.data);
-      return res.data;
+        { headers: { Authorization: `Bearer ${authToken}` } },
+      )
+      console.log("Manual update successful:", res.data)
+      return res.data
     } catch (err) {
-      console.error('Manual update failed:', err);
-      return { error: err };
+      console.error("Manual update failed:", err)
+      return { error: err }
     }
   }
-  
+
   /**
    * Test method to manually save a sample content object
    * @param projectId The project ID to update
    * @param token The authentication token
    */
-  public static async testContentSave(projectId: string, token?: string): Promise<any> {
+  public static async testContentSave(
+    projectId: string,
+    token?: string,
+  ): Promise<any> {
     const testContent = {
-      'front:Title Page': '# Test Title\n\nBy Test Author',
-      'main:Chapter 1': '## This is a test chapter\n\nJust testing content saving.'
-    };
-    
-    return this.updateProjectContent(projectId, testContent, token);
+      "front:Title Page": "# Test Title\n\nBy Test Author",
+      "main:Chapter 1":
+        "## This is a test chapter\n\nJust testing content saving.",
+    }
+
+    return this.updateProjectContent(projectId, testContent, token)
   }
-} 
+}

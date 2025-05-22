@@ -25,6 +25,7 @@ import AccountSettings from './pages/AccountSettings';
 import Features from './pages/Features';
 import HowItWorks from './pages/HowItWorks';
 import TestimonialsPage from './pages/TestimonialsPage';
+import PaymentSuccess from './pages/PaymentSuccess';
 
 // Import auth components
 import Login from './auth/Login';
@@ -44,6 +45,9 @@ import ProjectWorkspace from './components/ProjectWorkspace'; // You'll need to 
 // Import navigation and footer components
 import Navigation from './components/Navigation';
 import Footer from './components/Footer';
+
+// Import export timing manager
+import ExportTimingManager from './components/ExportTimingManager';
 
 // Import icons for navigation
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -95,52 +99,55 @@ function App() {
     <AuthProvider>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Router>
-          <Box sx={{ 
-            display: 'flex', 
-            flexDirection: 'column', 
-            minHeight: '100vh' 
-          }}>
-            <Navigation />
-            <Box sx={{ flexGrow: 1 }}>
-              <Routes>
-                {/* Public routes */}
-                <Route path="/submit-testimonial" element={<SubmitTestimonial />} />
-                <Route path="/admin" element={<PrivateRoute requiredRole="admin"><AdminDashboard /></PrivateRoute>} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/forgot-password" element={<ForgotPassword />} />
-                <Route path="/reset-password/:token" element={<ResetPassword />} />
-                <Route path="/verify-email/:token" element={<VerifyEmail />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/blog" element={<Blog />} />
-                <Route path="/blog/:postId" element={<BlogPost />} />
-                <Route path="/" element={<PublishJockeyLanding />} />
-                <Route path="/help-center" element={<HelpCenter />} />
-                <Route path="/privacy" element={<Privacy />} />
-                <Route path="/terms" element={<Terms />} />
-                <Route path="/pricing" element={<Pricing />} />
-                <Route path="/features" element={<Features />} />
-                <Route path="/how-it-works" element={<HowItWorks />} />
-                <Route path="/testimonials" element={<TestimonialsPage />} />
-                
-                {/* Protected routes with sidebar layout */}
-                <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} navItems={navItems} />} />
-                <Route path="/projects" element={<ProtectedRoute element={<Projects />} navItems={navItems} />} />
-                <Route path="/settings" element={<ProtectedRoute element={<Settings />} navItems={navItems} />} />
-                <Route path="/project/:projectId" element={<ProtectedRoute element={<ProjectWorkspaceWrapper />} navItems={navItems} />} />
-                <Route path="/projects/:projectId" element={<ProtectedRoute element={<ProjectWorkspaceWrapper />} navItems={navItems} />} />
-                <Route path="/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
-                <Route path="/users/:userId/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
-                <Route path="/split-doctor" element={<ProtectedRoute element={<SplitDoctor />} navItems={navItems} />} />
-                <Route path="/image-magic" element={<ProtectedRoute element={<ImageMagic />} navItems={navItems} />} />
-              </Routes>
+        <ExportTimingManager>
+          <Router>
+            <Box sx={{ 
+              display: 'flex', 
+              flexDirection: 'column', 
+              minHeight: '100vh' 
+            }}>
+              <Navigation />
+              <Box sx={{ flexGrow: 1 }}>
+                <Routes>
+                  {/* Public routes */}
+                  <Route path="/submit-testimonial" element={<SubmitTestimonial />} />
+                  <Route path="/admin" element={<PrivateRoute requiredRole="admin"><AdminDashboard /></PrivateRoute>} />
+                  <Route path="/login" element={<Login />} />
+                  <Route path="/register" element={<Register />} />
+                  <Route path="/forgot-password" element={<ForgotPassword />} />
+                  <Route path="/reset-password/:token" element={<ResetPassword />} />
+                  <Route path="/verify-email/:token" element={<VerifyEmail />} />
+                  <Route path="/contact" element={<ContactPage />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/blog" element={<Blog />} />
+                  <Route path="/blog/:postId" element={<BlogPost />} />
+                  <Route path="/" element={<PublishJockeyLanding />} />
+                  <Route path="/help-center" element={<HelpCenter />} />
+                  <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                  <Route path="/pricing" element={<Pricing />} />
+                  <Route path="/features" element={<Features />} />
+                  <Route path="/how-it-works" element={<HowItWorks />} />
+                  <Route path="/testimonials" element={<TestimonialsPage />} />
+                  <Route path="/payment-success" element={<ProtectedRoute element={<PaymentSuccess />} navItems={navItems} />} />
+                  
+                  {/* Protected routes with sidebar layout */}
+                  <Route path="/dashboard" element={<ProtectedRoute element={<Dashboard />} navItems={navItems} />} />
+                  <Route path="/projects" element={<ProtectedRoute element={<Projects />} navItems={navItems} />} />
+                  <Route path="/settings" element={<ProtectedRoute element={<Settings />} navItems={navItems} />} />
+                  <Route path="/project/:projectId" element={<ProtectedRoute element={<ProjectWorkspaceWrapper />} navItems={navItems} />} />
+                  <Route path="/projects/:projectId" element={<ProtectedRoute element={<ProjectWorkspaceWrapper />} navItems={navItems} />} />
+                  <Route path="/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
+                  <Route path="/users/:userId/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
+                  <Route path="/split-doctor" element={<ProtectedRoute element={<SplitDoctor />} navItems={navItems} />} />
+                  <Route path="/image-magic" element={<ProtectedRoute element={<ImageMagic />} navItems={navItems} />} />
+                </Routes>
+              </Box>
+              {/* Global Footer */}
+              <Footer />
             </Box>
-            {/* Global Footer */}
-            <Footer />
-          </Box>
-        </Router>
+          </Router>
+        </ExportTimingManager>
       </ThemeProvider>
     </AuthProvider>
   );

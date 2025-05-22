@@ -22,6 +22,7 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import axios from 'axios';
+import FairUseNotice from '../components/FairUseNotice';
 
 // Error boundary component to catch runtime errors
 interface ErrorBoundaryProps {
@@ -96,6 +97,7 @@ const Dashboard: React.FC = () => {
   const [newProjectName, setNewProjectName] = useState('');
   const [booksRemaining, setBooksRemaining] = useState<number | null>(null);
   const [booksAllowed, setBooksAllowed] = useState<number | null>(null);
+  const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
   const [recentActivity, setRecentActivity] = useState([
     { action: 'Edited', project: 'My First Book', time: '2 hours ago', section: 'Chapter 1' },
@@ -194,13 +196,22 @@ const Dashboard: React.FC = () => {
         if (data.success) {
           setBooksRemaining(data.booksRemaining);
           setBooksAllowed(data.booksAllowed);
+          // Check all possible field names for subscription type
+          setSubscriptionType(data.subscriptionType || data.type || data.subscription || null);
+          console.log('Subscription type found:', data.subscriptionType || data.type || data.subscription || 'none');
         } else {
           // Try alternative response format
           const booksRemaining = data.booksRemaining ?? data.data?.booksRemaining ?? null;
           const booksAllowed = data.booksAllowed ?? data.data?.booksAllowed ?? null;
+          // Check all possible field names, including 'subscription'
+          const subType = data.subscriptionType || data.type || data.subscription || 
+                          data.data?.subscriptionType || data.data?.type || data.data?.subscription || null;
+          
+          console.log('Subscription type from alternative format:', subType);
           
           if (booksRemaining !== null) setBooksRemaining(booksRemaining);
           if (booksAllowed !== null) setBooksAllowed(booksAllowed);
+          if (subType !== null) setSubscriptionType(subType);
         }
       } catch (error) {
         console.error('Error fetching subscription details:', error);
@@ -211,6 +222,20 @@ const Dashboard: React.FC = () => {
 
     fetchProjects();
     fetchSubscriptionDetails();
+  }, []);
+
+  // Check if exportTiming is available on window
+  useEffect(() => {
+    // Wait a bit to ensure all components are mounted
+    const timer = setTimeout(() => {
+      if ((window as any).exportTiming) {
+        console.log('ExportTiming is available on window object ✅');
+      } else {
+        console.error('⚠️ ExportTiming is NOT available on window object! Export dialogs will not work.');
+      }
+    }, 2000);
+    
+    return () => clearTimeout(timer);
   }, []);
 
   // Add a new project with custom name
@@ -361,6 +386,22 @@ const Dashboard: React.FC = () => {
             New Book
           </Button>
         </Box>
+        
+        {/* Fair Use Notice - only show for 'author' subscription type */}
+        {subscriptionType && subscriptionType.toLowerCase() === 'author' && (
+          <Box sx={{ mb: 3 }}>
+            <FairUseNotice compact={true} />
+          </Box>
+        )}
+        
+        {/* Temporary debug info - remove after testing */}
+        {process.env.NODE_ENV !== 'production' && (
+          <Box sx={{ mb: 2, p: 1, bgcolor: '#f5f5f5', borderRadius: 1, fontSize: '0.75rem' }}>
+            <Typography variant="caption" component="div">
+              Debug: Subscription Type = {subscriptionType || 'null'}
+            </Typography>
+          </Box>
+        )}
         
         {/* Debugging info - remove in production */}
         {loading ? (

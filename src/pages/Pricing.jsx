@@ -1,12 +1,16 @@
-import React from 'react';
-import { Box, Container, Typography, Button, Grid, Paper, Divider } from '@mui/material';
+import React, { useState } from 'react';
+import { Box, Container, Typography, Button, Grid, Paper, Divider, CircularProgress, Alert } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { useNavigate } from 'react-router-dom';
+import { redirectToCheckout } from '../services/stripeService';
+import { useAuth } from '../auth/AuthContext';
 
 const pricingPlans = [
   { 
     title: 'Free', 
     price: 'Free', 
     description: 'Try before you buy with the first 10 pages',
+    planId: 'free',
     features: [
       '1 book project',
       'Export limited to first 10 pages',
@@ -21,6 +25,7 @@ const pricingPlans = [
     price: '$79', 
     description: 'Single book, one-time purchase',
     popular: true,
+    planId: 'author',
     perBookText: 'One-time payment',
     features: [
       '1 book project',
@@ -36,6 +41,7 @@ const pricingPlans = [
     title: 'Starter', 
     price: '$299', 
     description: '5 books @ $59.80 per book',
+    planId: 'starter',
     perBookText: '5 books @ $59.80 per book',
     features: [
       '5 books included',
@@ -51,6 +57,7 @@ const pricingPlans = [
     title: 'Growth', 
     price: '$499', 
     description: '10 books @ $49.90 per book',
+    planId: 'growth',
     perBookText: '10 books @ $49.90 per book',
     features: [
       '10 books included',
@@ -66,6 +73,7 @@ const pricingPlans = [
     title: 'Professional', 
     price: '$699', 
     description: '20 books @ $34.95 per book',
+    planId: 'professional',
     perBookText: '20 books @ $34.95 per book',
     features: [
       '20 books included',
@@ -81,6 +89,7 @@ const pricingPlans = [
     title: 'Power Publisher', 
     price: '$899', 
     description: '30 books @ $29.97 per book',
+    planId: 'power',
     perBookText: '30 books @ $29.97 per book',
     features: [
       '30 books included',
@@ -96,6 +105,7 @@ const pricingPlans = [
     title: 'Custom Plan', 
     price: 'Custom', 
     description: '30+ books, contact for pricing',
+    planId: 'custom',
     perBookText: 'Contact us for custom pricing',
     features: [
       '30+ books included',
@@ -110,6 +120,44 @@ const pricingPlans = [
 ];
 
 const Pricing = () => {
+  const [loadingPlanId, setLoadingPlanId] = useState(null);
+  const [error, setError] = useState(null);
+  const { isAuthenticated } = useAuth();
+  const navigate = useNavigate();
+
+  const handlePlanSelect = async (plan) => {
+    if (plan.planId === 'free') {
+      navigate('/register');
+      return;
+    }
+
+    if (plan.planId === 'custom') {
+      navigate('/contact');
+      return;
+    }
+
+    // Check if user is authenticated
+    if (!isAuthenticated) {
+      navigate('/login', { state: { from: '/pricing', planId: plan.planId } });
+      return;
+    }
+
+    try {
+      setLoadingPlanId(plan.planId);
+      setError(null);
+      
+      // Redirect to Stripe checkout
+      await redirectToCheckout(plan.planId);
+      
+      // This code will only run if there's an error with the redirect
+      setLoadingPlanId(null);
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+      setError('An error occurred. Please try again later.');
+      setLoadingPlanId(null);
+    }
+  };
+
   return (
     <Box sx={{ bgcolor: '#f9fafb', minHeight: '100vh', pt: 8, pb: 12 }}>
       <Container maxWidth="lg">
@@ -137,6 +185,12 @@ const Pricing = () => {
             Choose the plan that works best for your publishing needs
           </Typography>
         </Box>
+
+        {error && (
+          <Alert severity="error" sx={{ mb: 4 }}>
+            {error}
+          </Alert>
+        )}
 
         {/* Pricing Grid */}
         <Grid container spacing={3} sx={{ mb: 6 }}>
@@ -253,7 +307,8 @@ const Pricing = () => {
                   fullWidth
                   variant={plan.buttonVariant}
                   color="primary"
-                  href={plan.title === 'Custom Plan' ? "/contact" : "/register"}
+                  onClick={() => handlePlanSelect(plan)}
+                  disabled={loadingPlanId === plan.planId}
                   size="large"
                   sx={{
                     py: 1.5,
@@ -268,7 +323,11 @@ const Pricing = () => {
                     })
                   }}
                 >
-                  {plan.buttonText}
+                  {loadingPlanId === plan.planId ? (
+                    <CircularProgress size={24} color="inherit" />
+                  ) : (
+                    plan.buttonText
+                  )}
                 </Button>
               </Paper>
             </Grid>
