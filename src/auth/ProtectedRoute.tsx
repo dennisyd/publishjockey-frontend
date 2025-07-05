@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from './AuthContext';
 import { Box, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Divider } from '@mui/material';
@@ -17,7 +17,7 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
-  const { isAuthenticated, loading, user, token, login } = useAuth();
+  const { isAuthenticated, loading, user, token } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [instructionsOpen, setInstructionsOpen] = useState(false);

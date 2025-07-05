@@ -90,7 +90,7 @@ const TestimonialApproval = () => {
   
   const handleEditSave = async () => {
     try {
-      const response = await axios.patch(`/api/testimonials/${currentTestimonial.id}`, editedTestimonial);
+      await axios.patch(`/api/testimonials/${currentTestimonial.id}`, editedTestimonial);
       
       // Update local state
       setTestimonials(prev => 

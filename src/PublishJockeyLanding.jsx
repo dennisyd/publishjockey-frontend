@@ -1,5 +1,5 @@
 import React from 'react';
-import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, Toolbar, IconButton, Menu, MenuItem } from '@mui/material';
+import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -17,13 +17,6 @@ import SearchIcon from '@mui/icons-material/Search';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import EmailIcon from '@mui/icons-material/Email';
-import FlashOnIcon from '@mui/icons-material/FlashOn';
-import PsychologyIcon from '@mui/icons-material/Psychology';
-import ImageIcon from '@mui/icons-material/Image';
-import DoneIcon from '@mui/icons-material/Done';
-import BlockIcon from '@mui/icons-material/Block';
-import StorageIcon from '@mui/icons-material/Storage';
-import MenuBookIcon from '@mui/icons-material/MenuBook';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -33,37 +26,10 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 // Import logo
 import PublishJockeyLogo from './publishjockey_logo.png';
 import Testimonials from './components/Testimonials';
-import { useRef, useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useAuth } from './auth/AuthContext';
-import MenuIcon from '@mui/icons-material/Menu';
-import multer from 'multer';
-import path from 'path';
-import fs from 'fs';
 
-// Add at the top, after imports
-function isAuthenticated() {
-  // Example: check for a JWT token in localStorage
-  return Boolean(localStorage.getItem('token'));
-}
 
-// Add in LandingHeader, before return
-function handleLogout() {
-  localStorage.removeItem('token');
-  window.location.reload();
-}
-
-// Helper to get user display name
-function getUserDisplayName() {
-  try {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user && user.name) {
-      return user.name.split(' ')[0];
-    } else if (user && user.email) {
-      return user.email;
-    }
-  } catch {}
-  return 'Account';
-}
 
 const PublishJockeyLanding = () => {
   // Add scroll padding when component mounts
@@ -2145,8 +2111,7 @@ const HowItWorks = () => {
 };
 
 const Pricing = ({ handleRegister }) => {
-  // Default to annual pricing since we've removed the toggle
-  const [pricingPeriod, setPricingPeriod] = React.useState('annual');
+
   
   // Define pricing data
   const pricingPlans = [
@@ -2840,6 +2805,11 @@ const FAQ = () => {
           id: "terms-faq",
           question: "What are the Terms and Agreement?",
           answer: "By creating an account with PublishJockey, you agree to the following terms:<br><br><strong>Usage Rights</strong><br>PublishJockey grants you a limited, non-transferable license to use the platform for the purpose of creating, editing, and exporting manuscripts for personal or commercial use, subject to the terms outlined herein.<br><br><strong>Intellectual Property</strong><br>You retain all rights to the content you create or upload. However, by using the platform, you grant PublishJockey the right to process, display, and temporarily store your content for the sole purpose of providing the publishing service.<br><br><strong>Fair Use Policy</strong><br>The platform is designed to support a fair number of manuscript creations and exports per user, particularly for individual authors or small publishers. Users on free or basic plans are expected to operate within reasonable publishing limits.<br><br>Abuse of the system—such as attempting to bypass plan restrictions by repeatedly editing and republishing the same project to create multiple unique books—may result in limitations, account suspension, or removal from the platform.<br><br>We reserve the right to implement automatic and manual safeguards to protect the integrity of our service.<br><br><strong>Account Responsibility</strong><br>You are responsible for maintaining the confidentiality of your login credentials and for all activity that occurs under your account. If you suspect unauthorized access, you must notify us immediately.<br><br><strong>Service Changes and Availability</strong><br>We reserve the right to modify, pause, or discontinue any part of the platform with or without notice. We will do our best to notify users in advance of any major changes that affect core functionality.<br><br><strong>Data Storage and Privacy</strong><br>We do not store your complete manuscript files. Only your original Markdown input and any uploaded images are retained while your account is active. You may request account deletion and data removal at any time.<br><br><strong>Agreement to Terms</strong><br>By registering or creating an account, you acknowledge that you have read, understood, and agree to be bound by these terms."
+        },
+        {
+          id: "fair-use-notice",
+          question: "What is the Fair Use Protection notice?",
+          answer: "The Fair Use Protection notice is a system that helps maintain the integrity of our platform. Here's what it means:<br><br><strong>Purpose:</strong> Our AI-powered system monitors book content to ensure compliance with our fair use policy. Each license purchase entitles you to create and publish a single book.<br><br><strong>Book Changes:</strong> Making substantial changes to transform a project into a completely different book will require an additional purchase. This ensures fair usage of the platform across all users.<br><br><strong>Manual Downloads:</strong> For security reasons, files must be manually downloaded by clicking the download button after export.<br><br>You'll see a compact version of this notice in your dashboard to remind you of these policies. This helps us maintain a sustainable platform while protecting the rights of all users."
         }
       ]
     }
@@ -3171,21 +3141,5 @@ const FAQ = () => {
     </Box>
   );
 };
-
-const imageUpload = multer({
-  storage: multer.diskStorage({
-    destination: function (req, file, cb) {
-      // Always save to uploads/admin/test for now
-      const dir = path.join(__dirname, 'uploads', 'admin', 'test');
-      if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
-      cb(null, dir);
-    },
-    filename: function (req, file, cb) {
-      // Use timestamp + original name for uniqueness
-      const uniqueName = `${Date.now()}-${file.originalname.replace(/\s/g, '_')}`;
-      cb(null, uniqueName);
-    }
-  })
-});
 
 export default PublishJockeyLanding; 

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Box, Container, Typography, Grid, Avatar, Card, CardContent, CircularProgress, Alert } from '@mui/material';
+import { Box, Container, Typography, Avatar, Card, CardContent, CircularProgress, Alert } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';

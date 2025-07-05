@@ -5,11 +5,6 @@ import {
   Typography, 
   Button,
   Card, 
-  List, 
-  ListItem, 
-  ListItemIcon, 
-  ListItemText, 
-  Divider,
   Dialog,
   DialogTitle,
   DialogContent,
@@ -20,8 +15,6 @@ import {
   Alert
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
-import EditIcon from '@mui/icons-material/Edit';
-import axios from 'axios';
 import FairUseNotice from '../components/FairUseNotice';
 
 // Error boundary component to catch runtime errors
@@ -99,10 +92,7 @@ const Dashboard: React.FC = () => {
   const [booksAllowed, setBooksAllowed] = useState<number | null>(null);
   const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
-  const [recentActivity, setRecentActivity] = useState([
-    { action: 'Edited', project: 'My First Book', time: '2 hours ago', section: 'Chapter 1' },
-    { action: 'Created', project: 'Sample Project', time: '2 days ago', section: '' }
-  ]);
+
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
 
@@ -238,10 +228,7 @@ const Dashboard: React.FC = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  // Add a new project with custom name
-  const handleCreateProject = () => {
-    setNewProjectDialogOpen(true);
-  };
+
 
   // Handle dialog confirmation
   const handleCreateProjectConfirm = async () => {

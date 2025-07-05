@@ -3,8 +3,6 @@ import {
   Paper, 
   Typography, 
   Box, 
-  Alert, 
-  AlertTitle,
   Tooltip
 } from '@mui/material';
 import SecurityIcon from '@mui/icons-material/Security';

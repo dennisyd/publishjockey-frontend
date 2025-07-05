@@ -57,7 +57,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: 'Our platform transforms this entire process into four simple steps that take minutes, not days. Here\'s how it works:'
+        text: 'Our platform transforms this entire process into four simple steps that take minutes, not days. Here is how it works:'
       },
       {
         type: 'steps',
@@ -69,12 +69,12 @@ const blogPostsData = {
           },
           {
             title: 'Edit and Format',
-            content: 'Use our intuitive Markdown editor to make any necessary changes. Don\'t worry – Markdown is incredibly simple to learn. Add formatting, headings, lists, tables, and images with easy-to-use buttons. Our real-time preview shows you exactly how your content will appear.',
+            content: 'Use our intuitive Markdown editor to make any necessary changes. Do not worry – Markdown is incredibly simple to learn. Add formatting, headings, lists, tables, and images with easy-to-use buttons. Our real-time preview shows you exactly how your content will appear.',
             image: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=800&q=80'
           },
           {
             title: 'Customize Your Book',
-            content: 'Select your preferred book size (like 6\"x9\" for KDP), choose fonts and styles, add front matter like title pages, and configure your table of contents. Our system handles all the complex typesetting rules behind the scenes.',
+            content: 'Select your preferred book size (like 6x9 for KDP), choose fonts and styles, add front matter like title pages, and configure your table of contents. Our system handles all the complex typesetting rules behind the scenes.',
             image: 'https://images.unsplash.com/photo-1464983953574-0892a716854b?auto=format&fit=crop&w=800&q=80'
           },
           {
@@ -144,7 +144,7 @@ const blogPostsData = {
     content: [
       {
         type: 'paragraph',
-        text: 'When most authors finish writing their manuscript, they\'re often unprepared for what comes next: the seemingly simple but deceptively complex process of formatting their book. This critical step stands between your raw manuscript and a professional publication that readers will take seriously.'
+        text: 'When most authors finish writing their manuscript, they are often unprepared for what comes next: the seemingly simple but deceptively complex process of formatting their book. This critical step stands between your raw manuscript and a professional publication that readers will take seriously.'
       },
       {
         type: 'heading',
@@ -168,11 +168,11 @@ const blogPostsData = {
       },
       {
         type: 'heading',
-        text: 'What Traditional Formatting Solutions Don\'t Tell You'
+        text: 'What Traditional Formatting Solutions Do Not Tell You'
       },
       {
         type: 'paragraph',
-        text: 'The book formatting industry has several "inconvenient truths" that most service providers won\'t mention upfront:'
+        text: 'The book formatting industry has several "inconvenient truths" that most service providers will not mention upfront:'
       },
       {
         type: 'list',
@@ -181,7 +181,7 @@ const blogPostsData = {
           'Small text edits often require complete reformatting and re-pagination',
           'Different publishing platforms (KDP, IngramSpark, etc.) have different requirements',
           'Many formatting issues only become visible in the final PDF or printed copy',
-          'Standard word processors weren\'t designed for book publishing'
+          'Standard word processors were not designed for book publishing'
         ]
       },
       {
@@ -215,11 +215,11 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: 'The publishing industry is experiencing a technological transformation that\'s making high-quality formatting accessible to everyone. Modern publishing platforms like PublishJockey leverage sophisticated typesetting technology behind simple interfaces.'
+        text: 'The publishing industry is experiencing a technological transformation that is making high-quality formatting accessible to everyone. Modern publishing platforms like PublishJockey leverage sophisticated typesetting technology behind simple interfaces.'
       },
       {
         type: 'paragraph',
-        text: 'Here\'s how this approach solves the traditional formatting challenges:'
+        text: 'Here is how this approach solves the traditional formatting challenges:'
       },
       {
         type: 'steps',
@@ -252,7 +252,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: 'Let\'s compare the true costs of different formatting approaches for a 300-page book:'
+        text: 'Let us compare the true costs of different formatting approaches for a 300-page book:'
       },
       {
         type: 'paragraph',
@@ -276,7 +276,7 @@ const blogPostsData = {
       },
       {
         type: 'quote',
-        text: 'I\'ve published with traditional formatters and tried doing it myself in Word. Using PublishJockey cut my production time by 90% and actually improved the quality of my finished book.',
+        text: 'I have published with traditional formatters and tried doing it myself in Word. Using PublishJockey cut my production time by 90% and actually improved the quality of my finished book.',
         author: 'Rebecca M., Mystery Series Author'
       },
       {
@@ -290,7 +290,7 @@ const blogPostsData = {
       {
         type: 'list',
         items: [
-          'Budget: What\'s your all-in formatting budget, including revisions?',
+          'Budget: What is your all-in formatting budget, including revisions?',
           'Timeline: How quickly do you need to publish?',
           'Complexity: Does your book have special elements like tables, images, or complex layouts?',
           'Future plans: Will you publish multiple books or editions?',
@@ -312,7 +312,7 @@ const blogPostsData = {
   },
   'ai-covers-for-kdp': {
     title: 'Creating KDP-Ready Book Covers with AI: No Designer Needed',
-    excerpt: 'Learn how to create professional book covers using AI tools like ChatGPT and upscale them for Amazon KDP using PublishJockey\'s ImageMagic utility.',
+    excerpt: 'Learn how to create professional book covers using AI tools like ChatGPT and upscale them for Amazon KDP using PublishJockey ImageMagic utility.',
     imageUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
     date: 'June 15, 2024',
     author: 'The PublishJockey Team',
@@ -322,7 +322,7 @@ const blogPostsData = {
     content: [
       {
         type: 'paragraph',
-        text: "The days of paying hundreds of dollars for book cover designs are coming to an end. With the rise of AI image generation tools like those in ChatGPT, authors can now create stunning cover images by simply describing what they want. But there's a catch – these AI-generated images often lack the high resolution required for Amazon KDP. That's where PublishJockey's ImageMagic utility comes in."
+        text: "The days of paying hundreds of dollars for book cover designs are coming to an end. With the rise of AI image generation tools like those in ChatGPT, authors can now create stunning cover images by simply describing what they want. But there is a catch – these AI-generated images often lack the high resolution required for Amazon KDP. That is where PublishJockey ImageMagic utility comes in."
       },
       {
         type: 'heading',
@@ -347,7 +347,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "While AI tools excel at creating visually appealing images, they typically generate them at resolutions too low for professional publishing. Amazon KDP requires cover images at 300 DPI (dots per inch) with specific pixel dimensions based on your book size. For example, a standard 6\"x9\" book cover requires an image that's 1800×2700 pixels."
+        text: "While AI tools excel at creating visually appealing images, they typically generate them at resolutions too low for professional publishing. Amazon KDP requires cover images at 300 DPI (dots per inch) with specific pixel dimensions based on your book size. For example, a standard 6x9 book cover requires an image that is 1800×2700 pixels."
       },
       {
         type: 'paragraph',
@@ -359,7 +359,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "PublishJockey's ImageMagic utility bridges this gap by intelligently upscaling AI-generated images to meet KDP's requirements. Unlike simple image resizing (which results in blurry, pixelated images), ImageMagic uses advanced algorithms to enhance details and maintain sharpness while increasing resolution."
+        text: "PublishJockey ImageMagic utility bridges this gap by intelligently upscaling AI-generated images to meet KDP's requirements. Unlike simple image resizing (which results in blurry, pixelated images), ImageMagic uses advanced algorithms to enhance details and maintain sharpness while increasing resolution."
       },
       {
         type: 'paragraph',
@@ -375,12 +375,12 @@ const blogPostsData = {
           },
           {
             title: 'Upscale with ImageMagic',
-            content: 'Visit PublishJockey\'s ImageMagic tool and upload your AI-generated image. Select your book size (or use auto-detect), and let the system process your image. The tool will upscale your image to the exact dimensions needed for your KDP book cover at 300 DPI.',
+            content: 'Visit PublishJockey ImageMagic tool and upload your AI-generated image. Select your book size (or use auto-detect), and let the system process your image. The tool will upscale your image to the exact dimensions needed for your KDP book cover at 300 DPI.',
             image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
           },
           {
             title: 'Download and Use',
-            content: 'Once processing is complete (usually within seconds), download your high-resolution image. It\'s now ready to upload directly to KDP as your book cover. Remember to download it promptly as ImageMagic automatically deletes processed files after 15 minutes to protect your privacy.',
+            content: 'Once processing is complete (usually within seconds), download your high-resolution image. It is now ready to upload directly to KDP as your book cover. Remember to download it promptly as ImageMagic automatically deletes processed files after 15 minutes to protect your privacy.',
             image: 'https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80'
           }
         ]
@@ -427,7 +427,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "ImageMagic is just one component of PublishJockey's comprehensive self-publishing toolkit. While you're creating your cover, don't forget that our platform also helps with manuscript formatting, export to multiple formats, and other essential publishing tasks – all designed to make self-publishing accessible, affordable, and professional."
+        text: "ImageMagic is just one component of PublishJockey comprehensive self-publishing toolkit. While you are creating your cover, do not forget that our platform also helps with manuscript formatting, export to multiple formats, and other essential publishing tasks – all designed to make self-publishing accessible, affordable, and professional."
       },
       {
         type: 'cta',
@@ -439,8 +439,8 @@ const blogPostsData = {
     relatedPosts: ['manuscript-to-print-ready', 'book-formatting-truth']
   },
   'markdown-for-authors': {
-    title: 'Markdown for Authors: Why It\'s Simpler Than You Think',
-    excerpt: 'Demystifying Markdown for non-technical writers and showing why it\'s the perfect tool for modern book creation.',
+    title: 'Markdown for Authors: Why It Is Simpler Than You Think',
+    excerpt: 'Demystifying Markdown for non-technical writers and showing why it is the perfect tool for modern book creation.',
     imageUrl: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1170&q=80',
     date: 'May 1, 2025',
     author: 'The PublishJockey Team',
@@ -450,7 +450,7 @@ const blogPostsData = {
     content: [
       {
         type: 'paragraph',
-        text: "If you\'re an author, you\'ve probably heard the word 'Markdown' tossed around by tech-savvy writers and publishing platforms. But what is Markdown, and why should you care? The good news: Markdown is not just for programmers—it\'s a simple, intuitive way to format your writing, and it\'s perfect for authors who want to focus on words, not software."
+        text: "If you are an author, you have probably heard the word 'Markdown' tossed around by tech-savvy writers and publishing platforms. But what is Markdown, and why should you care? The good news: Markdown is not just for programmers—it is a simple, intuitive way to format your writing, and it is perfect for authors who want to focus on words, not software."
       },
       {
         type: 'heading',
@@ -462,7 +462,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "Worried about remembering Markdown codes? With PublishJockey, you don\'t have to! Our editor includes a simple toolbar—just like Word or Google Docs—so you can click to add headings, bold, italics, lists, and more. You get the power and portability of Markdown, with the ease of a familiar writing tool."
+        text: "Worried about remembering Markdown codes? With PublishJockey, you do not have to! Our editor includes a simple toolbar—just like Word or Google Docs—so you can click to add headings, bold, italics, lists, and more. You get the power and portability of Markdown, with the ease of a familiar writing tool."
       },
       {
         type: 'list',
@@ -480,7 +480,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "Unlike word processors, Markdown keeps your writing distraction-free. You don\'t have to worry about weird formatting, broken styles, or copy-paste headaches. Your words stay clean and portable, ready for any publishing platform."
+        text: "Unlike word processors, Markdown keeps your writing distraction-free. You do not have to worry about weird formatting, broken styles, or copy-paste headaches. Your words stay clean and portable, ready for any publishing platform."
       },
       {
         type: 'quote',
@@ -517,7 +517,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "We chose Markdown because it\'s the best of both worlds: simple for beginners, powerful for pros. It keeps your writing future-proof and makes collaboration, editing, and publishing seamless. Plus, it\'s open—no vendor lock-in, no hidden formatting issues."
+        text: "We chose Markdown because it is the best of both worlds: simple for beginners, powerful for pros. It keeps your writing future-proof and makes collaboration, editing, and publishing seamless. Plus, it is open—no vendor lock-in, no hidden formatting issues."
       },
       {
         type: 'list',
@@ -529,7 +529,7 @@ const blogPostsData = {
       },
       {
         type: 'quote',
-        text: "Markdown lets me write my way, then PublishJockey turns it into a professional book. I\'ll never go back to Word!",
+        text: "Markdown lets me write my way, then PublishJockey turns it into a professional book. I will never go back to Word!",
         author: "James T., Indie Author"
       },
       {
@@ -553,7 +553,7 @@ const blogPostsData = {
     content: [
       {
         type: 'paragraph',
-        text: "If you're new to self-publishing, the world of file formats can feel overwhelming. PDF, EPUB, DOCX—what do they all mean, and which one is right for your book? In this guide, we'll break down the strengths of each format and help you choose the best option for your publishing goals."
+        text: "If you are new to self-publishing, the world of file formats can feel overwhelming. PDF, EPUB, DOCX—what do they all mean, and which one is right for your book? In this guide, we will break down the strengths of each format and help you choose the best option for your publishing goals."
       },
       {
         type: 'heading',

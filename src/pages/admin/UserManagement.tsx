@@ -30,9 +30,7 @@ import {
   Divider,
   CircularProgress,
   Alert,
-  Stack,
-  Checkbox,
-  ListItemText
+  Checkbox
 } from '@mui/material';
 import {
   Edit as EditIcon,
@@ -41,18 +39,14 @@ import {
   VpnKey as VpnKeyIcon,
   Lock as LockIcon,
   LockOpen as LockOpenIcon,
-  SupervisorAccount as SupervisorAccountIcon,
-  Security as SecurityIcon,
-  Download as DownloadIcon,
   Email as EmailIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
-  PersonOff as PersonOffIcon,
   Search as SearchIcon,
   Refresh as RefreshIcon
 } from '@mui/icons-material';
 import { useAuth } from '../../auth/AuthContext';
 import * as adminService from '../../services/adminService';
-import { AdminUser, PaginatedUsers, AuditLogEntry } from '../../services/adminService';
+import { AdminUser, AuditLogEntry } from '../../services/adminService';
 
 // Helper function to format dates without using date-fns
 const formatDate = (date: Date | string | undefined): string => {
@@ -523,7 +517,6 @@ const BulkActionDialog = ({
 
 // Main Component
 const UserManagement: React.FC = () => {
-  const { user } = useAuth();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);

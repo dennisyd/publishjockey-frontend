@@ -12,7 +12,6 @@ import {
   styled
 } from '@mui/material';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
-import DownloadIcon from '@mui/icons-material/Download';
 import FileUploadIcon from '@mui/icons-material/FileUpload';
 import InfoIcon from '@mui/icons-material/Info';
 import ArticleIcon from '@mui/icons-material/Article';
@@ -197,7 +196,7 @@ const SplitDoctor: React.FC = () => {
         
         // Parse the paths to get just the file name and directory name
         let docxUrl = '';
-        const mdMatch = mdPath.match(/\/public-files\/([^\/]+)\/([^\/]+)$/);
+        const mdMatch = mdPath.match(/\/public-files\/([^/]+)\/([^/]+)$/);
         
         if (!mdMatch) {
           console.error('Invalid markdown download path returned from server', { mdPath });
@@ -219,7 +218,7 @@ const SplitDoctor: React.FC = () => {
         
         // Only set docxUrl if docxPath exists
         if (docxPath) {
-          const docxMatch = docxPath.match(/\/public-files\/([^\/]+)\/([^\/]+)$/);
+          const docxMatch = docxPath.match(/\/public-files\/([^/]+)\/([^/]+)$/);
           if (docxMatch) {
             const docxDir = docxMatch[1];
             const docxFile = docxMatch[2];

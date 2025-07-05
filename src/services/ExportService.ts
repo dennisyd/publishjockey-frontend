@@ -1,9 +1,9 @@
 import { ExportSettings } from "../components/ExportModal"
-import { DocumentAssemblyService } from "./DocumentAssemblyService"
+
 import { MarkdownFormatter } from "./MarkdownFormatter"
 import { FormatAdapter } from "./FormatAdapter"
 import { ValidationService } from "./ValidationService"
-import { EXPORT_FORMATS } from "../constants/FormatConstants"
+
 import axios from "axios"
 
 // Define API URL for the export backend
@@ -38,8 +38,7 @@ interface ExportResult {
   message: string
 }
 
-// Add a flag to prevent automatic URL creation that would trigger download notifications
-const skipUrlCreation = true;
+
 
 /**
  * Service for handling document exports with different formats
@@ -313,8 +312,7 @@ export class ExportService {
           return '';
         }
 
-        // First check the content type of the response
-        const contentType = response.headers.get("Content-Type") || "";
+
         
         // Read the response once as text
         const responseText = await response.text();
@@ -741,29 +739,9 @@ export class ExportService {
   ): string {
     // Apply book size settings
     const bookSize = settings.bookSize || "6x9"
-    const [width, height] = bookSize.split("x").map((dim) => parseFloat(dim))
+    const [width] = bookSize.split("x").map((dim) => parseFloat(dim))
 
-    // Apply margin settings
-    let marginSize = 0.75 // default margin in inches
-    if (settings.customMargins) {
-      switch (settings.marginSize) {
-        case "narrow":
-          marginSize = 0.5
-          break
-        case "wide":
-          marginSize = 1.0
-          break
-        default:
-          marginSize = 0.75 // normal
-      }
-    } else {
-      // Auto-calculate margins based on book size
-      // Larger books generally need larger margins
-      marginSize = Math.max(0.5, width * 0.1)
-    }
 
-    // Apply bleed if enabled
-    const bleed = settings.bleed ? 0.125 : 0 // 1/8 inch bleed
 
     // This is a simplified implementation
     // In a real app, these values would be used with a PDF generation library

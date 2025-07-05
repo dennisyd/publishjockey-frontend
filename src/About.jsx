@@ -18,20 +18,17 @@ import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import CodeIcon from '@mui/icons-material/Code';
 import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
-import { useNavigate } from 'react-router-dom';
-import PublishJockeyLogo from './assets/publishjockey_logo.png';
+
 
 // Timeline step icons
 const timelineIcons = [
-  <Box sx={{ fontSize: '2rem' }}>📝</Box>,
+  <span role="img" aria-label="Writing">📝</span>,
   <CodeIcon fontSize="large" color="primary" />,
   <LightbulbIcon fontSize="large" color="primary" />,
   <RocketLaunchIcon fontSize="large" color="primary" />,
 ];
 
 const About = () => {
-  const navigate = useNavigate();
-
   return (
     <Box 
       className="scroll-container"
@@ -155,7 +152,7 @@ const About = () => {
                 As a programmer, I decided to code my way through the publishing process. I wrote a few Python scripts to handle formatting and document generation. It wasn't easy. Getting everything to work smoothly took time and a lot of troubleshooting. But once it clicked, a lightbulb went off.
               </Typography>
 
-              <Typography 
+                              <Typography 
                 paragraph 
                 sx={{ 
                   fontWeight: 600, 
@@ -166,7 +163,7 @@ const About = () => {
                   borderRadius: '0 4px 4px 0'
                 }}
               >
-                📚 With over a million books published on Amazon each year—not to mention platforms like Google Books—why wasn't there a streamlined, affordable tool for authors like us?
+                <span role="img" aria-label="Books">📚</span> With over a million books published on Amazon each year—not to mention platforms like Google Books—why wasn't there a streamlined, affordable tool for authors like us?
               </Typography>
 
               <Typography variant="h6" sx={{ mt: 3, fontWeight: 600 }}>

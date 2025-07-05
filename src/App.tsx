@@ -30,7 +30,6 @@ import PaymentSuccess from './pages/PaymentSuccess';
 // Import auth components
 import Login from './auth/Login';
 import Register from './auth/Register';
-import Profile from './auth/Profile';
 import ForgotPassword from './auth/ForgotPassword';
 import ResetPassword from './auth/ResetPassword';
 import VerifyEmail from './auth/VerifyEmail';
@@ -51,7 +50,6 @@ import ExportTimingManager from './components/ExportTimingManager';
 
 // Import icons for navigation
 import DashboardIcon from '@mui/icons-material/Dashboard';
-import BookIcon from '@mui/icons-material/Book';
 import SettingsIcon from '@mui/icons-material/Settings';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import SplitscreenIcon from '@mui/icons-material/Splitscreen';

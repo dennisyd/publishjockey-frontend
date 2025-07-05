@@ -19,7 +19,7 @@ import {
   InputLabel,
   SelectChangeEvent
 } from '@mui/material';
-import { ExportService } from '../services/ExportService';
+
 import ExportInstructionsTabs from './ExportInstructionsTabs';
 
 // Import paper sizes
@@ -333,11 +333,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
-  const exportTypes = [
-    { label: 'PDF Document', value: 'pdf', description: 'Best for printing & publishing' },
-    { label: 'EPUB eBook', value: 'epub', description: 'For e-readers & digital stores' },
-    { label: 'Microsoft Word', value: 'docx', description: 'For editing & sharing' },
-  ];
+
 
   return (
     <Dialog

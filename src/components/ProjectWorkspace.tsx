@@ -12,16 +12,9 @@ import {
   DialogTitle,
   DialogContent,
   DialogActions,
-  MenuItem,
-  Select,
-  FormControl,
-  InputLabel,
-  Grid,
   Divider,
-  Switch,
-  FormControlLabel,
   Tooltip,
-  Slider, Alert, Snackbar,
+  Alert, Snackbar,
   Paper, ToggleButtonGroup, ToggleButton,
   ListSubheader, Collapse
 } from '@mui/material';
@@ -32,7 +25,6 @@ import {
   ImportExport as ImportExportIcon,
   CloudDownload as CloudDownloadIcon,
   CloudUpload as CloudUploadIcon,
-  Settings as SettingsIcon,
   ViewAgenda as ViewAgendaIcon,
   Visibility as VisibilityIcon,
   FormatBold as FormatBoldIcon,
@@ -42,32 +34,20 @@ import {
   InsertLink as InsertLinkIcon,
   Code as CodeIcon,
   FormatQuote as FormatQuoteIcon,
-  Image as ImageIcon,
-  TableChart as TableChartIcon,
-  PlaylistAdd as PlaylistAddIcon,
-  Help as HelpIcon,
-  HelpOutline as HelpOutlineIcon,
-  FormatAlignLeft as FormatAlignLeftIcon,
   FormatAlignCenter as FormatAlignCenterIcon,
   FormatAlignRight as FormatAlignRightIcon,
-  FormatAlignJustify as FormatAlignJustifyIcon,
-  Build as BuildIcon,
-  MoreVertOutlined as MoreVertIcon,
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon
 } from '@mui/icons-material';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
-import { marked } from 'marked';
 import Papa from 'papaparse';
 import { useAuth } from '../auth/AuthContext';
 import ExportModal, { ExportSettings } from './ExportModal';
 import ImportModal, { ImportSettings } from './ImportModal';
 import { ExportService } from '../services/ExportService';
-import { DocumentAssemblyService } from '../services/DocumentAssemblyService';
-import InstructionsBox from './InstructionsBox';
 import { FormatAdapter } from '../services/FormatAdapter';
-import { CHAPTER_PATTERNS, TEMPLATES } from '../constants/FormatConstants';
+import { TEMPLATES } from '../constants/FormatConstants';
 
 // Simple project workspace component
 interface ProjectWorkspaceProps {
@@ -122,36 +102,6 @@ interface ProjectApiResponse {
   [key: string]: any;
 }
 
-const matterLabels = {
-  front: "Front Matter",
-  main: "Main Matter",
-  back: "Back Matter"
-};
-
-// Amazon KDP book sizes (in inches)
-const paperbackSizes = [
-  { value: '6x9', label: '6" x 9" (15.24 x 22.86 cm)' },
-  { value: '5x8', label: '5" x 8" (12.7 x 20.32 cm)' },
-  { value: '5.06x7.81', label: '5.06" x 7.81" (12.85 x 19.84 cm)' },
-  { value: '5.25x8', label: '5.25" x 8" (13.34 x 20.32 cm)' },
-  { value: '5.5x8.5', label: '5.5" x 8.5" (13.97 x 21.59 cm)' },
-  { value: '6.14x9.21', label: '6.14" x 9.21" (15.6 x 23.39 cm)' },
-  { value: '6.69x9.61', label: '6.69" x 9.61" (16.99 x 24.41 cm)' },
-  { value: '7x10', label: '7" x 10" (17.78 x 25.4 cm)' },
-  { value: '7.44x9.69', label: '7.44" x 9.69" (18.9 x 24.61 cm)' },
-  { value: '7.5x9.25', label: '7.5" x 9.25" (19.05 x 23.5 cm)' },
-  { value: '8x10', label: '8" x 10" (20.32 x 25.4 cm)' },
-  { value: '8.5x11', label: '8.5" x 11" (21.59 x 27.94 cm)' },
-];
-
-const hardcoverSizes = [
-  { value: '6x9', label: '6" x 9" (15.24 x 22.86 cm)' },
-  { value: '5.5x8.5', label: '5.5" x 8.5" (13.97 x 21.59 cm)' },
-  { value: '6.14x9.21', label: '6.14" x 9.21" (15.6 x 23.39 cm)' },
-  { value: '7x10', label: '7" x 10" (17.78 x 25.4 cm)' },
-  { value: '8.25x11', label: '8.25" x 11" (20.96 x 27.94 cm)' },
-];
-
 // Define API URL
 const API_URL = 'http://localhost:3002';
 
@@ -188,24 +138,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Basic UI state
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [exportLoading, setExportLoading] = useState(false);
-  const [exportOptions] = useState({
-    bookSize: '6x9',
-    bleed: false,
-    bindingType: 'paperback',
-    numberSections: false,
-    customCss: '',
-    includeToc: true,
-    useChapterPrefix: true
-  });
-  
-  // TOC state
-  const [tocSettingsOpen, setTocSettingsOpen] = useState(false);
-  const [tocSettings, setTocSettings] = useState({
-    enabled: true,
-    maxDepth: 3,
-    numbered: false,
-    title: "Table of Contents"
-  });
   
   // Editor state
   const [viewMode, setViewMode] = useState<'edit' | 'split' | 'preview'>('edit');
@@ -218,13 +150,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [projectTitle, setProjectTitle] = useState(initialTitle);
   const [projectSubtitle, setProjectSubtitle] = useState('');
   const [projectAuthor, setProjectAuthor] = useState('');
-  const [includeTitlePage, setIncludeTitlePage] = useState(true);
-  const [showTitlePageWarning, setShowTitlePageWarning] = useState(false);
   
   // Add state for metadata dialog and custom title page toggle
   const [metadataDialogOpen, setMetadataDialogOpen] = useState(false);
-  const [customTitlePage, setCustomTitlePage] = useState(false);
-  const [customTitlePageWarning, setCustomTitlePageWarning] = useState(false);
   
   // Add state for instructions modal
   const [instructionsOpen, setInstructionsOpen] = useState(false);
@@ -258,9 +186,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     message: '',
     severity: 'info'
   });
-  
-  // Track if the drag helper notification has been shown
-  const [showDragHelper, setShowDragHelper] = useState(false);
   
   useEffect(() => {
     async function fetchProject() {
@@ -732,132 +657,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     });
   };
   
-  // TOC settings handlers
-  const handleTocSettingsClose = () => {
-    setTocSettingsOpen(false);
-  };
-  
-  const handleTocSettingChange = (
-    setting: keyof typeof tocSettings, 
-    value: boolean | number | string
-  ) => {
-    setTocSettings({
-      ...tocSettings,
-      [setting]: value
-    });
-  };
-  
-  // Helper function to add a Part divider to main matter
-  const addPartDivider = () => {
-    // This function is deprecated and no longer used
-    return;
-    // This function will be deleted
-  };
-  
-  // Keep this function for numToRoman conversion as it might be used elsewhere
-  const numToRoman = (num: number): string => {
-    if (num <= 0) return '';
-    
-    const romanNumerals = [
-      { value: 1000, numeral: 'M' },
-      { value: 900, numeral: 'CM' },
-      { value: 500, numeral: 'D' },
-      { value: 400, numeral: 'CD' },
-      { value: 100, numeral: 'C' },
-      { value: 90, numeral: 'XC' },
-      { value: 50, numeral: 'L' },
-      { value: 40, numeral: 'XL' },
-      { value: 10, numeral: 'X' },
-      { value: 9, numeral: 'IX' },
-      { value: 5, numeral: 'V' },
-      { value: 4, numeral: 'IV' },
-      { value: 1, numeral: 'I' }
-    ];
-    
-    let result = '';
-    for (const { value, numeral } of romanNumerals) {
-      while (num >= value) {
-        result += numeral;
-        num -= value;
-      }
-    }
-    
-    return result;
-  };
-  
-  // Modify the generateProjectMarkdown function to handle part dividers
-  const generateProjectMarkdown = (useChapterPrefix: boolean) => {
-    let markdown = '';
-    let chapterCount = 1;
-    
-    // Loop through all areas in order
-    ['front', 'main', 'back'].forEach(area => {
-      // For main matter, first scan to see if there are part dividers
-      let hasParts = false;
-      if (area === 'main') {
-        hasParts = structure.main.some(section => section.match(/^Part [IVXLCDM]+:/));
-      }
-      
-      structure[area].forEach(section => {
-        const key = `${area}:${section}`;
-        const text = content[key];
-        
-        // Skip empty sections
-        if (!text || text.trim().length === 0) return;
-        
-        const trimmedText = text.trim();
-        
-        // Special handling for part dividers in main matter
-        if (area === 'main' && section.match(/^Part [IVXLCDM]+:/)) {
-          // It's a part divider - keep its full heading intact
-          markdown += `${trimmedText}\n\n`;
-          return;
-        }
-        
-        if (area === 'main' && useChapterPrefix && !hasParts) {
-          // For main matter with chapter prefix enabled
-          
-          // Find the first level 1 heading in the content
-          const headingMatch = trimmedText.match(/^# (.+)$/m);
-          
-          if (headingMatch) {
-            // Content has a level 1 heading
-            const headingText = headingMatch[1];
-            
-            // Split content at the heading
-            const parts = trimmedText.split(/^# .+$/m, 2);
-            const beforeHeading = parts[0] || '';
-            const afterHeading = parts[1] || '';
-            
-            // Add content before the heading (if any)
-            if (beforeHeading.trim()) {
-              markdown += `${beforeHeading.trim()}\n\n`;
-            }
-            
-            // Replace the heading with Chapter X followed by the original heading text
-            markdown += `# Chapter ${chapterCount}\n${headingText}\n\n`;
-            
-            // Add content after the heading
-            if (afterHeading.trim()) {
-              markdown += `${afterHeading.trim()}\n\n`;
-            }
-          } else {
-            // Content doesn't have a level 1 heading
-            // Add a chapter heading and use section name as title
-            markdown += `# Chapter ${chapterCount}\n${section}\n\n${trimmedText}\n\n`;
-          }
-          
-          chapterCount++;
-        } else {
-          // For front matter, back matter, or when chapter prefix is disabled
-          // Just add the content as is
-          markdown += `${trimmedText}\n\n`;
-        }
-      });
-    });
-    
-    return markdown;
-  };
+
+
 
   // Handle export from modal
   const handleExportModalSubmit = (settings: ExportSettings) => {
@@ -1023,13 +824,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Helper function to show drag-and-drop helper notification
-  const showDragHelperNotification = () => {
-    setNotification({
-      open: true,
-      message: 'Drag and drop sections to rearrange them. Drop a section in the highlighted area to insert it there.',
-      severity: 'info'
-    });
-  };
+
   
   // Helper function to parse markdown into sections based on headings
   const parseMarkdownIntoSections = (markdown: string): Record<string, string> => {
@@ -1826,123 +1621,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     return cleanedStructure;
   };
 
-  // Modify the moveSection function to allow free movement in Main Matter
-  const moveSection = (sourceArea: string, sourceIdx: number, targetArea: string, targetIdx: number): void => {
-    // Don't allow moving if source and target are the same
-    if (sourceArea === targetArea && sourceIdx === targetIdx) {
-      return;
-    }
-    
-    console.log(`Moving section from ${sourceArea}[${sourceIdx}] to ${targetArea}[${targetIdx}]`);
-    
-    // Create a true deep clone of the structure to avoid any reference issues
-    const newStructure = JSON.parse(JSON.stringify(structure));
-    
-    // Get the section name from the source area
-    const sourceAreaArray = newStructure[sourceArea];
-    if (!sourceAreaArray || !Array.isArray(sourceAreaArray)) {
-      console.error(`Source area ${sourceArea} not found or not an array`);
-      return;
-    }
-    const sectionName = sourceAreaArray[sourceIdx];
-    if (!sectionName) {
-      console.error(`Section at index ${sourceIdx} not found in ${sourceArea}`);
-      return;
-    }
-    
-    // IMPORTANT: Store both the section name and its content
-    const sectionToMove = sectionName;
-    const sectionContent = content[`${sourceArea}:${sectionToMove}`] || '';
-    
-    // Check if this is a part divider for later handling
-    const isPartDivider = sectionToMove.match(/^Part [IVXLCDM]+:/);
-    
-    // Remove section from source area
-    newStructure[sourceArea] = newStructure[sourceArea].filter((_, i) => i !== sourceIdx);
-    
-    // Get the target array
-    const targetAreaArray = newStructure[targetArea];
-    if (!targetAreaArray || !Array.isArray(targetAreaArray)) {
-      console.error(`Target area ${targetArea} not found or not an array`);
-      return;
-    }
-    
-    // Calculate the correct insertion index 
-    let insertIndex = targetIdx;
-    
-    // When moving within the same area, we need to adjust the index
-    // if the source index is before the target index, because removing
-    // the source item shifts all later indices back by one
-    if (sourceArea === targetArea && sourceIdx < targetIdx) {
-      insertIndex = targetIdx - 1;
-    }
-    
-    // Ensure index is within bounds
-    if (insertIndex > targetAreaArray.length) {
-      insertIndex = targetAreaArray.length;
-    }
-    
-    // Log the calculated insertion index
-    console.log(`Inserting "${sectionToMove}" at position ${insertIndex} in ${targetArea}`);
-    
-    // Insert the section at the calculated index
-    targetAreaArray.splice(insertIndex, 0, sectionToMove);
-    
-    // IMPORTANT: Update content when moving across areas
-    if (sourceArea !== targetArea) {
-      const newContentKey = `${targetArea}:${sectionToMove}`;
-      const oldContentKey = `${sourceArea}:${sectionToMove}`;
-      
-      // Move content to new area with the same section name
-      setContent(prev => {
-        const newContent = { ...prev };
-        newContent[newContentKey] = sectionContent;
-        delete newContent[oldContentKey];
-        return newContent;
-      });
-    }
-    
-    console.log('Updated structure before cleanup:', JSON.stringify(newStructure, null, 2));
-    
-    // Clean up the structure to remove any null/undefined entries
-    const cleanedStructure = cleanupStructure(newStructure);
-    
-    // Update the structure state
-    setStructure(cleanedStructure);
-    
-    // Special handling for part dividers to ensure they stay where moved
-    if (isPartDivider) {
-      const newSectionIdx = cleanedStructure[targetArea].findIndex(s => s === sectionToMove);
-      if (newSectionIdx !== -1) {
-        setSelected({
-          area: targetArea as keyof typeof structure,
-          idx: newSectionIdx
-        });
-      }
-    }
-    
-    // Save changes to backend
-    // Save using the same method as manual save instead of calling another function
-    axios.put(`http://localhost:3001/api/projects/${projectId}`, {
-      structure: cleanedStructure,
-      content, // Include content to ensure everything is saved
-      author: projectAuthor,
-      subtitle: projectSubtitle,
-      isbn: projectIsbn,
-      _timestamp: Date.now()
-    }, {
-      headers: { Authorization: `Bearer ${token}` }
-    }).then(response => {
-      console.log('Structure saved successfully after reordering');
-    }).catch(err => {
-      console.error('Error saving structure after reordering:', err);
-      setNotification({
-        open: true,
-        message: 'Error saving structure changes. Please try again.',
-        severity: 'error'
-      });
-    });
-  };
+
 
   // Function to validate and repair book structure
   const validateAndRepairStructure = (structureToValidate: typeof structure): typeof structure => {
@@ -2118,24 +1797,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Function to repair and save the structure
-  const repairAndSaveStructure = async () => {
-    try {
-      // First fix all content sections
-      const fixedStructure = fixStructureWithAllChapters();
-      
-      // Then clean up any remaining null/undefined entries
-      const cleanedStructure = cleanupStructure(fixedStructure);
-      
-      // Update the local structure state first
-      setStructure(cleanedStructure);
-      
-      // Save the fixed structure using the existing function
-      await saveStructureToBackend(cleanedStructure);
-      
-    } catch (error) {
-      console.error('Error saving repaired structure to backend:', error);
-    }
-  };
+
 
   // Add an effect to clean up the structure when the component loads
   useEffect(() => {
@@ -2195,27 +1857,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     }
   }, [loadingProject, projectId]); // Only run when loading state or project ID changes
 
-  // Add a function to recover lost Copyright content from localStorage if available
-  const recoverCopyrightContent = useCallback(() => {
-    const copyrightKey = 'front:Copyright';
-    
-    // Check if we have content stored in localStorage
-    const savedCopyright = localStorage.getItem('saved_copyright');
-    
-    if (savedCopyright && (!content[copyrightKey] || content[copyrightKey].trim() === '')) {
-      console.log('Recovering copyright content from localStorage');
-      setContent(prev => ({
-        ...prev,
-        [copyrightKey]: savedCopyright
-      }));
-      
-      setNotification({
-        open: true,
-        message: 'Copyright content has been restored from backup',
-        severity: 'success'
-      });
-    }
-  }, [content]);
+
   
   // Add an effect to save Copyright content to localStorage whenever it changes
   useEffect(() => {
@@ -2227,93 +1869,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     }
   }, [content]);
   
-  // Add function to convert from roman numeral to number
-  const romanToNumber = (roman: string): number => {
-    const romanMap = {
-      'I': 1,
-      'V': 5,
-      'X': 10,
-      'L': 50,
-      'C': 100,
-      'D': 500,
-      'M': 1000
-    };
-    
-    let result = 0;
-    let i = 0;
-    
-    while (i < roman.length) {
-      const current = romanMap[roman[i] as keyof typeof romanMap];
-      const next = i + 1 < roman.length ? romanMap[roman[i + 1] as keyof typeof romanMap] : 0;
-      
-      if (current < next) {
-        result += next - current;
-        i += 2;
-      } else {
-        result += current;
-        i += 1;
-      }
-    }
-    
-    return result;
-  };
-  
-  // Create a simplified section component without drag-and-drop
-  interface SectionItemProps {
-    section: string;
-    area: string;
-    idx: number;
-    isSelected: boolean;
-    onSelect: () => void;
-    onEdit: () => void;
-    onDelete: () => void;
-  }
 
-  const SectionItem = ({ 
-    section, 
-    area, 
-    idx, 
-    isSelected, 
-    onSelect, 
-    onEdit, 
-    onDelete 
-  }: SectionItemProps) => {
-    return (
-      <ListItem 
-        button
-        selected={isSelected}
-        onClick={onSelect}
-        sx={{ 
-          pl: 4, 
-          borderLeft: isSelected ? '3px solid #4fd1c5' : 'none',
-          position: 'relative',
-          '&:hover': {
-            backgroundColor: 'rgba(0, 0, 0, 0.04)',
-            '& .section-actions': {
-              opacity: 1
-            }
-          }
-        }}
-      >
-        <ListItemText primary={section} />
-        <Box 
-          className="section-actions" 
-          sx={{ 
-            opacity: 0, 
-            transition: 'opacity 0.2s',
-            display: 'flex'
-          }}
-        >
-          <IconButton size="small" onClick={(e) => { e.stopPropagation(); onEdit(); }}>
-            <EditIcon fontSize="small" />
-          </IconButton>
-          <IconButton size="small" onClick={(e) => { e.stopPropagation(); onDelete(); }}>
-            <DeleteIcon fontSize="small" />
-          </IconButton>
-        </Box>
-      </ListItem>
-    );
-  };
   
   // Add an effect to verify content is properly loaded
   useEffect(() => {
@@ -2900,78 +2456,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         isLoading={importLoading}
         sectionName={selected ? structure[selected.area][selected.idx] : undefined}
       />
-      
-      {/* TOC Settings Dialog */}
-      <Dialog 
-        open={tocSettingsOpen} 
-        onClose={handleTocSettingsClose}
-        maxWidth="sm"
-        fullWidth
-      >
-        <DialogTitle>Table of Contents Settings</DialogTitle>
-        <DialogContent>
-          <FormControlLabel
-            control={
-              <Switch
-                checked={tocSettings.enabled}
-                onChange={(e) => handleTocSettingChange('enabled', e.target.checked)}
-                color="primary"
-              />
-            }
-            label="Enable Table of Contents"
-            sx={{ mb: 2, display: 'block' }}
-          />
-          
-          <TextField
-            label="TOC Title"
-            value={tocSettings.title}
-            onChange={(e) => handleTocSettingChange('title', e.target.value)}
-            fullWidth
-            margin="normal"
-            disabled={!tocSettings.enabled}
-          />
-          
-          <Typography gutterBottom sx={{ mt: 2 }}>
-            Maximum Heading Depth: {tocSettings.maxDepth}
-          </Typography>
-          <Slider
-            value={tocSettings.maxDepth}
-            onChange={(_, value) => handleTocSettingChange('maxDepth', value as number)}
-            min={1}
-            max={6}
-            step={1}
-            marks
-            valueLabelDisplay="auto"
-            disabled={!tocSettings.enabled}
-          />
-          
-          <FormControlLabel
-            control={
-              <Switch
-                checked={tocSettings.numbered}
-                onChange={(e) => handleTocSettingChange('numbered', e.target.checked)}
-                color="primary"
-              />
-            }
-            label="Use Numbered Headings"
-            sx={{ mt: 2 }}
-            disabled={!tocSettings.enabled}
-          />
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleTocSettingsClose}>Cancel</Button>
-          <Button 
-            onClick={() => {
-              alert('TOC settings saved!');
-              handleTocSettingsClose();
-            }} 
-            variant="contained" 
-            color="primary"
-          >
-            Save
-          </Button>
-        </DialogActions>
-      </Dialog>
       
       {/* Notifications */}
       <Snackbar

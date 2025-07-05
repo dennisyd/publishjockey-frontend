@@ -5,7 +5,7 @@
  * before being passed between components.
  */
 
-import { CHAPTER_PATTERNS, VALIDATORS } from '../constants/FormatConstants';
+import { CHAPTER_PATTERNS } from '../constants/FormatConstants';
 
 /**
  * Interface for validation results

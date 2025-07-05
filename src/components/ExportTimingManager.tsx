@@ -34,10 +34,6 @@ interface ExportTimingManagerProps {
 const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) => {
   console.log('ExportTimingManager component mounted');
 
-  // Flag to prevent automatic downloads
-  const autoDownloadDisabled = true;
-
-  const [isExporting, setIsExporting] = useState<boolean>(false);
   const [exportFormat, setExportFormat] = useState<'pdf' | 'epub' | 'word' | null>(null);
   const [exportStartTime, setExportStartTime] = useState<number | null>(null);
   const [completionDialogOpen, setCompletionDialogOpen] = useState<boolean>(false);
@@ -48,13 +44,11 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
   const [fileIdMap, setFileIdMap] = useState<FileIdMap>({});
   
   const [exportBlobs, setExportBlobs] = useState<Record<string, Blob>>({});
-  const [showDialog, setShowDialog] = useState<boolean>(false);
 
   // Method to start timing an export
   const startExport = useCallback((format: 'pdf' | 'epub' | 'word', title?: string) => {
     setExportFormat(format);
     setExportStartTime(Date.now());
-    setIsExporting(true);
     if (title) {
       setProjectTitle(title);
     }
@@ -97,8 +91,6 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
         }));
       }
       
-      setIsExporting(false);
-      console.log('Setting completionDialogOpen to true - dialog should now appear');
       setCompletionDialogOpen(true);
     } else {
       console.warn('finishExportWithBlob called but exportStartTime is null');
@@ -132,7 +124,6 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
       // DO NOT create or use any download URLs
       // downloadUrl parameter is intentionally ignored
       
-      setIsExporting(false);
       setCompletionDialogOpen(true);
     }
   }, [exportStartTime, exportFormat]);

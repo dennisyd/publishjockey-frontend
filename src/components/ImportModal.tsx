@@ -14,8 +14,7 @@ import {
   CircularProgress,
   IconButton,
   Paper,
-  Divider,
-  Link
+  Divider
 } from '@mui/material';
 import {
   UploadFile as UploadFileIcon,
@@ -195,7 +194,6 @@ const ImportModal: React.FC<ImportModalProps> = ({
         
         if (['md', 'markdown'].includes(extension)) {
           // Force correct MIME type for Markdown files
-          const markdown = await createFilePreview(importFile.file);
           // Create a new file with the correct MIME type
           const blob = new Blob([await importFile.file.arrayBuffer()], { type: 'text/markdown' });
           fileToUpload = new File([blob], importFile.file.name, { type: 'text/markdown' });

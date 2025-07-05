@@ -15,7 +15,6 @@ import CodeIcon from '@mui/icons-material/Code';
 import TocIcon from '@mui/icons-material/Toc';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
-import PublishJockeyLogo from '../assets/publishjockey_logo.png';
 import Footer from '../components/Footer';
 
 const Features = () => {
