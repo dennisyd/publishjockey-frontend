@@ -15,106 +15,65 @@ const pricingPlans = [
       '1 book project',
       'Export limited to first 10 pages',
       'AI-assisted formatting',
-      'Watermark on output'
+      'Watermark on output',
+      'Word document splitting by H1 sections'
     ],
     buttonText: 'Register Free',
     buttonVariant: 'outlined'
   },
   { 
-    title: 'Author Plan', 
-    price: '$79', 
-    description: 'Single book, one-time purchase',
+    title: 'Single Book', 
+    price: '$63', 
+    description: 'One-time purchase for a single book',
     popular: true,
-    planId: 'author',
+    planId: 'single',
     perBookText: 'One-time payment',
     features: [
       '1 book project',
       'Full book export',
       'AI-assisted formatting',
       'Watermark-free output',
-      'Email support'
+      'Email support',
+      'Word document splitting by H1 sections',
+      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
     ],
     buttonText: 'Get Started',
     buttonVariant: 'contained'
   },
   { 
-    title: 'Starter', 
-    price: '$299', 
-    description: '5 books @ $59.80 per book',
-    planId: 'starter',
-    perBookText: '5 books @ $59.80 per book',
+    title: 'Additional Books', 
+    price: '$37', 
+    description: 'Add more books to your account',
+    planId: 'additional',
+    perBookText: 'Per additional book',
     features: [
-      '5 books included',
+      '1 additional book project',
       'Full book export',
       'AI-assisted formatting',
       'Watermark-free output',
-      'Standard support'
+      'Email support',
+      'Word document splitting by H1 sections',
+      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
     ],
-    buttonText: 'Get Started',
+    buttonText: 'Add Book',
     buttonVariant: 'outlined'
   },
   { 
-    title: 'Growth', 
-    price: '$499', 
-    description: '10 books @ $49.90 per book',
-    planId: 'growth',
-    perBookText: '10 books @ $49.90 per book',
+    title: 'Annual Subscription', 
+    price: '$399', 
+    description: 'Unlimited books for one year',
+    planId: 'annual',
+    perBookText: 'Unlimited books for 12 months',
     features: [
-      '10 books included',
+      'Unlimited book projects',
       'Full book export',
       'AI-assisted formatting',
       'Watermark-free output',
-      'Priority support'
+      'Priority support',
+      'Word document splitting by H1 sections',
+      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
     ],
-    buttonText: 'Get Started',
-    buttonVariant: 'outlined'
-  },
-  { 
-    title: 'Professional', 
-    price: '$699', 
-    description: '20 books @ $34.95 per book',
-    planId: 'professional',
-    perBookText: '20 books @ $34.95 per book',
-    features: [
-      '20 books included',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'Premium support'
-    ],
-    buttonText: 'Get Started',
-    buttonVariant: 'outlined'
-  },
-  { 
-    title: 'Power Publisher', 
-    price: '$899', 
-    description: '30 books @ $29.97 per book',
-    planId: 'power',
-    perBookText: '30 books @ $29.97 per book',
-    features: [
-      '30 books included',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'VIP support'
-    ],
-    buttonText: 'Get Started',
-    buttonVariant: 'outlined'
-  },
-  { 
-    title: 'Custom Plan', 
-    price: 'Custom', 
-    description: '30+ books, contact for pricing',
-    planId: 'custom',
-    perBookText: 'Contact us for custom pricing',
-    features: [
-      '30+ books included',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'Dedicated account manager'
-    ],
-    buttonText: 'Contact Us',
+    buttonText: 'Subscribe Now',
     buttonVariant: 'outlined'
   }
 ];
@@ -128,11 +87,6 @@ const Pricing = () => {
   const handlePlanSelect = async (plan) => {
     if (plan.planId === 'free') {
       navigate('/register');
-      return;
-    }
-
-    if (plan.planId === 'custom') {
-      navigate('/contact');
       return;
     }
 
@@ -182,7 +136,7 @@ const Pricing = () => {
               fontWeight: 400 
             }}
           >
-            Choose the plan that works best for your publishing needs
+            Start with a single book for $63, add more for $37 each, or get unlimited access with annual subscription
           </Typography>
         </Box>
 
@@ -247,11 +201,7 @@ const Pricing = () => {
                 
                 <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 2 }}>
                   <Typography variant="h3" component="span" sx={{ fontWeight: 800 }}>
-                    {plan.price === 'Free' || plan.price === 'Custom' 
-                      ? plan.price 
-                      : plan.price === '$79' 
-                        ? '$79' 
-                        : plan.price}
+                    {plan.price}
                   </Typography>
                 </Box>
                 
@@ -346,10 +296,13 @@ const Pricing = () => {
           }}
         >
           <Typography variant="h5" sx={{ mb: 2, fontWeight: 700 }}>
-            Every plan includes:
+            Every paid plan includes:
           </Typography>
-          <Typography variant="body1" sx={{ mb: 1 }}>
-            Export to PDF, Word, and EPUB formats, AI-assisted formatting, editing tools, and watermark-free output for paid plans.
+          <Typography variant="body1" sx={{ mb: 2 }}>
+            Export to PDF, Word, and EPUB formats, AI-assisted formatting, editing tools, watermark-free output, and Word document splitting by H1 sections.
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
+            $100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP — no need to hire someone to create your cover!
           </Typography>
           <Typography variant="body1" sx={{ color: 'error.main', fontWeight: 'bold', mt: 2 }}>
             NO REFUNDS on paid plans — Try the free plan first to see exactly what you'll get

@@ -117,6 +117,9 @@ const PublishJockeyLanding = () => {
       {/* Hero Section */}
       <Hero handleRegister={handleRegister} />
       
+      {/* Book Showcase */}
+      <BookShowcase />
+      
       {/* Mid-page CTA */}
       <MidPageCTA handleRegister={handleRegister} />
       
@@ -321,7 +324,8 @@ const TickerTape = () => {
     { text: "🧠 Real-time preview shows your content before you publish." },
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
-    { text: "💰 Bulk pricing $59.80 per book or less." },
+    { text: "💰 Pricing: $63 for your first book, $37 for each additional, or $399/year for unlimited books." },
+    { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
     { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
@@ -901,6 +905,19 @@ const Hero = ({ handleRegister }) => {
                     alt="Book publishing preview" 
                     style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
                   />
+                  <Typography 
+                    variant="caption" 
+                    sx={{ 
+                      display: 'block',
+                      textAlign: 'center',
+                      fontStyle: 'italic',
+                      color: 'rgba(0,0,0,0.55)',
+                      mt: 1,
+                      fontSize: '0.95rem'
+                    }}
+                  >
+                    Free Cover Created using ChatGPT & Upscale Tool on this site
+                  </Typography>
                 </Box>
               </Box>
               
@@ -922,12 +939,205 @@ const Hero = ({ handleRegister }) => {
                   <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Professional Quality</Typography>
                 </Box>
                 <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Starting at $79</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Starting at $63</Typography>
                 </Box>
               </Box>
             </Box>
           </Grid>
         </Grid>
+      </Container>
+    </Box>
+  );
+};
+
+const BookShowcase = () => {
+  return (
+    <Box sx={{ 
+      py: { xs: 8, md: 10 }, 
+      background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Background decoration */}
+      <Box 
+        sx={{
+          position: 'absolute',
+          width: '400px',
+          height: '400px',
+          borderRadius: '50%',
+          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)',
+          top: '-200px',
+          right: '-100px',
+          zIndex: 0
+        }}
+      />
+      
+      <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography 
+            variant="h2" 
+            component="h2" 
+            sx={{ 
+              fontSize: { xs: '2rem', md: '2.75rem' },
+              fontWeight: 800,
+              mb: 2,
+              color: 'white'
+            }}
+          >
+            See PublishJockey in Action
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            sx={{
+              color: 'white',
+              opacity: 0.85,
+              mb: 2,
+              fontWeight: 500,
+              fontSize: { xs: '1.1rem', md: '1.25rem' }
+            }}
+          >
+            Formatted 100% using PublishJockey — no designers, no extra tools.
+          </Typography>
+        </Box>
+
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexDirection: { xs: 'column', md: 'row' },
+          gap: 4
+        }}>
+          {/* Book Cover */}
+          <Box sx={{ 
+            position: 'relative',
+            transform: 'rotate(-5deg)',
+            transition: 'transform 0.3s ease',
+            '&:hover': {
+              transform: 'rotate(-2deg) scale(1.05)'
+            }
+          }}>
+            <Box sx={{ 
+              width: { xs: '166px', md: '233px' }, // 1:1.5 aspect ratio (e.g., 233x350)
+              height: { xs: '250px', md: '350px' },
+              borderRadius: '8px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              overflow: 'hidden',
+              position: 'relative',
+              background: 'white',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: '10px',
+                left: '10px',
+                right: '10px',
+                bottom: '10px',
+                border: '2px solid rgba(0,0,0,0.1)',
+                borderRadius: '4px',
+                zIndex: 1
+              }
+            }}>
+              <img 
+                src="/uploads/vanquish_KDP_1751687866247.jpg"
+                alt="Vanquish - Book published with PublishJockey"
+                style={{ 
+                  width: '100%', 
+                  height: '100%', 
+                  objectFit: 'contain',
+                  display: 'block',
+                  imageRendering: 'auto',
+                  background: 'white'
+                }}
+              />
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  display: 'block',
+                  textAlign: 'center',
+                  fontStyle: 'italic',
+                  color: 'rgba(0,0,0,0.55)',
+                  mt: 1,
+                  fontSize: '0.95rem'
+                }}
+              >
+                Free Cover Created using ChatGPT & Upscale Tool on this site
+              </Typography>
+            </Box>
+          </Box>
+
+          {/* Book Details */}
+          <Box sx={{ 
+            maxWidth: '500px',
+            color: 'white'
+          }}>
+            <Typography 
+              variant="h4" 
+              component="h3" 
+              sx={{ 
+                fontWeight: 700,
+                mb: 2
+              }}
+            >
+              Published on Amazon
+            </Typography>
+            <Typography 
+              variant="body1" 
+              sx={{ 
+                mb: 3,
+                opacity: 0.9,
+                lineHeight: 1.6
+              }}
+            >
+              This book was formatted and published using PublishJockey. See how our platform transforms your manuscript into a professional, print-ready book that meets Amazon's strict formatting requirements.
+            </Typography>
+            
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="h6" sx={{ fontWeight: 600, mb: 1 }}>
+                What this book demonstrates:
+              </Typography>
+              <Box component="ul" sx={{ pl: 2, opacity: 0.9 }}>
+                <Typography component="li" sx={{ mb: 0.5 }}>
+                  Professional typesetting and layout
+                </Typography>
+                <Typography component="li" sx={{ mb: 0.5 }}>
+                  Proper margins and spacing for print
+                </Typography>
+                <Typography component="li" sx={{ mb: 0.5 }}>
+                  Clean, readable typography
+                </Typography>
+                <Typography component="li" sx={{ mb: 0.5 }}>
+                  KDP-ready formatting standards
+                </Typography>
+              </Box>
+            </Box>
+
+            <Button 
+              href="https://tinyurl.com/2pxyaucz"
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="contained"
+              size="large"
+              sx={{ 
+                bgcolor: 'white',
+                color: 'primary.main',
+                fontWeight: 600,
+                borderRadius: '50px',
+                px: 4,
+                py: 1.5,
+                fontSize: '1rem',
+                textTransform: 'none',
+                boxShadow: '0 8px 25px rgba(0,0,0,0.2)',
+                '&:hover': {
+                  bgcolor: 'white',
+                  boxShadow: '0 12px 35px rgba(0,0,0,0.3)',
+                  transform: 'translateY(-2px)',
+                  transition: 'all 0.2s'
+                }
+              }}
+            >
+              View PDF and EPUB Sample on Amazon
+            </Button>
+          </Box>
+        </Box>
       </Container>
     </Box>
   );
@@ -2130,11 +2340,11 @@ const Pricing = ({ handleRegister }) => {
       buttonVariant: 'outlined'
     },
     {
-      title: '✍️ Author Plan',
-      subtitle: 'Designed for writers publishing a single book with professional-quality output.',
+      title: '✍️ Single Book',
+      subtitle: 'Perfect for authors publishing their first book with professional-quality output.',
       oneTime: true,
-      price: 79,
-      perBookCost: 79,
+      price: 63,
+      perBookCost: 63,
       booksIncluded: 1,
       noRefunds: true,
       features: [
@@ -2144,107 +2354,52 @@ const Pricing = ({ handleRegister }) => {
         { title: 'AI-assisted formatting', included: true },
         { title: 'Advanced editing tools', included: true },
         { title: 'Watermark-free output', included: true },
-        { title: 'Email support', included: true }
+        { title: 'Email support', included: true },
+        { title: 'Word document splitting by H1 sections', included: true },
+        { title: '$100 value: Upscaled cover images for KDP', included: true }
       ],
       buttonText: 'Get Started',
       buttonVariant: 'contained',
       popular: true
     },
     {
-      title: 'Starter',
-      subtitle: 'Perfect for authors just beginning their publishing journey.',
-      price: 299,
-      booksIncluded: 5,
-      perBookCost: 59.80,
+      title: 'Additional Books',
+      subtitle: 'Add more books to your account at a great value.',
+      price: 37,
+      booksIncluded: 1,
+      perBookCost: 37,
       noRefunds: true,
       features: [
-        { title: '5 books included', included: true },
+        { title: '1 additional book project', included: true },
         { title: 'Export to PDF, Word, and EPUB', included: true },
         { title: 'AI-assisted formatting', included: true },
         { title: 'Advanced editing tools', included: true },
         { title: 'Watermark-free output', included: true },
-        { title: 'Standard support', included: true }
+        { title: 'Email support', included: true },
+        { title: 'Word document splitting by H1 sections', included: true },
+        { title: '$100 value: Upscaled cover images for KDP', included: true }
       ],
-      buttonText: 'Get Started',
+      buttonText: 'Add Book',
       buttonVariant: 'outlined'
     },
     {
-      title: 'Growth',
-      subtitle: 'Designed for active authors with multiple books to publish.',
-      price: 499,
-      booksIncluded: 10,
-      perBookCost: 49.90,
+      title: 'Annual Subscription',
+      subtitle: 'Unlimited books for one year - perfect for prolific authors.',
+      price: 399,
+      booksIncluded: 999,
+      perBookCost: 0,
       noRefunds: true,
       features: [
-        { title: '10 books included', included: true },
+        { title: 'Unlimited book projects', included: true },
         { title: 'Export to PDF, Word, and EPUB', included: true },
         { title: 'AI-assisted formatting', included: true },
         { title: 'Advanced editing tools', included: true },
         { title: 'Watermark-free output', included: true },
         { title: 'Priority support', included: true },
-        { title: 'Enhanced storage capacity', included: true }
+        { title: 'Word document splitting by H1 sections', included: true },
+        { title: '$100 value: Upscaled cover images for KDP', included: true }
       ],
-      buttonText: 'Get Started',
-      buttonVariant: 'outlined'
-    },
-    {
-      title: 'Professional',
-      subtitle: 'For prolific authors and small publishing houses.',
-      price: 699,
-      booksIncluded: 20,
-      perBookCost: 34.95,
-      noRefunds: true,
-      features: [
-        { title: '20 books included', included: true },
-        { title: 'Export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'Premium support', included: true },
-        { title: 'Enhanced storage capacity', included: true },
-        { title: 'Bulk formatting tools', included: true }
-      ],
-      buttonText: 'Get Started',
-      buttonVariant: 'outlined'
-    },
-    {
-      title: 'Power Publisher',
-      subtitle: 'Ideal for established publishing companies with a large catalog.',
-      price: 899,
-      booksIncluded: 30,
-      perBookCost: 29.97,
-      noRefunds: true,
-      features: [
-        { title: '30 books included', included: true },
-        { title: 'Export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'VIP support', included: true },
-        { title: 'Maximum storage capacity', included: true },
-        { title: 'Bulk formatting tools', included: true },
-        { title: 'Advanced customization options', included: true }
-      ],
-      buttonText: 'Get Started',
-      buttonVariant: 'outlined'
-    },
-    {
-      title: 'Custom Plan',
-      subtitle: 'For publishers with 30+ books and specialized requirements.',
-      customPrice: true,
-      noRefunds: true,
-      features: [
-        { title: '30+ books included', included: true },
-        { title: 'Export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'Dedicated account manager', included: true },
-        { title: 'Custom storage allocation', included: true },
-        { title: 'Custom integrations', included: true },
-        { title: 'Personalized publishing workflow', included: true }
-      ],
-      buttonText: 'Contact Us',
+      buttonText: 'Subscribe Now',
       buttonVariant: 'outlined'
     }
   ];
@@ -2794,7 +2949,7 @@ const FAQ = () => {
         {
           id: "panel6",
           question: "How secure is my manuscript data?",
-          answer: "Your manuscript security is our priority. All data is encrypted both in transit and at rest. You maintain complete ownership of your content, and we never share your manuscripts with third parties. The Professional plan also includes additional backup options."
+          answer: "Your manuscript security is our priority. All data is encrypted both in transit and at rest. You maintain complete ownership of your content, and we never share your manuscripts with third parties. The Annual Subscription plan also includes additional backup options."
         },
         {
           id: "panel7",
