@@ -10,6 +10,19 @@ import {
   Grid
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import axios from 'axios';
+
+// Types
+interface RegisterResponse {
+  success: boolean;
+  message: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -18,7 +31,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
-  const { register } = useAuth();
+  const { login } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -29,10 +42,23 @@ export default function Register() {
     
     try {
       setError('');
-      await register(email, password, name);
-      navigate('/dashboard');
-    } catch (err) {
-      setError('Failed to create an account');
+      
+      // Register the user
+      const registerResponse = await axios.post<RegisterResponse>('http://localhost:3001/api/auth/register', {
+        name,
+        email,
+        password
+      });
+      
+      if (registerResponse.data.success) {
+        // After successful registration, log the user in
+        await login(email, password);
+        navigate('/dashboard');
+      } else {
+        setError(registerResponse.data.message || 'Failed to create an account');
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to create an account');
       console.error(err);
     }
   };

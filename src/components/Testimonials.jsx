@@ -4,10 +4,10 @@ import { Link as RouterLink } from 'react-router-dom';
 import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const Testimonials = () => {
-  const { isAuthenticated } = useAuth();
+  const { currentUser } = useAuth();
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -186,7 +186,7 @@ const Testimonials = () => {
           </Slider>
         </Box>
         <Box sx={{ textAlign: 'center', mt: 6 }}>
-          {isAuthenticated && (
+          {currentUser && (
             <Typography
               component={RouterLink}
               to="/submit-testimonial"
@@ -210,7 +210,7 @@ const Testimonials = () => {
               fontWeight: 600,
               '&:hover': { textDecoration: 'underline' },
               display: 'inline-block',
-              marginLeft: isAuthenticated ? 4 : 0
+              marginLeft: currentUser ? 4 : 0
             }}
           >
             View All Testimonials →

@@ -17,6 +17,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import ThumbDownIcon from '@mui/icons-material/ThumbDown';
 import EmailIcon from '@mui/icons-material/Email';
+import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import CopyrightIcon from '@mui/icons-material/Copyright';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import PeopleIcon from '@mui/icons-material/People';
+import TimelineIcon from '@mui/icons-material/Timeline';
+import SecurityIcon from '@mui/icons-material/Security';
+import PublicIcon from '@mui/icons-material/Public';
+import PreviewIcon from '@mui/icons-material/Preview';
 import Dialog from '@mui/material/Dialog';
 import DialogTitle from '@mui/material/DialogTitle';
 import DialogContent from '@mui/material/DialogContent';
@@ -27,7 +35,9 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import PublishJockeyLogo from './publishjockey_logo.png';
 import Testimonials from './components/Testimonials';
 import { useState } from 'react';
-import { useAuth } from './auth/AuthContext';
+import { useAuth } from './contexts/AuthContext';
+import { LAUNCH_OFFER_CONFIG, isLaunchOfferActive } from './config/launchOffer';
+import LaunchOfferCountdown from './components/LaunchOfferCountdown';
 
 
 
@@ -318,13 +328,19 @@ const PublishJockeyLanding = () => {
 
 // Ticker Tape Component
 const TickerTape = () => {
+  // Use launch offer if active
+  const launchOfferActive = isLaunchOfferActive();
+  
   // Ticker items with icons
   const tickerItems = [
     { text: "⚡ PDFs generated in ~60 seconds. EPUBs in ~2 seconds. Word docs in ~2 seconds." },
     { text: "🧠 Real-time preview shows your content before you publish." },
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
-    { text: "💰 Pricing: $63 for your first book, $37 for each additional, or $399/year for unlimited books." },
+    { text: launchOfferActive 
+        ? "🚀 LAUNCH OFFER: $49 for your first book, $125 for 10 books! Save up to $505!" 
+        : "💰 Pricing: $63 for your first book, $37 for each additional, or $399/year for 25 books." 
+    },
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
@@ -390,7 +406,7 @@ const TickerTape = () => {
 };
 
 const LandingHeader = ({ openTerms }) => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
 
   // State for dropdowns
   const [productAnchorEl, setProductAnchorEl] = useState(null);
@@ -461,7 +477,7 @@ const LandingHeader = ({ openTerms }) => {
               alignItems: 'center',
               gap: 2
             }}>
-              {isAuthenticated ? (
+              {currentUser ? (
                 <>
                   {/* Product Dropdown - Only for authenticated users */}
                   <Button
@@ -597,7 +613,7 @@ const LandingHeader = ({ openTerms }) => {
               >
                 About
               </Button>
-              {isAuthenticated && (
+              {currentUser && (
                 <Button 
                   href="/submit-testimonial"
                   sx={{ 
@@ -618,7 +634,7 @@ const LandingHeader = ({ openTerms }) => {
               ml: { xs: 0, md: 2 },
               mt: { xs: 1, md: 0 }
             }}>
-              {isAuthenticated ? (
+              {currentUser ? (
                 <>
                   <IconButton
                     onClick={handleAccountMenuOpen}
@@ -634,10 +650,10 @@ const LandingHeader = ({ openTerms }) => {
                     }}
                   >
                     <Avatar sx={{ width: 32, height: 32, bgcolor: 'primary.main', fontSize: 18 }}>
-                      {(user?.name || user?.email || 'A').charAt(0).toUpperCase()}
+                      {(currentUser?.name || currentUser?.email || 'A').charAt(0).toUpperCase()}
                     </Avatar>
                     <span style={{ fontWeight: 500, fontSize: 14, marginLeft: 8, color: '#222', whiteSpace: 'nowrap' }}>
-                      {user?.name || user?.email || 'Account'}
+                      {currentUser?.name || currentUser?.email || 'Account'}
                     </span>
                     <ExpandMoreIcon sx={{ color: 'gray.500', ml: 1 }} />
                   </IconButton>
@@ -706,6 +722,9 @@ const LandingHeader = ({ openTerms }) => {
 };
 
 const Hero = ({ handleRegister }) => {
+  // Use launch offer if active
+  const launchOfferActive = isLaunchOfferActive();
+  
   return (
     <Box
       id="hero"
@@ -939,7 +958,9 @@ const Hero = ({ handleRegister }) => {
                   <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Professional Quality</Typography>
                 </Box>
                 <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Starting at $63</Typography>
+                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>
+                    {launchOfferActive ? 'Starting at $49' : 'Starting at $63'}
+                  </Typography>
                 </Box>
               </Box>
             </Box>
@@ -2321,10 +2342,11 @@ const HowItWorks = () => {
 };
 
 const Pricing = ({ handleRegister }) => {
+  // Use launch offer if active
+  const launchOfferActive = isLaunchOfferActive();
 
-  
   // Define pricing data
-  const pricingPlans = [
+  let pricingPlans = [
     {
       title: 'Free',
       subtitle: 'Perfect for trying out Publish Jockey before committing.',
@@ -2338,72 +2360,94 @@ const Pricing = ({ handleRegister }) => {
       ],
       buttonText: 'Register Free',
       buttonVariant: 'outlined'
-    },
-    {
-      title: '✍️ Single Book',
-      subtitle: 'Perfect for authors publishing their first book with professional-quality output.',
-      oneTime: true,
-      price: 63,
-      perBookCost: 63,
-      booksIncluded: 1,
-      noRefunds: true,
-      features: [
-        { title: '1 book project', included: true },
-        { title: 'Advanced markdown editor', included: true },
-        { title: 'Full book export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'Email support', included: true },
-        { title: 'Word document splitting by H1 sections', included: true },
-        { title: '$100 value: Upscaled cover images for KDP', included: true }
-      ],
-      buttonText: 'Get Started',
-      buttonVariant: 'contained',
-      popular: true
-    },
-    {
-      title: 'Additional Books',
-      subtitle: 'Add more books to your account at a great value.',
-      price: 37,
-      booksIncluded: 1,
-      perBookCost: 37,
-      noRefunds: true,
-      features: [
-        { title: '1 additional book project', included: true },
-        { title: 'Export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'Email support', included: true },
-        { title: 'Word document splitting by H1 sections', included: true },
-        { title: '$100 value: Upscaled cover images for KDP', included: true }
-      ],
-      buttonText: 'Add Book',
-      buttonVariant: 'outlined'
-    },
-    {
-      title: 'Annual Subscription',
-      subtitle: 'Unlimited books for one year - perfect for prolific authors.',
-      price: 399,
-      booksIncluded: 999,
-      perBookCost: 0,
-      noRefunds: true,
-      features: [
-        { title: 'Unlimited book projects', included: true },
-        { title: 'Export to PDF, Word, and EPUB', included: true },
-        { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
-        { title: 'Watermark-free output', included: true },
-        { title: 'Priority support', included: true },
-        { title: 'Word document splitting by H1 sections', included: true },
-        { title: '$100 value: Upscaled cover images for KDP', included: true }
-      ],
-      buttonText: 'Subscribe Now',
-      buttonVariant: 'outlined'
     }
   ];
-  
+
+  if (launchOfferActive) {
+    // Add launch offer plans
+    pricingPlans.push(
+      {
+        ...LAUNCH_OFFER_CONFIG.pricing.singleBook,
+        price: LAUNCH_OFFER_CONFIG.pricing.singleBook.price,
+        originalPrice: LAUNCH_OFFER_CONFIG.pricing.singleBook.originalPrice,
+        launchOffer: true
+      },
+      {
+        ...LAUNCH_OFFER_CONFIG.pricing.bundle,
+        price: LAUNCH_OFFER_CONFIG.pricing.bundle.price,
+        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle.originalPrice,
+        launchOffer: true
+      }
+    );
+  } else {
+    // Fallback to regular plans
+    pricingPlans.push(
+      {
+        title: '✍️ Single Book',
+        subtitle: 'Perfect for authors publishing their first book with professional-quality output.',
+        oneTime: true,
+        price: 63,
+        perBookCost: 63,
+        booksIncluded: 1,
+        noRefunds: true,
+        features: [
+          { title: '1 book project', included: true },
+          { title: 'Advanced markdown editor', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Email support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get Started',
+        buttonVariant: 'contained',
+        popular: true
+      },
+      {
+        title: 'Additional Books',
+        subtitle: 'Add more books to your account at a great value.',
+        price: 37,
+        booksIncluded: 1,
+        perBookCost: 37,
+        noRefunds: true,
+        features: [
+          { title: '1 additional book project', included: true },
+          { title: 'Export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Email support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Add Book',
+        buttonVariant: 'outlined'
+      },
+      {
+        title: 'Annual Subscription',
+        subtitle: '25 books for one year - perfect for prolific authors.',
+        price: 399,
+        booksIncluded: 25,
+        perBookCost: 16,
+        noRefunds: true,
+        features: [
+          { title: '25 book projects', included: true },
+          { title: 'Export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Priority support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Subscribe Now',
+        buttonVariant: 'outlined'
+      }
+    );
+  }
+
   return (
     <Box
       component="section"
@@ -2455,8 +2499,7 @@ const Pricing = ({ handleRegister }) => {
           >
             Choose the plan that works best for your publishing needs
           </Typography>
-          
-          {/* Monthly/Annual toggle removed as requested */}
+          {launchOfferActive && <LaunchOfferCountdown />}
         </Box>
         
         {/* Pricing Cards with Carousel */}
@@ -2589,12 +2632,13 @@ const Pricing = ({ handleRegister }) => {
                   minWidth: { xs: '85%', sm: '350px', md: '330px' },
                   scrollSnapAlign: 'center',
                   flexShrink: 0,
-                  transform: plan.popular ? 'scale(1.05)' : 'scale(1)',
-                  zIndex: plan.popular ? 2 : 1,
+                  transform: plan.launchOffer ? 'scale(1.08)' : plan.popular ? 'scale(1.05)' : 'scale(1)',
+                  zIndex: plan.launchOffer ? 3 : plan.popular ? 2 : 1,
+                  mb: plan.launchOffer ? 4 : 0, // Add bottom margin for launch offer cards
                 }}
               >
                 <Card
-                  elevation={plan.popular ? 8 : 1}
+                  elevation={plan.launchOffer ? 12 : plan.popular ? 8 : 1}
                   sx={{
                     height: '100%',
                     display: 'flex',
@@ -2603,15 +2647,40 @@ const Pricing = ({ handleRegister }) => {
                     borderRadius: 4,
                     overflow: 'visible',
                     transition: 'all 0.3s ease',
-                    border: plan.popular ? '2px solid' : '1px solid',
-                    borderColor: plan.popular ? 'primary.main' : 'divider',
+                    border: plan.launchOffer ? '3px solid' : plan.popular ? '2px solid' : '1px solid',
+                    borderColor: plan.launchOffer ? 'error.main' : plan.popular ? 'primary.main' : 'divider',
+                    transform: plan.launchOffer ? 'scale(1.08)' : plan.popular ? 'scale(1.05)' : 'scale(1)',
+                    zIndex: plan.launchOffer ? 3 : plan.popular ? 2 : 1,
                     '&:hover': {
-                      transform: 'translateY(-8px)',
-                      boxShadow: plan.popular ? '0 16px 70px -12px rgba(0,0,0,0.3)' : '0 12px 40px -12px rgba(0,0,0,0.2)'
+                      transform: plan.launchOffer ? 'translateY(-12px) scale(1.08)' : plan.popular ? 'translateY(-8px) scale(1.05)' : 'translateY(-8px) scale(1)',
+                      boxShadow: plan.launchOffer ? '0 20px 80px -12px rgba(255,0,0,0.4)' : plan.popular ? '0 16px 70px -12px rgba(0,0,0,0.3)' : '0 12px 40px -12px rgba(0,0,0,0.2)'
                     }
                   }}
                 >
-                  {plan.popular && (
+                  {plan.launchOffer && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: -16,
+                        left: 20,
+                        bgcolor: 'error.main',
+                        color: 'white',
+                        borderRadius: '20px',
+                        px: 2,
+                        py: 0.5,
+                        fontWeight: 'bold',
+                        fontSize: '0.8rem',
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.5px',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                        animation: 'pulse 2s infinite',
+                        zIndex: 4
+                      }}
+                    >
+                      🚀 LAUNCH OFFER
+                    </Box>
+                  )}
+                  {plan.popular && !plan.launchOffer && (
                     <Box
                       sx={{
                         position: 'absolute',
@@ -2633,8 +2702,8 @@ const Pricing = ({ handleRegister }) => {
                     </Box>
                   )}
                   
-                  <CardContent sx={{ p: 4, flexGrow: 1 }}>
-                    <Typography variant="h5" component="h3" sx={{ fontWeight: 700, mb: 1 }}>
+                  <CardContent sx={{ p: 4, flexGrow: 1, pt: plan.launchOffer ? 6 : 4 }}>
+                    <Typography variant="h5" component="h3" sx={{ fontWeight: 700, mb: 1, mt: plan.launchOffer ? 2 : 0 }}>
                       {plan.title}
                     </Typography>
                     <Typography variant="body2" color="text.secondary" sx={{ mb: 3, minHeight: '40px' }}>
@@ -2642,22 +2711,71 @@ const Pricing = ({ handleRegister }) => {
                     </Typography>
                     
                     {/* Pricing */}
-                    <div className="flex items-center justify-center mt-2">
-                      {!plan.free && (
-                        <span className="text-gray-500 text-2xl mr-1">$</span>
+                    <Box sx={{ textAlign: 'center', mb: 2 }}>
+                      {plan.launchOffer ? (
+                        // Launch offer pricing with original price strikethrough
+                        <Box>
+                          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+                            <Typography 
+                              variant="h4" 
+                              sx={{ 
+                                textDecoration: 'line-through', 
+                                color: 'text.disabled',
+                                mr: 2,
+                                fontSize: '1.5rem'
+                              }}
+                            >
+                              ${plan.originalPrice}
+                            </Typography>
+                            <Typography variant="h3" sx={{ fontWeight: 700, color: 'error.main' }}>
+                              ${plan.price}
+                            </Typography>
+                          </Box>
+                          <Typography 
+                            variant="body2" 
+                            sx={{ 
+                              color: 'error.main', 
+                              fontWeight: 600,
+                              bgcolor: 'error.light',
+                              color: 'error.dark',
+                              px: 2,
+                              py: 0.5,
+                              borderRadius: 1,
+                              display: 'inline-block'
+                            }}
+                          >
+                            Save ${plan.savings}!
+                          </Typography>
+                          {plan.oneTime && (
+                            <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                              /one-time
+                            </Typography>
+                          )}
+                        </Box>
+                      ) : (
+                        // Regular pricing
+                        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                          {!plan.free && (
+                            <Typography variant="h4" sx={{ color: 'text.secondary', mr: 0.5 }}>$</Typography>
+                          )}
+                          <Typography variant="h3" sx={{ fontWeight: 700 }}>
+                            {plan.free ? 'Free' : plan.customPrice ? 'Custom' : plan.price}
+                          </Typography>
+                          {plan.oneTime && (
+                            <Typography variant="body2" color="text.secondary" sx={{ ml: 1 }}>
+                              /one-time
+                            </Typography>
+                          )}
+                          {!plan.customPrice && !plan.free && !plan.oneTime && (
+                            <Box sx={{ display: 'flex', flexDirection: 'column', ml: 1 }}>
+                              <Typography variant="body2" color="text.secondary">
+                                {plan.booksIncluded} {plan.booksIncluded === 1 ? 'book' : 'books'} @ <Box component="span" sx={{ fontWeight: 700 }}>${plan.perBookCost}</Box> per book
+                              </Typography>
+                            </Box>
+                          )}
+                        </Box>
                       )}
-                      <span className="text-4xl font-bold">
-                        {plan.free ? 'Free' : plan.customPrice ? 'Custom' : plan.price}
-                      </span>
-                      {plan.oneTime && (
-                        <span className="text-sm text-gray-500 ml-2">/one-time</span>
-                      )}
-                      {!plan.customPrice && !plan.free && !plan.oneTime && (
-                        <div className="flex flex-col ml-2">
-                          <span className="text-sm text-gray-500">{plan.booksIncluded} {plan.booksIncluded === 1 ? 'book' : 'books'} @ <span className="font-bold">${plan.perBookCost}</span> per book</span>
-                        </div>
-                      )}
-                    </div>
+                    </Box>
                     
                     {plan.noRefunds && (
                       <Box sx={{ mb: 3, mt: 2 }}>
@@ -2842,12 +2960,12 @@ const FAQ = () => {
         {
           id: "panel1",
           question: "What makes Publish Jockey different from other publishing tools?",
-          answer: "Publish Jockey combines the simplicity of markdown editing with professional LaTeX PDF generation, giving you the best of both worlds—easy authoring with beautiful, print-ready results. Unlike other tools, we focus specifically on book publishing with KDP-compatible outputs."
+          answer: "Publish Jockey gives you the simplicity of easy, distraction-free writing, with professional book formatting that matches the standards of major publishers like those on Amazon or in bookstores. Your manuscript is instantly turned into a polished, print-ready book—no complicated setup required."
         },
         {
           id: "panel2",
-          question: "Do I need to know LaTeX to use Publish Jockey?",
-          answer: "Not at all! That's the beauty of Publish Jockey. You write in simple markdown, and our system handles all the complex LaTeX behind the scenes to generate professional PDFs. No LaTeX knowledge required."
+          question: "Do I need to know any special formatting or coding?",
+          answer: "Not at all! Just write your book using simple, familiar tools. Publish Jockey handles all the advanced typesetting and layout automatically, so your final book always looks clean, consistent, and professionally published."
         },
         {
           id: "panel3",
@@ -2902,13 +3020,13 @@ const FAQ = () => {
         },
         {
           id: "panel11",
-          question: "What is LaTeX?",
-          answer: "LaTeX (pronounced Lay-tech) is a typesetting system commonly used for producing high-quality documents, especially those that include mathematical formulas, tables, and structured formatting. It's widely used in academic publishing, technical writing, and book production because it gives you precise control over layout and typography. In our app, we use LaTeX behind the scenes to ensure your final PDF looks clean, consistent, and professional."
+          question: "Why does my finished book look so professional?",
+          answer: "Behind the scenes, we use advanced publishing technology—the same approach used by large publishing houses—to ensure your book is formatted to the highest industry standards. You get beautiful results without worrying about the technical side."
         },
         {
           id: "panel12",
-          question: "Why is LaTeX better than Microsoft Word?",
-          answer: "LaTeX is better suited for professional publishing because it focuses on content structure and consistency rather than manual formatting. Unlike Microsoft Word, which can become cluttered with styles and layout adjustments, LaTeX separates content from presentation—ensuring cleaner formatting, especially for complex documents like books, academic papers, and technical manuals. It also handles references, tables, and large documents with greater stability and precision.<br><br><table style='width:100%; border-collapse: collapse; margin: 15px 0;'><tr style='background-color: #f5f5f5; font-weight: bold;'><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>Feature</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>LaTeX</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>Microsoft Word</th></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Formatting Control</td><td style='border: 1px solid #ddd; padding: 8px;'>High, precise, code-based</td><td style='border: 1px solid #ddd; padding: 8px;'>Manual, WYSIWYG</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Document Structure</td><td style='border: 1px solid #ddd; padding: 8px;'>Structured, content-focused</td><td style='border: 1px solid #ddd; padding: 8px;'>Style-based, can get inconsistent</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Handling Large Documents</td><td style='border: 1px solid #ddd; padding: 8px;'>Excellent</td><td style='border: 1px solid #ddd; padding: 8px;'>Can slow down or crash</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Math & Equations</td><td style='border: 1px solid #ddd; padding: 8px;'>Best-in-class support</td><td style='border: 1px solid #ddd; padding: 8px;'>Limited equation editor</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Version Control</td><td style='border: 1px solid #ddd; padding: 8px;'>Easy with Git (text-based)</td><td style='border: 1px solid #ddd; padding: 8px;'>Difficult with binary formats</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>References & Citations</td><td style='border: 1px solid #ddd; padding: 8px;'>Built-in citation management</td><td style='border: 1px solid #ddd; padding: 8px;'>External tools needed</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Output Quality (PDF)</td><td style='border: 1px solid #ddd; padding: 8px;'>Professional typesetting</td><td style='border: 1px solid #ddd; padding: 8px;'>Depends on formatting</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Learning Curve</td><td style='border: 1px solid #ddd; padding: 8px;'>Steeper (requires some coding)</td><td style='border: 1px solid #ddd; padding: 8px;'>Easy to start, intuitive</td></tr></table>"
+          question: "How does Publish Jockey compare to Microsoft Word for book publishing?",
+          answer: "While Word is great for writing, it wasn't designed for professional book publishing. Publish Jockey uses advanced typesetting technology that ensures consistent formatting, proper page layouts, and print-ready quality. Our system handles the complex formatting automatically, so you can focus on your content while getting results that match industry standards.<br><br><table style='width:100%; border-collapse: collapse; margin: 15px 0;'><tr style='background-color: #f5f5f5; font-weight: bold;'><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>Feature</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>Publish Jockey</th><th style='border: 1px solid #ddd; padding: 8px; text-align: left;'>Microsoft Word</th></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Book Formatting</td><td style='border: 1px solid #ddd; padding: 8px;'>Professional, consistent</td><td style='border: 1px solid #ddd; padding: 8px;'>Manual, can be inconsistent</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Print-Ready Output</td><td style='border: 1px solid #ddd; padding: 8px;'>Automatic, optimized</td><td style='border: 1px solid #ddd; padding: 8px;'>Requires manual setup</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Large Document Handling</td><td style='border: 1px solid #ddd; padding: 8px;'>Excellent performance</td><td style='border: 1px solid #ddd; padding: 8px;'>Can slow down or crash</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>KDP Compatibility</td><td style='border: 1px solid #ddd; padding: 8px;'>Built-in optimization</td><td style='border: 1px solid #ddd; padding: 8px;'>Requires conversion</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Consistency</td><td style='border: 1px solid #ddd; padding: 8px;'>Automatic across chapters</td><td style='border: 1px solid #ddd; padding: 8px;'>Manual style management</td></tr><tr><td style='border: 1px solid #ddd; padding: 8px;'>Learning Curve</td><td style='border: 1px solid #ddd; padding: 8px;'>Simple, focused on writing</td><td style='border: 1px solid #ddd; padding: 8px;'>Familiar but complex for books</td></tr></table>"
         },
         {
           id: "panel8",
@@ -2943,19 +3061,117 @@ const FAQ = () => {
       ]
     },
     {
-      category: "Account & Security",
-      icon: <SettingsIcon />,
+      category: "Pricing & Plans",
+      icon: <AttachMoneyIcon />,
       questions: [
         {
-          id: "panel6",
-          question: "How secure is my manuscript data?",
-          answer: "Your manuscript security is our priority. All data is encrypted both in transit and at rest. You maintain complete ownership of your content, and we never share your manuscripts with third parties. The Annual Subscription plan also includes additional backup options."
+          id: "pricing-trial",
+          question: "What happens after my free trial or free book is complete?",
+          answer: "You can choose to upgrade to a paid plan for unlimited exports, or keep your account and work on new projects with limited features. We'll never charge you automatically—upgrade only if you're ready!"
+        },
+        {
+          id: "pricing-flexible",
+          question: "Can I pay per book, or do I have to subscribe?",
+          answer: "We offer both flexible single-book licenses and subscription options for frequent authors or small publishers. You can purchase individual books as needed, or choose our annual subscription for multiple projects."
         },
         {
           id: "panel7",
           question: "Can I try before I buy?",
           answer: "Yes! Our Free plan lets you try most of Publish Jockey's core features. You can create one book project and export with a watermark to see the quality of our system before upgrading to a paid plan."
+        }
+      ]
+    },
+    {
+      category: "Book Ownership & Rights",
+      icon: <CopyrightIcon />,
+      questions: [
+        {
+          id: "ownership-rights",
+          question: "Who owns the books I create with Publish Jockey?",
+          answer: "You always retain 100% rights and ownership of your books and content. We never claim any publishing rights or royalties—everything you create belongs to you."
+        }
+      ]
+    },
+    {
+      category: "Publishing on Amazon KDP",
+      icon: <ShoppingCartIcon />,
+      questions: [
+        {
+          id: "kdp-help",
+          question: "Can you help me publish directly to Amazon KDP?",
+          answer: "While we provide KDP-ready files, you will need to upload your manuscript and cover to Amazon KDP yourself. We include step-by-step instructions and resources to make the process easy, and our support team is happy to answer questions."
         },
+        {
+          id: "panel4",
+          question: "Is Publish Jockey compatible with Kindle Direct Publishing (KDP)?",
+          answer: "Absolutely. Our export formats are specifically designed to meet KDP requirements. The PDF export is optimized for print publishing, and our EPUB option works seamlessly with KDP's digital publishing platform."
+        }
+      ]
+    },
+    {
+      category: "Support & Community",
+      icon: <PeopleIcon />,
+      questions: [
+        {
+          id: "community-forum",
+          question: "Is there a community or forum where I can connect with other authors?",
+          answer: "We're building a community of self-publishers and indie authors—watch for links to our Discord/Facebook group soon!"
+        }
+      ]
+    },
+    {
+      category: "Future Features & Roadmap",
+      icon: <TimelineIcon />,
+      questions: [
+        {
+          id: "future-features",
+          question: "Are you planning to add more features (e.g., audiobook support, advanced templates, more import/export formats)?",
+          answer: "Yes! We're constantly improving based on user feedback. Share your suggestions with us—your vote matters!"
+        }
+      ]
+    },
+    {
+      category: "Real Output Samples",
+      icon: <PreviewIcon />,
+      questions: [
+        {
+          id: "sample-output",
+          question: "Can I see a real book created with Publish Jockey before I sign up?",
+          answer: "Absolutely! We have public sample links—see our Amazon book listing or download a free epub sample to check the real output quality."
+        }
+      ]
+    },
+    {
+      category: "Data & Privacy",
+      icon: <SecurityIcon />,
+      questions: [
+        {
+          id: "data-retention",
+          question: "How long do you keep my manuscript files?",
+          answer: "Your projects are stored as long as your account is active. You can export or delete your content at any time, and request complete data removal for privacy."
+        },
+        {
+          id: "panel6",
+          question: "How secure is my manuscript data?",
+          answer: "Your manuscript security is our priority. All data is encrypted both in transit and at rest. You maintain complete ownership of your content, and we never share your manuscripts with third parties. The Annual Subscription plan also includes additional backup options."
+        }
+      ]
+    },
+    {
+      category: "Accessibility & International",
+      icon: <PublicIcon />,
+      questions: [
+        {
+          id: "international-use",
+          question: "Can I use Publish Jockey if I'm outside the US?",
+          answer: "Yes, our platform is global! We support multiple currencies and common book formats accepted by major platforms worldwide."
+        }
+      ]
+    },
+    {
+      category: "Account & Security",
+      icon: <SettingsIcon />,
+      questions: [
         {
           id: "terms-faq",
           question: "What are the Terms and Agreement?",

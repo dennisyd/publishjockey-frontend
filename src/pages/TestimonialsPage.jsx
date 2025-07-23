@@ -14,7 +14,7 @@ import {
 } from '@mui/material';
 import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 
 const TestimonialsPage = () => {
   const { isAuthenticated } = useAuth();

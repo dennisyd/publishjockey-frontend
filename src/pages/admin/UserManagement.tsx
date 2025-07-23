@@ -44,7 +44,7 @@ import {
   Search as SearchIcon,
   Refresh as RefreshIcon
 } from '@mui/icons-material';
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import * as adminService from '../../services/adminService';
 import { AdminUser, AuditLogEntry } from '../../services/adminService';
 

@@ -4,9 +4,9 @@ import { useAuth } from '../contexts/AuthContext';
 import { Box, CircularProgress } from '@mui/material';
 
 export default function ProtectedRoute() {
-  const { currentUser, isAuthenticated } = useAuth();
+  const { currentUser, loading } = useAuth();
 
-  if (currentUser === undefined) {
+  if (loading) {
     return (
       <Box 
         style={{ 
@@ -21,5 +21,5 @@ export default function ProtectedRoute() {
     );
   }
 
-  return isAuthenticated ? <Outlet /> : <Navigate to="/login" replace />;
+  return currentUser ? <Outlet /> : <Navigate to="/login" replace />;
 } 

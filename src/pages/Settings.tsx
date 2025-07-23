@@ -17,13 +17,25 @@ import {
   SelectChangeEvent,
   Container
 } from '@mui/material';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import SaveIcon from '@mui/icons-material/Save';
+import axios from 'axios';
+
+interface ProfileUpdateResponse {
+  success: boolean;
+  message?: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 
 const Settings: React.FC = () => {
-  const { user, updateProfile } = useAuth();
+  const { currentUser } = useAuth();
   
-  const [name, setName] = useState(user?.name || '');
+  const [name, setName] = useState(currentUser?.name || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
   const [darkMode, setDarkMode] = useState(false);
@@ -35,16 +47,30 @@ const Settings: React.FC = () => {
   
   const handleUpdateProfile = async () => {
     try {
-      await updateProfile(name);
-      setSuccessMessage('Profile updated successfully!');
-      setErrorMessage('');
-      
-      // Clear success message after 3 seconds
-      setTimeout(() => {
-        setSuccessMessage('');
-      }, 3000);
-    } catch (error) {
-      setErrorMessage('Failed to update profile. Please try again.');
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No authentication token');
+      }
+
+      const response = await axios.put<ProfileUpdateResponse>('http://localhost:3001/api/users/profile', {
+        name
+      }, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      if (response.data.success) {
+        // Update localStorage with new user data
+        const updatedUser = { ...currentUser, name };
+        localStorage.setItem('user', JSON.stringify(updatedUser));
+        
+        setSuccessMessage('Profile updated successfully!');
+        setErrorMessage('');
+        setTimeout(() => setSuccessMessage(''), 3000);
+      } else {
+        throw new Error(response.data.message || 'Failed to update profile');
+      }
+    } catch (error: any) {
+      setErrorMessage(error.response?.data?.message || 'Failed to update profile. Please try again.');
       setSuccessMessage('');
     }
   };
@@ -91,11 +117,11 @@ const Settings: React.FC = () => {
                 Subscription Plan
               </Typography>
               <Typography variant="body1" fontWeight={500}>
-                {user?.subscription.charAt(0).toUpperCase() + user?.subscription.slice(1)}
+                {currentUser?.subscription ? currentUser.subscription.charAt(0).toUpperCase() + currentUser.subscription.slice(1) : 'Free'}
               </Typography>
-              {user?.subscriptionExpires && (
+              {currentUser?.subscriptionExpires && (
                 <Typography variant="body2" color="text.secondary">
-                  Expires: {new Date(user.subscriptionExpires).toLocaleDateString()}
+                  Expires: {new Date(currentUser.subscriptionExpires).toLocaleDateString()}
                 </Typography>
               )}
             </Box>
@@ -104,7 +130,7 @@ const Settings: React.FC = () => {
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                 Email Address
               </Typography>
-              <Typography variant="body1">{user?.email}</Typography>
+              <Typography variant="body1">{currentUser?.email}</Typography>
             </Box>
             
             <Box sx={{ mb: 3 }}>

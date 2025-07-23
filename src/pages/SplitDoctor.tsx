@@ -17,7 +17,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ArticleIcon from '@mui/icons-material/Article';
 import MarkdownIcon from '@mui/icons-material/Code';
 import axios from 'axios';
-import { useAuth } from '../auth/AuthContext';
+
 
 // API URL
 const API_URL = 'http://localhost:3001/api';
@@ -83,7 +83,7 @@ const DropZone = styled(Paper)<{ isDragActive: boolean }>(({ theme, isDragActive
 
 // Main component
 const SplitDoctor: React.FC = () => {
-  const { token } = useAuth();
+  const token = localStorage.getItem('token');
   const [file, setFile] = useState<File | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const [loading, setLoading] = useState(false);

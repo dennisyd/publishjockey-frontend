@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import { Box, CircularProgress, Dialog, DialogTitle, DialogContent, DialogActions, Button, Typography, Divider } from '@mui/material';
 import './sidebar.css';
 
@@ -17,21 +17,19 @@ interface ProtectedRouteProps {
 }
 
 export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
-  const { isAuthenticated, loading, user, token } = useAuth();
+  const { currentUser, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   console.log("ProtectedRoute - Auth State:", { 
-    isAuthenticated, 
+    currentUser: !!currentUser, 
     loading, 
-    hasUser: !!user, 
-    hasToken: !!token,
     location: location.pathname 
   });
 
   // Only render content if authenticated
-  const shouldRenderContent = isAuthenticated;
+  const shouldRenderContent = !!currentUser;
 
   // Check if the current path matches the nav item path
   const isActive = (path: string) => {

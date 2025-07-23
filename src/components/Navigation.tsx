@@ -12,20 +12,20 @@ import {
   MenuItem,
   IconButton
 } from '@mui/material';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import ChevronDownIcon from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
 import SplitscreenIcon from '@mui/icons-material/Splitscreen';
 import defaultAvatar from '../assets/default-avatar.png';
 
 const Navigation: React.FC = () => {
-  const { user, isAuthenticated, logout } = useAuth();
+  const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
   const [userMenuAnchorEl, setUserMenuAnchorEl] = React.useState<null | HTMLElement>(null);
   const [mobileAnchorEl, setMobileAnchorEl] = React.useState<null | HTMLElement>(null);
 
   // Debug log for auth state
-  console.log('NAVIGATION AUTH STATE', { user, isAuthenticated });
+  console.log('NAVIGATION AUTH STATE', { currentUser });
 
   const handleUserMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
     setUserMenuAnchorEl(event.currentTarget);
@@ -46,7 +46,7 @@ const Navigation: React.FC = () => {
   };
 
   // Get display name or email prefix
-  const displayName = user?.name || (user?.email ? user.email.split('@')[0] : 'User');
+  const displayName = currentUser?.name || (currentUser?.email ? currentUser.email.split('@')[0] : 'User');
   // Use a default avatar (no user.avatarUrl property exists)
   const avatarSrc = defaultAvatar;
 
@@ -80,7 +80,7 @@ const Navigation: React.FC = () => {
 
           {/* Desktop Navigation */}
           <Box sx={{ display: { xs: 'none', md: 'flex' }, alignItems: 'center' }}>
-            {isAuthenticated ? (
+            {currentUser ? (
               <>
                 <Button color="inherit" component={Link} to="/">
                   Home
@@ -88,7 +88,7 @@ const Navigation: React.FC = () => {
                 <Button color="inherit" component={Link} to="/dashboard">
                   Dashboard
                 </Button>
-                {user?.role === 'admin' && (
+                {currentUser?.role === 'admin' && (
                   <Button color="inherit" component={Link} to="/admin">
                     Admin
                   </Button>
@@ -144,7 +144,7 @@ const Navigation: React.FC = () => {
                     <MenuItem onClick={() => { handleUserMenuClose(); navigate('/dashboard'); }}>
                       Dashboard
                     </MenuItem>
-                    {user?.role === 'admin' && (
+                    {currentUser?.role === 'admin' && (
                       <MenuItem onClick={() => { handleUserMenuClose(); navigate('/admin'); }}>
                         Admin Dashboard
                       </MenuItem>
@@ -195,7 +195,7 @@ const Navigation: React.FC = () => {
 
           {/* Mobile Navigation */}
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
-            {isAuthenticated && (
+            {currentUser && (
               <button
                 className="flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 transition focus:outline-none"
                 onClick={handleUserMenuOpen}
@@ -237,7 +237,7 @@ const Navigation: React.FC = () => {
               <MenuItem onClick={() => { navigate('/'); handleMobileMenuClose(); }}>
                 Home
               </MenuItem>
-              {isAuthenticated ? (
+              {currentUser ? (
                 [
                   <MenuItem key="home" onClick={() => { navigate('/'); handleMobileMenuClose(); }}>
                     Home
@@ -245,7 +245,7 @@ const Navigation: React.FC = () => {
                   <MenuItem key="dashboard" onClick={() => { navigate('/dashboard'); handleMobileMenuClose(); }}>
                     Dashboard
                   </MenuItem>,
-                  user?.role === 'admin' && (
+                  currentUser?.role === 'admin' && (
                     <MenuItem key="admin" onClick={() => { navigate('/admin'); handleMobileMenuClose(); }}>
                       Admin Dashboard
                     </MenuItem>

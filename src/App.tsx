@@ -33,7 +33,7 @@ import Register from './auth/Register';
 import ForgotPassword from './auth/ForgotPassword';
 import ResetPassword from './auth/ResetPassword';
 import VerifyEmail from './auth/VerifyEmail';
-import { AuthProvider } from './auth/AuthContext';
+import { AuthProvider } from './contexts/AuthContext';
 import { ProtectedRoute } from './auth/ProtectedRoute';
 import { PrivateRoute } from './auth/PrivateRoute';
 
@@ -94,11 +94,11 @@ function App() {
   ];
 
   return (
-    <AuthProvider>
-      <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <ExportTimingManager>
-          <Router>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <ExportTimingManager>
+        <Router>
+          <AuthProvider>
             <Box sx={{ 
               display: 'flex', 
               flexDirection: 'column', 
@@ -144,10 +144,10 @@ function App() {
               {/* Global Footer */}
               <Footer />
             </Box>
-          </Router>
-        </ExportTimingManager>
-      </ThemeProvider>
-    </AuthProvider>
+          </AuthProvider>
+        </Router>
+      </ExportTimingManager>
+    </ThemeProvider>
   );
 }
 

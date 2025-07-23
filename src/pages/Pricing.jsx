@@ -3,86 +3,167 @@ import { Box, Container, Typography, Button, Grid, Paper, Divider, CircularProgr
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useNavigate } from 'react-router-dom';
 import { redirectToCheckout } from '../services/stripeService';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
+import { LAUNCH_OFFER_CONFIG, isLaunchOfferActive } from '../config/launchOffer';
+import LaunchOfferCountdown from '../components/LaunchOfferCountdown';
 
-const pricingPlans = [
-  { 
-    title: 'Free', 
-    price: 'Free', 
-    description: 'Try before you buy with the first 10 pages',
-    planId: 'free',
-    features: [
-      '1 book project',
-      'Export limited to first 10 pages',
-      'AI-assisted formatting',
-      'Watermark on output',
-      'Word document splitting by H1 sections'
-    ],
-    buttonText: 'Register Free',
-    buttonVariant: 'outlined'
-  },
-  { 
-    title: 'Single Book', 
-    price: '$63', 
-    description: 'One-time purchase for a single book',
-    popular: true,
-    planId: 'single',
-    perBookText: 'One-time payment',
-    features: [
-      '1 book project',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'Email support',
-      'Word document splitting by H1 sections',
-      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
-    ],
-    buttonText: 'Get Started',
-    buttonVariant: 'contained'
-  },
-  { 
-    title: 'Additional Books', 
-    price: '$37', 
-    description: 'Add more books to your account',
-    planId: 'additional',
-    perBookText: 'Per additional book',
-    features: [
-      '1 additional book project',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'Email support',
-      'Word document splitting by H1 sections',
-      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
-    ],
-    buttonText: 'Add Book',
-    buttonVariant: 'outlined'
-  },
-  { 
-    title: 'Annual Subscription', 
-    price: '$399', 
-    description: 'Unlimited books for one year',
-    planId: 'annual',
-    perBookText: 'Unlimited books for 12 months',
-    features: [
-      'Unlimited book projects',
-      'Full book export',
-      'AI-assisted formatting',
-      'Watermark-free output',
-      'Priority support',
-      'Word document splitting by H1 sections',
-      '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
-    ],
-    buttonText: 'Subscribe Now',
-    buttonVariant: 'outlined'
-  }
-];
+
 
 const Pricing = () => {
   const [loadingPlanId, setLoadingPlanId] = useState(null);
   const [error, setError] = useState(null);
-  const { isAuthenticated } = useAuth();
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
+  
+  // Use launch offer if active
+  const launchOfferActive = isLaunchOfferActive();
+  
+  // Define pricing data based on launch offer status
+  let pricingPlans = [
+    { 
+      title: 'Free', 
+      price: 'Free', 
+      description: 'Try before you buy with the first 10 pages',
+      planId: 'free',
+      features: [
+        '1 book project',
+        'Export limited to first 10 pages',
+        'AI-assisted formatting',
+        'Watermark on output',
+        'Word document splitting by H1 sections'
+      ],
+      buttonText: 'Register Free',
+      buttonVariant: 'outlined'
+    }
+  ];
+
+  if (launchOfferActive) {
+    // Add launch offer plans
+    pricingPlans.push(
+      {
+        title: LAUNCH_OFFER_CONFIG.pricing.singleBook.title,
+        price: `$${LAUNCH_OFFER_CONFIG.pricing.singleBook.price}`,
+        originalPrice: `$${LAUNCH_OFFER_CONFIG.pricing.singleBook.originalPrice}`,
+        description: LAUNCH_OFFER_CONFIG.pricing.singleBook.subtitle,
+        popular: true,
+        planId: 'single_promo',
+        perBookText: 'One-time payment',
+        launchOffer: true,
+        savings: LAUNCH_OFFER_CONFIG.pricing.singleBook.savings,
+        features: LAUNCH_OFFER_CONFIG.pricing.singleBook.features.map(f => f.title),
+        buttonText: LAUNCH_OFFER_CONFIG.pricing.singleBook.buttonText,
+        buttonVariant: 'contained'
+      },
+      {
+        title: LAUNCH_OFFER_CONFIG.pricing.bundle.title,
+        price: `$${LAUNCH_OFFER_CONFIG.pricing.bundle.price}`,
+        originalPrice: `$${LAUNCH_OFFER_CONFIG.pricing.bundle.originalPrice}`,
+        description: LAUNCH_OFFER_CONFIG.pricing.bundle.subtitle,
+        planId: 'bundle_promo',
+        perBookText: 'Valid for 3 years from purchase',
+        launchOffer: true,
+        savings: LAUNCH_OFFER_CONFIG.pricing.bundle.savings,
+        features: LAUNCH_OFFER_CONFIG.pricing.bundle.features.map(f => f.title),
+        buttonText: LAUNCH_OFFER_CONFIG.pricing.bundle.buttonText,
+        buttonVariant: 'contained'
+      }
+    );
+  } else {
+    // Fallback to regular plans
+    pricingPlans.push(
+      { 
+        title: 'Single Book', 
+        price: '$63', 
+        description: 'One-time purchase for a single book',
+        popular: true,
+        planId: 'single',
+        perBookText: 'One-time payment',
+        features: [
+          '1 book project',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Email support',
+          'Word document splitting by H1 sections',
+          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+        ],
+        buttonText: 'Get Started',
+        buttonVariant: 'contained'
+      },
+      { 
+        title: '10 Book Bundle', 
+        price: '$399', 
+        description: 'Publish up to 10 books',
+        planId: 'bundle',
+        perBookText: '10 books for 3 years',
+        features: [
+          '10 book projects',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Priority support',
+          'Word document splitting by H1 sections',
+          '$1,000 value included: Upscaled cover images for KDP'
+        ],
+        buttonText: 'Get Bundle',
+        buttonVariant: 'outlined'
+      },
+      { 
+        title: '20 Book Bundle', 
+        price: '$599', 
+        description: 'Publish up to 20 books',
+        planId: 'bundle20',
+        perBookText: '20 books for 3 years',
+        features: [
+          '20 book projects',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Priority support',
+          'Word document splitting by H1 sections',
+          '$2,000 value included: Upscaled cover images for KDP'
+        ],
+        buttonText: 'Get Bundle',
+        buttonVariant: 'outlined'
+      },
+      { 
+        title: 'Additional Books', 
+        price: '$37', 
+        description: 'Add more books to your account',
+        planId: 'additional',
+        perBookText: 'Per additional book',
+        features: [
+          '1 additional book project',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Email support',
+          'Word document splitting by H1 sections',
+          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+        ],
+        buttonText: 'Add Book',
+        buttonVariant: 'outlined'
+      },
+      { 
+        title: 'Annual Subscription', 
+        price: '$399', 
+        description: '25 books for one year',
+        planId: 'annual',
+        perBookText: '25 books for 12 months',
+        features: [
+          '25 book projects',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Priority support',
+          'Word document splitting by H1 sections',
+          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+        ],
+        buttonText: 'Subscribe Now',
+        buttonVariant: 'outlined'
+      }
+    );
+  }
 
   const handlePlanSelect = async (plan) => {
     if (plan.planId === 'free') {
@@ -91,7 +172,7 @@ const Pricing = () => {
     }
 
     // Check if user is authenticated
-    if (!isAuthenticated) {
+    if (!currentUser) {
       navigate('/login', { state: { from: '/pricing', planId: plan.planId } });
       return;
     }
@@ -136,8 +217,12 @@ const Pricing = () => {
               fontWeight: 400 
             }}
           >
-            Start with a single book for $63, add more for $37 each, or get unlimited access with annual subscription
+            {launchOfferActive 
+              ? 'Limited time launch offer - Save up to $1,450 on professional book publishing tools'
+              : 'Start with a single book for $63, add more for $37 each, or get 25 books with annual subscription'
+            }
           </Typography>
+          {launchOfferActive && <LaunchOfferCountdown />}
         </Box>
 
         {error && (
@@ -151,7 +236,7 @@ const Pricing = () => {
           {pricingPlans.map((plan, index) => (
             <Grid item xs={12} sm={6} md={4} key={index} sx={{ display: 'flex' }}>
               <Paper 
-                elevation={plan.popular ? 4 : 1}
+                elevation={plan.launchOffer ? 12 : plan.popular ? 4 : 1}
                 sx={{ 
                   p: 4, 
                   borderRadius: 4,
@@ -159,18 +244,41 @@ const Pricing = () => {
                   display: 'flex',
                   flexDirection: 'column',
                   position: 'relative',
-                  border: plan.popular ? '2px solid' : '1px solid',
-                  borderColor: plan.popular ? 'primary.main' : 'divider',
-                  transform: plan.popular ? 'scale(1.05)' : 'scale(1)',
+                  border: plan.launchOffer ? '3px solid' : plan.popular ? '2px solid' : '1px solid',
+                  borderColor: plan.launchOffer ? 'error.main' : plan.popular ? 'primary.main' : 'divider',
+                  transform: plan.launchOffer ? 'scale(1.08)' : plan.popular ? 'scale(1.05)' : 'scale(1)',
                   transition: 'all 0.3s ease',
-                  zIndex: plan.popular ? 2 : 1,
+                  zIndex: plan.launchOffer ? 3 : plan.popular ? 2 : 1,
                   '&:hover': {
-                    transform: plan.popular ? 'scale(1.08)' : 'scale(1.03)',
-                    boxShadow: plan.popular ? '0 16px 70px -12px rgba(0,0,0,0.3)' : '0 12px 40px -12px rgba(0,0,0,0.2)'
+                    transform: plan.launchOffer ? 'translateY(-12px) scale(1.08)' : plan.popular ? 'scale(1.08)' : 'scale(1.03)',
+                    boxShadow: plan.launchOffer ? '0 20px 80px -12px rgba(255,0,0,0.4)' : plan.popular ? '0 16px 70px -12px rgba(0,0,0,0.3)' : '0 12px 40px -12px rgba(0,0,0,0.2)'
                   }
                 }}
               >
-                {plan.popular && (
+                {plan.launchOffer && (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: -16,
+                      left: 20,
+                      bgcolor: 'error.main',
+                      color: 'white',
+                      borderRadius: '20px',
+                      px: 2,
+                      py: 0.5,
+                      fontWeight: 'bold',
+                      fontSize: '0.8rem',
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                      boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
+                      animation: 'pulse 2s infinite',
+                      zIndex: 4
+                    }}
+                  >
+                    🚀 LAUNCH OFFER
+                  </Box>
+                )}
+                {plan.popular && !plan.launchOffer && (
                   <Box
                     sx={{
                       position: 'absolute',
@@ -192,18 +300,54 @@ const Pricing = () => {
                   </Box>
                 )}
                 
-                <Typography variant="h5" sx={{ mb: 1, fontWeight: 700 }}>
+                <Typography variant="h5" sx={{ mb: 1, fontWeight: 700, mt: plan.launchOffer ? 2 : 0 }}>
                   {plan.title}
                 </Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ mb: 3, minHeight: '40px' }}>
                   {plan.description}
                 </Typography>
                 
-                <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 2 }}>
-                  <Typography variant="h3" component="span" sx={{ fontWeight: 800 }}>
-                    {plan.price}
-                  </Typography>
-                </Box>
+                {plan.launchOffer ? (
+                  <Box sx={{ textAlign: 'center', mb: 2 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', mb: 1 }}>
+                      <Typography 
+                        variant="h4" 
+                        sx={{ 
+                          textDecoration: 'line-through', 
+                          color: 'text.disabled',
+                          mr: 2,
+                          fontSize: '1.5rem'
+                        }}
+                      >
+                        {plan.originalPrice}
+                      </Typography>
+                      <Typography variant="h3" sx={{ fontWeight: 700, color: 'error.main' }}>
+                        {plan.price}
+                      </Typography>
+                    </Box>
+                    <Typography 
+                      variant="body2" 
+                      sx={{ 
+                        color: 'error.main', 
+                        fontWeight: 600,
+                        bgcolor: 'error.light',
+                        color: 'error.dark',
+                        px: 2,
+                        py: 0.5,
+                        borderRadius: 1,
+                        display: 'inline-block'
+                      }}
+                    >
+                      Save ${plan.savings}!
+                    </Typography>
+                  </Box>
+                ) : (
+                  <Box sx={{ display: 'flex', alignItems: 'baseline', mb: 2 }}>
+                    <Typography variant="h3" component="span" sx={{ fontWeight: 800 }}>
+                      {plan.price}
+                    </Typography>
+                  </Box>
+                )}
                 
                 {plan.perBookText && (
                   <Typography variant="body2" sx={{ color: 'text.secondary', mb: 3 }}>

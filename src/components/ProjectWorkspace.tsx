@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import {
   Box,
   Typography,
@@ -42,7 +42,7 @@ import {
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
-import { useAuth } from '../auth/AuthContext';
+
 import ExportModal, { ExportSettings } from './ExportModal';
 import ImportModal, { ImportSettings } from './ImportModal';
 import { ExportService } from '../services/ExportService';
@@ -162,10 +162,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // State for project title
   const [loadingProject, setLoadingProject] = useState(true);
-  const [projectError, setProjectError] = useState('');
+
   
-  // Get auth token from context instead of localStorage
-  const { token } = useAuth();
+  // Get auth token from localStorage
+  const token = localStorage.getItem('token');
   
   // Add ref for debounce timer at the component top level
   const debouncedSave = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -190,7 +190,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   useEffect(() => {
     async function fetchProject() {
       setLoadingProject(true);
-      setProjectError('');
+
       try {
         // Use token from context instead of localStorage
         const res = await axios.get<ProjectApiResponse>(`http://localhost:3001/api/projects/${projectId}`, {
@@ -294,7 +294,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }
       } catch (err) {
         console.error('Project fetch error:', err);
-        setProjectError('Project not found or error loading project data');
+
         setProjectTitle('');
       } finally {
         setLoadingProject(false);
@@ -1725,76 +1725,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     }
   };
 
-  // Function to fix the structure to include all available chapters
-  const fixStructureWithAllChapters = (): typeof structure => {
-    // Get all section keys from the content object
-    const allSections = Object.keys(content || {});
-    console.log('Fixing structure with content keys:', allSections);
-    
-    // Create a new structure object
-    const newStructure = {
-      front: [] as string[],
-      main: [] as string[],
-      back: [] as string[]
-    };
-    
-    // Check for invalid section names in current structure
-    let foundInvalidSections = false;
-    ['front', 'main', 'back'].forEach(area => {
-      if (structure[area] && Array.isArray(structure[area])) {
-        structure[area].forEach(section => {
-          if (!section || section === 'null' || section === 'undefined' || section.trim() === '') {
-            console.warn(`Found invalid section name in ${area}: "${section}"`);
-            foundInvalidSections = true;
-          }
-        });
-      }
-    });
-    
-    if (foundInvalidSections) {
-      console.log('Invalid sections found, they will be removed during cleanup');
-      setNotification({
-        open: true,
-        message: 'Invalid section names found and fixed',
-        severity: 'warning'
-      });
-    }
-    
-    // First, add all valid sections from current structure
-    ['front', 'main', 'back'].forEach(area => {
-      if (structure[area] && Array.isArray(structure[area])) {
-        structure[area].forEach(section => {
-          // Only add valid section names (skip null/undefined entries)
-          if (section && section !== 'null' && section !== 'undefined' && section.trim() !== '') {
-            newStructure[area].push(section);
-          }
-        });
-      }
-    });
-    
-    // Process all content sections and add any that are missing
-    allSections.forEach(key => {
-      const parts = key.split(':');
-      if (parts.length === 2) {
-        const area = parts[0] as keyof typeof structure;
-        const sectionName = parts[1];
-        
-        // Skip empty section names and skip area if it's not a valid area
-        if (!sectionName || !newStructure[area]) return;
-        
-        // Only add if not already in the structure and it's a valid non-null name
-        if (sectionName !== 'null' && 
-            sectionName !== 'undefined' && 
-            sectionName.trim() !== '' &&
-            !newStructure[area].includes(sectionName)) {
-          newStructure[area].push(sectionName);
-        }
-      }
-    });
-    
-    console.log('Fixed structure:', newStructure);
-    return newStructure;
-  };
+
 
   // Function to repair and save the structure
 

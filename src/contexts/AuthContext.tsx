@@ -1,19 +1,20 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
-// Define the base URL for API calls
-const API_BASE_URL = 'http://localhost:3001'; // Updated to the backend port
+// API base URL
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
 
+// Types
 interface User {
   id: string;
-  email: string;
   name: string;
-  role?: string;
-  subscription?: string;
+  email: string;
+  role: string;
+  subscription: string;
+  subscriptionExpires?: string;
 }
 
-// API response interfaces
 interface LoginResponse {
   success: boolean;
   message: string;
@@ -21,27 +22,19 @@ interface LoginResponse {
   user: User;
 }
 
-interface RegisterResponse {
+interface RefreshResponse {
   success: boolean;
   message: string;
+  token: string;
+  user: User;
 }
 
 interface AuthContextType {
   currentUser: User | null;
+  loading: boolean;
   login: (email: string, password: string) => Promise<void>;
-  register: (email: string, password: string, name: string) => Promise<void>;
   logout: () => void;
-  isAuthenticated: boolean;
-}
-
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
-
-export function useAuth() {
-  const context = useContext(AuthContext);
-  if (context === undefined) {
-    throw new Error('useAuth must be used within an AuthProvider');
-  }
-  return context;
+  refreshToken: () => Promise<void>;
 }
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
@@ -67,6 +60,37 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     }
     setLoading(false);
   }, []);
+
+  // Set up automatic token refresh
+  useEffect(() => {
+    if (!currentUser) return;
+
+    const token = localStorage.getItem('token');
+    if (!token) return;
+
+    // Parse the JWT to get expiration time
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const expTime = payload.exp * 1000; // Convert to milliseconds
+      const now = Date.now();
+      const timeUntilExpiry = expTime - now;
+      
+      // If token expires in less than 5 minutes, refresh it
+      if (timeUntilExpiry < 5 * 60 * 1000) {
+        refreshToken();
+      } else {
+        // Set up refresh timer to refresh 5 minutes before expiry
+        const refreshTime = timeUntilExpiry - (5 * 60 * 1000);
+        const refreshTimer = setTimeout(() => {
+          refreshToken();
+        }, refreshTime);
+        
+        return () => clearTimeout(refreshTimer);
+      }
+    } catch (error) {
+      console.error('Error parsing JWT token:', error);
+    }
+  }, [currentUser]);
 
   async function login(email: string, password: string) {
     try {
@@ -99,95 +123,79 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error('Login failed with success=false:', response.data.message);
         throw new Error(response.data.message || 'Login failed');
       }
-    } catch (error: any) {
-      console.error('Login error details:', {
-        message: error.message,
-        name: error.name,
-        code: error.code,
-        stack: error.stack
-      });
-      
-      // More detailed network error logging
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error('Error response data:', error.response.data);
-        console.error('Error response status:', error.response.status);
-        console.error('Error response headers:', error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error('No response received:', error.request);
-      }
-      
+    } catch (error) {
+      console.error('Login error:', error);
       throw error;
     }
   }
 
-  async function register(email: string, password: string, name: string): Promise<void> {
+  async function refreshToken() {
     try {
-      console.log(`Attempting registration for ${email} to ${API_BASE_URL}/auth/register`);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        throw new Error('No token to refresh');
+      }
+
+      console.log('Refreshing token...');
       
-      // Make API call to backend
-      const response = await axios.post<RegisterResponse>(`${API_BASE_URL}/auth/register`, { 
-        email, 
-        password,
-        name
+      const response = await axios.post<RefreshResponse>(`${API_BASE_URL}/auth/refresh`, {
+        refreshToken: token
       });
       
-      console.log('Registration response status:', response.status);
-      console.log('Registration response data:', JSON.stringify(response.data, null, 2));
-      
-      if (!response.data.success) {
-        console.error('Registration failed with success=false:', response.data.message);
-        throw new Error(response.data.message || 'Registration failed');
+      if (response.data.success) {
+        const { user, token: newToken } = response.data;
+        
+        console.log('Token refreshed successfully');
+        
+        // Update stored token
+        localStorage.setItem('token', newToken);
+        localStorage.setItem('user', JSON.stringify(user));
+        
+        // Update Authorization header
+        axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        
+        setCurrentUser(user);
+      } else {
+        throw new Error(response.data.message || 'Token refresh failed');
       }
-      
-      console.log('Registration successful for:', email);
-      // Don't return anything to match Promise<void> return type
-    } catch (error: any) {
-      console.error('Registration error details:', {
-        message: error.message,
-        name: error.name,
-        code: error.code,
-        stack: error.stack
-      });
-      
-      // More detailed network error logging
-      if (error.response) {
-        // The request was made and the server responded with a status code
-        // that falls out of the range of 2xx
-        console.error('Error response data:', error.response.data);
-        console.error('Error response status:', error.response.status);
-        console.error('Error response headers:', error.response.headers);
-      } else if (error.request) {
-        // The request was made but no response was received
-        console.error('No response received:', error.request);
-      }
-      
-      throw error;
+    } catch (error) {
+      console.error('Token refresh failed:', error);
+      // If refresh fails, log out the user
+      logout();
     }
   }
 
   function logout() {
-    setCurrentUser(null);
-    localStorage.removeItem('user');
     localStorage.removeItem('token');
-    // Clear authorization header
+    localStorage.removeItem('user');
     delete axios.defaults.headers.common['Authorization'];
+    setCurrentUser(null);
     navigate('/login');
   }
 
-  const value = {
+  const value: AuthContextType = {
     currentUser,
+    loading,
     login,
-    register,
     logout,
-    isAuthenticated: !!currentUser
+    refreshToken
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!loading && children}
+      {children}
     </AuthContext.Provider>
   );
+}
+
+// Create the context
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+// Hook to use the auth context
+export function useAuth() {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
 } 

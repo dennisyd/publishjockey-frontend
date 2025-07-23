@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Box,
   Button,
@@ -17,9 +17,22 @@ import {
   FormControlLabel,
   Modal
 } from '@mui/material';
+import axios from 'axios';
 import PersonAddOutlinedIcon from '@mui/icons-material/PersonAddOutlined';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Visibility, VisibilityOff } from '@mui/icons-material';
+
+// Types
+interface RegisterResponse {
+  success: boolean;
+  message: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 
 const Register: React.FC = () => {
   const [name, setName] = useState('');
@@ -33,7 +46,7 @@ const Register: React.FC = () => {
   const [termsOpen, setTermsOpen] = useState(false);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const { register, loading, error, clearError } = useAuth();
+  const { login, loading } = useAuth();
   const navigate = useNavigate();
   const termsContentRef = React.useRef<HTMLDivElement>(null);
 
@@ -106,20 +119,32 @@ const Register: React.FC = () => {
     
     // Clear any previous errors
     setFormError('');
-    clearError();
     
     try {
       console.log('Attempting registration with:', { name, email });
       
-      await register(name, email, password);
+      // Register the user
+      const registerResponse = await axios.post<RegisterResponse>('http://localhost:3001/api/auth/register', {
+        name,
+        email,
+        password
+      });
       
-      // Registration was successful, show success message
-      setRegistrationSuccess(true);
-      
-      // Don't redirect yet, let user see the success message
-      console.log('Registration successful - staying on page to show success message');
-    } catch (err) {
-      // Error will be handled by the auth context
+      if (registerResponse.data.success) {
+        // After successful registration, log the user in
+        await login(email, password);
+        
+        // Registration was successful, show success message
+        setRegistrationSuccess(true);
+        
+        // Don't redirect yet, let user see the success message
+        console.log('Registration successful - staying on page to show success message');
+      } else {
+        setFormError(registerResponse.data.message || 'Failed to create an account');
+        setRegistrationSuccess(false);
+      }
+    } catch (err: any) {
+      setFormError(err.response?.data?.message || 'Failed to create an account');
       console.error('Registration failed:', err);
       setRegistrationSuccess(false);
     }
@@ -346,9 +371,9 @@ const Register: React.FC = () => {
               </Typography>
             </Box>
             
-            {(error || formError) && (
+            {formError && (
               <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
-                {formError || error}
+                {formError}
               </Alert>
             )}
             

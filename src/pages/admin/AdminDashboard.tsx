@@ -18,7 +18,7 @@ import {
   ListAlt as ListAltIcon,
   Assessment as AssessmentIcon
 } from '@mui/icons-material';
-import { useAuth } from '../../auth/AuthContext';
+import { useAuth } from '../../contexts/AuthContext';
 import UserManagement from './UserManagement';
 import TestimonialApproval from '../../components/admin/TestimonialApproval';
 import * as adminService from '../../services/adminService';
@@ -57,7 +57,7 @@ function a11yProps(index: number) {
 }
 
 const AdminDashboard: React.FC = () => {
-  const { user } = useAuth();
+  const { currentUser } = useAuth();
   const [tabValue, setTabValue] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -94,7 +94,7 @@ const AdminDashboard: React.FC = () => {
     }
   }, [tabValue]);
 
-  if (user?.role !== 'admin') {
+  if (currentUser?.role !== 'admin') {
     return (
       <Container>
         <Box sx={{ mt: 4 }}>

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Box,
   Button,
@@ -20,11 +20,12 @@ import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
 
 const Profile: React.FC = () => {
-  const { user, loading, error, updateProfile, clearError } = useAuth();
-  const [name, setName] = useState(user?.name || '');
+  const { currentUser, loading } = useAuth();
+  const [name, setName] = useState(currentUser?.name || '');
   const [editing, setEditing] = useState(false);
   const [formError, setFormError] = useState('');
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState('');
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -37,20 +38,39 @@ const Profile: React.FC = () => {
     
     // Clear any previous errors
     setFormError('');
-    clearError();
+    setError('');
     setSuccess(false);
     
     try {
-      await updateProfile(name);
+      const token = localStorage.getItem('token');
+      if (!token) {
+        setError('No authentication token found');
+        return;
+      }
+
+      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/users/profile`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({ name })
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.message || 'Failed to update profile');
+      }
+
       setSuccess(true);
       setEditing(false);
     } catch (err) {
-      // Error will be handled by the auth context
       console.error('Profile update failed:', err);
+      setError(err instanceof Error ? err.message : 'Failed to update profile');
     }
   };
 
-  const formatDate = (dateString?: Date) => {
+  const formatDate = (dateString?: string | Date) => {
     if (!dateString) return 'N/A';
     
     const date = new Date(dateString);
@@ -61,7 +81,7 @@ const Profile: React.FC = () => {
     });
   };
 
-  if (!user) {
+  if (!currentUser) {
     return (
       <Container component="main" maxWidth="md">
         <Box sx={{ mt: 8, display: 'flex', justifyContent: 'center' }}>
@@ -131,7 +151,7 @@ const Profile: React.FC = () => {
                   Email
                 </Typography>
                 <Typography variant="body1">
-                  {user.email}
+                  {currentUser.email}
                 </Typography>
               </div>
               
@@ -140,10 +160,10 @@ const Profile: React.FC = () => {
                   Subscription
                 </Typography>
                 <Chip 
-                  label={user.subscription === 'free' ? 'Free' : 
-                         user.subscription === 'basic' ? 'Basic' : 'Premium'} 
-                  color={user.subscription === 'free' ? 'default' : 
-                         user.subscription === 'basic' ? 'primary' : 'secondary'}
+                  label={currentUser.subscription === 'free' ? 'Free' : 
+                         currentUser.subscription === 'basic' ? 'Basic' : 'Premium'} 
+                  color={currentUser.subscription === 'free' ? 'default' : 
+                         currentUser.subscription === 'basic' ? 'primary' : 'secondary'}
                   size="small"
                   sx={{ mt: 0.5 }}
                 />
@@ -154,7 +174,7 @@ const Profile: React.FC = () => {
                   Subscription Expires
                 </Typography>
                 <Typography variant="body1">
-                  {formatDate(user.subscriptionExpires)}
+                  {formatDate(currentUser.subscriptionExpires)}
                 </Typography>
               </div>
             </div>
@@ -188,7 +208,7 @@ const Profile: React.FC = () => {
                 />
               ) : (
                 <Typography variant="body1">
-                  {user.name}
+                  {currentUser.name}
                 </Typography>
               )}
             </div>
@@ -201,9 +221,9 @@ const Profile: React.FC = () => {
                   startIcon={<CloseIcon />}
                   onClick={() => {
                     setEditing(false);
-                    setName(user.name);
+                    setName(currentUser.name);
                     setFormError('');
-                    clearError();
+                    setError('');
                   }}
                   disabled={loading}
                 >

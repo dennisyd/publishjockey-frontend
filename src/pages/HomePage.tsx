@@ -7,13 +7,13 @@ import {
   Paper
 } from '@mui/material';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../auth/AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import NoteAddIcon from '@mui/icons-material/NoteAdd';
 import MenuBookIcon from '@mui/icons-material/MenuBook';
 import LockIcon from '@mui/icons-material/Lock';
 
 const HomePage: React.FC = () => {
-  const { isAuthenticated, user } = useAuth();
+  const { currentUser } = useAuth();
   
   return (
     <Container maxWidth="lg">
@@ -45,7 +45,7 @@ const HomePage: React.FC = () => {
             justifyContent: 'center',
           }}
         >
-          {isAuthenticated ? (
+          {currentUser ? (
             <>
               <Button 
                 variant="contained" 
@@ -188,7 +188,7 @@ const HomePage: React.FC = () => {
           <Typography variant="body1" paragraph sx={{ maxWidth: '700px', mx: 'auto', mb: 4 }}>
             Join thousands of authors who have already simplified their publishing process.
           </Typography>
-          {isAuthenticated ? (
+          {currentUser ? (
             <Button 
               variant="contained" 
               color="secondary" 

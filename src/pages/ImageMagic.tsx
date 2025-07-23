@@ -26,7 +26,7 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import axios from 'axios';
-import { useAuth } from '../auth/AuthContext';
+
 
 // API URL
 const API_URL = 'http://localhost:3002'; // Use export-backend for ImageMagic
@@ -115,7 +115,7 @@ const PreviewBox = styled(Box)(({ theme }) => ({
 
 // Main component
 const ImageMagic: React.FC = () => {
-  const { token } = useAuth();
+  const token = localStorage.getItem('token');
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);

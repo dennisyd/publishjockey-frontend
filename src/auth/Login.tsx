@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from './AuthContext';
+import { useAuth } from '../contexts/AuthContext';
 import {
   Box,
   Button,
@@ -22,16 +22,16 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [formError, setFormError] = useState('');
-  const { login, loading, error, clearError, isAuthenticated } = useAuth();
+  const { login, loading, currentUser } = useAuth();
   const navigate = useNavigate();
 
   // Add this effect to automatically redirect when authentication state changes
   useEffect(() => {
-    if (isAuthenticated) {
+    if (currentUser) {
       console.log('Login - User is authenticated, redirecting to dashboard');
       navigate('/dashboard');
     }
-  }, [isAuthenticated, navigate]);
+  }, [currentUser, navigate]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -45,7 +45,6 @@ const Login: React.FC = () => {
     
     // Clear any previous errors
     setFormError('');
-    clearError();
     
     try {
       console.log('Attempting login with:', email);
@@ -113,9 +112,9 @@ const Login: React.FC = () => {
           </Typography>
         </Box>
         
-        {(error || formError) && (
+        {formError && (
           <Alert severity="error" sx={{ width: '100%', mb: 2 }}>
-            {formError || error}
+            {formError}
           </Alert>
         )}
         

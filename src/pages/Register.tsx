@@ -10,6 +10,18 @@ import {
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+
+interface RegisterResponse {
+  success: boolean;
+  message?: string;
+  user?: {
+    id: string;
+    name: string;
+    email: string;
+    role: string;
+  };
+}
 
 export default function Register() {
   const [email, setEmail] = useState('');
@@ -18,7 +30,7 @@ export default function Register() {
   const [name, setName] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   async function handleSubmit(e: React.FormEvent) {
@@ -31,10 +43,23 @@ export default function Register() {
     try {
       setError('');
       setLoading(true);
-      await register(email, password, name);
-      navigate('/dashboard');
-    } catch (err) {
-      setError('Failed to create an account');
+      
+      // Register the user
+      const registerResponse = await axios.post<RegisterResponse>('http://localhost:3001/api/auth/register', {
+        name,
+        email,
+        password
+      });
+      
+      if (registerResponse.data.success) {
+        // After successful registration, log the user in
+        await login(email, password);
+        navigate('/dashboard');
+      } else {
+        setError(registerResponse.data.message || 'Failed to create an account');
+      }
+    } catch (err: any) {
+      setError(err.response?.data?.message || 'Failed to create an account');
       console.error(err);
     } finally {
       setLoading(false);
