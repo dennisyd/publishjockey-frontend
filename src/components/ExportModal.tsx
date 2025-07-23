@@ -118,6 +118,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
+  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002';
+
   // Get book sizes based on binding type
   const getBookSizes = () => {
     return settings.bindingType === 'paperback' ? paperbackSizes : hardcoverSizes;
@@ -134,7 +136,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
       try {
         const formData = new FormData();
         formData.append('cover', file);
-        const res = await fetch('http://localhost:3002/upload-cover', {
+        const res = await fetch(`${API_URL}/upload-cover`, {
           method: 'POST',
           body: formData
         });
@@ -167,7 +169,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     const testBackendConnection = async () => {
       try {
         console.log('Testing connection to export backend...');
-        const pingResponse = await fetch('http://localhost:3002/ping', {
+        const pingResponse = await fetch(`${API_URL}/ping`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json'

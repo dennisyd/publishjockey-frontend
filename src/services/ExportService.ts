@@ -7,7 +7,7 @@ import { ValidationService } from "./ValidationService"
 import axios from "axios"
 
 // Define API URL for the export backend
-const API_URL = "http://localhost:3002"
+const API_URL = process.env.REACT_APP_EXPORT_API_URL || "http://localhost:3002"
 
 interface Section {
   id: string
@@ -642,7 +642,7 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch("http://localhost:3002/ping", {
+        const pingResponse = await fetch(`${API_URL}/ping`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         })
@@ -686,7 +686,7 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch("http://localhost:3002/export/pdf", {
+      const response = await fetch(`${API_URL}/export/pdf`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -766,7 +766,7 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch("http://localhost:3002/ping", {
+        const pingResponse = await fetch(`${API_URL}/ping`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         })
@@ -806,7 +806,7 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch("http://localhost:3002/export/epub", {
+      const response = await fetch(`${API_URL}/export/epub`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -864,7 +864,7 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch("http://localhost:3002/ping", {
+        const pingResponse = await fetch(`${API_URL}/ping`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         })
@@ -902,7 +902,7 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch("http://localhost:3002/export/docx", {
+      const response = await fetch(`${API_URL}/export/docx`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -960,7 +960,7 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch("http://localhost:3002/ping", {
+        const pingResponse = await fetch(`${API_URL}/ping`, {
           method: "GET",
           headers: { "Content-Type": "application/json" },
         })
@@ -1000,7 +1000,7 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch("http://localhost:3002/export/html", {
+      const response = await fetch(`${API_URL}/export/html`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

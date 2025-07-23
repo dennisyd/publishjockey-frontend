@@ -45,6 +45,8 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
   
   const [exportBlobs, setExportBlobs] = useState<Record<string, Blob>>({});
 
+  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002';
+
   // Method to start timing an export
   const startExport = useCallback((format: 'pdf' | 'epub' | 'word', title?: string) => {
     setExportFormat(format);
@@ -145,7 +147,7 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
       
       // Create a direct download link to the server's explicit file endpoint
       // Include the desired filename as a query parameter
-      const downloadUrl = `http://localhost:3002/api/files/${fileId}?filename=${encodeURIComponent(fileName)}`;
+      const downloadUrl = `${API_URL}/api/files/${fileId}?filename=${encodeURIComponent(fileName)}`;
       
       console.log(`Creating download with URL: ${downloadUrl}`);
       
@@ -209,7 +211,7 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
         'Available formats in exportBlobs:', Object.keys(exportBlobs));
       alert(`Download failed: No file available for ${format} format. Please try exporting again.`);
     }
-  }, [exportBlobs, projectTitle, fileIdMap]);
+  }, [exportBlobs, projectTitle, fileIdMap, API_URL]);
 
   // Schedule cleanup of temporary files after 15 minutes
   useEffect(() => {
@@ -221,7 +223,7 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
         // Call server to delete temporary files
         try {
           fileIds.forEach(async (fileId) => {
-            await axios.delete(`http://localhost:3002/cleanup/${fileId}`);
+            await axios.delete(`${API_URL}/cleanup/${fileId}`);
           });
           console.log('Cleaned up temporary export files');
           setFileIdMap({});
@@ -234,7 +236,7 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
         clearTimeout(cleanupTimer);
       };
     }
-  }, [fileIdMap]);
+  }, [fileIdMap, API_URL]);
 
   // Expose the timing methods via window for external components to access
   useEffect(() => {
