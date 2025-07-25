@@ -2554,9 +2554,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 formData.append('file', file); // Use 'file' as the field name
                 formData.append('projectId', projectId); // Add projectId for backend validation
                 
-                // Try standard endpoints for file upload - use main backend, not export backend
-                const MAIN_API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
-                fetch(`${MAIN_API_URL}/api/uploads`, {
+                // Use export backend for image uploads (has Cloudinary support and /api/uploads endpoint)
+                const EXPORT_API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
+                fetch(`${EXPORT_API_URL}/api/uploads`, {
                   method: 'POST',
                   body: formData,
                   headers: { 
