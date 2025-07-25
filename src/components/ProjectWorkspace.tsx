@@ -2555,7 +2555,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 formData.append('projectId', projectId); // Add projectId for backend validation
                 
                 // Try standard endpoints for file upload
-                fetch('http://localhost:3002/api/uploads', {
+                fetch(`${API_URL}/api/uploads`, {
                   method: 'POST',
                   body: formData,
                   headers: { 

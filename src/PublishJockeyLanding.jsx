@@ -1068,6 +1068,28 @@ const BookShowcase = () => {
                   imageRendering: 'auto',
                   background: 'white'
                 }}
+                onError={(e) => {
+                  console.log('Vanquish image failed to load, using fallback');
+                  e.target.style.display = 'none';
+                  // Create a fallback placeholder
+                  const fallback = document.createElement('div');
+                  fallback.style.cssText = `
+                    width: 100%;
+                    height: 100%;
+                    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    color: white;
+                    font-family: 'Arial', sans-serif;
+                    font-size: 14px;
+                    text-align: center;
+                    padding: 20px;
+                    box-sizing: border-box;
+                  `;
+                  fallback.innerHTML = 'Book Cover<br/>Demo Image';
+                  e.target.parentNode.appendChild(fallback);
+                }}
               />
               <Typography 
                 variant="caption" 
