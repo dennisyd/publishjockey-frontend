@@ -103,7 +103,7 @@ interface ProjectApiResponse {
 }
 
 // Define API URL
-const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002';
+const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
 
 // Define ProjectWorkspace component properly
 const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElement => {
@@ -2554,8 +2554,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 formData.append('file', file); // Use 'file' as the field name
                 formData.append('projectId', projectId); // Add projectId for backend validation
                 
-                // Try standard endpoints for file upload
-                fetch(`${API_URL}/api/uploads`, {
+                // Try standard endpoints for file upload - use main backend, not export backend
+                const MAIN_API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
+                fetch(`${MAIN_API_URL}/api/uploads`, {
                   method: 'POST',
                   body: formData,
                   headers: { 

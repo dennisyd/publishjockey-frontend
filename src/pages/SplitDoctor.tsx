@@ -20,7 +20,7 @@ import axios from 'axios';
 
 
 // API URL
-const API_URL = 'http://localhost:3001/api';
+const API_URL = (process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com') + '/api';
 
 // Define API response types
 interface SplitDoctorResponse {
@@ -214,7 +214,7 @@ const SplitDoctor: React.FC = () => {
         });
         
         // Create direct file URLs using the most direct path possible
-        const baseUrl = 'http://localhost:3001';
+        const baseUrl = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
         
         // Only set docxUrl if docxPath exists
         if (docxPath) {

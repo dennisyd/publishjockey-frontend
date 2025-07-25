@@ -118,7 +118,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
-  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002';
+  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
 
   // Get book sizes based on binding type
   const getBookSizes = () => {

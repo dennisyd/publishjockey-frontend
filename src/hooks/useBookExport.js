@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import axios from 'axios';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3002';
+const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
 
 /**
  * Hook for handling book exports with fair use protection

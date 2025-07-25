@@ -29,7 +29,7 @@ import axios from 'axios';
 
 
 // API URL
-const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002'; // Use export-backend for ImageMagic
+const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com'; // Use export-backend for ImageMagic
 
 // Define API response types
 interface ImageMagicResponse {

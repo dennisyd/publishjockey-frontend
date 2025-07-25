@@ -13,7 +13,7 @@ import {
 } from '@mui/material';
 import LockResetIcon from '@mui/icons-material/LockReset';
 
-const API_URL = 'http://localhost:3001';
+const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
 
 // Define response type
 interface AuthResponse {

@@ -45,7 +45,7 @@ const ExportTimingManager: React.FC<ExportTimingManagerProps> = ({ children }) =
   
   const [exportBlobs, setExportBlobs] = useState<Record<string, Blob>>({});
 
-  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'http://localhost:3002';
+  const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
 
   // Method to start timing an export
   const startExport = useCallback((format: 'pdf' | 'epub' | 'word', title?: string) => {
