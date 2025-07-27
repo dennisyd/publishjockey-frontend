@@ -1596,9 +1596,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [imageDialogOpen, setImageDialogOpen] = useState(false);
   const [uploadedImagePath, setUploadedImagePath] = useState('');
   const [imageCaption, setImageCaption] = useState('');
-  const [imageScale, setImageScale] = useState('1.0');
+  const [imageScale, setImageScale] = useState('0.5');
   const [uploading, setUploading] = useState(false);
   const imageInputRef = useRef<HTMLInputElement>(null);
+
+  // Reset image dialog state when opened
+  useEffect(() => {
+    if (imageDialogOpen) {
+      setUploadedImagePath('');
+      setImageCaption('');
+      setImageScale('0.5');
+      setUploading(false);
+      // Clear the file input
+      if (imageInputRef.current) {
+        imageInputRef.current.value = '';
+      }
+    }
+  }, [imageDialogOpen]);
 
   // Add a function to clean up the structure
   const cleanupStructure = (structureToClean: typeof structure): typeof structure => {
