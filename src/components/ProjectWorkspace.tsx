@@ -138,6 +138,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Basic UI state
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [exportLoading, setExportLoading] = useState(false);
+  const [exportProgress, setExportProgress] = useState('Processing export...');
   
   // Editor state
   const [viewMode, setViewMode] = useState<'edit' | 'split' | 'preview'>('edit');
@@ -670,9 +671,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Enhanced export handler with special title page handling
   const handleExport = async (format: string, settings: ExportSettings) => {
     console.log('Starting export process for format:', format);
+    
+    setExportLoading(true);
+    setExportProgress('Preparing export...');
+    
     try {
       // First, make sure all content is saved
       try {
+        setExportProgress('Saving changes...');
         setNotification({
           open: true,
           message: 'Saving all changes before export...',
@@ -702,12 +708,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       } catch (saveError) {
         console.error('Error saving content before export:', saveError);
         if (!window.confirm('There was an error saving your content before export. Do you want to continue anyway?')) {
+          setExportLoading(false);
           return;
         }
       }
       
       // Validate export server is running
       try {
+        setExportProgress('Connecting to export server...');
         const response = await axios.get(`${API_URL}/health`);
         if (response.status !== 200) {
           throw new Error('Export backend is not available');
@@ -719,11 +727,20 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           message: 'Export backend is not available. Please start the export server.',
           severity: 'error'
         });
+        setExportLoading(false);
         return;
       }
       
-      // Start loading state
-      setExportLoading(true);
+      // Set format-specific progress message
+      if (format === 'pdf') {
+        setExportProgress('Processing images and generating PDF...');
+      } else if (format === 'epub') {
+        setExportProgress('Creating EPUB structure...');
+      } else if (format === 'docx') {
+        setExportProgress('Generating Word document...');
+      } else {
+        setExportProgress('Processing export...');
+      }
       
       // Ensure we have title
       if (!projectTitle) {
@@ -735,16 +752,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         setExportLoading(false);
         return;
       }
-      
-      // Create metadata object for export with title, subtitle, and author
-      const metadata = {
-        title: projectTitle,
-        subtitle: projectSubtitle || '',
-        author: projectAuthor || '',
-        isbn: projectIsbn || ''
-      };
-      
-      console.log('Using project metadata:', JSON.stringify(metadata, null, 2));
       
       // Create export payload with sections in the correct order from structure state
       const project = {
@@ -787,16 +794,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           isbn: projectIsbn || ''
         });
         
-        // Remove automatic download: do NOT create or click an anchor here
-        // Only show the export completion dialog (handled by ExportTimingManager)
-        // If needed, you can use fileUrl for logging or debugging, but do not use it to trigger a download
         console.log('Export successful, file URL:', fileUrl);
         
-        setNotification({
-          open: true,
-          message: 'Export completed successfully!',
-          severity: 'success'
-        });
+        // Close the export modal after successful export
+        setExportDialogOpen(false);
+        
       } catch (error: any) {
         console.error('Export service error:', error);
         setNotification({
@@ -806,7 +808,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         });
       }
       
-      setExportLoading(false);
     } catch (err: any) {
       console.error('Export error:', err);
       setNotification({
@@ -814,7 +815,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         message: `Export error: ${err.message || 'Unknown error'}`,
         severity: 'error'
       });
+    } finally {
       setExportLoading(false);
+      setExportProgress('Processing export...');
     }
   };
   
@@ -2391,6 +2394,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         onClose={() => setExportDialogOpen(false)}
         onExport={handleExportModalSubmit}
         isLoading={exportLoading}
+        loadingMessage={exportProgress}
         projectName={editedProjectName}
       />
       {/* Import Modal */}
