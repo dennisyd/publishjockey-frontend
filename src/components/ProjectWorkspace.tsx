@@ -14,7 +14,7 @@ import {
   DialogActions,
   Divider,
   Tooltip,
-  Alert, Snackbar,
+  Alert, Snackbar, CircularProgress,
   Paper, ToggleButtonGroup, ToggleButton,
   ListSubheader, Collapse
 } from '@mui/material';
@@ -139,6 +139,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [exportDialogOpen, setExportDialogOpen] = useState(false);
   const [exportLoading, setExportLoading] = useState(false);
   const [exportProgress, setExportProgress] = useState('Processing export...');
+  
+  // Global export loading state (separate from modal loading)
+  const [globalExportLoading, setGlobalExportLoading] = useState(false);
+  const [globalExportFormat, setGlobalExportFormat] = useState<string>('');
   
   // Editor state
   const [viewMode, setViewMode] = useState<'edit' | 'split' | 'preview'>('edit');
@@ -731,6 +735,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         return;
       }
       
+      // Close the modal and show global loading indicator after initial validation
+      setExportLoading(false);
+      setExportDialogOpen(false);
+      setGlobalExportLoading(true);
+      setGlobalExportFormat(format);
+      
       // Set format-specific progress message
       if (format === 'pdf') {
         setExportProgress('Processing images and generating PDF...');
@@ -796,9 +806,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         console.log('Export successful, file URL:', fileUrl);
         
-        // Close the export modal after successful export
-        setExportDialogOpen(false);
-        
       } catch (error: any) {
         console.error('Export service error:', error);
         setNotification({
@@ -818,6 +825,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     } finally {
       setExportLoading(false);
       setExportProgress('Processing export...');
+      setGlobalExportLoading(false);
+      setGlobalExportFormat('');
     }
   };
   
@@ -2406,6 +2415,54 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         sectionName={selected ? structure[selected.area][selected.idx] : undefined}
       />
       
+      {/* Global Export Loading Overlay */}
+      {globalExportLoading && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgba(0, 0, 0, 0.7)',
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            zIndex: 9999,
+            color: 'white'
+          }}
+        >
+          <CircularProgress
+            size={80}
+            sx={{
+              mb: 3,
+              color: 'white'
+            }}
+          />
+          <Typography
+            variant="h5"
+            sx={{
+              mb: 2,
+              fontWeight: 500,
+              textAlign: 'center'
+            }}
+          >
+            Processing Your {globalExportFormat.toUpperCase()}...
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: 'center',
+              maxWidth: '400px',
+              opacity: 0.9
+            }}
+          >
+            This may take a few minutes depending on the size of your book and number of images.
+          </Typography>
+        </Box>
+      )}
+
       {/* Notifications */}
       <Snackbar
         open={notification.open}
