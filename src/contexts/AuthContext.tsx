@@ -94,10 +94,13 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function login(email: string, password: string) {
     try {
+      console.log(`API_BASE_URL: ${API_BASE_URL}`);
       console.log(`Attempting login for ${email} to ${API_BASE_URL}/auth/login`);
       
       // Make API call to backend
-      const response = await axios.post<LoginResponse>(`${API_BASE_URL}/auth/login`, { 
+      const loginUrl = `${API_BASE_URL}/auth/login`;
+      console.log(`Full login URL: ${loginUrl}`);
+      const response = await axios.post<LoginResponse>(loginUrl, { 
         email, 
         password 
       });
