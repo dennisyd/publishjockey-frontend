@@ -430,6 +430,48 @@ const ExportModal: React.FC<ExportModalProps> = ({
               </Select>
             </FormControl>
 
+            {/* Cover Image Upload (EPUB only) */}
+            {settings.format === 'epub' && (
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Cover Image (JPG or PNG)</Typography>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  disabled={coverUploading}
+                  sx={{ mr: 2 }}
+                >
+                  {coverImage ? 'Change Cover Image' : 'Upload Cover Image'}
+                  <input
+                    type="file"
+                    accept="image/jpeg,image/png"
+                    hidden
+                    onChange={handleCoverImageChange}
+                  />
+                </Button>
+                {coverUploading && (
+                  <CircularProgress size={20} sx={{ ml: 1, verticalAlign: 'middle' }} />
+                )}
+                {coverImage && (
+                  <Typography variant="body2" sx={{ display: 'inline', ml: 1 }}>
+                    {coverImage.name}
+                  </Typography>
+                )}
+                {coverUploadError && (
+                  <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                    {coverUploadError}
+                  </Typography>
+                )}
+                {coverRequiredError && (
+                  <Typography color="error" variant="body2" sx={{ mt: 1 }}>
+                    {coverRequiredError}
+                  </Typography>
+                )}
+                <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
+                  Recommended: at least 1600px on the shortest side. Supported: JPG, PNG.
+                </Typography>
+              </Box>
+            )}
+
             {/* Binding (PDF only) */}
             {settings.format === 'pdf' && (
               <>
