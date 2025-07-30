@@ -52,6 +52,30 @@ const hardcoverSizes = [
   { value: '8.25x11', label: '8.25" x 11" (20.96 x 27.94 cm)' },
 ];
 
+// FONT OPTIONS (split by OS)
+const WINDOWS_FONTS = [
+  { label: 'Times New Roman', value: 'Times New Roman' },
+  { label: 'Tahoma', value: 'Tahoma' },
+  { label: 'Courier New', value: 'Courier New' },
+];
+const LINUX_FONTS = [
+  { label: 'Liberation Serif', value: 'Liberation Serif' },
+  { label: 'TeX Gyre Termes', value: 'TeX Gyre Termes' },
+  { label: 'TeX Gyre Pagella', value: 'TeX Gyre Pagella' },
+  { label: 'Linux Libertine', value: 'Linux Libertine O' },
+  { label: 'DejaVu Serif', value: 'DejaVu Serif' },
+];
+
+// Detect OS for default font and font list (client-side best effort)
+const getPlatformFonts = () => {
+  const platform = window.navigator.platform.toLowerCase();
+  if (platform.includes('win')) return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman' };
+  if (platform.includes('linux')) return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
+  return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
+};
+
+const { fonts: FONT_OPTIONS, defaultFont } = getPlatformFonts();
+
 export interface ExportSettings {
   format: 'pdf' | 'epub' | 'docx' | 'html';
   includeToc: boolean;
@@ -76,6 +100,7 @@ export interface ExportSettings {
   generateTitlePage?: boolean;
   isbn?: string; // Optional ISBN
   tocDepth?: number; // Add this line
+  fontFamily?: string; // Add this line
 }
 
 interface ExportModalProps {
@@ -126,6 +151,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [tocDepth, setTocDepth] = useState<number>(1);
   const [showAdvanced, setShowAdvanced] = useState(false);
+  const [selectedFont, setSelectedFont] = useState(defaultFont);
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
@@ -209,7 +235,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
       }
       
       // Call parent onExport handler with settings
-      const exportSettings = { ...settings, tocDepth };
+      const exportSettings = { ...settings, tocDepth, fontFamily: selectedFont };
       if (settings.format === 'epub' && coverImageFilename) {
         exportSettings.coverImage = coverImageFilename;
       }
@@ -429,6 +455,21 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 ))}
               </Select>
             </FormControl>
+
+            {/* Font Selection */}
+            <Box sx={{ mb: 2 }}>
+              <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+              <FormControl fullWidth>
+                <Select value={selectedFont} onChange={e => setSelectedFont(e.target.value)}>
+                  {FONT_OPTIONS.map(opt => (
+                    <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
+                {`Default: ${defaultFont}. Only fonts available on your current OS are shown.`}
+              </Typography>
+            </Box>
 
             {/* Cover Image Upload (EPUB only) */}
             {settings.format === 'epub' && (
