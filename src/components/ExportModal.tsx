@@ -17,8 +17,13 @@ import {
   Select,
   MenuItem,
   InputLabel,
-  SelectChangeEvent
+  SelectChangeEvent,
+  Grid,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails
 } from '@mui/material';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
 import ExportInstructionsTabs from './ExportInstructionsTabs';
 
@@ -70,6 +75,7 @@ export interface ExportSettings {
   useAutomaticTitlePage?: boolean;
   generateTitlePage?: boolean;
   isbn?: string; // Optional ISBN
+  tocDepth?: number; // Add this line
 }
 
 interface ExportModalProps {
@@ -117,6 +123,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [coverUploadError, setCoverUploadError] = useState<string | null>(null);
   const [coverUploading, setCoverUploading] = useState<boolean>(false);
   const [coverRequiredError, setCoverRequiredError] = useState<string | null>(null);
+
+  const [tocDepth, setTocDepth] = useState<number>(1);
+  const [showAdvanced, setShowAdvanced] = useState(false);
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
@@ -200,7 +209,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
       }
       
       // Call parent onExport handler with settings
-      const exportSettings = { ...settings };
+      const exportSettings = { ...settings, tocDepth };
       if (settings.format === 'epub' && coverImageFilename) {
         exportSettings.coverImage = coverImageFilename;
       }
@@ -394,461 +403,127 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 maxWidth: '300px'
               }}
             >
-              This may take a few minutes depending on the size of your book and number of images.
+              {settings.format === 'pdf'
+                ? 'This may take around 30 seconds depending on the size of your book and number of images.'
+                : 'This may take around 5 seconds depending on the size of your book and number of images.'}
             </Typography>
           </Box>
         ) : (
-          // Show normal export settings when not loading
-          <>
-            {/* Format Selection */}
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                Choose an export format:
-              </Typography>
-              <FormControl component="fieldset">
-                <RadioGroup
-                  name="export-format"
-                  value={settings.format}
-                  onChange={handleFormatChange}
-                >
-                  <FormControlLabel 
-                    value="pdf" 
-                    control={<Radio />} 
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        PDF Document
-                        <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
-                          (Best for printing & publishing)
-                        </Typography>
-                      </Box>
-                    } 
-                  />
-                  <FormControlLabel 
-                    value="epub" 
-                    control={<Radio />} 
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        EPUB eBook
-                        <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
-                          (For e-readers & digital stores)
-                        </Typography>
-                      </Box>
-                    } 
-                  />
-                  <FormControlLabel 
-                    value="docx" 
-                    control={<Radio />} 
-                    label={
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        Microsoft Word
-                        <Typography variant="caption" color="text.secondary" sx={{ ml: 1 }}>
-                          (For editing & sharing)
-                        </Typography>
-                      </Box>
-                    } 
-                  />
-                </RadioGroup>
-              </FormControl>
-            </Box>
-  
-            <Divider sx={{ my: 2 }} />
-            
-            {/* Instructions button: show for all formats, before Book Structure section */}
-            <Box sx={{ display: 'flex', justifyContent: 'flex-end', mb: 2 }}>
-              <Button variant="outlined" color="info" onClick={() => setInstructionsOpen(true)}>
-                Instructions
-              </Button>
-            </Box>
-            
-            {/* EPUB Cover Image Upload */}
-            {settings.format === 'epub' && (
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                  Cover Image (EPUB only):
-                </Typography>
-                <input
-                  type="file"
-                  accept="image/jpeg,image/png"
-                  onChange={handleCoverImageChange}
-                  disabled={coverUploading}
-                />
-                {coverUploading && (
-                  <Typography variant="caption" color="text.secondary">
-                    Uploading cover image...
-                  </Typography>
-                )}
-                {coverImage && !coverUploading && coverImageFilename && (
-                  <Typography variant="caption" color="text.secondary">
-                    Uploaded: {coverImage.name}
-                  </Typography>
-                )}
-                {coverUploadError && (
-                  <Typography variant="caption" color="error">
-                    {coverUploadError}
-                  </Typography>
-                )}
-                {coverRequiredError && (
-                  <Typography variant="caption" color="error">
-                    {coverRequiredError}
-                  </Typography>
-                )}
-                <Typography variant="caption" color="text.secondary">
-                  You must upload a cover image (JPG or PNG, max 10MB) to export EPUB. If you do not select one, a default cover will be used.
-                </Typography>
-              </Box>
-            )}
-            
-            {/* Book Size Options - Show for PDF and DOCX */}
-            {(settings.format === 'pdf' || settings.format === 'docx') && (
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                  Book Format Settings:
-                </Typography>
-                
-                {/* Binding Type - PDF only */}
-                {settings.format === 'pdf' && (
-                  <FormControl component="fieldset" sx={{ mb: 2, display: 'block' }}>
-                    <Typography variant="subtitle2" gutterBottom>
-                      Binding Type:
-                    </Typography>
-                    <RadioGroup
-                      row
-                      name="binding-type"
-                      value={settings.bindingType}
-                      onChange={handleBindingTypeChange}
-                    >
-                      <FormControlLabel 
-                        value="paperback" 
-                        control={<Radio size="small" />} 
-                        label="Paperback" 
-                      />
-                      <FormControlLabel 
-                        value="hardcover" 
-                        control={<Radio size="small" />} 
-                        label="Hardcover" 
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                )}
-                
-                {/* Book Size */}
-                <FormControl fullWidth variant="outlined" size="small" sx={{ mb: 2 }}>
-                  <InputLabel id="book-size-label">Book Size</InputLabel>
-                  <Select
-                    labelId="book-size-label"
-                    id="book-size-select"
-                    value={settings.bookSize}
-                    onChange={handleBookSizeChange}
-                    label="Book Size"
-                  >
-                    {getBookSizes().map((size) => (
-                      <MenuItem key={size.value} value={size.value}>
-                        {size.label}
-                      </MenuItem>
-                    ))}
+          <Box component="form" noValidate>
+            {/* Format */}
+            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Format</Typography>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <Select value={settings.format} onChange={handleFormatChange}>
+                <MenuItem value="pdf">PDF (Print)</MenuItem>
+                <MenuItem value="epub">EPUB (eBook)</MenuItem>
+                <MenuItem value="docx">Word (DOCX)</MenuItem>
+              </Select>
+            </FormControl>
+
+            {/* Book Size */}
+            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
+            <FormControl fullWidth sx={{ mb: 2 }}>
+              <Select value={settings.bookSize} onChange={handleBookSizeChange}>
+                {getBookSizes().map(size => (
+                  <MenuItem key={size.value} value={size.value}>{size.label}</MenuItem>
+                ))}
+              </Select>
+            </FormControl>
+
+            {/* Binding (PDF only) */}
+            {settings.format === 'pdf' && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Binding</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={settings.bindingType} onChange={handleBindingTypeChange}>
+                    <MenuItem value="paperback">Paperback</MenuItem>
+                    <MenuItem value="hardcover">Hardcover</MenuItem>
                   </Select>
-                  <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
-                    Margins will be automatically optimized based on book size
-                  </Typography>
                 </FormControl>
-                
-                {/* Custom Margins Toggle */}
+              </>
+            )}
+
+            {/* TOC */}
+            <FormControlLabel
+              control={<Switch checked={settings.includeToc} onChange={handleTocToggle} />}
+              label="Include Table of Contents"
+              sx={{ mb: 2, ml: 0 }}
+            />
+
+            {/* TOC Depth (PDF only, if TOC enabled) */}
+            {settings.format === 'pdf' && settings.includeToc && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>TOC Depth</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={tocDepth} onChange={e => setTocDepth(Number(e.target.value))}>
+                    <MenuItem value={1}>Level 1 (Chapters only)</MenuItem>
+                    <MenuItem value={2}>Level 2 (Chapters & Sections)</MenuItem>
+                    <MenuItem value={3}>Level 3 (Chapters, Sections & Subsections)</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
+            )}
+
+            {/* Advanced Options */}
+            <Box
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                cursor: 'pointer',
+                py: 1,
+                mb: 2,
+                color: 'primary.main',
+                fontWeight: 500
+              }}
+              onClick={() => setShowAdvanced(!showAdvanced)}
+            >
+              Advanced Options
+              <ExpandMoreIcon sx={{ ml: 1, transition: '0.2s', transform: showAdvanced ? 'rotate(180deg)' : 'none' }} />
+            </Box>
+            {showAdvanced && (
+              <Box sx={{ mb: 2 }}>
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={settings.customMargins}
-                      onChange={handleCustomMarginsToggle}
+                      checked={settings.includeTitlePage}
+                      onChange={handleTitlePageToggle}
                       color="primary"
                       size="small"
                     />
                   }
-                  label="Override automatic margins"
+                  label="Include Title Page"
                 />
-                
-                {/* Margins (only shown if customMargins is true) */}
-                {settings.customMargins && (
-                  <FormControl component="fieldset" sx={{ mt: 1, ml: 3, display: 'block' }}>
-                    <Typography variant="subtitle2" gutterBottom>
-                      Custom Margin Size:
-                    </Typography>
-                    <RadioGroup
-                      row
-                      name="margin-size"
-                      value={settings.marginSize}
-                      onChange={handleMarginSizeChange}
-                    >
-                      <FormControlLabel 
-                        value="narrow" 
-                        control={<Radio size="small" />} 
-                        label="Narrow" 
-                      />
-                      <FormControlLabel 
-                        value="normal" 
-                        control={<Radio size="small" />} 
-                        label="Normal" 
-                      />
-                      <FormControlLabel 
-                        value="wide" 
-                        control={<Radio size="small" />} 
-                        label="Wide" 
-                      />
-                    </RadioGroup>
-                  </FormControl>
-                )}
-                
-                {/* Bleed - PDF only */}
-                {settings.format === 'pdf' && (
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={settings.bleed}
-                        onChange={handleBleedToggle}
-                        color="primary"
-                        size="small"
-                      />
-                    }
-                    label={
-                      <Box>
-                        <Typography variant="body2">
-                          Include bleed (for professional printing)
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          Extends images and backgrounds to the edge of the page
-                        </Typography>
-                      </Box>
-                    }
-                  />
-                )}
-              </Box>
-            )}
-            
-            {/* HTML Style Options - Show only for HTML format */}
-            {settings.format === 'html' && (
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                  HTML Style Settings:
-                </Typography>
-                
-                <FormControl fullWidth variant="outlined" size="small" sx={{ mb: 2 }}>
-                  <InputLabel id="html-stylesheet-label">Stylesheet</InputLabel>
-                  <Select
-                    labelId="html-stylesheet-label"
-                    id="html-stylesheet-select"
-                    value={settings.htmlStylesheet || 'default'}
-                    onChange={(event: SelectChangeEvent) => {
-                      setSettings({
-                        ...settings,
-                        htmlStylesheet: event.target.value
-                      });
-                    }}
-                    label="Stylesheet"
-                  >
-                    <MenuItem value="default">Default (Modern)</MenuItem>
-                    <MenuItem value="minimal">Minimal</MenuItem>
-                    <MenuItem value="print">Print-friendly</MenuItem>
-                    <MenuItem value="ebook">E-Book</MenuItem>
-                  </Select>
-                  <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
-                    Stylesheet controls the appearance of the exported HTML
-                  </Typography>
-                </FormControl>
-              </Box>
-            )}
-            
-            <Divider sx={{ my: 2 }} />
-  
-            {/* Book Structure Settings - Show for non-EPUB formats */}
-            {settings.format !== 'epub' && (
-              <Box sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" fontWeight="medium" gutterBottom>
-                  Book Structure:
-                </Typography>
-                {/* Show toggles for non-PDF formats */}
-                {settings.format !== 'pdf' && (
-                  <>
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={settings.includeTitlePage}
-                          onChange={handleTitlePageToggle}
-                          color="primary"
-                          size="small"
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2">
-                            Include Title Page
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            Always placed first in document
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={settings.noSeparatorPages}
-                          onChange={handleSeparatorPagesToggle}
-                          color="primary"
-                          size="small"
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2">
-                            No separator pages between sections
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            Sections flow continuously without blank pages
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={settings.frontMatterContinuous}
-                          onChange={handleFrontMatterContinuousToggle}
-                          color="primary"
-                          size="small"
-                        />
-                      }
-                      label={
-                        <Box>
-                          <Typography variant="body2">
-                            Front matter flows continuously
-                          </Typography>
-                          <Typography variant="caption" color="text.secondary">
-                            Title page, disclaimer, copyright, etc. flow without page breaks
-                          </Typography>
-                        </Box>
-                      }
-                    />
-                  </>
-                )}
-                {/* Chapter Display Option (always shown) */}
-                <Box sx={{ mt: 2 }}>
-                  <FormControlLabel
-                    control={
-                      <Switch
-                        checked={settings.useChapterPrefix}
-                        onChange={handleChapterPrefixToggle}
-                        color="primary"
-                        size="small"
-                      />
-                    }
-                    label={
-                      <Typography variant="body2">
-                        Add chapter labels to sections
-                      </Typography>
-                    }
-                  />
-                </Box>
-              </Box>
-            )}
-            
-            <Divider sx={{ my: 2 }} />
-  
-            {/* Table of Contents Options */}
-            <Box sx={{ mb: 3 }}>
-              {/* Only show TOC switch for non-EPUB formats */}
-              {settings.format !== 'epub' && (
                 <FormControlLabel
                   control={
                     <Switch
-                      checked={settings.includeToc}
-                      onChange={handleTocToggle}
+                      checked={settings.noSeparatorPages}
+                      onChange={handleSeparatorPagesToggle}
                       color="primary"
+                      size="small"
                     />
                   }
-                  label={
-                    <Typography variant="subtitle1" fontWeight="medium">
-                      Include Table of Contents
-                    </Typography>
-                  }
+                  label="No separator pages between sections"
                 />
-              )}
-              {/* For EPUB, always include TOC and show as static info */}
-              {settings.format === 'epub' && (
-                <Typography variant="subtitle1" fontWeight="medium" sx={{ mb: 1 }}>
-                  Table of Contents will always be included in EPUB exports.
-                </Typography>
-              )}
-  
-              {/* Only show numbered headings toggle for non-EPUB formats */}
-              {settings.includeToc && settings.format !== 'epub' && (
-                <Box 
-                  sx={{ 
-                    ml: 3, 
-                    mt: 1, 
-                    p: 2, 
-                    bgcolor: 'background.paper', 
-                    border: '1px solid rgba(0,0,0,0.12)',
-                    borderRadius: 1,
-                    transition: 'all 0.2s ease',
-                  }}
-                >
-                  <Divider sx={{ my: 1.5 }} />
-                  {/* Only show numbered headings if Add chapter labels to sections is OFF */}
-                  {!settings.useChapterPrefix && (
-                    <FormControlLabel
-                      control={
-                        <Switch
-                          checked={settings.numberedHeadings}
-                          onChange={handleNumberedHeadings}
-                          color="primary"
-                        />
-                      }
-                      label="Use numbered headings (e.g., 1.1, 1.2)"
+                <FormControlLabel
+                  control={
+                    <Switch
+                      checked={settings.frontMatterContinuous}
+                      onChange={handleFrontMatterContinuousToggle}
+                      color="primary"
+                      size="small"
                     />
-                  )}
-                </Box>
-              )}
-            </Box>
-          </>
+                  }
+                  label="Front matter flows continuously"
+                />
+              </Box>
+            )}
+          </Box>
         )}
       </DialogContent>
 
       <DialogActions sx={{ px: 3, pb: 3 }}>
-        {!isLoading && (
-          <Button
-            onClick={onClose}
-            color="secondary"
-            sx={{ borderRadius: 1.5 }}
-          >
-            Cancel
-          </Button>
-        )}
-        <Button
-          onClick={handleExport}
-          variant="contained"
-          color="primary"
-          disabled={isLoading}
-          sx={{ 
-            borderRadius: 1.5,
-            px: 3,
-            position: 'relative'
-          }}
-        >
-          {isLoading ? (
-            <>
-              <CircularProgress 
-                size={24} 
-                color="inherit" 
-                sx={{ 
-                  position: 'absolute', 
-                  left: '50%', 
-                  top: '50%', 
-                  marginLeft: '-12px', 
-                  marginTop: '-12px' 
-                }} 
-              />
-              <span style={{ visibility: 'hidden' }}>Export</span>
-            </>
-          ) : 'Export'}
-        </Button>
+        <Button onClick={onClose} color="inherit" sx={{ mr: 2 }}>CANCEL</Button>
+        <Button onClick={handleExport} variant="contained" color="primary" sx={{ minWidth: 120 }}>EXPORT</Button>
       </DialogActions>
 
       <ExportInstructionsTabs

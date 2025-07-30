@@ -2458,7 +2458,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               opacity: 0.9
             }}
           >
-            This may take a few minutes depending on the size of your book and number of images.
+            {globalExportFormat === 'pdf'
+              ? 'This may take around 30 seconds depending on the size of your book and number of images.'
+              : 'This may take around 5 seconds depending on the size of your book and number of images.'}
           </Typography>
         </Box>
       )}

@@ -219,7 +219,7 @@ export class ExportService {
           // Use the user's selected TOC level
           includeToc: settings.includeToc,
           tocEnabled: settings.includeToc, // Add this for backend compatibility
-          tocDepth: 2, // Always use depth 2 for TOC
+          tocDepth: settings.tocDepth ?? 2, // Use the user's selected TOC depth if present
           // Ensure front matter sections flow correctly
           frontMatterContinuous: settings.frontMatterContinuous !== false, // Default to true if not explicitly set
         },

@@ -17,6 +17,12 @@ const instructions: Record<string, React.ReactNode> = {
         • Margins and bleed can be customized for print requirements.<br />
         • Ensure all sections are complete before exporting.
       </Typography>
+      {/* Add to the FAQ/help section for PDF export: */}
+      {/*
+      Q: Can I create full-bleed images or backgrounds (images that extend to the edge of the page)?
+
+      A: PublishJockey does not support full-bleed (edge-to-edge) images or backgrounds in exported PDFs. This feature is typically required for professional photo books, art books, or children's books with images that run to the very edge of the printed page. Achieving true bleed requires specialized print layout tools and careful setup, which is beyond the scope of this export tool. If your project requires full-bleed images, we recommend using a professional desktop publishing application (such as Adobe InDesign or Affinity Publisher) and working directly with your print provider's specifications.
+      */}
     </Box>
   ),
   epub: (
