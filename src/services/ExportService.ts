@@ -196,6 +196,7 @@ export class ExportService {
         }),
         exportOptions: {
           ...settings,
+          fontFamily: settings.fontFamily, // Ensure fontFamily is always included
           // Turn OFF chapter formatting in the backend since we've already done it here
           useChapterPrefix: false,
           // No automatically generated title page if one exists in the frontend
