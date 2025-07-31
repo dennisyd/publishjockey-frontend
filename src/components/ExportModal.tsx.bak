@@ -66,56 +66,21 @@ const LINUX_FONTS = [
   { label: 'DejaVu Serif', value: 'DejaVu Serif' },
 ];
 
-// FIXED: Detect platform for font list using environment variable first, then browser as fallback
+// Detect platform for font list using environment variable first, then browser as fallback
 const getPlatformFonts = () => {
-  // First, check environment variables - THIS IS THE KEY FIX
-  const envPlatform = (
-    process.env.NEXT_PUBLIC_EXPORT_PLATFORM || 
-    process.env.REACT_APP_EXPORT_PLATFORM || 
-    ''
-  ).toLowerCase();
-  
-  console.log('Environment platform detected:', envPlatform);
-  
-  // Use environment variable to determine platform (PRIORITIZE THIS)
-  if (envPlatform.includes('ubuntu') || envPlatform.includes('linux')) {
-    console.log('Using Linux fonts based on environment variable');
-    return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
-  }
-  if (envPlatform.includes('win')) {
-    console.log('Using Windows fonts based on environment variable');
-    return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman', platform: 'windows' };
-  }
+  // Use the environment variable if set, otherwise fallback to browser detection
+  const envPlatform = (process.env.NEXT_PUBLIC_EXPORT_PLATFORM || process.env.REACT_APP_EXPORT_PLATFORM || '').toLowerCase();
+  if (envPlatform.includes('win')) return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman' };
+  if (envPlatform.includes('ubuntu') || envPlatform.includes('linux')) return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
 
-  // ONLY fallback to browser detection if env variable is not set or doesn't match known values
-  console.log('Environment variable not set or unrecognized, falling back to browser detection');
-  
-  // Check if we're in a browser environment (avoid SSR issues)
-  if (typeof window !== 'undefined') {
-    const platform = window.navigator.platform.toLowerCase();
-    console.log('Browser platform detected:', platform);
-    
-    if (platform.includes('win')) {
-      return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman', platform: 'windows' };
-    }
-    if (platform.includes('linux')) {
-      return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
-    }
-  }
-  
-  // Final fallback - assume Linux for server environments
-  console.log('Defaulting to Linux fonts (server environment fallback)');
-  return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
+  // Fallback to browser detection if env not set
+  const platform = window.navigator.platform.toLowerCase();
+  if (platform.includes('win')) return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman' };
+  if (platform.includes('linux')) return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
+  return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
 };
 
-const { fonts: FONT_OPTIONS, defaultFont, platform: detectedPlatform } = getPlatformFonts();
-
-// Log the final selection for debugging
-console.log('Final font selection:', {
-  platform: detectedPlatform,
-  defaultFont,
-  availableFonts: FONT_OPTIONS.map(f => f.value)
-});
+const { fonts: FONT_OPTIONS, defaultFont } = getPlatformFonts();
 
 export interface ExportSettings {
   format: 'pdf' | 'epub' | 'docx' | 'html';
@@ -180,9 +145,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     // HTML specific settings
     htmlStylesheet: 'default',
     // Force title page to be first
-    forceTitleFirst: true,
-    // FIXED: Always include fontFamily in initial settings
-    fontFamily: defaultFont
+    forceTitleFirst: true
   });
 
   // State for cover image (EPUB only)
@@ -199,14 +162,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
-
-  // FIXED: Update settings.fontFamily whenever selectedFont changes
-  useEffect(() => {
-    setSettings(prev => ({
-      ...prev,
-      fontFamily: selectedFont
-    }));
-  }, [selectedFont]);
 
   // Get book sizes based on binding type
   const getBookSizes = () => {
@@ -285,22 +240,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
         return;
       }
       
-      // FIXED: Always ensure fontFamily is included and valid
-      const exportSettings = { 
-        ...settings, 
-        tocDepth, 
-        fontFamily: selectedFont // Always use the currently selected font
-      };
-      
-      // Log font selection for debugging
-      console.log('Font selection debug:', {
-        selectedFont,
-        settingsFontFamily: settings.fontFamily,
-        exportSettingsFontFamily: exportSettings.fontFamily,
-        detectedPlatform,
-        defaultFont
-      });
-      
+      // Call parent onExport handler with settings
+      const exportSettings = { ...settings, tocDepth, fontFamily: selectedFont };
       if (settings.format === 'epub' && coverImageFilename) {
         exportSettings.coverImage = coverImageFilename;
       }
@@ -437,6 +378,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
+
+
   return (
     <Dialog
       open={isOpen}
@@ -530,7 +473,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 </Select>
               </FormControl>
               <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
-                {`Platform: ${detectedPlatform} | Default: ${defaultFont} | Selected: ${selectedFont}`}
+                {`Default: ${defaultFont}. Only fonts available on your current OS are shown.`}
               </Typography>
             </Box>
 
@@ -681,4 +624,4 @@ const ExportModal: React.FC<ExportModalProps> = ({
   );
 };
 
-export default ExportModal;
+export default ExportModal; 
