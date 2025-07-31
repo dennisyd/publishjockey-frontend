@@ -66,8 +66,14 @@ const LINUX_FONTS = [
   { label: 'DejaVu Serif', value: 'DejaVu Serif' },
 ];
 
-// Detect OS for default font and font list (client-side best effort)
+// Detect platform for font list using environment variable first, then browser as fallback
 const getPlatformFonts = () => {
+  // Use the environment variable if set, otherwise fallback to browser detection
+  const envPlatform = (process.env.NEXT_PUBLIC_EXPORT_PLATFORM || process.env.REACT_APP_EXPORT_PLATFORM || '').toLowerCase();
+  if (envPlatform.includes('win')) return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman' };
+  if (envPlatform.includes('ubuntu') || envPlatform.includes('linux')) return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
+
+  // Fallback to browser detection if env not set
   const platform = window.navigator.platform.toLowerCase();
   if (platform.includes('win')) return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman' };
   if (platform.includes('linux')) return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif' };
