@@ -1,4 +1,4 @@
-import React from 'react'; // Yancy Dennis
+import React from 'react'; 
 import { 
   Box, 
   Typography, 
