@@ -7,21 +7,12 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  Radio,
-  RadioGroup,
   Switch,
   Typography,
   Box,
-  Divider,
-  CircularProgress,
   Select,
   MenuItem,
-  InputLabel,
-  SelectChangeEvent,
-  Grid,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
+  CircularProgress
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -118,7 +109,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   });
 
   // State for cover image (EPUB only)
-  const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverImageFilename, setCoverImageFilename] = useState<string | null>(null);
   const [coverUploadError, setCoverUploadError] = useState<string | null>(null);
   const [coverUploading, setCoverUploading] = useState<boolean>(false);
@@ -139,9 +129,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Handle cover image selection and upload
   const handleCoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
-    setCoverImage(file);
-    setCoverImageFilename(null);
-    setCoverUploadError(null);
     if (file) {
       setCoverUploading(true);
       try {
@@ -244,74 +231,33 @@ const ExportModal: React.FC<ExportModalProps> = ({
     });
   };
 
-  const handleNumberedHeadings = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      numberedHeadings: event.target.checked
-    });
-  };
-
-  const handleBindingTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      bindingType: event.target.value,
-      // Reset book size to a default for the new binding type
-      bookSize: event.target.value === 'paperback' ? '6x9' : '6x9'
-    });
-  };
-
-  const handleBookSizeChange = (event: SelectChangeEvent) => {
+  // Restore handlers and state that are actually used in the JSX
+  const handleBookSizeChange = (event: any) => {
     setSettings({
       ...settings,
       bookSize: event.target.value
     });
   };
-
-  const handleBleedToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBindingTypeChange = (event: any) => {
     setSettings({
       ...settings,
-      bleed: event.target.checked
+      bindingType: event.target.value,
+      bookSize: event.target.value === 'paperback' ? '6x9' : '6x9'
     });
   };
-
-  const handleMarginSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      marginSize: event.target.value as 'narrow' | 'normal' | 'wide'
-    });
-  };
-
-  const handleCustomMarginsToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      customMargins: event.target.checked
-    });
-  };
-
-  // Handlers for new book structure options
-  const handleTitlePageToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitlePageToggle = (event: any) => {
     setSettings({
       ...settings,
       includeTitlePage: event.target.checked
     });
   };
-
-  const handleChapterPrefixToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      useChapterPrefix: event.target.checked,
-      chapterLabelFormat: event.target.checked ? 'number' : 'none',
-    });
-  };
-
-  const handleSeparatorPagesToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSeparatorPagesToggle = (event: any) => {
     setSettings({
       ...settings,
       noSeparatorPages: event.target.checked
     });
   };
-
-  const handleFrontMatterContinuousToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFrontMatterContinuousToggle = (event: any) => {
     setSettings({
       ...settings,
       frontMatterContinuous: event.target.checked
@@ -419,6 +365,49 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 <MenuItem value="docx">Word (DOCX)</MenuItem>
               </Select>
             </FormControl>
+
+            {/* Cover Image (EPUB only) */}
+            {settings.format === 'epub' && (
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                  Cover Image (EPUB)
+                </Typography>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  disabled={coverUploading}
+                  sx={{ mb: 1 }}
+                >
+                  {coverImageFilename ? 'Change Cover Image' : 'Upload Cover Image'}
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    hidden
+                    onChange={handleCoverImageChange}
+                  />
+                </Button>
+                {coverUploading && (
+                  <Typography variant="body2" color="text.secondary">
+                    Uploading cover image...
+                  </Typography>
+                )}
+                {coverImageFilename && (
+                  <Typography variant="body2" color="success.main">
+                    Cover image uploaded: {coverImageFilename}
+                  </Typography>
+                )}
+                {coverUploadError && (
+                  <Typography variant="body2" color="error">
+                    {coverUploadError}
+                  </Typography>
+                )}
+                {coverRequiredError && (
+                  <Typography variant="body2" color="error">
+                    {coverRequiredError}
+                  </Typography>
+                )}
+              </Box>
+            )}
 
             {/* Book Size */}
             <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
