@@ -2731,7 +2731,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               }
               
               // Create image tag
-              const imageTag = `{{IMAGE:${uploadedImagePath}|${imageCaption || 'Image caption'}|${imageScale}}}`;
+              const imageTag = `![${imageCaption || ''}](${uploadedImagePath})<!-- scale:${imageScale} -->`;
               
               // Insert at cursor position
               if (selected) {
