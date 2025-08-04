@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // YD Dennis
+import React, { useState, useEffect } from 'react'; // Yancy Dennis
 import {
   Dialog,
   DialogTitle,
@@ -7,21 +7,12 @@ import {
   Button,
   FormControl,
   FormControlLabel,
-  Radio,
-  RadioGroup,
   Switch,
   Typography,
   Box,
-  Divider,
-  CircularProgress,
   Select,
   MenuItem,
-  InputLabel,
-  SelectChangeEvent,
-  Grid,
-  Accordion,
-  AccordionSummary,
-  AccordionDetails
+  CircularProgress
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 
@@ -52,70 +43,33 @@ const hardcoverSizes = [
   { value: '8.25x11', label: '8.25" x 11" (20.96 x 27.94 cm)' },
 ];
 
-// FONT OPTIONS (split by OS)
-const WINDOWS_FONTS = [
-  { label: 'Times New Roman', value: 'Times New Roman' },
-  { label: 'Tahoma', value: 'Tahoma' },
-  { label: 'Courier New', value: 'Courier New' },
+// Font options for different platforms
+const windowsFonts = [
+  { value: 'Times New Roman', label: 'Times New Roman' },
+  { value: 'Arial', label: 'Arial' },
+  { value: 'Georgia', label: 'Georgia' },
 ];
-const LINUX_FONTS = [
-  { label: 'Liberation Serif', value: 'Liberation Serif' },
-  { label: 'TeX Gyre Termes', value: 'TeX Gyre Termes' },
-  { label: 'TeX Gyre Pagella', value: 'TeX Gyre Pagella' },
-  { label: 'Linux Libertine', value: 'Linux Libertine O' },
-  { label: 'DejaVu Serif', value: 'DejaVu Serif' },
+const serverFonts = [
+  { value: 'Liberation Serif', label: 'Liberation Serif' },
+  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
+  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
+  { value: 'Linux Libertine', label: 'Linux Libertine' },
+  { value: 'DejaVu Serif', label: 'DejaVu Serif' },
 ];
 
-// FIXED: Detect platform for font list using environment variable first, then browser as fallback
-const getPlatformFonts = () => {
-  // First, check environment variables - THIS IS THE KEY FIX
-  const envPlatform = (
-    process.env.NEXT_PUBLIC_EXPORT_PLATFORM || 
-    process.env.REACT_APP_EXPORT_PLATFORM || 
-    ''
-  ).toLowerCase();
-  
-  console.log('Environment platform detected:', envPlatform);
-  
-  // Use environment variable to determine platform (PRIORITIZE THIS)
-  if (envPlatform.includes('ubuntu') || envPlatform.includes('linux')) {
-    console.log('Using Linux fonts based on environment variable');
-    return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
+function getPlatformFonts() {
+  if (navigator.platform && navigator.platform.startsWith('Win')) {
+    return windowsFonts;
   }
-  if (envPlatform.includes('win')) {
-    console.log('Using Windows fonts based on environment variable');
-    return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman', platform: 'windows' };
+  return serverFonts;
+}
+
+function getDefaultFont() {
+  if (navigator.platform && navigator.platform.startsWith('Win')) {
+    return 'Times New Roman';
   }
-
-  // ONLY fallback to browser detection if env variable is not set or doesn't match known values
-  console.log('Environment variable not set or unrecognized, falling back to browser detection');
-  
-  // Check if we're in a browser environment (avoid SSR issues)
-  if (typeof window !== 'undefined') {
-    const platform = window.navigator.platform.toLowerCase();
-    console.log('Browser platform detected:', platform);
-    
-    if (platform.includes('win')) {
-      return { fonts: WINDOWS_FONTS, defaultFont: 'Times New Roman', platform: 'windows' };
-    }
-    if (platform.includes('linux')) {
-      return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
-    }
-  }
-  
-  // Final fallback - assume Linux for server environments
-  console.log('Defaulting to Linux fonts (server environment fallback)');
-  return { fonts: LINUX_FONTS, defaultFont: 'Liberation Serif', platform: 'linux' };
-};
-
-const { fonts: FONT_OPTIONS, defaultFont, platform: detectedPlatform } = getPlatformFonts();
-
-// Log the final selection for debugging
-console.log('Final font selection:', {
-  platform: detectedPlatform,
-  defaultFont,
-  availableFonts: FONT_OPTIONS.map(f => f.value)
-});
+  return 'Liberation Serif';
+}
 
 export interface ExportSettings {
   format: 'pdf' | 'epub' | 'docx' | 'html';
@@ -181,12 +135,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
     htmlStylesheet: 'default',
     // Force title page to be first
     forceTitleFirst: true,
-    // FIXED: Always include fontFamily in initial settings
-    fontFamily: defaultFont
   });
 
   // State for cover image (EPUB only)
-  const [coverImage, setCoverImage] = useState<File | null>(null);
   const [coverImageFilename, setCoverImageFilename] = useState<string | null>(null);
   const [coverUploadError, setCoverUploadError] = useState<string | null>(null);
   const [coverUploading, setCoverUploading] = useState<boolean>(false);
@@ -194,19 +145,15 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [tocDepth, setTocDepth] = useState<number>(1);
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const [selectedFont, setSelectedFont] = useState(defaultFont);
+  const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 'server';
+  const fontOptions = exportPlatform === 'windows' ? windowsFonts : serverFonts;
+  const defaultFont = exportPlatform === 'windows' ? 'Times New Roman' : 'Liberation Serif';
+
+  const [fontFamily, setFontFamily] = useState<string>(defaultFont);
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
-
-  // FIXED: Update settings.fontFamily whenever selectedFont changes
-  useEffect(() => {
-    setSettings(prev => ({
-      ...prev,
-      fontFamily: selectedFont
-    }));
-  }, [selectedFont]);
 
   // Get book sizes based on binding type
   const getBookSizes = () => {
@@ -216,9 +163,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Handle cover image selection and upload
   const handleCoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
-    setCoverImage(file);
-    setCoverImageFilename(null);
-    setCoverUploadError(null);
     if (file) {
       setCoverUploading(true);
       try {
@@ -285,22 +229,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
         return;
       }
       
-      // FIXED: Always ensure fontFamily is included and valid
-      const exportSettings = { 
-        ...settings, 
-        tocDepth, 
-        fontFamily: selectedFont // Always use the currently selected font
-      };
-      
-      // Log font selection for debugging
-      console.log('Font selection debug:', {
-        selectedFont,
-        settingsFontFamily: settings.fontFamily,
-        exportSettingsFontFamily: exportSettings.fontFamily,
-        detectedPlatform,
-        defaultFont
-      });
-      
+      // Call parent onExport handler with settings
+      const exportSettings = { ...settings, tocDepth, fontFamily };
       if (settings.format === 'epub' && coverImageFilename) {
         exportSettings.coverImage = coverImageFilename;
       }
@@ -335,74 +265,33 @@ const ExportModal: React.FC<ExportModalProps> = ({
     });
   };
 
-  const handleNumberedHeadings = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      numberedHeadings: event.target.checked
-    });
-  };
-
-  const handleBindingTypeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      bindingType: event.target.value,
-      // Reset book size to a default for the new binding type
-      bookSize: event.target.value === 'paperback' ? '6x9' : '6x9'
-    });
-  };
-
-  const handleBookSizeChange = (event: SelectChangeEvent) => {
+  // Restore handlers and state that are actually used in the JSX
+  const handleBookSizeChange = (event: any) => {
     setSettings({
       ...settings,
       bookSize: event.target.value
     });
   };
-
-  const handleBleedToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleBindingTypeChange = (event: any) => {
     setSettings({
       ...settings,
-      bleed: event.target.checked
+      bindingType: event.target.value,
+      bookSize: event.target.value === 'paperback' ? '6x9' : '6x9'
     });
   };
-
-  const handleMarginSizeChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      marginSize: event.target.value as 'narrow' | 'normal' | 'wide'
-    });
-  };
-
-  const handleCustomMarginsToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      customMargins: event.target.checked
-    });
-  };
-
-  // Handlers for new book structure options
-  const handleTitlePageToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTitlePageToggle = (event: any) => {
     setSettings({
       ...settings,
       includeTitlePage: event.target.checked
     });
   };
-
-  const handleChapterPrefixToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSettings({
-      ...settings,
-      useChapterPrefix: event.target.checked,
-      chapterLabelFormat: event.target.checked ? 'number' : 'none',
-    });
-  };
-
-  const handleSeparatorPagesToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleSeparatorPagesToggle = (event: any) => {
     setSettings({
       ...settings,
       noSeparatorPages: event.target.checked
     });
   };
-
-  const handleFrontMatterContinuousToggle = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFrontMatterContinuousToggle = (event: any) => {
     setSettings({
       ...settings,
       frontMatterContinuous: event.target.checked
@@ -509,6 +398,49 @@ const ExportModal: React.FC<ExportModalProps> = ({
               </Select>
             </FormControl>
 
+            {/* Cover Image (EPUB only) */}
+            {settings.format === 'epub' && (
+              <Box sx={{ mb: 2 }}>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                  Cover Image (EPUB)
+                </Typography>
+                <Button
+                  variant="outlined"
+                  component="label"
+                  disabled={coverUploading}
+                  sx={{ mb: 1 }}
+                >
+                  {coverImageFilename ? 'Change Cover Image' : 'Upload Cover Image'}
+                  <input
+                    type="file"
+                    accept="image/png, image/jpeg"
+                    hidden
+                    onChange={handleCoverImageChange}
+                  />
+                </Button>
+                {coverUploading && (
+                  <Typography variant="body2" color="text.secondary">
+                    Uploading cover image...
+                  </Typography>
+                )}
+                {coverImageFilename && (
+                  <Typography variant="body2" color="success.main">
+                    Cover image uploaded: {coverImageFilename}
+                  </Typography>
+                )}
+                {coverUploadError && (
+                  <Typography variant="body2" color="error">
+                    {coverUploadError}
+                  </Typography>
+                )}
+                {coverRequiredError && (
+                  <Typography variant="body2" color="error">
+                    {coverRequiredError}
+                  </Typography>
+                )}
+              </Box>
+            )}
+
             {/* Book Size */}
             <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
             <FormControl fullWidth sx={{ mb: 2 }}>
@@ -519,63 +451,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
               </Select>
             </FormControl>
 
-            {/* Font Selection */}
-            <Box sx={{ mb: 2 }}>
-              <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-              <FormControl fullWidth>
-                <Select value={selectedFont} onChange={e => setSelectedFont(e.target.value)}>
-                  {FONT_OPTIONS.map(opt => (
-                    <MenuItem key={opt.value} value={opt.value}>{opt.label}</MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
-                {`Platform: ${detectedPlatform} | Default: ${defaultFont} | Selected: ${selectedFont}`}
-              </Typography>
-            </Box>
-
-            {/* Cover Image Upload (EPUB only) */}
-            {settings.format === 'epub' && (
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Cover Image (JPG or PNG)</Typography>
-                <Button
-                  variant="outlined"
-                  component="label"
-                  disabled={coverUploading}
-                  sx={{ mr: 2 }}
-                >
-                  {coverImage ? 'Change Cover Image' : 'Upload Cover Image'}
-                  <input
-                    type="file"
-                    accept="image/jpeg,image/png"
-                    hidden
-                    onChange={handleCoverImageChange}
-                  />
-                </Button>
-                {coverUploading && (
-                  <CircularProgress size={20} sx={{ ml: 1, verticalAlign: 'middle' }} />
-                )}
-                {coverImage && (
-                  <Typography variant="body2" sx={{ display: 'inline', ml: 1 }}>
-                    {coverImage.name}
-                  </Typography>
-                )}
-                {coverUploadError && (
-                  <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                    {coverUploadError}
-                  </Typography>
-                )}
-                {coverRequiredError && (
-                  <Typography color="error" variant="body2" sx={{ mt: 1 }}>
-                    {coverRequiredError}
-                  </Typography>
-                )}
-                <Typography variant="caption" color="text.secondary" display="block" sx={{ mt: 0.5 }}>
-                  Recommended: at least 1600px on the shortest side. Supported: JPG, PNG.
-                </Typography>
-              </Box>
-            )}
-
             {/* Binding (PDF only) */}
             {settings.format === 'pdf' && (
               <>
@@ -584,6 +459,19 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   <Select value={settings.bindingType} onChange={handleBindingTypeChange}>
                     <MenuItem value="paperback">Paperback</MenuItem>
                     <MenuItem value="hardcover">Hardcover</MenuItem>
+                  </Select>
+                </FormControl>
+              </>
+            )}
+
+            {(settings.format === 'pdf' || settings.format === 'epub') && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={fontFamily} onChange={e => setFontFamily(e.target.value)}>
+                    {fontOptions.map(font => (
+                      <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                    ))}
                   </Select>
                 </FormControl>
               </>
