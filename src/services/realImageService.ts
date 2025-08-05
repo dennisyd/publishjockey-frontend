@@ -1,25 +1,63 @@
+const API_BASE_URL = 'http://localhost:3001';
+
 export const realImageService = {
   async getUserImages() {
-    const res = await fetch('/api/images');
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/api/images`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
     if (!res.ok) throw new Error('Failed to fetch images');
     return res.json();
   },
-  async getStorageStats() {
-    const res = await fetch('/api/storage');
-    if (!res.ok) throw new Error('Failed to fetch storage stats');
+  async getImageUsageStats() {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/api/images/usage`, {
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
+    if (!res.ok) throw new Error('Failed to fetch image usage');
+    return res.json();
+  },
+  async validateExport() {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/api/images/validate-export`, {
+      method: 'POST',
+      headers: { 
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    if (!res.ok) throw new Error('Failed to validate export');
     return res.json();
   },
   async uploadImage(file: File) {
-    // 1. Get signed upload params from backend
-    const res = await fetch('/api/images/upload-url', {
+    const token = localStorage.getItem('token');
+    
+    // 1. Check image limit before upload
+    const checkRes = await fetch(`${API_BASE_URL}/api/images/check-limit`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filename: file.name, type: file.type, size: file.size / (1024 * 1024) }),
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+    });
+    if (!checkRes.ok) {
+      const error = await checkRes.json();
+      throw new Error(error.message || 'Upload limit reached');
+    }
+
+    // 2. Get signed upload params from backend
+    const res = await fetch(`${API_BASE_URL}/api/images/upload-url`, {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ filename: file.name, type: file.type }),
     });
     if (!res.ok) throw new Error('Failed to get upload URL');
     const { uploadUrl, publicId, timestamp, signature, apiKey, folder } = await res.json();
 
-    // 2. Upload to Cloudinary using form data
+    // 3. Upload to Cloudinary using form data
     const formData = new FormData();
     formData.append('file', file);
     formData.append('api_key', apiKey);
@@ -35,14 +73,16 @@ export const realImageService = {
     const uploadResult = await uploadRes.json();
     if (!uploadRes.ok) throw new Error('Upload to Cloudinary failed');
 
-    // 3. Notify backend of success
-    const notifyRes = await fetch('/api/images/confirm-upload', {
+    // 4. Notify backend of success (will increment image count)
+    const notifyRes = await fetch(`${API_BASE_URL}/api/images/confirm-upload`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
       body: JSON.stringify({
         publicId,
         filename: file.name,
-        size: file.size / (1024 * 1024), // bytes to MB
         url: uploadResult.secure_url,
       }),
     });
@@ -50,13 +90,25 @@ export const realImageService = {
     return notifyRes.json();
   },
   async deleteImage(id: string) {
-    const res = await fetch(`/api/images/${id}`, { method: 'DELETE' });
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/api/images/${id}`, { 
+      method: 'DELETE',
+      headers: { 'Authorization': `Bearer ${token}` }
+    });
     if (!res.ok) throw new Error('Failed to delete image');
     return res.json();
   },
-  async increaseStorage() {
-    const res = await fetch('/api/storage/upgrade', { method: 'POST' });
-    if (!res.ok) throw new Error('Failed to upgrade storage');
+  async purchaseImageSlots(quantity: number) {
+    const token = localStorage.getItem('token');
+    const res = await fetch(`${API_BASE_URL}/api/images/purchase-slots`, { 
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}`
+      },
+      body: JSON.stringify({ quantity })
+    });
+    if (!res.ok) throw new Error('Failed to purchase image slots');
     return res.json();
   }
 };

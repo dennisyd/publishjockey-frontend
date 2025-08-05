@@ -16,6 +16,8 @@ import {
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import FairUseNotice from '../components/FairUseNotice';
+import ImageUsageDisplay from '../components/ImageUsageDisplay';
+import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
 
 // Error boundary component to catch runtime errors
 interface ErrorBoundaryProps {
@@ -92,6 +94,7 @@ const Dashboard: React.FC = () => {
   const [booksAllowed, setBooksAllowed] = useState<number | null>(null);
   const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
+  const [showImagePurchaseModal, setShowImagePurchaseModal] = useState(false);
 
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
@@ -362,15 +365,25 @@ const Dashboard: React.FC = () => {
       <Box sx={{ p: { xs: 2, md: 4 } }}>
         {/* Page header */}
         <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 600 }}>My Books</Typography>
+          <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>My Books</Typography>
           <Button 
             variant="contained" 
             color="primary" 
             startIcon={<AddIcon />}
             onClick={() => setNewProjectDialogOpen(true)}
             disabled={booksRemaining !== null && booksRemaining <= 0}
+            sx={{ 
+              borderRadius: 2,
+              px: 3,
+              py: 1,
+              fontWeight: 600,
+              boxShadow: 'none',
+              '&:hover': { 
+                boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)' 
+              }
+            }}
           >
-            New Book
+            NEW BOOK
           </Button>
         </Box>
         
@@ -381,78 +394,82 @@ const Dashboard: React.FC = () => {
           </Box>
         )}
         
-        {/* Temporary debug info - remove after testing */}
-        {process.env.NODE_ENV !== 'production' && (
-          <Box sx={{ mb: 2, p: 1, bgcolor: '#f5f5f5', borderRadius: 1, fontSize: '0.75rem' }}>
-            <Typography variant="caption" component="div">
-              Debug: Subscription Type = {subscriptionType || 'null'}
-            </Typography>
-          </Box>
-        )}
+
         
-        {/* Debugging info - remove in production */}
-        {loading ? (
+        {/* Status Messages */}
+        {loading && (
           <Alert severity="info" sx={{ mb: 3 }}>Loading projects...</Alert>
-        ) : error ? (
+        )}
+        {error && (
           <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>
-        ) : (
-          <Alert severity="info" sx={{ mb: 3 }}>
-            {projects.length === 0 ? 
-              "You don't have any books yet. Create your first book to get started!" : 
-              `Showing ${projects.length} book${projects.length > 1 ? 's' : ''}`
-            }
-            {booksRemaining !== null && (
-              <> | {booksRemaining} of {booksAllowed} books remaining</>
-            )}
-          </Alert>
         )}
         
-        {/* Subscription Status Banner */}
-        <Paper
-          elevation={0}
-          sx={{ 
-            p: 3, 
-            mb: 4, 
-            borderRadius: 2,
-            border: '1px solid',
-            borderColor: 'divider',
-            bgcolor: 'background.paper' 
-          }}
-        >
-          <Box sx={{ 
-            display: 'flex', 
-            justifyContent: 'space-between', 
-            alignItems: 'center',
-            flexWrap: 'wrap',
-            gap: 2
-          }}>
-            <Box>
-              <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                Book Allowance
+        {/* Stats Cards Row */}
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+          gap: 4,
+          mb: 5 
+        }}>
+          {/* Book Allowance Card */}
+          <Paper
+            elevation={0}
+            sx={{ 
+              p: 3, 
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'divider',
+              bgcolor: 'background.paper',
+              height: 'fit-content'
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}>
+              Book Allowance
+            </Typography>
+            {subscriptionLoading ? (
+              <Typography variant="body1" color="text.secondary">Loading subscription information...</Typography>
+            ) : (
+              <Typography variant="body1" sx={{ color: 'text.primary', lineHeight: 1.6 }}>
+                {booksRemaining !== null && booksAllowed !== null ? (
+                  <>You have <strong>{booksRemaining}</strong> out of <strong>{booksAllowed}</strong> books remaining</>
+                ) : (
+                  'Unable to fetch your book allowance'
+                )}
               </Typography>
-              {subscriptionLoading ? (
-                <Typography variant="body1">Loading subscription information...</Typography>
-              ) : (
-                <Typography variant="body1">
-                  {booksRemaining !== null && booksAllowed !== null ? (
-                    <>You have <strong>{booksRemaining}</strong> out of <strong>{booksAllowed}</strong> books remaining</>
-                  ) : (
-                    'Unable to fetch your book allowance'
-                  )}
-                </Typography>
-              )}
-            </Box>
+            )}
             {booksRemaining !== null && booksRemaining <= 0 && (
               <Button 
                 variant="contained" 
                 color="primary"
                 href="/pricing"
+                sx={{ mt: 2 }}
               >
                 Upgrade Plan
               </Button>
             )}
-          </Box>
-        </Paper>
+          </Paper>
+
+          {/* Image Usage Card */}
+          <Paper
+            elevation={0}
+            sx={{ 
+              p: 3, 
+              borderRadius: 3,
+              border: '1px solid',
+              borderColor: 'divider',
+              bgcolor: 'background.paper',
+              height: 'fit-content'
+            }}
+          >
+            <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}>
+              Image Usage
+            </Typography>
+            <ImageUsageDisplay 
+              onUpgradeClick={() => setShowImagePurchaseModal(true)}
+              compact={true}
+            />
+          </Paper>
+        </Box>
 
         {projects.length === 0 ? (
           <Card sx={{ 
@@ -482,7 +499,7 @@ const Dashboard: React.FC = () => {
         ) : (
           <>
             {/* Recent Books Section */}
-            <Typography variant="h5" sx={{ mb: 3, fontWeight: 500 }}>Recent Books</Typography>
+            <Typography variant="h5" sx={{ mb: 4, fontWeight: 600, color: 'text.primary' }}>Recent Books</Typography>
             
             <Box sx={{ 
               display: 'flex', 
@@ -614,6 +631,17 @@ const Dashboard: React.FC = () => {
             </Button>
           </DialogActions>
         </Dialog>
+
+        {/* Image Slot Purchase Modal */}
+        <ImageSlotPurchaseModal
+          open={showImagePurchaseModal}
+          onClose={() => setShowImagePurchaseModal(false)}
+          onSuccess={() => {
+            setShowImagePurchaseModal(false);
+            // Refresh the page to update image usage stats
+            window.location.reload();
+          }}
+        />
       </Box>
     </ErrorBoundary>
   );

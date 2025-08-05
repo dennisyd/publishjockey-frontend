@@ -13,6 +13,8 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
+import ImageUsageDisplay from '../components/ImageUsageDisplay';
+import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
 
 // Types
 interface ProfileUpdateResponse {
@@ -31,6 +33,7 @@ const AccountSettings: React.FC = () => {
   const [name, setName] = useState(currentUser?.name || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showImagePurchaseModal, setShowImagePurchaseModal] = useState(false);
 
   const handleUpdateProfile = async () => {
     try {
@@ -88,6 +91,15 @@ const AccountSettings: React.FC = () => {
         </Box>
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+            Image Usage
+          </Typography>
+          <ImageUsageDisplay 
+            onUpgradeClick={() => setShowImagePurchaseModal(true)}
+            compact={false}
+          />
+        </Box>
+        <Box sx={{ mb: 3 }}>
+          <Typography variant="subtitle2" color="text.secondary" gutterBottom>
             Email Address
           </Typography>
           <Typography variant="body1">{currentUser?.email}</Typography>
@@ -114,6 +126,17 @@ const AccountSettings: React.FC = () => {
           </Button>
         </Box>
       </Paper>
+      
+      {/* Image Slot Purchase Modal */}
+      <ImageSlotPurchaseModal
+        open={showImagePurchaseModal}
+        onClose={() => setShowImagePurchaseModal(false)}
+        onSuccess={() => {
+          setShowImagePurchaseModal(false);
+          // Refresh the page to update image usage stats
+          window.location.reload();
+        }}
+      />
     </Container>
   );
 };

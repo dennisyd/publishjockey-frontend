@@ -39,6 +39,7 @@ import {
   ExpandLess as ExpandLessIcon,
   ExpandMore as ExpandMoreIcon
 } from '@mui/icons-material';
+import ImageSlotPurchaseModal from './ImageSlotPurchaseModal';
 import axios from 'axios';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
@@ -46,6 +47,7 @@ import Papa from 'papaparse';
 import ExportModal, { ExportSettings } from './ExportModal';
 import ImportModal, { ImportSettings } from './ImportModal';
 import { ExportService } from '../services/ExportService';
+import { realImageService } from '../services/realImageService';
 import { FormatAdapter } from '../services/FormatAdapter';
 import { TEMPLATES } from '../constants/FormatConstants';
 
@@ -161,6 +163,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Add state for instructions modal
   const [instructionsOpen, setInstructionsOpen] = useState(false);
+  
+  // Add state for image purchase modal
+  const [showImagePurchaseModal, setShowImagePurchaseModal] = useState(false);
   
   // Add state for ISBN
   const [projectIsbn, setProjectIsbn] = useState('');
@@ -1942,6 +1947,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           </IconButton>
         </Box>
 
+
+
         {/* Section list */}
         <Box sx={{ flex: 1, overflowY: 'auto' }}>
           {Object.keys(structure).map((area) => (
@@ -2626,28 +2633,20 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 
                 setUploading(true);
                 
-                // Create form data
-                const formData = new FormData();
-                formData.append('file', file); // Use 'file' as the field name
-                formData.append('projectId', projectId); // Add projectId for backend validation
-                
-                // Use export backend for image uploads (has Cloudinary support and /api/uploads endpoint)
-                const EXPORT_API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
-                fetch(`${EXPORT_API_URL}/api/uploads`, {
-                  method: 'POST',
-                  body: formData,
-                  headers: { 
-                    'Authorization': `Bearer ${token}` 
-                  }
-                })
-                .then(res => res.json())
+                // Use realImageService for proper image upload tracking
+                realImageService.uploadImage(file)
                 .then(data => {
                   setUploading(false);
-                  if (data.success && data.path) {
-                    // Format image path
-                    const path = data.path.replace(/\\/g, '/');
-                    setUploadedImagePath(path);
+                  if (data.success) {
+                    // Use the URL from the upload response
+                    setUploadedImagePath(data.url || data.path || '');
                     setImageCaption(file.name.replace(/\.[^/.]+$/, ""));
+                    
+                    setNotification({
+                      open: true,
+                      message: 'Image uploaded successfully! Your usage count has been updated.',
+                      severity: 'success'
+                    });
                   } else {
                     throw new Error(data.error || 'Upload failed');
                   }
@@ -2655,9 +2654,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 .catch(error => {
                   console.error('Upload error:', error);
                   setUploading(false);
+                  
+                  // Handle specific error messages
+                  let errorMessage = 'Upload failed. Please try again.';
+                  if (error.message.includes('limit')) {
+                    errorMessage = error.message;
+                    setShowImagePurchaseModal(true);
+                  }
+                  
                   setNotification({
                     open: true,
-                    message: 'Upload failed. Please try again.',
+                    message: errorMessage,
                     severity: 'error'
                   });
                 });
@@ -2832,6 +2839,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           </Button>
         </DialogActions>
       </Dialog>
+
+      {/* Image Slot Purchase Modal */}
+      <ImageSlotPurchaseModal
+        open={showImagePurchaseModal}
+        onClose={() => setShowImagePurchaseModal(false)}
+        onSuccess={() => {
+          setShowImagePurchaseModal(false);
+          // Refresh the page to update image usage stats
+          window.location.reload();
+        }}
+      />
     </Box>
   );
 };

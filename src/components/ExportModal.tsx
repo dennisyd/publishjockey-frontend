@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'; // Yancy Dennis
+import { realImageService } from '../services/realImageService';
 import {
   Dialog,
   DialogTitle,
@@ -229,24 +230,51 @@ const ExportModal: React.FC<ExportModalProps> = ({
         return;
       }
       
-      // Call parent onExport handler with settings
-      const exportSettings = { ...settings, tocDepth, fontFamily };
-      if (settings.format === 'epub' && coverImageFilename) {
-        exportSettings.coverImage = coverImageFilename;
-      }
-      // Always include TOC for EPUB
-      if (settings.format === 'epub') {
-        exportSettings.includeToc = true;
-      }
+      // Validate image usage before export
+      const validateAndExport = async () => {
+        try {
+          console.log('Validating image usage before export...');
+          const validation = await realImageService.validateExport();
+          
+          if (!validation.valid) {
+            // Show image limit exceeded dialog
+            const userConfirmed = window.confirm(
+              `${validation.message}\n\n` +
+              'Would you like to:\n' +
+              '• Click OK to upgrade your plan\n' +
+              '• Click Cancel to remove images and try again'
+            );
+            
+            if (userConfirmed) {
+              // Redirect to pricing page
+              window.open('/pricing', '_blank');
+            }
+            return; // Stop export
+          }
+          
+          console.log('Image validation passed, proceeding with export...');
+          
+          // Call parent onExport handler with settings
+          const exportSettings = { ...settings, tocDepth, fontFamily };
+          if (settings.format === 'epub' && coverImageFilename) {
+            exportSettings.coverImage = coverImageFilename;
+          }
+          // Always include TOC for EPUB
+          if (settings.format === 'epub') {
+            exportSettings.includeToc = true;
+          }
+          
+          console.log('Calling parent onExport with settings:', exportSettings);
+          onExport(exportSettings);
+          
+        } catch (error) {
+          console.error('Error validating export:', error);
+          alert('Unable to validate image usage. Please try again.');
+        }
+      };
       
-      console.log('Calling parent onExport with settings:', exportSettings);
-      onExport(exportSettings);
-      
-      // DON'T close the modal here - let the parent component close it after export completes
-      // The parent should call onClose() when export finishes (success or error)
-      
-      // Log export settings for debugging
-      console.log('Exporting with settings:', exportSettings);
+      // Run validation and export
+      validateAndExport();
     });
   };
 
