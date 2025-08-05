@@ -2,10 +2,10 @@
 export const LAUNCH_OFFER_CONFIG = {
   // Set this to the end date of your pre-launch offer
   // Format: 'YYYY-MM-DD HH:mm:ss' (24-hour format)
-  endDate: '2025-09-02 23:59:59', // 45 days from now (July 19 + 45 days)
+  endDate: '2024-01-01 23:59:59', // Set to past date to test regular pricing
   
   // Offer details
-  isActive: true, // Set to false to manually disable the offer
+  isActive: false, // Set to false to manually disable the offer
   
   // Pricing for the pre-launch offer
   pricing: {
@@ -23,7 +23,7 @@ export const LAUNCH_OFFER_CONFIG = {
         { title: 'Watermark-free output', included: true },
         { title: 'Email support', included: true },
         { title: 'Word document splitting by H1 sections', included: true },
-        { title: '$100 value: Upscaled cover images for KDP', included: true }
+        { title: '10 images included for cover creation and upscaling', included: true }
       ],
       buttonText: 'Get Started - LAUNCH OFFER',
       buttonVariant: 'contained',
@@ -45,7 +45,7 @@ export const LAUNCH_OFFER_CONFIG = {
         { title: 'Watermark-free output', included: true },
         { title: 'Priority email support', included: true },
         { title: 'Word document splitting by H1 sections', included: true },
-        { title: '$1,000 value: Upscaled cover images for KDP', included: true },
+        { title: '250 images included for cover creation and upscaling', included: true },
         { title: 'Valid for 3 years from purchase', included: true }
       ],
       buttonText: 'Get 10 Books - LAUNCH OFFER',

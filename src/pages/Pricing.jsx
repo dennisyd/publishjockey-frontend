@@ -85,7 +85,7 @@ const Pricing = () => {
           'Watermark-free output',
           'Email support',
           'Word document splitting by H1 sections',
-          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+          '10 images included for cover creation and upscaling'
         ],
         buttonText: 'Get Started',
         buttonVariant: 'contained'
@@ -96,36 +96,19 @@ const Pricing = () => {
         description: 'Publish up to 10 books',
         planId: 'bundle',
         perBookText: '10 books for 3 years',
-        features: [
-          '10 book projects',
-          'Full book export',
-          'AI-assisted formatting',
-          'Watermark-free output',
-          'Priority support',
-          'Word document splitting by H1 sections',
-          '$1,000 value included: Upscaled cover images for KDP'
-        ],
+                 features: [
+           '10 book projects',
+           'Full book export',
+           'AI-assisted formatting',
+           'Watermark-free output',
+           'Priority support',
+           'Word document splitting by H1 sections',
+           '100 images included for cover creation and upscaling'
+         ],
         buttonText: 'Get Bundle',
         buttonVariant: 'outlined'
       },
-      { 
-        title: '20 Book Bundle', 
-        price: '$599', 
-        description: 'Publish up to 20 books',
-        planId: 'bundle20',
-        perBookText: '20 books for 3 years',
-        features: [
-          '20 book projects',
-          'Full book export',
-          'AI-assisted formatting',
-          'Watermark-free output',
-          'Priority support',
-          'Word document splitting by H1 sections',
-          '$2,000 value included: Upscaled cover images for KDP'
-        ],
-        buttonText: 'Get Bundle',
-        buttonVariant: 'outlined'
-      },
+      
       { 
         title: 'Additional Books', 
         price: '$37', 
@@ -139,28 +122,47 @@ const Pricing = () => {
           'Watermark-free output',
           'Email support',
           'Word document splitting by H1 sections',
-          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+          '+10 additional images for cover creation and upscaling'
         ],
         buttonText: 'Add Book',
         buttonVariant: 'outlined'
       },
+             { 
+         title: 'Annual Subscription', 
+         price: '$399', 
+         description: '25 books for 3 years',
+         planId: 'annual',
+         perBookText: '25 books for 3 years',
+                 features: [
+           '25 book projects',
+           'Full book export',
+           'AI-assisted formatting',
+           'Watermark-free output',
+           'Priority support',
+           'Word document splitting by H1 sections',
+           '100 images included for cover creation and upscaling'
+         ],
+        buttonText: 'Subscribe Now',
+        buttonVariant: 'outlined'
+      },
       { 
-        title: 'Annual Subscription', 
-        price: '$399', 
-        description: '25 books for one year',
-        planId: 'annual',
-        perBookText: '25 books for 12 months',
+        title: 'Custom Image Allowance', 
+        price: 'Contact Us', 
+        description: 'Need more images? We can set up a custom allowance for your needs',
+        planId: 'custom',
+        perBookText: 'Custom pricing',
         features: [
-          '25 book projects',
+          'Custom image allowance',
           'Full book export',
           'AI-assisted formatting',
           'Watermark-free output',
           'Priority support',
           'Word document splitting by H1 sections',
-          '$100 value included: Upscaled cover images created by ChatGPT for AI to meet DPI standards for KDP'
+          'Custom cover image allowance for KDP'
         ],
-        buttonText: 'Subscribe Now',
-        buttonVariant: 'outlined'
+        buttonText: 'Contact Us',
+        buttonVariant: 'outlined',
+        isContactUs: true
       }
     );
   }
@@ -168,6 +170,15 @@ const Pricing = () => {
   const handlePlanSelect = async (plan) => {
     if (plan.planId === 'free') {
       navigate('/register');
+      return;
+    }
+
+    // Handle Contact Us option
+    if (plan.isContactUs) {
+      // Open email client with pre-filled subject and body
+      const subject = encodeURIComponent('Custom Image Allowance Request - Publish Jockey');
+      const body = encodeURIComponent(`Hi,\n\nI'm interested in setting up a custom image allowance for my publishing needs.\n\nPlease contact me to discuss pricing and requirements.\n\nBest regards,\n${currentUser?.name || 'User'}`);
+      window.open(`mailto:denni@publishjockey.com?subject=${subject}&body=${body}`);
       return;
     }
 
