@@ -124,7 +124,8 @@ const Register: React.FC = () => {
       console.log('Attempting registration with:', { name, email });
       
       // Register the user
-      const registerResponse = await axios.post<RegisterResponse>('http://localhost:3001/api/auth/register', {
+      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+      const registerResponse = await axios.post<RegisterResponse>(`${API_BASE_URL}/auth/register`, {
         name,
         email,
         password
