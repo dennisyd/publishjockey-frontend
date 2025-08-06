@@ -2,7 +2,7 @@
 export const LAUNCH_OFFER_CONFIG = {
   // Set this to the end date of your pre-launch offer
   // Format: 'YYYY-MM-DD HH:mm:ss' (24-hour format)
-  endDate: '2024-01-01 23:59:59', // Set to past date to test regular pricing
+  endDate: '2025-12-01 23:59:59', // Set to past date to test regular pricing
   
   // Offer details
   isActive: false, // Set to false to manually disable the offer
