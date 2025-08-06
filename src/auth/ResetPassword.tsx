@@ -9,9 +9,13 @@ import {
   Paper,
   Container,
   Alert,
-  CircularProgress
+  CircularProgress,
+  InputAdornment,
+  IconButton
 } from '@mui/material';
 import LockResetIcon from '@mui/icons-material/LockReset';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 
 const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
 
@@ -24,8 +28,14 @@ interface AuthResponse {
 const ResetPassword: React.FC = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get('token');
+  
+  // Debug token on component load
+  console.log('ResetPassword component loaded with token:', token ? `${token.substring(0, 20)}...` : 'null');
+  console.log('Full URL search params:', window.location.search);
   const [newPassword, setNewPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [showNewPassword, setShowNewPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
@@ -111,9 +121,16 @@ const ResetPassword: React.FC = () => {
     
     setLoading(true);
     try {
-      await axios.post<AuthResponse>(`${API_URL}/auth/reset-password`, { token, newPassword });
+      console.log('Sending reset password request with token:', token);
+      console.log('Token length:', token?.length);
+      console.log('Token first 20 chars:', token?.substring(0, 20));
+      console.log('Token last 20 chars:', token?.substring(token.length - 20));
+      
+      const response = await axios.post<AuthResponse>(`${API_URL}/auth/reset-password`, { token, newPassword });
+      console.log('Reset password response:', response.data);
       setSuccess(true);
     } catch (err: any) {
+      console.error('Reset password error:', err);
       if (err.response && err.response.data) {
         setError(err.response.data.message || 'Password reset failed');
       } else {
@@ -231,12 +248,25 @@ const ResetPassword: React.FC = () => {
             fullWidth
             name="newPassword"
             label="New Password"
-            type="password"
+            type={showNewPassword ? "text" : "password"}
             id="newPassword"
             autoComplete="new-password"
             value={newPassword}
             onChange={(e) => setNewPassword(e.target.value)}
             disabled={loading}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowNewPassword(!showNewPassword)}
+                    edge="end"
+                  >
+                    {showNewPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <TextField
             margin="normal"
@@ -244,12 +274,25 @@ const ResetPassword: React.FC = () => {
             fullWidth
             name="confirmPassword"
             label="Confirm New Password"
-            type="password"
+            type={showConfirmPassword ? "text" : "password"}
             id="confirmPassword"
             autoComplete="new-password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
             disabled={loading}
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton
+                    aria-label="toggle password visibility"
+                    onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                    edge="end"
+                  >
+                    {showConfirmPassword ? <VisibilityOffIcon /> : <VisibilityIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
           <Button
             type="submit"

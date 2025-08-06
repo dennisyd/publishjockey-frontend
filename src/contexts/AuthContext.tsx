@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 // API base URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
 
 // Types
 interface User {
@@ -96,6 +96,14 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       console.log(`API_BASE_URL: ${API_BASE_URL}`);
       console.log(`Attempting login for ${email} to ${API_BASE_URL}/auth/login`);
+      
+      // Test the backend connection first
+      try {
+        const healthResponse = await axios.get('https://publishjockey-backend.onrender.com/health');
+        console.log('Backend health check:', healthResponse.data);
+      } catch (healthError) {
+        console.error('Backend health check failed:', healthError);
+      }
       
       // Make API call to backend
       const loginUrl = `${API_BASE_URL}/auth/login`;
