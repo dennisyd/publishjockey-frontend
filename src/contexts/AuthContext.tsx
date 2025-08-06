@@ -11,13 +11,7 @@ console.log('  REACT_APP_API_URL:', process.env.REACT_APP_API_URL);
 console.log('  API_BASE_URL:', API_BASE_URL);
 console.log('  NODE_ENV:', process.env.NODE_ENV);
 
-// Add a visible debug indicator on the page
-if (typeof window !== 'undefined') {
-  const debugDiv = document.createElement('div');
-  debugDiv.style.cssText = 'position:fixed;top:10px;right:10px;background:red;color:white;padding:10px;z-index:9999;font-size:12px;';
-  debugDiv.textContent = `🔍 DEBUG: API_BASE_URL = ${API_BASE_URL}`;
-  document.body.appendChild(debugDiv);
-}
+// Debug logging only (removed visible popup)
 
 // Types
 interface User {
