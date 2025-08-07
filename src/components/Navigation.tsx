@@ -99,6 +99,17 @@ const Navigation: React.FC = () => {
                 <Button color="inherit" component={Link} to="/image-magic">
                   ImageMagic
                 </Button>
+                {currentUser?.subscription === 'free' && (
+                  <Button 
+                    color="primary" 
+                    variant="outlined" 
+                    component={Link} 
+                    to="/pricing"
+                    sx={{ ml: 1 }}
+                  >
+                    Upgrade
+                  </Button>
+                )}
                 <Button color="inherit" component={Link} to="/contact">
                   Contact
                 </Button>
@@ -160,6 +171,12 @@ const Navigation: React.FC = () => {
                     <MenuItem onClick={() => { handleUserMenuClose(); navigate('/settings'); }}>
                       Settings
                     </MenuItem>
+                    {currentUser?.subscription === 'free' && (
+                      <MenuItem onClick={() => { handleUserMenuClose(); navigate('/pricing'); }} 
+                        sx={{ color: 'primary.main', fontWeight: 500 }}>
+                        Upgrade Plan
+                      </MenuItem>
+                    )}
                     <MenuItem onClick={handleLogout} className="text-red-600">
                       Logout
                     </MenuItem>
@@ -259,6 +276,12 @@ const Navigation: React.FC = () => {
                   <MenuItem key="contact" onClick={() => { navigate('/contact'); handleMobileMenuClose(); }}>
                     Contact
                   </MenuItem>,
+                  currentUser?.subscription === 'free' && (
+                    <MenuItem key="upgrade" onClick={() => { navigate('/pricing'); handleMobileMenuClose(); }} 
+                      sx={{ color: 'primary.main', fontWeight: 500 }}>
+                      Upgrade Plan
+                    </MenuItem>
+                  ),
                   <MenuItem key="logout" onClick={() => { logout(); handleMobileMenuClose(); navigate('/'); }} className="text-red-600">
                     Logout
                   </MenuItem>

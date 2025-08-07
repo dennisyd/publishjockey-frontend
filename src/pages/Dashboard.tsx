@@ -447,6 +447,22 @@ const Dashboard: React.FC = () => {
                 Upgrade Plan
               </Button>
             )}
+            {/* Show upgrade option for free users */}
+            {subscriptionType === 'free' && booksRemaining !== null && booksRemaining > 0 && (
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                  Export limited to first 12 pages
+                </Typography>
+                <Button 
+                  variant="outlined" 
+                  color="primary"
+                  href="/pricing"
+                  size="small"
+                >
+                  Unlock Full Export
+                </Button>
+              </Box>
+            )}
           </Paper>
 
           {/* Image Usage Card */}

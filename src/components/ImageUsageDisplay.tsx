@@ -122,7 +122,7 @@ const ImageUsageDisplay: React.FC<ImageUsageDisplayProps> = ({
         </Box>
       )}
 
-      {showUpgradeButton && (isAtLimit || isNearLimit) && (
+      {showUpgradeButton && (isAtLimit || isNearLimit || usage.allowed <= 2) && (
         <Box sx={{ mt: 1 }}>
           <Button
             variant={isAtLimit ? "contained" : "outlined"}
@@ -131,7 +131,8 @@ const ImageUsageDisplay: React.FC<ImageUsageDisplayProps> = ({
             onClick={onUpgradeClick}
             disabled={!onUpgradeClick}
           >
-            {usage.additional === 0 ? 'Get 100 more images ($25)' : 'Add more images ($10/100)'}
+            {usage.allowed <= 2 && !isAtLimit ? 'Get 10+ images from $25' : 
+             usage.additional === 0 ? 'Get 100 more images ($25)' : 'Add more images ($10/100)'}
           </Button>
         </Box>
       )}
