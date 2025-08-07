@@ -1,9 +1,9 @@
-const API_BASE_URL = 'http://localhost:3001';
+const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
 
 export const realImageService = {
   async getUserImages() {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/api/images`, {
+    const res = await fetch(`${API_BASE_URL}/images`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to fetch images');
@@ -11,7 +11,7 @@ export const realImageService = {
   },
   async getImageUsageStats() {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/api/images/usage`, {
+    const res = await fetch(`${API_BASE_URL}/images/usage`, {
       headers: { 'Authorization': `Bearer ${token}` }
     });
     if (!res.ok) throw new Error('Failed to fetch image usage');
@@ -19,7 +19,7 @@ export const realImageService = {
   },
   async validateExport() {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/api/images/validate-export`, {
+    const res = await fetch(`${API_BASE_URL}/images/validate-export`, {
       method: 'POST',
       headers: { 
         'Authorization': `Bearer ${token}`,

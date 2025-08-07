@@ -172,7 +172,7 @@ const Dashboard: React.FC = () => {
       setSubscriptionLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3001/api/users/me/subscription', {
+        const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api'}/users/me/subscription`, {
           headers: {
             Authorization: `Bearer ${token}`
           }

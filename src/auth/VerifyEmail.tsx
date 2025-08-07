@@ -34,10 +34,6 @@ const VerifyEmail: React.FC = () => {
   const navigate = useNavigate();
   
   console.log('🔍 VerifyEmail component loaded with token:', token ? `${token.substring(0, 10)}...` : 'null');
-  console.log('🔍 URL params token:', params.token);
-  console.log('🔍 Query params token:', searchParams.get('token'));
-  console.log('🔍 Full search params:', searchParams.toString());
-  console.log('🔍 Current URL:', window.location.href);
 
   useEffect(() => {
     const verifyEmail = async () => {
@@ -48,19 +44,14 @@ const VerifyEmail: React.FC = () => {
       }
 
       try {
-        console.log('🚀 Making verification request to:', `${API_URL}/auth/verify-email?token=${token}`);
         const response = await axios.get<AuthResponse>(`${API_URL}/auth/verify-email?token=${token}`);
-        console.log('✅ Verification response:', response.data);
         setSuccess(true);
         setVerifying(false);
       } catch (err: any) {
-        console.error('❌ Verification error:', err);
         setVerifying(false);
         if (err.response && err.response.data) {
-          console.error('❌ Error response data:', err.response.data);
           setError(err.response.data.message || 'Verification failed');
         } else {
-          console.error('❌ Network or other error:', err.message);
           setError('Unable to connect to server');
         }
       }
