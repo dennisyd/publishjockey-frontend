@@ -23,11 +23,11 @@ const Pricing = () => {
     { 
       title: 'Free', 
       price: 'Free', 
-      description: 'Try before you buy with the first 10 pages',
+      description: 'Try before you buy with the first 12 pages',
       planId: 'free',
       features: [
         '1 book project',
-        'Export limited to first 10 pages',
+        'Export limited to first 12 pages',
         'AI-assisted formatting',
         'Watermark on output',
         'Word document splitting by H1 sections'
