@@ -115,6 +115,7 @@ function App() {
                   <Route path="/forgot-password" element={<ForgotPassword />} />
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/verify-email/:token" element={<VerifyEmail />} />
+                  <Route path="/verify-email" element={<VerifyEmail />} />
                   <Route path="/contact" element={<ContactPage />} />
                   <Route path="/about" element={<About />} />
                   <Route path="/blog" element={<Blog />} />
