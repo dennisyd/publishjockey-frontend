@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate, useSearchParams, useParams } from 'react-router-dom';
 import axios from 'axios';
 import {
   Box,
@@ -13,7 +13,7 @@ import {
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
+const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
 
 // Define response type
 interface AuthResponse {
@@ -23,11 +23,17 @@ interface AuthResponse {
 
 const VerifyEmail: React.FC = () => {
   const [searchParams] = useSearchParams();
-  const token = searchParams.get('token');
+  const params = useParams();
+  
+  // Get token from either URL params or query params
+  const token = params.token || searchParams.get('token');
+  
   const [verifying, setVerifying] = useState(true);
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  
+  console.log('🔍 VerifyEmail component loaded with token:', token ? `${token.substring(0, 10)}...` : 'null');
 
   useEffect(() => {
     const verifyEmail = async () => {
