@@ -131,7 +131,7 @@ const ImageUsageDisplay: React.FC<ImageUsageDisplayProps> = ({
             onClick={onUpgradeClick}
             disabled={!onUpgradeClick}
           >
-            {usage.allowed <= 2 && !isAtLimit ? 'Get 10+ images from $25' : 
+            {usage.allowed <= 2 && !isAtLimit ? 'Upgrade for 10+ Images' : 
              usage.additional === 0 ? 'Get 100 more images ($25)' : 'Add more images ($10/100)'}
           </Button>
         </Box>
