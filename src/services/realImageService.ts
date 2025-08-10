@@ -32,21 +32,19 @@ export const realImageService = {
   async uploadImage(file: File) {
     const token = localStorage.getItem('token');
     
-    // 1. Check image limit before upload
-    const checkRes = await fetch(`${API_BASE_URL}/api/images/check-limit`, {
-      method: 'POST',
+    // 1. Check image limit before upload (GET)
+    const checkRes = await fetch(`${API_BASE_URL}/images/check-limit`, {
+      method: 'GET',
       headers: { 
-        'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
-      },
+      }
     });
-    if (!checkRes.ok) {
-      const error = await checkRes.json();
-      throw new Error(error.message || 'Upload limit reached');
-    }
+    if (!checkRes.ok) throw new Error('Upload limit check failed');
+    const check = await checkRes.json();
+    if (check && check.canUpload === false) throw new Error('Upload limit reached');
 
     // 2. Get signed upload params from backend
-    const res = await fetch(`${API_BASE_URL}/api/images/upload-url`, {
+    const res = await fetch(`${API_BASE_URL}/images/upload-url`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
@@ -55,16 +53,16 @@ export const realImageService = {
       body: JSON.stringify({ filename: file.name, type: file.type }),
     });
     if (!res.ok) throw new Error('Failed to get upload URL');
-    const { uploadUrl, publicId, timestamp, signature, apiKey, folder } = await res.json();
+    const { signature, timestamp, api_key, cloud_name, public_id } = await res.json();
+    const uploadUrl = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
     // 3. Upload to Cloudinary using form data
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('api_key', apiKey);
+    formData.append('api_key', api_key);
     formData.append('timestamp', timestamp);
     formData.append('signature', signature);
-    formData.append('public_id', publicId);
-    formData.append('folder', folder);
+    formData.append('public_id', public_id);
 
     const uploadRes = await fetch(uploadUrl, {
       method: 'POST',
@@ -74,16 +72,16 @@ export const realImageService = {
     if (!uploadRes.ok) throw new Error('Upload to Cloudinary failed');
 
     // 4. Notify backend of success (will increment image count)
-    const notifyRes = await fetch(`${API_BASE_URL}/api/images/confirm-upload`, {
+    const notifyRes = await fetch(`${API_BASE_URL}/images/confirm-upload`, {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
         'Authorization': `Bearer ${token}`
       },
       body: JSON.stringify({
-        publicId,
-        filename: file.name,
-        url: uploadResult.secure_url,
+        public_id: uploadResult.public_id,
+        version: uploadResult.version,
+        signature: uploadResult.signature
       }),
     });
     if (!notifyRes.ok) throw new Error('Failed to confirm upload');
@@ -91,7 +89,7 @@ export const realImageService = {
   },
   async deleteImage(id: string) {
     const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/api/images/${id}`, { 
+    const res = await fetch(`${API_BASE_URL}/images/${id}`, { 
       method: 'DELETE',
       headers: { 'Authorization': `Bearer ${token}` }
     });
