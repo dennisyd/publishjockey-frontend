@@ -231,7 +231,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         // Set project title
         setProjectTitle(projectData.title || 'Untitled Book');
-        setProjectCreatedAt(projectData.createdAt || projectData.created_at || null);
+        setProjectCreatedAt((projectData as any).createdAt || (projectData as any).created_at || null);
         
         // Load metadata from backend if available
         if (projectData.author) {
