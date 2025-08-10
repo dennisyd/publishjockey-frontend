@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react'; // Yancy Dennis
+import React, { useState, useEffect, useRef, useMemo } from 'react'; // Yancy Dennis
 import {
   Box,
   Typography,
@@ -150,6 +150,21 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [viewMode, setViewMode] = useState<'edit' | 'split' | 'preview'>('edit');
   const [previewHtml, setPreviewHtml] = useState<string>('');
   const [recentlyImported, setRecentlyImported] = useState(false);
+  // Estimate pages from current content (similar heuristic to backend: ~350 words/page)
+  const estimatedPages = useMemo(() => {
+    try {
+      const totalWords = Object.values(content).reduce((sum, text) => {
+        if (!text) return sum;
+        // Split on whitespace and filter empty tokens
+        const words = text.split(/\s+/).filter(Boolean);
+        return sum + words.length;
+      }, 0);
+      return Math.ceil(totalWords / 350) || 0;
+    } catch {
+      return 0;
+    }
+  }, [content]);
+
   
   // Use navigation state for initial title if available
   const location = useLocation();
@@ -2412,6 +2427,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         isLoading={exportLoading}
         loadingMessage={exportProgress}
         projectName={editedProjectName}
+        estimatedPages={estimatedPages}
       />
       {/* Import Modal */}
       <ImportModal

@@ -15,7 +15,9 @@ import {
   MenuItem,
   CircularProgress
 } from '@mui/material';
+import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useAuth } from '../contexts/AuthContext';
 
 import ExportInstructionsTabs from './ExportInstructionsTabs';
 
@@ -106,6 +108,7 @@ interface ExportModalProps {
   isLoading?: boolean;
   loadingMessage?: string; // Add support for custom loading messages
   projectName?: string;
+  estimatedPages?: number; // Estimated total pages for current project
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({
@@ -115,7 +118,23 @@ const ExportModal: React.FC<ExportModalProps> = ({
   isLoading = false,
   loadingMessage = 'Processing export...',
   projectName = 'My Book'
+  , estimatedPages
 }) => {
+  const { currentUser } = useAuth();
+  const isFreePlan = (currentUser?.subscription || 'free') === 'free';
+
+  type ImageUsageStats = {
+    used: number;
+    allowed: number;
+    additional: number;
+    total: number;
+    remaining: number;
+    canUpload: boolean;
+  } | null;
+
+  const [imageUsage, setImageUsage] = useState<ImageUsageStats>(null);
+  const [usageLoading, setUsageLoading] = useState<boolean>(false);
+  const [usageError, setUsageError] = useState<string | null>(null);
   // State for export settings
   const [settings, setSettings] = useState<ExportSettings>({
     format: 'pdf',
@@ -155,6 +174,29 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
+  // Fetch image usage stats when modal opens (for free plan clarity)
+  useEffect(() => {
+    let cancelled = false;
+    const fetchUsage = async () => {
+      try {
+        setUsageLoading(true);
+        const stats = await realImageService.getImageUsageStats();
+        if (!cancelled) {
+          setImageUsage(stats);
+          setUsageError(null);
+        }
+      } catch (err: any) {
+        if (!cancelled) {
+          setUsageError(null); // silently ignore in UI
+        }
+      } finally {
+        if (!cancelled) setUsageLoading(false);
+      }
+    };
+    if (isOpen) fetchUsage();
+    return () => { cancelled = true; };
+  }, [isOpen]);
+
 
   // Get book sizes based on binding type
   const getBookSizes = () => {
@@ -416,6 +458,42 @@ const ExportModal: React.FC<ExportModalProps> = ({
           </Box>
         ) : (
           <Box component="form" noValidate>
+            {isFreePlan && (
+              <Alert severity="info" sx={{ mb: 2 }}>
+                <Box>
+                  <Typography variant="body2" color="text.primary">
+                    Free plan: 12-page export, 2 images.
+                  </Typography>
+                  {typeof estimatedPages === 'number' && estimatedPages > 0 && (() => {
+                    const included = Math.min(12, estimatedPages);
+                    const locked = Math.max(0, estimatedPages - 12);
+                    return (
+                      <>
+                        <Typography variant="body2" color="text.secondary">
+                          Estimated length: {estimatedPages} pages. Sample will include {included} page{included !== 1 ? 's' : ''}.
+                        </Typography>
+                        {locked > 0 && (
+                          <Typography variant="body2" color="text.secondary">
+                            Locked pages remaining: {locked}. Upgrade to export the full book.
+                          </Typography>
+                        )}
+                      </>
+                    );
+                  })()}
+                  {imageUsage && (
+                    <Typography variant="body2" color="text.secondary">
+                      Images remaining: {imageUsage.remaining} of {imageUsage.total}
+                    </Typography>
+                  )}
+                  {!imageUsage && usageLoading && (
+                    <Typography variant="body2" color="text.secondary">
+                      Checking image usage...
+                    </Typography>
+                  )}
+                  <Button href="/pricing" sx={{ mt: 1 }} size="small">Upgrade</Button>
+                </Box>
+              </Alert>
+            )}
             {/* Format */}
             <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Format</Typography>
             <FormControl fullWidth sx={{ mb: 2 }}>

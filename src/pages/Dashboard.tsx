@@ -403,6 +403,15 @@ const Dashboard: React.FC = () => {
         {error && (
           <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>
         )}
+        {/* Free plan clarity banner */}
+        {subscriptionType === 'free' && (
+          <Alert severity="info" sx={{ mb: 3 }}>
+            Free plan: 12-page export, 2 images.{' '}
+            <Button href="/pricing" size="small" sx={{ ml: 1 }}>
+              Upgrade
+            </Button>
+          </Alert>
+        )}
         
         {/* Stats Cards Row */}
         <Box sx={{ 
