@@ -170,6 +170,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const location = useLocation();
   const initialTitle = location.state?.title || '';
   const [projectTitle, setProjectTitle] = useState(initialTitle);
+  const [projectCreatedAt, setProjectCreatedAt] = useState<string | null>(null);
+  const [userSubscription, setUserSubscription] = useState<string | null>(null);
   const [projectSubtitle, setProjectSubtitle] = useState('');
   const [projectAuthor, setProjectAuthor] = useState('');
   
@@ -229,6 +231,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         // Set project title
         setProjectTitle(projectData.title || 'Untitled Book');
+        setProjectCreatedAt(projectData.createdAt || projectData.created_at || null);
         
         // Load metadata from backend if available
         if (projectData.author) {
@@ -327,6 +330,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     }
     if (projectId && token) fetchProject();
   }, [projectId, token]);
+
+  // Load user subscription for deterrent banner
+  useEffect(() => {
+    try {
+      const storedUser = localStorage.getItem('user');
+      if (storedUser) {
+        const u = JSON.parse(storedUser);
+        setUserSubscription(u.subscription || null);
+      }
+    } catch {}
+  }, []);
   
   // Autosave content to backend whenever it changes
   useEffect(() => {
@@ -2179,6 +2193,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             </Tooltip>
           </Box>
         </Box>
+
+        {/* Deterrent banner (Single plan, after 3 days) */}
+        {(() => {
+          if (!userSubscription || (userSubscription !== 'single' && userSubscription !== 'single_promo')) return null;
+          if (!projectCreatedAt) return null;
+          const created = new Date(projectCreatedAt).getTime();
+          const threeDays = 3 * 24 * 60 * 60 * 1000;
+          const show = Date.now() - created > threeDays;
+          if (!show) return null;
+          return (
+            <Paper sx={{ p: 2, m: 2, mt: 0, border: '1px solid', borderColor: 'warning.light', bgcolor: 'rgba(255,193,7,0.08)' }}>
+              <Typography variant="body2" color="text.secondary">
+                <strong>Heads up:</strong> We use AI to monitor title changes and prevent misuse. If suspicious activity is detected, your account may be suspended or deleted.
+              </Typography>
+            </Paper>
+          );
+        })()}
         
         {selected && recentlyImported && (
           <Alert 

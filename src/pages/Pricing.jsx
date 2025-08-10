@@ -4,14 +4,23 @@ import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import { useNavigate } from 'react-router-dom';
 import { redirectToCheckout } from '../services/stripeService';
 import { useAuth } from '../contexts/AuthContext';
-import { LAUNCH_OFFER_CONFIG, isLaunchOfferActive } from '../config/launchOffer';
+import { isLaunchOfferActive } from '../config/launchOffer';
 import LaunchOfferCountdown from '../components/LaunchOfferCountdown';
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import TextField from '@mui/material/TextField';
 
 
 
 const Pricing = () => {
   const [loadingPlanId, setLoadingPlanId] = useState(null);
   const [error, setError] = useState(null);
+  const [customOpen, setCustomOpen] = useState(false);
+  const [customBooks, setCustomBooks] = useState('');
+  const [customImages, setCustomImages] = useState('');
+  const [customNotes, setCustomNotes] = useState('');
   const { currentUser } = useAuth();
   const navigate = useNavigate();
   
@@ -38,134 +47,153 @@ const Pricing = () => {
   ];
 
   if (launchOfferActive) {
-    // Add launch offer plans
     pricingPlans.push(
       {
-        title: LAUNCH_OFFER_CONFIG.pricing.singleBook.title,
-        price: `$${LAUNCH_OFFER_CONFIG.pricing.singleBook.price}`,
-        originalPrice: `$${LAUNCH_OFFER_CONFIG.pricing.singleBook.originalPrice}`,
-        description: LAUNCH_OFFER_CONFIG.pricing.singleBook.subtitle,
-        popular: true,
+        title: 'Single — LAUNCH OFFER',
+        price: '$49',
+        description: 'One-time purchase (3-year validity)',
         planId: 'single_promo',
-        perBookText: 'One-time payment',
+        perBookText: '1 book for 3 years',
         launchOffer: true,
-        savings: LAUNCH_OFFER_CONFIG.pricing.singleBook.savings,
-        features: LAUNCH_OFFER_CONFIG.pricing.singleBook.features.map(f => f.title),
-        buttonText: LAUNCH_OFFER_CONFIG.pricing.singleBook.buttonText,
-        buttonVariant: 'contained'
-      },
-      {
-        title: LAUNCH_OFFER_CONFIG.pricing.bundle.title,
-        price: `$${LAUNCH_OFFER_CONFIG.pricing.bundle.price}`,
-        originalPrice: `$${LAUNCH_OFFER_CONFIG.pricing.bundle.originalPrice}`,
-        description: LAUNCH_OFFER_CONFIG.pricing.bundle.subtitle,
-        planId: 'bundle_promo',
-        perBookText: 'Valid for 3 years from purchase',
-        launchOffer: true,
-        savings: LAUNCH_OFFER_CONFIG.pricing.bundle.savings,
-        features: LAUNCH_OFFER_CONFIG.pricing.bundle.features.map(f => f.title),
-        buttonText: LAUNCH_OFFER_CONFIG.pricing.bundle.buttonText,
-        buttonVariant: 'contained'
-      }
-    );
-  } else {
-    // Fallback to regular plans
-    pricingPlans.push(
-      { 
-        title: 'Single Book', 
-        price: '$63', 
-        description: 'One-time purchase for a single book',
-        popular: true,
-        planId: 'single',
-        perBookText: 'One-time payment',
         features: [
           '1 book project',
           'Full book export',
           'AI-assisted formatting',
           'Watermark-free output',
-          'Email support',
           'Word document splitting by H1 sections',
-          '10 images included for cover creation and upscaling'
+          '12 images included'
         ],
-        buttonText: 'Get Started',
+        buttonText: 'Get Single — $49',
+        buttonVariant: 'contained'
+      },
+      {
+        title: '10 Book Pack — LAUNCH OFFER',
+        price: '$125',
+        description: 'Best value to start (3-year validity)',
+        planId: 'bundle10_promo',
+        perBookText: '10 books for 3 years',
+        launchOffer: true,
+        features: [
+          '10 book projects',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Word document splitting by H1 sections',
+          '120 images included'
+        ],
+        buttonText: 'Get 10 Books — $125',
+        buttonVariant: 'contained'
+      },
+      {
+        title: '20 Book Pack — LAUNCH OFFER',
+        price: '$199',
+        description: 'Scale your publishing (3-year validity)',
+        planId: 'bundle20_promo',
+        perBookText: '20 books for 3 years',
+        launchOffer: true,
+        features: [
+          '20 book projects',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Word document splitting by H1 sections',
+          '220 images included'
+        ],
+        buttonText: 'Get 20 Books — $199',
+        buttonVariant: 'contained'
+      }
+    );
+  } else {
+    pricingPlans.push(
+      {
+        title: 'Single',
+        price: '$63',
+        description: 'One-time purchase (3-year validity)',
+        planId: 'single',
+        perBookText: '1 book for 3 years',
+        features: [
+          '1 book project',
+          'Full book export',
+          'AI-assisted formatting',
+          'Watermark-free output',
+          'Word document splitting by H1 sections',
+          '10 images included'
+        ],
+        buttonText: 'Get Single — $63',
         buttonVariant: 'contained'
       },
       { 
-        title: '10 Book Bundle', 
-        price: '$399', 
-        description: 'Publish up to 10 books',
-        planId: 'bundle',
+        title: '10 Book Pack', 
+        price: '$199', 
+        description: 'Publish up to 10 books (3-year validity)',
+        planId: 'bundle10',
         perBookText: '10 books for 3 years',
-                 features: [
-           '10 book projects',
-           'Full book export',
-           'AI-assisted formatting',
-           'Watermark-free output',
-           'Priority support',
-           'Word document splitting by H1 sections',
-           '100 images included for cover creation and upscaling'
-         ],
-        buttonText: 'Get Bundle',
-        buttonVariant: 'outlined'
-      },
-      
-      { 
-        title: 'Additional Books', 
-        price: '$37', 
-        description: 'Add more books to your account',
-        planId: 'additional',
-        perBookText: 'Per additional book',
         features: [
-          '1 additional book project',
+          '10 book projects',
           'Full book export',
           'AI-assisted formatting',
           'Watermark-free output',
-          'Email support',
           'Word document splitting by H1 sections',
-          '+10 additional images for cover creation and upscaling'
+          '100 images included'
         ],
-        buttonText: 'Add Book',
-        buttonVariant: 'outlined'
-      },
-             { 
-         title: 'Annual Subscription', 
-         price: '$399', 
-         description: '25 books for 3 years',
-         planId: 'annual',
-         perBookText: '25 books for 3 years',
-                 features: [
-           '25 book projects',
-           'Full book export',
-           'AI-assisted formatting',
-           'Watermark-free output',
-           'Priority support',
-           'Word document splitting by H1 sections',
-           '100 images included for cover creation and upscaling'
-         ],
-        buttonText: 'Subscribe Now',
+        buttonText: 'Get 10 Books — $199',
         buttonVariant: 'outlined'
       },
       { 
-        title: 'Custom Image Allowance', 
-        price: 'Contact Us', 
-        description: 'Need more images? We can set up a custom allowance for your needs',
-        planId: 'custom',
-        perBookText: 'Custom pricing',
+        title: '20 Book Pack', 
+        price: '$299', 
+        description: 'Publish up to 20 books (3-year validity)',
+        planId: 'bundle20',
+        perBookText: '20 books for 3 years',
         features: [
-          'Custom image allowance',
+          '20 book projects',
           'Full book export',
           'AI-assisted formatting',
           'Watermark-free output',
-          'Priority support',
           'Word document splitting by H1 sections',
-          'Custom cover image allowance for KDP'
+          '200 images included'
         ],
-        buttonText: 'Contact Us',
-        buttonVariant: 'outlined',
-        isContactUs: true
+        buttonText: 'Get 20 Books — $299',
+        buttonVariant: 'outlined'
       }
     );
   }
+
+  // Add-ons and custom
+  pricingPlans.push(
+    { 
+      title: 'Additional Books', 
+      price: '$37', 
+      description: 'Add more books to your account',
+      planId: 'additional',
+      perBookText: 'Per additional book (3-year validity)',
+      features: [
+        '1 additional book project',
+        'Full book export',
+        'AI-assisted formatting',
+        'Watermark-free output',
+        'Word document splitting by H1 sections',
+        '+10 additional images'
+      ],
+      buttonText: 'Add Book — $37',
+      buttonVariant: 'outlined'
+    },
+    {
+      title: 'Custom Plan',
+      price: 'Contact Us',
+      description: 'Need a larger plan or specific image limits? We can help.',
+      isCustom: true,
+      perBookText: '3-year validity',
+      features: [
+        'Custom books allowance',
+        'Custom image allowance',
+        'Full export (PDF, EPUB, DOCX)',
+        'Priority support'
+      ],
+      buttonText: 'Request Custom Plan',
+      buttonVariant: 'outlined'
+    }
+  );
 
   const handlePlanSelect = async (plan) => {
     if (plan.planId === 'free') {
@@ -174,11 +202,8 @@ const Pricing = () => {
     }
 
     // Handle Contact Us option
-    if (plan.isContactUs) {
-      // Open email client with pre-filled subject and body
-      const subject = encodeURIComponent('Custom Image Allowance Request - Publish Jockey');
-      const body = encodeURIComponent(`Hi,\n\nI'm interested in setting up a custom image allowance for my publishing needs.\n\nPlease contact me to discuss pricing and requirements.\n\nBest regards,\n${currentUser?.name || 'User'}`);
-      window.open(`mailto:denni@publishjockey.com?subject=${subject}&body=${body}`);
+    if (plan.isContactUs || plan.isCustom) {
+      setCustomOpen(true);
       return;
     }
 
@@ -202,6 +227,15 @@ const Pricing = () => {
       setError('An error occurred. Please try again later.');
       setLoadingPlanId(null);
     }
+  };
+
+  const handleCustomSubmit = () => {
+    const subject = encodeURIComponent('Custom Plan Request - PublishJockey');
+    const body = encodeURIComponent(
+      `Hi,\n\nI would like a custom plan.\n\nBooks needed: ${customBooks || 'TBD'}\nImages needed: ${customImages || 'TBD'}\nNotes: ${customNotes || 'N/A'}\n\nUser: ${currentUser?.name || 'Guest'} (${currentUser?.email || 'N/A'})\n\nThanks!`
+    );
+    window.open(`mailto:denni@publishjockey.com?subject=${subject}&body=${body}`);
+    setCustomOpen(false);
   };
 
   return (
@@ -229,8 +263,8 @@ const Pricing = () => {
             }}
           >
             {launchOfferActive 
-              ? 'Limited time launch offer - Save up to $1,450 on professional book publishing tools'
-              : 'Start with a single book for $63, add more for $37 each, or get 25 books with annual subscription'
+              ? 'Launch offers: $49 single, $125 (10 books), $199 (20 books) — all valid for 3 years'
+              : 'Regular pricing: $63 single, $199 (10 books), $299 (20 books) — all valid for 3 years'
             }
           </Typography>
           {launchOfferActive && <LaunchOfferCountdown />}
@@ -464,6 +498,43 @@ const Pricing = () => {
           </Typography>
         </Box>
       </Container>
+      {/* Custom Plan Dialog */}
+      <Dialog open={customOpen} onClose={() => setCustomOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Request a Custom Plan</DialogTitle>
+        <DialogContent dividers>
+          <Box sx={{ display: 'grid', gap: 2, mt: 1 }}>
+            <TextField
+              label="Books Needed"
+              type="number"
+              value={customBooks}
+              onChange={(e) => setCustomBooks(e.target.value)}
+              placeholder="e.g. 50"
+              fullWidth
+            />
+            <TextField
+              label="Images Needed"
+              type="number"
+              value={customImages}
+              onChange={(e) => setCustomImages(e.target.value)}
+              placeholder="e.g. 500"
+              fullWidth
+            />
+            <TextField
+              label="Notes"
+              multiline
+              minRows={3}
+              value={customNotes}
+              onChange={(e) => setCustomNotes(e.target.value)}
+              placeholder="Tell us about your needs"
+              fullWidth
+            />
+          </Box>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setCustomOpen(false)}>Cancel</Button>
+          <Button variant="contained" onClick={handleCustomSubmit}>Send Request</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

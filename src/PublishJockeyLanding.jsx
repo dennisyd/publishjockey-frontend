@@ -338,8 +338,8 @@ const TickerTape = () => {
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
     { text: launchOfferActive 
-        ? "🚀 LAUNCH OFFER: $49 for your first book, $125 for 10 books! Save up to $505!" 
-        : "💰 Pricing: $63 for your first book, $37 for each additional, or $399/year for 25 books." 
+        ? "🚀 LAUNCH OFFER: $49 single, $125 (10 books), $199 (20 books) — 3-year validity." 
+        : "💰 Pricing: $63 single, $199 (10 books), $299 (20 books) — 3-year validity." 
     },
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
@@ -2375,7 +2375,7 @@ const Pricing = ({ handleRegister }) => {
       free: true,
       features: [
         { title: '1 book project', included: true },
-        { title: 'Export limited to first 10 pages', included: true },
+        { title: 'Export limited to first 12 pages', included: true },
         { title: 'Export to PDF, Word, and EPUB', included: true },
         { title: 'AI-assisted formatting', included: true },
         { title: 'Advanced editing tools', included: true },
@@ -2389,15 +2389,21 @@ const Pricing = ({ handleRegister }) => {
     // Add launch offer plans
     pricingPlans.push(
       {
-        ...LAUNCH_OFFER_CONFIG.pricing.singleBook,
-        price: LAUNCH_OFFER_CONFIG.pricing.singleBook.price,
-        originalPrice: LAUNCH_OFFER_CONFIG.pricing.singleBook.originalPrice,
+        ...LAUNCH_OFFER_CONFIG.pricing.single,
+        price: LAUNCH_OFFER_CONFIG.pricing.single.price,
+        originalPrice: LAUNCH_OFFER_CONFIG.pricing.single.originalPrice,
         launchOffer: true
       },
       {
-        ...LAUNCH_OFFER_CONFIG.pricing.bundle,
-        price: LAUNCH_OFFER_CONFIG.pricing.bundle.price,
-        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle.originalPrice,
+        ...LAUNCH_OFFER_CONFIG.pricing.bundle10,
+        price: LAUNCH_OFFER_CONFIG.pricing.bundle10.price,
+        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle10.originalPrice,
+        launchOffer: true
+      },
+      {
+        ...LAUNCH_OFFER_CONFIG.pricing.bundle20,
+        price: LAUNCH_OFFER_CONFIG.pricing.bundle20.price,
+        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle20.originalPrice,
         launchOffer: true
       }
     );
@@ -2448,8 +2454,8 @@ const Pricing = ({ handleRegister }) => {
         buttonVariant: 'outlined'
       },
       {
-        title: 'Annual Subscription',
-        subtitle: '25 books for one year - perfect for prolific authors.',
+        title: '25 Book Pack',
+        subtitle: '25 books valid for 3 years — ideal for prolific authors.',
         price: 399,
         booksIncluded: 25,
         perBookCost: 16,
@@ -2464,7 +2470,7 @@ const Pricing = ({ handleRegister }) => {
           { title: 'Word document splitting by H1 sections', included: true },
           { title: '$100 value: Upscaled cover images for KDP', included: true }
         ],
-        buttonText: 'Subscribe Now',
+        buttonText: 'Get 25 Books',
         buttonVariant: 'outlined'
       }
     );

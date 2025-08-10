@@ -42,8 +42,10 @@ import {
   Email as EmailIcon,
   AdminPanelSettings as AdminPanelSettingsIcon,
   Search as SearchIcon,
-  Refresh as RefreshIcon
+    Refresh as RefreshIcon,
+    Gavel as GavelIcon
 } from '@mui/icons-material';
+import { listTitleChanges, TitleChangeItem } from '../../services/adminService';
 import { useAuth } from '../../contexts/AuthContext';
 import * as adminService from '../../services/adminService';
 import { AdminUser, AuditLogEntry } from '../../services/adminService';
@@ -545,6 +547,8 @@ const UserManagement: React.FC = () => {
   const [resetPasswordDialogOpen, setResetPasswordDialogOpen] = useState(false);
   const [suspendDialogOpen, setSuspendDialogOpen] = useState(false);
   const [sendNotificationDialogOpen, setSendNotificationDialogOpen] = useState(false);
+  const [userTitleDialogOpen, setUserTitleDialogOpen] = useState(false);
+  const [userTitleItems, setUserTitleItems] = useState<TitleChangeItem[]>([]);
   const [bulkActionDialogOpen, setBulkActionDialogOpen] = useState(false);
   
   // Success and error messages
@@ -665,6 +669,14 @@ const UserManagement: React.FC = () => {
   const handleEditUser = (user: AdminUser) => {
     setCurrentUser(user);
     setEditUserDialogOpen(true);
+  };
+
+  // Load a user's pending title changes
+  const openUserTitles = async (user: AdminUser) => {
+    setCurrentUser(user);
+    const res = await listTitleChanges({ status: 'Pending', userId: user.id });
+    setUserTitleItems(res.items || []);
+    setUserTitleDialogOpen(true);
   };
   
   // Handle save user edits
@@ -1002,6 +1014,13 @@ const UserManagement: React.FC = () => {
                   <TableCell>{formatDate(user.createdAt)}</TableCell>
                   <TableCell align="right">
                     <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+                      {(user.subscription === 'single' || user.subscription === 'single_promo') && (
+                        <Tooltip title="Title Changes">
+                          <IconButton onClick={() => openUserTitles(user)}>
+                            <GavelIcon />
+                          </IconButton>
+                        </Tooltip>
+                      )}
                       <Tooltip title="View Details">
                         <IconButton onClick={() => loadUserDetails(user.id)}>
                           <PersonIcon />
@@ -1209,6 +1228,42 @@ const UserManagement: React.FC = () => {
         onClose={() => setBulkActionDialogOpen(false)}
         onAction={handleBulkAction}
       />
+
+      {/* User Title Changes Dialog */}
+      <Dialog open={userTitleDialogOpen} onClose={() => setUserTitleDialogOpen(false)} maxWidth="md" fullWidth>
+        <DialogTitle>Pending Title Changes — {currentUser?.name}</DialogTitle>
+        <DialogContent dividers>
+          {userTitleItems.length === 0 ? (
+            <Typography color="text.secondary">No pending items</Typography>
+          ) : (
+            <Table size="small">
+              <TableHead>
+                <TableRow>
+                  <TableCell>Project</TableCell>
+                  <TableCell>Old Title</TableCell>
+                  <TableCell>Requested Title</TableCell>
+                  <TableCell>Delta</TableCell>
+                  <TableCell>Requested</TableCell>
+                </TableRow>
+              </TableHead>
+              <TableBody>
+                {userTitleItems.map(it => (
+                  <TableRow key={it._id}>
+                    <TableCell>{it.projectId}</TableCell>
+                    <TableCell>{it.oldTitle}</TableCell>
+                    <TableCell>{it.newTitle}</TableCell>
+                    <TableCell>{it.similarityDelta}%</TableCell>
+                    <TableCell>{new Date(it.requestedAt).toLocaleString()}</TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setUserTitleDialogOpen(false)}>Close</Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };

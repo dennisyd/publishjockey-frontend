@@ -18,6 +18,14 @@ const helpTopics = [
     answer: 'AI has evolved and is a great tool for generating colorful images, however, they tend to be too low in resolution for publishing. ImageMagic attempts to upscale your .png or .jpg files to meet the requirements for Amazon KDP. While it may be used for other publishing platforms, it has been specifically tested with Amazon KDP requirements. Simply upload your image, select a book size (or let it auto-detect), and ImageMagic will upscale it to 300 DPI resolution suitable for publishing.'
   },
   {
+    question: 'Title Changes & Reviews — How does it work?',
+    answer: `Single-book plans: Unlimited title edits in the first 3 days after creating a book. After 3 days, very large changes (about 25% different) may be flagged for admin review. Multi-book plans are exempt.
+
+If flagged, an admin approves or denies your request. Approved: your new title goes live. Denied: your last approved title remains. You’ll receive an email in either case.
+
+We show a short 'Heads up' message only to Single-book plans after the 3-day window as a deterrent to misuse.`
+  },
+  {
     question: 'How do I import my manuscript?',
     answer: 'Go to your dashboard, click "Import Manuscript," and select your file from Word, Google Docs, or Markdown.'
   },

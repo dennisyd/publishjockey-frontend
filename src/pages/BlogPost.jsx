@@ -121,7 +121,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: 'Getting started with PublishJockey takes just minutes. Our Free plan lets you explore the core features and preview the first 10 pages of your book. For single-book publishing, our Single Book plan at $63 gives you everything you need. Add additional books for $37 each, or get unlimited access with our $399 annual subscription.'
+        text: 'Getting started with PublishJockey takes just minutes. Our Free plan lets you explore the core features and preview the first 12 pages of your book. For single-book publishing, our Single Book plan at $63 gives you everything you need. Add additional books for $37 each, or choose our 10-Book Pack for $199 (valid for 3 years). During launch, grab 25 books for $144 (limited time).'
       },
       {
         type: 'cta',
@@ -264,7 +264,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: '3. Modern Publishing Platform like PublishJockey ($0-399):\n- Free Plan: $0 (limited to first 10 pages with watermark)\n- Single Book Plan: $63 for one book (one-time payment)\n- Additional Books: $37 per additional book\n- Annual Subscription: $399 (unlimited books for 12 months)\n- Learning curve: 1-2 hours\n- Revisions: Unlimited, instant\n- Total time: Minutes, not weeks\n- Total cost: As low as $37 per book for additional titles'
+        text: '3. Modern Publishing Platform like PublishJockey ($0-399):\n- Free Plan: $0 (limited to first 12 pages with watermark)\n- Single Book Plan: $63 for one book (one-time payment)\n- Additional Books: $37 per additional book\n- 10-Book Pack: $199 (valid for 3 years)\n- Launch Offer: 25-Book Pack $144 (limited time)\n- Learning curve: 1-2 hours\n- Revisions: Unlimited, instant\n- Total time: Minutes, not weeks\n- Total cost: As low as $5.76 per book during launch'
       },
       {
         type: 'heading',

@@ -1,68 +1,79 @@
-// Pre-launch offer configuration
+// Launch offer configuration (promo mode)
 export const LAUNCH_OFFER_CONFIG = {
-  // Set this to the end date of your pre-launch offer
-  // Format: 'YYYY-MM-DD HH:mm:ss' (24-hour format)
-  endDate: '2025-12-01 23:59:59', // Set to past date to test regular pricing
-  
-  // Offer details
-  isActive: false, // Set to false to manually disable the offer
-  
-  // Pricing for the pre-launch offer
+  // End date/time (local) — format: 'YYYY-MM-DD HH:mm:ss'
+  endDate: '2025-12-01 23:59:59',
+  // Optional start date to delay activation
+  startDate: undefined,
+
+  // Promo pricing (3-year validity on all plans)
   pricing: {
-    singleBook: {
+    single: {
       price: 49,
       originalPrice: 63,
-      title: '✍️ Single Book - LAUNCH OFFER',
-      subtitle: 'Perfect for authors publishing their first book with professional-quality output.',
+      title: '✍️ Single — LAUNCH OFFER',
+      subtitle: 'One-time purchase (3-year validity).',
+      booksIncluded: 1,
       features: [
         { title: '1 book project', included: true },
-        { title: 'Advanced markdown editor', included: true },
-        { title: 'Full book export to PDF, Word, and EPUB', included: true },
+        { title: 'Full book export (PDF, Word, EPUB)', included: true },
         { title: 'AI-assisted formatting', included: true },
         { title: 'Advanced editing tools', included: true },
         { title: 'Watermark-free output', included: true },
-        { title: 'Email support', included: true },
         { title: 'Word document splitting by H1 sections', included: true },
-        { title: '10 images included for cover creation and upscaling', included: true }
+        { title: '12 images included', included: true }
       ],
-      buttonText: 'Get Started - LAUNCH OFFER',
+      buttonText: 'Get Single — $49',
       buttonVariant: 'contained',
-      popular: true,
-      savings: 14 // $63 - $49
+      savings: 14
     },
-    bundle: {
+    bundle10: {
       price: 125,
-      originalPrice: 630, // 10 books at $63 each
-      title: '🚀 10 Books - LAUNCH OFFER',
-      subtitle: 'Perfect for authors with multiple book ideas or small publishing projects.',
+      originalPrice: 630, // 10 × $63
+      title: '🚀 10 Book Pack — LAUNCH OFFER',
+      subtitle: 'Best value to start (3-year validity).',
       booksIncluded: 10,
       features: [
         { title: '10 book projects', included: true },
-        { title: 'Advanced markdown editor', included: true },
-        { title: 'Full book export to PDF, Word, and EPUB', included: true },
+        { title: 'Full book export (PDF, Word, EPUB)', included: true },
         { title: 'AI-assisted formatting', included: true },
-        { title: 'Advanced editing tools', included: true },
         { title: 'Watermark-free output', included: true },
-        { title: 'Priority email support', included: true },
         { title: 'Word document splitting by H1 sections', included: true },
-        { title: '250 images included for cover creation and upscaling', included: true },
-        { title: 'Valid for 3 years from purchase', included: true }
+        { title: '120 images included', included: true }
       ],
-      buttonText: 'Get 10 Books - LAUNCH OFFER',
+      buttonText: 'Get 10 Books — $125',
       buttonVariant: 'contained',
-      savings: 505 // $630 - $125
+      savings: 505
+    },
+    bundle20: {
+      price: 199,
+      originalPrice: 1260, // 20 × $63
+      title: '🚀 20 Book Pack — LAUNCH OFFER',
+      subtitle: 'Scale your publishing (3-year validity).',
+      booksIncluded: 20,
+      features: [
+        { title: '20 book projects', included: true },
+        { title: 'Full book export (PDF, Word, EPUB)', included: true },
+        { title: 'AI-assisted formatting', included: true },
+        { title: 'Watermark-free output', included: true },
+        { title: 'Word document splitting by H1 sections', included: true },
+        { title: '220 images included', included: true }
+      ],
+      buttonText: 'Get 20 Books — $199',
+      buttonVariant: 'contained',
+      savings: 1061
     }
   }
 };
 
 // Helper function to check if the offer is still active
 export const isLaunchOfferActive = () => {
-  if (!LAUNCH_OFFER_CONFIG.isActive) return false;
-  
   const now = new Date();
   const endDate = new Date(LAUNCH_OFFER_CONFIG.endDate);
-  
-  return now < endDate;
+  const startDate = LAUNCH_OFFER_CONFIG.startDate ? new Date(LAUNCH_OFFER_CONFIG.startDate) : null;
+  if (Number.isNaN(endDate.getTime())) return false;
+  if (startDate && Number.isNaN(startDate.getTime())) return false;
+  const afterStart = startDate ? now >= startDate : true;
+  return afterStart && now < endDate;
 };
 
 // Helper function to get time remaining

@@ -16,10 +16,12 @@ import {
   People as PeopleIcon,
   Settings as SettingsIcon,
   ListAlt as ListAltIcon,
-  Assessment as AssessmentIcon
+    Assessment as AssessmentIcon
 } from '@mui/icons-material';
+import GavelIcon from '@mui/icons-material/Gavel';
 import { useAuth } from '../../contexts/AuthContext';
 import UserManagement from './UserManagement';
+import TitleChanges from './TitleChanges';
 import TestimonialApproval from '../../components/admin/TestimonialApproval';
 import * as adminService from '../../services/adminService';
 
@@ -125,6 +127,7 @@ const AdminDashboard: React.FC = () => {
           <Tab icon={<ListAltIcon />} label="Content Management" {...a11yProps(2)} />
           <Tab icon={<AssessmentIcon />} label="Analytics" {...a11yProps(3)} />
           <Tab icon={<SettingsIcon />} label="Settings" {...a11yProps(4)} />
+          <Tab icon={<GavelIcon />} label="Title Changes" {...a11yProps(5)} />
         </Tabs>
       </Paper>
       <Divider />
@@ -206,6 +209,10 @@ const AdminDashboard: React.FC = () => {
           <Typography variant="h5" gutterBottom>Admin Settings</Typography>
           <Typography>Admin settings features will be implemented here.</Typography>
         </Box>
+      </TabPanel>
+
+      <TabPanel value={tabValue} index={5}>
+        <TitleChanges />
       </TabPanel>
     </Box>
   );

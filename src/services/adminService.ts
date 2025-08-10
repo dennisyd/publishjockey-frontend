@@ -236,3 +236,31 @@ export const getDashboardStats = async (): Promise<DashboardStatsResponse> => {
   });
   return response.data as DashboardStatsResponse;
 }; 
+
+// Title Changes
+export interface TitleChangeItem {
+  _id: string;
+  userId: string;
+  projectId: string;
+  oldTitle: string;
+  newTitle: string;
+  similarityDelta: number; // 0-100
+  triggerReason: string;
+  status: 'Pending' | 'Approved' | 'Denied' | 'Cancelled';
+  requestedAt: string;
+}
+
+export const listTitleChanges = async (params: { status?: string; userId?: string; projectId?: string; from?: string; to?: string } = {}) => {
+  const res = await axios.get(`${API_URL}/admin/title-changes`, { params, withCredentials: true });
+  return res.data as { success: boolean; items: TitleChangeItem[] };
+};
+
+export const approveTitleChange = async (id: string) => {
+  const res = await axios.post(`${API_URL}/admin/title-changes/${id}/approve`, {}, { withCredentials: true });
+  return res.data as { success: boolean };
+};
+
+export const denyTitleChange = async (id: string, reason?: string) => {
+  const res = await axios.post(`${API_URL}/admin/title-changes/${id}/deny`, { reason }, { withCredentials: true });
+  return res.data as { success: boolean };
+};
