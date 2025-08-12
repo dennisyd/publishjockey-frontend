@@ -46,6 +46,15 @@ interface ExportResult {
  */
 export class ExportService {
   /**
+   * Escape LaTeX-reserved characters that break section headings.
+   * Keep conservative: only escape ampersand per current requirement.
+   * Do NOT touch body content to preserve plain text citations.
+   */
+  private static sanitizeLatexHeading(title?: string): string | undefined {
+    if (!title) return title;
+    return title.replace(/&/g, "\\&");
+  }
+  /**
    * Exports a project to the specified format using the provided export settings
    * @param project The project to export
    * @param settings Export settings from the ExportModal
@@ -185,9 +194,14 @@ export class ExportService {
             console.warn(`Empty or invalid content for section ${s.id}`)
           }
 
+          // Only escape special characters in headings for PDF builds
+          const sanitizedTitle = exportFormat === "pdf"
+            ? ExportService.sanitizeLatexHeading(s.title)
+            : s.title;
+
           return {
             id: s.id,
-            title: s.title,
+            title: sanitizedTitle,
             content: content,
             matter: s.matter, // Explicitly set matter property
             isTitlePage:
