@@ -54,6 +54,19 @@ export class ExportService {
     if (!title) return title;
     return title.replace(/&/g, "\\&");
   }
+
+  /**
+   * Escape ampersands only on markdown heading lines for LaTeX PDF builds.
+   */
+  private static sanitizeAmpersandInMarkdownHeadings(markdown: string): string {
+    const lines = markdown.split(/\r?\n/);
+    for (let i = 0; i < lines.length; i++) {
+      if (/^\s{0,3}#{1,6}\s/.test(lines[i])) {
+        lines[i] = lines[i].replace(/&/g, "\\&");
+      }
+    }
+    return lines.join("\n");
+  }
   /**
    * Exports a project to the specified format using the provided export settings
    * @param project The project to export
@@ -189,7 +202,10 @@ export class ExportService {
           }
 
           // Ensure content exists and is string
-          const content = s.content || ""
+          let content = s.content || ""
+          if (exportFormat === "pdf") {
+            content = ExportService.sanitizeAmpersandInMarkdownHeadings(content)
+          }
           if (!content || typeof content !== "string") {
             console.warn(`Empty or invalid content for section ${s.id}`)
           }

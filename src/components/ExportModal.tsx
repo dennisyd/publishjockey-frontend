@@ -109,6 +109,7 @@ interface ExportModalProps {
   loadingMessage?: string; // Add support for custom loading messages
   projectName?: string;
   estimatedPages?: number; // Estimated total pages for current project
+  exportError?: string | null;
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({
@@ -118,7 +119,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   isLoading = false,
   loadingMessage = 'Processing export...',
   projectName = 'My Book'
-  , estimatedPages
+  , estimatedPages,
+  exportError
 }) => {
   const { currentUser } = useAuth();
   const isFreePlan = (currentUser?.subscription || 'free') === 'free';
@@ -414,6 +416,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
       </DialogTitle>
       
       <DialogContent sx={{ p: 3 }}>
+        {!isLoading && exportError && (
+          <Alert severity="error" sx={{ mb: 2 }}>
+            <Typography variant="body2" gutterBottom>
+              {exportError}
+            </Typography>
+            <Typography variant="body2" color="text.secondary">
+              Tip: If exporting to PDF and a heading contains an ampersand (&), escape it as \\& in the heading title. Plain text body content does not need escaping.
+            </Typography>
+          </Alert>
+        )}
         {isLoading ? (
           // Show prominent loading state when exporting
           <Box 
