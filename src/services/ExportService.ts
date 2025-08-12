@@ -7,7 +7,8 @@ import { ValidationService } from "./ValidationService"
 import axios from "axios"
 
 // Define API URL for the export backend
-const API_URL = process.env.REACT_APP_EXPORT_API_URL || "https://publishjockey-export.onrender.com"
+import { ENV } from '../config/env'
+const API_URL = ENV.EXPORT_API_URL
 
 interface Section {
   id: string

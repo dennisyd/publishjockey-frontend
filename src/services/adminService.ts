@@ -1,6 +1,7 @@
 import axios from 'axios';
+import { ENV } from '../config/env';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
+const API_URL = ENV.API_URL.replace(/\/$/, '').replace(/\/api$/, '');
 
 // Types
 export interface AdminUser {

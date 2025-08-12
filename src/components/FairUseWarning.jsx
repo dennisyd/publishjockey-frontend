@@ -1,4 +1,5 @@
 import React from 'react';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { 
   Dialog, 
   DialogTitle, 
@@ -114,7 +115,7 @@ const FairUseWarning = ({
         </Box>
         
         {warningMessage && (
-          <Box mt={3} dangerouslySetInnerHTML={{ __html: warningMessage }} />
+          <Box mt={3} dangerouslySetInnerHTML={{ __html: sanitizeHtml(warningMessage) }} />
         )}
       </DialogContent>
       

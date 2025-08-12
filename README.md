@@ -1,3 +1,12 @@
+## Environment Variables
+
+Create a `.env` file with:
+
+```
+REACT_APP_API_URL=https://publishjockey-backend.onrender.com/api
+REACT_APP_EXPORT_API_URL=https://publishjockey-export.onrender.com
+REACT_APP_EXPORT_PLATFORM=server
+```
 # PublishJockey Frontend
 
 This is the frontend React application for PublishJockey, a book publishing platform. It provides a modern, interactive UI for creating, editing, importing, and exporting book projects.

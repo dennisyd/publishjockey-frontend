@@ -1,4 +1,5 @@
 import React from 'react'; // Yancy D. Dennis
+import { sanitizeHtml } from './utils/sanitizeHtml';
 import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
@@ -3431,7 +3432,7 @@ const FAQ = () => {
                         lineHeight: 1.7,
                         fontSize: '1rem'
                       }}
-                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                      dangerouslySetInnerHTML={{ __html: sanitizeHtml(faq.answer) }}
                     />
                     
                     {/* Feedback Section */}

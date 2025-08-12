@@ -41,7 +41,11 @@ const TestimonialApproval = () => {
     const loadTestimonials = async () => {
       setLoading(true);
       try {
-        const response = await axios.get('/api/testimonials');
+      const { ENV } = await import('../../config/env');
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${ENV.API_URL}/testimonials`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+      });
         // Transform the data to match our UI needs
         const transformedTestimonials = response.data.map(testimonial => ({
           id: testimonial._id,

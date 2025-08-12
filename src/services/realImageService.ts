@@ -1,4 +1,5 @@
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
+import { ENV } from '../config/env';
+const API_BASE_URL = ENV.API_URL;
 
 export const realImageService = {
   async getUserImages() {

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import { 
   Box, 
   Container, 
@@ -761,7 +762,7 @@ const BlogPost = () => {
                   <Box
                     key={index}
                     sx={{ mb: 3, fontSize: '1.1rem', lineHeight: 1.7 }}
-                    dangerouslySetInnerHTML={{ __html: section.text }}
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(section.text) }}
                   />
                 );
               }

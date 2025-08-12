@@ -1,6 +1,7 @@
-import axios from 'axios';
+import { http } from './http';
+import { ENV } from '../config/env';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+const API_URL = ENV.API_URL.replace(/\/$/, '').replace(/\/api$/, '');
 
 /**
  * Creates a Stripe checkout session for the specified plan
@@ -17,7 +18,7 @@ export const createCheckoutSession = async (
   try {
     const token = localStorage.getItem('token');
     
-    const response = await axios.post(
+    const response = await http.post(
       `${API_URL}/api/stripe/create-checkout-session`,
       {
         planId,
@@ -48,7 +49,7 @@ export const verifySession = async (sessionId: string) => {
   try {
     const token = localStorage.getItem('token');
     
-    const response = await axios.get(
+    const response = await http.get(
       `${API_URL}/api/stripe/verify-session/${sessionId}`,
       {
         headers: {

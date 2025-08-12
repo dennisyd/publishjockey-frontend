@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'; // Yancy Dennis
+import { sanitizeHtml } from '../utils/sanitizeHtml';
 import {
   Box,
   Typography,
@@ -41,6 +42,7 @@ import {
 } from '@mui/icons-material';
 import ImageSlotPurchaseModal from './ImageSlotPurchaseModal';
 import axios from 'axios';
+import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
 
@@ -220,7 +222,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
       try {
         // Use token from context instead of localStorage
-        const res = await axios.get<ProjectApiResponse>(`http://localhost:3001/api/projects/${projectId}`, {
+        const res = await axios.get<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         
@@ -370,7 +372,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           [key: string]: any;
         }
         
-        const response = await axios.put<ProjectSaveResponse>(`http://localhost:3001/api/projects/${projectId}`, {
+        const response = await axios.put<ProjectSaveResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           title: projectTitle,
           content,
           structure, // Include structure in the save
@@ -515,7 +517,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       });
       
       // Save to backend with explicit request
-      axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+      axios.put(`${ENV.API_URL}/projects/${projectId}`, {
         title: projectTitle,
         structure: updatedStructure,
         content: updatedContent,
@@ -647,7 +649,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           console.log(`Content backup size: ${contentBackup.length} bytes`);
           
           // Call the autosave function directly using the new content
-          axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+          axios.put(`${ENV.API_URL}/projects/${projectId}`, {
             content: newContent,
             structure, // Include structure in the save
             author: projectAuthor,
@@ -730,7 +732,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }
         
         // Do a full save
-        await axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+        await axios.put(`${ENV.API_URL}/projects/${projectId}`, {
           content,
           structure,
           author: projectAuthor,
@@ -1748,7 +1750,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       }
       
       const response = await axios.put<ProjectSaveResponse>(
-        `${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/projects/${projectId}`,
+        `${ENV.API_URL}/projects/${projectId}`,
         {
           title: projectTitle,
           structure: structureClone,
@@ -1926,7 +1928,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 if (editedProjectName.trim() !== '') {
                   setProjectTitle(editedProjectName);
                   // Save to database using axios (reuse the existing authorization)
-                  axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+                  axios.put(`${ENV.API_URL}/projects/${projectId}`, {
                     title: editedProjectName,
                     author: projectAuthor,
                     subtitle: projectSubtitle,
@@ -1947,7 +1949,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   if (editedProjectName.trim() !== '') {
                     setProjectTitle(editedProjectName);
                     // Save to database using axios
-                    axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+                    axios.put(`${ENV.API_URL}/projects/${projectId}`, {
                       title: editedProjectName,
                       author: projectAuthor,
                       subtitle: projectSubtitle,
@@ -2143,7 +2145,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   }
                   
                   // Perform the save
-                  axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+                  axios.put(`${ENV.API_URL}/projects/${projectId}`, {
                     title: projectTitle,
                     content,
                     structure, // Include structure in the save
@@ -2399,7 +2401,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   <Divider sx={{ mb: 2 }} />
                   
                   <Box 
-                    dangerouslySetInnerHTML={{ __html: previewHtml }} 
+                    dangerouslySetInnerHTML={{ __html: sanitizeHtml(previewHtml) }} 
                     sx={{ 
                       '& h1, & h2, & h3': { 
                         mb: 2,
@@ -2544,7 +2546,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           }
           // --- AUTOSAVE METADATA ON DIALOG CLOSE ---
           if (projectId && token) {
-            axios.put(`http://localhost:3001/api/projects/${projectId}`, {
+            axios.put(`${ENV.API_URL}/projects/${projectId}`, {
               title: projectTitle,
               author: projectAuthor,
               subtitle: projectSubtitle,
