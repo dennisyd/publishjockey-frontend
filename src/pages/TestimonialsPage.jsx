@@ -15,6 +15,7 @@ import {
 import Footer from '../components/Footer';
 import { Link as RouterLink } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { ENV } from '../config/env';
 
 const TestimonialsPage = () => {
   const { isAuthenticated } = useAuth();
@@ -25,7 +26,7 @@ const TestimonialsPage = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/testimonials?approved=true');
+        const res = await fetch(`${ENV.API_URL}/testimonials?approved=true`);
         if (!res.ok) throw new Error('Failed to fetch testimonials');
         const data = await res.json();
         setTestimonials(data);

@@ -5,6 +5,7 @@ import Slider from 'react-slick';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import { useAuth } from '../contexts/AuthContext';
+import { ENV } from '../config/env';
 
 const Testimonials = () => {
   const { currentUser } = useAuth();
@@ -15,7 +16,7 @@ const Testimonials = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const res = await fetch('http://localhost:3001/api/testimonials?approved=true');
+        const res = await fetch(`${ENV.API_URL}/testimonials?approved=true`);
         if (!res.ok) throw new Error('Failed to fetch testimonials');
         const data = await res.json();
         setTestimonials(data);

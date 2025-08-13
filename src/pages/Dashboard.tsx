@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
+import { ENV } from '../config/env';
 import { useNavigate } from 'react-router-dom';
 import { 
   Box, 
@@ -105,7 +106,7 @@ const Dashboard: React.FC = () => {
       setLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch('http://localhost:3001/api/projects', {
+        const response = await fetch(`${ENV.API_URL}/projects`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -172,7 +173,7 @@ const Dashboard: React.FC = () => {
       setSubscriptionLoading(true);
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch(`${process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api'}/users/me/subscription`, {
+        const response = await fetch(`${ENV.API_URL}/users/me/subscription`, {
           headers: {
             Authorization: `Bearer ${token}`
           }
@@ -247,7 +248,7 @@ const Dashboard: React.FC = () => {
       console.log('Creating project with title:', newProjectName.trim());
 
       const token = localStorage.getItem('token');
-      const response = await fetch('http://localhost:3001/api/projects', {
+      const response = await fetch(`${ENV.API_URL}/projects`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -274,7 +275,7 @@ const Dashboard: React.FC = () => {
       
       // Explicitly call the book decrement API
       try {
-        const decrementResponse = await fetch('http://localhost:3001/api/users/me/books/decrement', {
+        const decrementResponse = await fetch(`${ENV.API_URL}/users/me/books/decrement`, {
           method: 'PUT',
           headers: {
             Authorization: `Bearer ${token}`

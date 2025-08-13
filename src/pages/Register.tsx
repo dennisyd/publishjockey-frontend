@@ -11,6 +11,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { ENV } from '../config/env';
 
 interface RegisterResponse {
   success: boolean;
@@ -45,8 +46,7 @@ export default function Register() {
       setLoading(true);
       
       // Register the user
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
-      const registerResponse = await axios.post<RegisterResponse>(`${API_BASE_URL}/auth/register`, {
+      const registerResponse = await axios.post<RegisterResponse>(`${ENV.API_URL}/auth/register`, {
         name,
         email,
         password

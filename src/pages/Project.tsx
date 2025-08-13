@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Box, Paper, CircularProgress } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
+import { ENV } from '../config/env';
 import ProjectWorkspace from '../components/ProjectWorkspace';
 
 type ProjectType = {
@@ -28,7 +29,7 @@ const Project: React.FC = () => {
     const fetchProject = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await axios.get<ProjectResponse>(`http://localhost:3001/api/projects/${id}`, {
+        const res = await axios.get<ProjectResponse>(`${ENV.API_URL}/projects/${id}`, {
           headers: { Authorization: `Bearer ${token}` }
         });
         setProject({ id: res.data.project._id, title: res.data.project.title });

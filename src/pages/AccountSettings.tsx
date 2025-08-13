@@ -13,6 +13,7 @@ import {
 import { useAuth } from '../contexts/AuthContext';
 import SaveIcon from '@mui/icons-material/Save';
 import axios from 'axios';
+import { ENV } from '../config/env';
 import ImageUsageDisplay from '../components/ImageUsageDisplay';
 import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
 
@@ -42,7 +43,7 @@ const AccountSettings: React.FC = () => {
         throw new Error('No authentication token');
       }
 
-      const response = await axios.put<ProfileUpdateResponse>('http://localhost:3001/api/users/profile', {
+      const response = await axios.put<ProfileUpdateResponse>(`${ENV.API_URL}/users/profile`, {
         name
       }, {
         headers: { Authorization: `Bearer ${token}` }

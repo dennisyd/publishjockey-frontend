@@ -11,6 +11,7 @@ import {
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import axios from 'axios';
+import { ENV } from '../config/env';
 
 // Types
 interface RegisterResponse {
@@ -44,8 +45,7 @@ export default function Register() {
       setError('');
       
       // Register the user
-      const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
-      const registerResponse = await axios.post<RegisterResponse>(`${API_BASE_URL}/auth/register`, {
+      const registerResponse = await axios.post<RegisterResponse>(`${ENV.API_URL}/auth/register`, {
         name,
         email,
         password

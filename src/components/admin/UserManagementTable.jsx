@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { ENV } from '../../config/env';
 import {
   Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, TablePagination,
   IconButton, Tooltip, Chip, TextField, MenuItem, Dialog, DialogTitle, DialogContent, DialogActions, Button, CircularProgress, Box, Typography, Snackbar, Alert
@@ -10,7 +11,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import SecurityIcon from '@mui/icons-material/Security';
 import LockResetIcon from '@mui/icons-material/LockReset';
 
-const API_BASE = 'http://localhost:3001/api/auth';
+const API_BASE = `${ENV.API_URL}/auth`;
 
 const fetchUsers = async () => {
   const res = await fetch(`${API_BASE}/users`, { credentials: 'include' });

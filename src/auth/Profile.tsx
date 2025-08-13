@@ -18,6 +18,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import EditIcon from '@mui/icons-material/Edit';
 import DoneIcon from '@mui/icons-material/Done';
 import CloseIcon from '@mui/icons-material/Close';
+import { ENV } from '../config/env';
 
 const Profile: React.FC = () => {
   const { currentUser, loading } = useAuth();
@@ -48,7 +49,7 @@ const Profile: React.FC = () => {
         return;
       }
 
-      const response = await fetch(`${process.env.REACT_APP_API_URL || 'http://localhost:3001'}/api/users/profile`, {
+      const response = await fetch(`${ENV.API_URL}/users/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
