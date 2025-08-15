@@ -1088,7 +1088,7 @@ const BookShowcase = () => {
                     padding: 20px;
                     box-sizing: border-box;
                   `;
-                  fallback.innerHTML = 'Book Cover<br/>Demo Image';
+                  fallback.textContent = 'Book Cover Demo Image';
                   e.target.parentNode.appendChild(fallback);
                 }}
               />
