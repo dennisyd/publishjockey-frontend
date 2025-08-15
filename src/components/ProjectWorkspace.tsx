@@ -370,7 +370,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           [key: string]: any;
         }
         
-        const response = await http.put<ProjectSaveResponse>(`${ENV.API_URL}/projects/${projectId}`, {
+        const response = await http.put<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           title: projectTitle,
           content,
           structure, // Include structure in the save
@@ -1704,72 +1704,25 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Function to save structure to backend
-  const saveStructureToBackend = async (structureToSave: typeof structure): Promise<void> => {
+  const saveStructureToBackend = async (updatedStructure: typeof structure) => {
+    if (!projectId || !token) return;
+    
     try {
-      console.log('Saving structure to backend after reordering');
-      
-      // Always use the provided structure parameter if available, only fall back to current state if not
-      const structureToUse = structureToSave || structure;
-      
-      // Validate and repair structure before saving
-      const validatedStructure = validateAndRepairStructure(structureToUse);
-      
-      // Deep clone to avoid any reference issues
-      const structureClone = JSON.parse(JSON.stringify(validatedStructure));
-      
-      // Log what we're actually saving
-      console.log('Structure being saved:', JSON.stringify(structureClone, null, 2));
-      
-      interface ProjectSaveResponse {
-        project?: {
-          structure?: typeof structure;
-          [key: string]: any;
-        };
-        data?: {
-          structure?: typeof structure;
-          [key: string]: any;
-        };
-        structure?: typeof structure;
-        success?: boolean;
-        message?: string;
-        [key: string]: any;
-      }
-      
-      const response = await axios.put<ProjectSaveResponse>(
+      const response = await http.put<ProjectApiResponse>(
         `${ENV.API_URL}/projects/${projectId}`,
         {
           title: projectTitle,
-          structure: structureClone,
+          content,
+          structure: updatedStructure,
           author: projectAuthor,
           subtitle: projectSubtitle,
           isbn: projectIsbn
-        },
-        { headers: { 'Authorization': `Bearer ${token}` } }
-      );
-
-      if (response.data && response.data.success !== false) {
-        console.log('Structure saved successfully after reordering');
-        
-        // Update the structure state with what was returned from the server (if available)
-        const serverStructure = response.data.project?.structure || 
-                               response.data.data?.structure || 
-                               response.data.structure;
-        
-        if (serverStructure) {
-          console.log('Updated structure from server:', serverStructure);
-          // Deep clone any structure received from server to avoid reference issues
-          const clonedServerStructure = JSON.parse(JSON.stringify(serverStructure));
-          
-          // Validate the structure received from server
-          const validatedServerStructure = validateAndRepairStructure(clonedServerStructure);
-          
-          setStructure(validatedServerStructure);
         }
-      } else {
-        console.error('Error saving structure:', response.data?.message || 'Unknown error');
-      }
-    } catch (error) {
-      console.error('Error saving structure to backend:', error);
+      );
+      
+      console.log('Structure saved successfully:', response.data);
+    } catch (err) {
+      console.error('Error saving structure:', err);
     }
   };
 
@@ -1913,14 +1866,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 // Save the title to the database
                 if (editedProjectName.trim() !== '') {
                   setProjectTitle(editedProjectName);
-                  // Save to database using axios (reuse the existing authorization)
-                  axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+                  // Save to database using http (reuse the existing authorization)
+                  http.put(`${ENV.API_URL}/projects/${projectId}`, {
                     title: editedProjectName,
                     author: projectAuthor,
                     subtitle: projectSubtitle,
                     isbn: projectIsbn
-                  }, {
-                    headers: { Authorization: `Bearer ${token}` }
                   }).then(response => {
                     console.log('Project title saved successfully:', response.data);
                   }).catch(err => {
@@ -1934,14 +1885,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   // Save the title to the database
                   if (editedProjectName.trim() !== '') {
                     setProjectTitle(editedProjectName);
-                    // Save to database using axios
-                    axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+                    // Save to database using http
+                    http.put(`${ENV.API_URL}/projects/${projectId}`, {
                       title: editedProjectName,
                       author: projectAuthor,
                       subtitle: projectSubtitle,
                       isbn: projectIsbn
-                    }, {
-                      headers: { Authorization: `Bearer ${token}` }
                     }).then(response => {
                       console.log('Project title saved successfully:', response.data);
                     }).catch(err => {
@@ -2131,36 +2080,25 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   }
                   
                   // Perform the save
-                  axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+                  http.put(`${ENV.API_URL}/projects/${projectId}`, {
                     title: projectTitle,
                     content,
                     structure, // Include structure in the save
                     author: projectAuthor,
                     subtitle: projectSubtitle,
-                    isbn: projectIsbn,
-                    _forceSave: true,
-                    _timestamp: Date.now()
-                  }, {
-                    headers: { Authorization: `Bearer ${token}` }
-                  })
-                  .then(response => {
-                    console.log('Manual save successful:', {
-                      contentCount: Object.keys(content).length,
-                      structureSections: Object.values(structure).reduce((total, arr) => total + arr.length, 0)
-                    });
-                    
+                    isbn: projectIsbn
+                  }).then(response => {
+                    console.log('Manual save successful:', response.data);
                     setNotification({
                       open: true,
-                      message: 'All content saved successfully',
+                      message: 'All changes saved successfully!',
                       severity: 'success'
                     });
-                  })
-                  .catch(err => {
+                  }).catch(err => {
                     console.error('Manual save failed:', err);
-                    
                     setNotification({
                       open: true,
-                      message: 'Error saving content. Please try again.',
+                      message: 'Failed to save changes. Please try again.',
                       severity: 'error'
                     });
                   });
@@ -2532,19 +2470,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           }
           // --- AUTOSAVE METADATA ON DIALOG CLOSE ---
           if (projectId && token) {
-            axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+            http.put(`${ENV.API_URL}/projects/${projectId}`, {
               title: projectTitle,
               author: projectAuthor,
               subtitle: projectSubtitle,
-              isbn: projectIsbn,
-            }, {
-              headers: { Authorization: `Bearer ${token}` }
-            })
-            .then(() => {
-              console.log('Metadata autosaved on dialog close');
-            })
-            .catch(err => {
-              console.error('Failed to autosave metadata on dialog close:', err);
+              isbn: projectIsbn
+            }).then(response => {
+              console.log('Metadata saved on dialog close:', response.data);
+            }).catch(err => {
+              console.error('Failed to save metadata on dialog close:', err);
             });
           }
         }}
