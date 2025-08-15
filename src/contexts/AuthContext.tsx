@@ -145,7 +145,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         tokenManager.setTokens(token, response.data.refreshToken);
         
         // Set default Authorization header for future requests
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        http.defaults.headers.common['Authorization'] = `Bearer ${token}`;
         
         setCurrentUser(user);
       } else {
