@@ -644,6 +644,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           
           // Call the autosave function directly using the new content
           http.put(`${ENV.API_URL}/projects/${projectId}`, {
+            title: projectTitle, // Add the title to fix validation error
             content: newContent,
             structure, // Include structure in the save
             author: projectAuthor,
@@ -725,6 +726,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         // Do a full save
         await http.put(`${ENV.API_URL}/projects/${projectId}`, {
+          title: projectTitle, // Add the title to fix validation error
           content,
           structure,
           author: projectAuthor,
