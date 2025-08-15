@@ -2607,10 +2607,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 // Use realImageService for proper image upload tracking
                 realImageService.uploadImage(file)
                 .then(data => {
+                  console.log('Image upload response:', data);
                   setUploading(false);
                   if (data.success) {
                     // Use the URL from the upload response
-                    setUploadedImagePath(data.url || data.path || '');
+                    const imageUrl = data.url || data.path || '';
+                    console.log('Setting uploaded image path:', imageUrl);
+                    setUploadedImagePath(imageUrl);
                     setImageCaption(file.name.replace(/\.[^/.]+$/, ""));
                     
                     setNotification({
@@ -2710,6 +2713,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               
               // Create image tag
               const imageTag = `![${imageCaption || ''}](${uploadedImagePath})<!-- scale:${imageScale} -->`;
+              console.log('Creating image tag:', imageTag);
               
               // Insert at cursor position
               if (selected) {
@@ -2717,6 +2721,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 const sectionName = structure[area][idx];
                 const currentContent = content[`${area}:${sectionName}`] || '';
                 const textarea = editorRef.current;
+                
+                console.log('Inserting image into:', { area, sectionName, currentContentLength: currentContent.length });
                 
                 if (textarea) {
                   const start = textarea.selectionStart || 0;
@@ -2727,6 +2733,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     currentContent.substring(0, start) + 
                     imageTag + 
                     currentContent.substring(end);
+                  
+                  console.log('Updated content length:', updatedContent.length);
                   
                   // Update content
                   handleContentChange(area, sectionName, updatedContent);
