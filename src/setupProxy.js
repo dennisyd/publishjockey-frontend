@@ -13,13 +13,14 @@ module.exports = function (app) {
   );
 
   // Static uploads (served by backend on port 3001)
-  app.use(
-    '/uploads',
-    createProxyMiddleware({
-      target: 'http://localhost:3001',
-      changeOrigin: true,
-    })
-  );
+  // Commented out since we moved the demo image to frontend public folder
+  // app.use(
+  //   '/uploads',
+  //   createProxyMiddleware({
+  //     target: 'http://localhost:3001',
+  //     changeOrigin: true,
+  //   })
+  // );
 };
 
 

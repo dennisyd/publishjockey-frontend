@@ -1059,7 +1059,7 @@ const BookShowcase = () => {
               }
             }}>
               <img 
-                src="/uploads/vanquish_KDP_1751687866247.jpg"
+                src="/images/demo/vanquish_KDP_1751687866247.jpg"
                 alt="Vanquish - Book published with PublishJockey"
                 style={{ 
                   width: '100%', 
