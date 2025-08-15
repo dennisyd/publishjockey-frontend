@@ -51,7 +51,8 @@ describe('Security Audit - XSS Prevention', () => {
     });
 
     it('should prevent iframe injection', () => {
-      const maliciousContent = '<iframe src="javascript:alert(\'XSS\')"></iframe>';
+      // eslint-disable-next-line no-script-url
+    const maliciousContent = '<iframe src="javascript:alert(\'XSS\')"></iframe>';
       
       render(<MockComponent content={maliciousContent} />);
       
@@ -105,7 +106,8 @@ describe('Security Audit - XSS Prevention', () => {
 
   describe('URL Sanitization Tests', () => {
     it('should prevent javascript: protocol', () => {
-      const maliciousUrl = 'javascript:alert("XSS")';
+      // eslint-disable-next-line no-script-url
+    const maliciousUrl = 'javascript:alert("XSS")';
       const sanitized = sanitizeUrl(maliciousUrl);
       expect(sanitized).toBe('');
     });
@@ -135,7 +137,8 @@ describe('Security Audit - XSS Prevention', () => {
 
   describe('Content Security Tests', () => {
     it('should prevent CSS injection', () => {
-      const maliciousCSS = '<style>body{background:url(javascript:alert("XSS"))}</style>';
+      // eslint-disable-next-line no-script-url
+    const maliciousCSS = '<style>body{background:url(javascript:alert("XSS"))}</style>';
       const sanitized = sanitizeHtml(maliciousCSS);
       expect(sanitized).not.toContain('<style>');
     });
@@ -147,7 +150,8 @@ describe('Security Audit - XSS Prevention', () => {
     });
 
     it('should prevent object/embed injection', () => {
-      const maliciousContent = '<object data="javascript:alert(\'XSS\')"></object>';
+      // eslint-disable-next-line no-script-url
+    const maliciousContent = '<object data="javascript:alert(\'XSS\')"></object>';
       const sanitized = sanitizeHtml(maliciousContent);
       expect(sanitized).not.toContain('<object>');
     });

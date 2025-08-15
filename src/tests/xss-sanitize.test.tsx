@@ -45,7 +45,8 @@ describe('XSS Sanitization Tests', () => {
     });
 
     it('should sanitize iframe tags', () => {
-      const maliciousInput = '<iframe src="javascript:alert(\'XSS\')"></iframe><p>Safe</p>';
+      // eslint-disable-next-line no-script-url
+const maliciousInput = '<iframe src="javascript:alert(\'XSS\')"></iframe><p>Safe</p>';
       const mockSanitized = '<p>Safe</p>';
       
       (DOMPurify.sanitize as jest.Mock).mockReturnValue(mockSanitized);
@@ -79,7 +80,8 @@ describe('XSS Sanitization Tests', () => {
     });
 
     it('should prevent reflected XSS in URL parameters', () => {
-      const maliciousUrl = 'javascript:alert("XSS")';
+      // eslint-disable-next-line no-script-url
+    const maliciousUrl = 'javascript:alert("XSS")';
       // This would be tested in components that display URL parameters
       expect(maliciousUrl).toContain('javascript:');
       // In a real component, this should be sanitized or blocked
@@ -117,7 +119,8 @@ describe('XSS Sanitization Tests', () => {
 
   describe('CSS Injection Tests', () => {
     it('should prevent CSS injection', () => {
-      const maliciousCSS = '<style>body{background:url(javascript:alert("XSS"))}</style>';
+      // eslint-disable-next-line no-script-url
+    const maliciousCSS = '<style>body{background:url(javascript:alert("XSS"))}</style>';
       const sanitized = sanitizeHtml(maliciousCSS);
       expect(sanitized).not.toContain('<style>');
     });

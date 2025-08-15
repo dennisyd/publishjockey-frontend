@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import tokenManager from '../utils/tokenManager';
 
 // API base URL
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
@@ -27,6 +28,7 @@ interface LoginResponse {
   success: boolean;
   message: string;
   token: string;
+  refreshToken: string;
   user: User;
 }
 
@@ -50,20 +52,30 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  // Check if user is logged in from localStorage on app start
+  // Check if user is logged in from secure token manager
   useEffect(() => {
-    const storedUser = localStorage.getItem('user');
-    const token = localStorage.getItem('token');
+    const accessToken = tokenManager.getAccessToken();
     
-    if (storedUser && token) {
+    if (accessToken && !tokenManager.isAccessTokenExpired()) {
       try {
-        setCurrentUser(JSON.parse(storedUser));
         // Set default Authorization header for all requests
-        axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        
+        // Try to get user info from token payload
+        const payload = JSON.parse(atob(accessToken.split('.')[1]));
+        if (payload.userId) {
+          // Set minimal user info from token
+          setCurrentUser({
+            id: payload.userId,
+            name: payload.name || 'User',
+            email: payload.email || '',
+            role: payload.role || 'user',
+            subscription: payload.subscription || 'free'
+          });
+        }
       } catch (error) {
-        console.error('Failed to parse stored user:', error);
-        localStorage.removeItem('user');
-        localStorage.removeItem('token');
+        console.error('Failed to parse token:', error);
+        tokenManager.clearTokens();
       }
     }
     setLoading(false);
@@ -73,30 +85,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!currentUser) return;
 
-    const token = localStorage.getItem('token');
-    if (!token) return;
+    const accessToken = tokenManager.getAccessToken();
+    if (!accessToken) return;
 
-    // Parse the JWT to get expiration time
-    try {
-      const payload = JSON.parse(atob(token.split('.')[1]));
-      const expTime = payload.exp * 1000; // Convert to milliseconds
-      const now = Date.now();
-      const timeUntilExpiry = expTime - now;
+    // Check if token needs refresh
+    if (tokenManager.isAccessTokenExpired()) {
+      refreshToken();
+    } else {
+      // Set up refresh timer to refresh 2 minutes before expiry
+      const timeUntilExpiry = tokenManager.getTimeUntilExpiry();
+      const refreshTime = Math.max(0, (timeUntilExpiry - 2) * 60 * 1000); // 2 minutes before expiry
       
-      // If token expires in less than 5 minutes, refresh it
-      if (timeUntilExpiry < 5 * 60 * 1000) {
+      const refreshTimer = setTimeout(() => {
         refreshToken();
-      } else {
-        // Set up refresh timer to refresh 5 minutes before expiry
-        const refreshTime = timeUntilExpiry - (5 * 60 * 1000);
-        const refreshTimer = setTimeout(() => {
-          refreshToken();
-        }, refreshTime);
-        
-        return () => clearTimeout(refreshTimer);
-      }
-    } catch (error) {
-      console.error('Error parsing JWT token:', error);
+      }, refreshTime);
+      
+      return () => clearTimeout(refreshTimer);
     }
   }, [currentUser]);
 
@@ -113,13 +117,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.error('Backend health check failed:', healthError);
       }
       
+      // Get CSRF token before login
+      try {
+        await axios.get(`${API_BASE_URL}/csrf-token`, { withCredentials: true });
+      } catch (csrfError) {
+        console.warn('CSRF token fetch failed:', csrfError);
+      }
+      
       // Make API call to backend
       const loginUrl = `${API_BASE_URL}/auth/login`;
       console.log(`Full login URL: ${loginUrl}`);
       const response = await axios.post<LoginResponse>(loginUrl, { 
         email, 
         password 
-      });
+      }, { withCredentials: true });
       
       console.log('Login response status:', response.status);
       console.log('Login response data:', JSON.stringify(response.data, null, 2));
@@ -130,9 +141,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         console.log('Login successful for user:', user.email);
         console.log('Token received:', token ? `${token.substring(0, 10)}...` : 'none');
         
-        // Store token in localStorage
-        localStorage.setItem('token', token);
-        localStorage.setItem('user', JSON.stringify(user));
+        // Store tokens securely in memory (not localStorage)
+        tokenManager.setTokens(token, response.data.refreshToken);
         
         // Set default Authorization header for future requests
         axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
@@ -150,32 +160,22 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   async function refreshToken() {
     try {
-      const token = localStorage.getItem('token');
-      if (!token) {
-        throw new Error('No token to refresh');
-      }
-
-      console.log('Refreshing token...');
+      await tokenManager.refreshTokens();
       
-      const response = await axios.post<RefreshResponse>(`${API_BASE_URL}/auth/refresh`, {
-        refreshToken: token
-      });
-      
-      if (response.data.success) {
-        const { user, token: newToken } = response.data;
-        
-        console.log('Token refreshed successfully');
-        
-        // Update stored token
-        localStorage.setItem('token', newToken);
-        localStorage.setItem('user', JSON.stringify(user));
-        
+      const newToken = tokenManager.getAccessToken();
+      if (newToken) {
         // Update Authorization header
         axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         
-        setCurrentUser(user);
-      } else {
-        throw new Error(response.data.message || 'Token refresh failed');
+        // Update user info from token
+        const payload = JSON.parse(atob(newToken.split('.')[1]));
+        setCurrentUser({
+          id: payload.userId,
+          name: payload.name || 'User',
+          email: payload.email || '',
+          role: payload.role || 'user',
+          subscription: payload.subscription || 'free'
+        });
       }
     } catch (error) {
       console.error('Token refresh failed:', error);
@@ -185,8 +185,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   function logout() {
-    localStorage.removeItem('token');
-    localStorage.removeItem('user');
+    tokenManager.clearTokens();
     delete axios.defaults.headers.common['Authorization'];
     setCurrentUser(null);
     navigate('/login');
