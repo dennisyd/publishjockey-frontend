@@ -12,6 +12,15 @@ module.exports = function (app) {
     })
   );
 
+  // Export backend API (for PDF generation, etc.)
+  app.use(
+    ['/export', '/ping', '/health'],
+    createProxyMiddleware({
+      target: 'http://localhost:3002',
+      changeOrigin: true,
+    })
+  );
+
   // Static uploads (served by backend on port 3001)
   // Commented out since we moved the demo image to frontend public folder
   // app.use(

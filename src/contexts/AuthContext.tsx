@@ -119,7 +119,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Get CSRF token before login
       try {
-        await http.get(`${API_BASE_URL}/csrf-token`);
+        const csrfResponse = await http.get(`${API_BASE_URL}/csrf-token`);
+        if (csrfResponse.data.csrfToken) {
+          sessionStorage.setItem('csrfToken', csrfResponse.data.csrfToken);
+          console.log('CSRF token stored successfully');
+        }
       } catch (csrfError) {
         console.warn('CSRF token fetch failed:', csrfError);
       }
@@ -187,6 +191,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   function logout() {
     tokenManager.clearTokens();
     delete http.defaults.headers.common['Authorization'];
+    sessionStorage.removeItem('csrfToken'); // Clear CSRF token
     setCurrentUser(null);
     navigate('/login');
   }

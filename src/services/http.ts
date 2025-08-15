@@ -76,12 +76,9 @@ function generateNonce(): string {
   return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
-// Get CSRF token from cookie
+// Get CSRF token from session storage (set by the server response)
 function getCsrfToken(): string {
-  return document.cookie
-    .split('; ')
-    .find(row => row.startsWith('XSRF-TOKEN='))
-    ?.split('=')[1] || '';
+  return sessionStorage.getItem('csrfToken') || '';
 }
 
 
