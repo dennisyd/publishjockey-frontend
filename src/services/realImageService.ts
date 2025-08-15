@@ -1,60 +1,32 @@
 import { ENV } from '../config/env';
+import { http } from './http';
 const API_BASE_URL = ENV.API_URL;
 
 export const realImageService = {
   async getUserImages() {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/images`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error('Failed to fetch images');
-    return res.json();
+    const res = await http.get(`${API_BASE_URL}/images`);
+    return res.data;
   },
   async getImageUsageStats() {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/images/usage`, {
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error('Failed to fetch image usage');
-    return res.json();
+    const res = await http.get(`${API_BASE_URL}/images/usage`);
+    return res.data;
   },
   async validateExport() {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/images/validate-export`, {
-      method: 'POST',
-      headers: { 
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json'
-      }
-    });
-    if (!res.ok) throw new Error('Failed to validate export');
-    return res.json();
+    const res = await http.post(`${API_BASE_URL}/images/validate-export`);
+    return res.data;
   },
   async uploadImage(file: File) {
-    const token = localStorage.getItem('token');
-    
     // 1. Check image limit before upload (GET)
-    const checkRes = await fetch(`${API_BASE_URL}/images/check-limit`, {
-      method: 'GET',
-      headers: { 
-        'Authorization': `Bearer ${token}`
-      }
-    });
-    if (!checkRes.ok) throw new Error('Upload limit check failed');
-    const check = await checkRes.json();
+    const checkRes = await http.get(`${API_BASE_URL}/images/check-limit`);
+    const check = checkRes.data;
     if (check && check.canUpload === false) throw new Error('Upload limit reached');
 
     // 2. Get signed upload params from backend
-    const res = await fetch(`${API_BASE_URL}/images/upload-url`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ filename: file.name, type: file.type }),
+    const res = await http.post(`${API_BASE_URL}/images/upload-url`, {
+      filename: file.name, 
+      type: file.type 
     });
-    if (!res.ok) throw new Error('Failed to get upload URL');
-    const { signature, timestamp, api_key, cloud_name, public_id } = await res.json();
+    const { signature, timestamp, api_key, cloud_name, public_id } = res.data;
     const uploadUrl = `https://api.cloudinary.com/v1_1/${cloud_name}/image/upload`;
 
     // 3. Upload to Cloudinary using form data
@@ -74,41 +46,19 @@ export const realImageService = {
     if (!uploadRes.ok) throw new Error('Upload to Cloudinary failed');
 
     // 4. Notify backend of success (will increment image count)
-    const notifyRes = await fetch(`${API_BASE_URL}/images/confirm-upload`, {
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({
-        public_id: uploadResult.public_id,
-        version: uploadResult.version,
-        signature: uploadResult.signature
-      }),
+    const notifyRes = await http.post(`${API_BASE_URL}/images/confirm-upload`, {
+      public_id: uploadResult.public_id,
+      version: uploadResult.version,
+      signature: uploadResult.signature
     });
-    if (!notifyRes.ok) throw new Error('Failed to confirm upload');
-    return notifyRes.json();
+    return notifyRes.data;
   },
   async deleteImage(id: string) {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/images/${id}`, { 
-      method: 'DELETE',
-      headers: { 'Authorization': `Bearer ${token}` }
-    });
-    if (!res.ok) throw new Error('Failed to delete image');
-    return res.json();
+    const res = await http.delete(`${API_BASE_URL}/images/${id}`);
+    return res.data;
   },
   async purchaseImageSlots(quantity: number) {
-    const token = localStorage.getItem('token');
-    const res = await fetch(`${API_BASE_URL}/api/images/purchase-slots`, { 
-      method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`
-      },
-      body: JSON.stringify({ quantity })
-    });
-    if (!res.ok) throw new Error('Failed to purchase image slots');
-    return res.json();
+    const res = await http.post(`${API_BASE_URL}/api/images/purchase-slots`, { quantity });
+    return res.data;
   }
 };

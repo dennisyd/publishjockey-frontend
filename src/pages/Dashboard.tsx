@@ -1,6 +1,8 @@
 import React, { useState, useEffect, Component, ErrorInfo, ReactNode } from 'react';
 import { ENV } from '../config/env';
 import { useNavigate } from 'react-router-dom';
+import { http } from '../services/http';
+import { useAuth } from '../contexts/AuthContext';
 import { 
   Box, 
   Typography, 
@@ -105,24 +107,13 @@ const Dashboard: React.FC = () => {
     const fetchProjects = async () => {
       setLoading(true);
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${ENV.API_URL}/projects`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        if (!response.ok) {
-          const errorData = await response.json();
-          throw new Error(errorData.message || `Error: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        const response = await http.get(`${ENV.API_URL}/projects`);
+        const data = response.data;
         console.log('Projects API full response:', data);
         
-        // Check user ID from token
-        const userInfo = token ? JSON.parse(atob(token.split('.')[1])) : null;
-        console.log('Current user from token:', userInfo);
+        // Get user info from current auth context
+        const { currentUser } = useAuth();
+        console.log('Current user from auth context:', currentUser);
         
         // Ensure projects is an array, handle different response structures
         const projectsArray = Array.isArray(data) ? data : 
@@ -138,7 +129,7 @@ const Dashboard: React.FC = () => {
         
         // Filter projects to only those owned by the current user if needed
         // This is a backup in case the backend filter fails
-        const currentUserId = userInfo?.userId || userInfo?.id;
+        const currentUserId = currentUser?.id;
         const filteredProjects = currentUserId ? 
           projectsArray.filter(p => 
             (p.owner === currentUserId || p.userId === currentUserId)
@@ -172,19 +163,8 @@ const Dashboard: React.FC = () => {
     const fetchSubscriptionDetails = async () => {
       setSubscriptionLoading(true);
       try {
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${ENV.API_URL}/users/me/subscription`, {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        if (!response.ok) {
-          console.error('Subscription API error:', response.status);
-          throw new Error(`Subscription API error: ${response.status}`);
-        }
-        
-        const data = await response.json();
+        const response = await http.get(`${ENV.API_URL}/users/me/subscription`);
+        const data = response.data;
         console.log('Subscription data:', data);
         
         if (data.success) {
