@@ -513,15 +513,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       });
       
       // Save to backend with explicit request
-      axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+      http.put(`${ENV.API_URL}/projects/${projectId}`, {
         title: projectTitle,
         structure: updatedStructure,
         content: updatedContent,
         author: projectAuthor,
         subtitle: projectSubtitle,
         isbn: projectIsbn
-      }, {
-        headers: { Authorization: `Bearer ${token}` }
       })
       .then(response => {
         console.log('New section saved successfully:', response.data);
@@ -645,7 +643,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           console.log(`Content backup size: ${contentBackup.length} bytes`);
           
           // Call the autosave function directly using the new content
-          axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+          http.put(`${ENV.API_URL}/projects/${projectId}`, {
             content: newContent,
             structure, // Include structure in the save
             author: projectAuthor,
@@ -653,8 +651,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             isbn: projectIsbn,
             // Add a timestamp to ensure the request is unique
             _timestamp: Date.now()
-          }, {
-            headers: { Authorization: `Bearer ${token}` }
           }).then(response => {
             console.log('Content saved successfully:', {
               responseStatus: response.status,
@@ -728,7 +724,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }
         
         // Do a full save
-        await axios.put(`${ENV.API_URL}/projects/${projectId}`, {
+        await http.put(`${ENV.API_URL}/projects/${projectId}`, {
           content,
           structure,
           author: projectAuthor,
@@ -736,8 +732,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           isbn: projectIsbn,
           _forceSave: true,
           _timestamp: Date.now()
-        }, {
-          headers: { Authorization: `Bearer ${token}` }
         });
         
         console.log('Successfully saved all content before export');
