@@ -41,7 +41,7 @@ import {
   ExpandMore as ExpandMoreIcon
 } from '@mui/icons-material';
 import ImageSlotPurchaseModal from './ImageSlotPurchaseModal';
-import axios from 'axios';
+import { http } from '../services/http';
 import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
 import Papa from 'papaparse';
@@ -222,9 +222,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
       try {
         // Use token from context instead of localStorage
-        const res = await axios.get<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`, {
-          headers: { Authorization: `Bearer ${token}` }
-        });
+        const res = await http.get<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`);
         
         console.log('Project data from API:', res.data);
         
@@ -372,15 +370,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           [key: string]: any;
         }
         
-        const response = await axios.put<ProjectSaveResponse>(`${ENV.API_URL}/projects/${projectId}`, {
+        const response = await http.put<ProjectSaveResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           title: projectTitle,
           content,
           structure, // Include structure in the save
           author: projectAuthor,
           subtitle: projectSubtitle,
           isbn: projectIsbn
-        }, {
-          headers: { Authorization: `Bearer ${token}` }
         });
         
         // Calculate save duration
