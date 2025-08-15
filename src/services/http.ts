@@ -21,6 +21,13 @@ http.interceptors.request.use((config) => {
   const csrfToken = getCsrfToken();
   if (csrfToken) {
     config.headers['x-csrf-token'] = csrfToken;
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Adding CSRF token to request:', `${csrfToken.substring(0, 8)}...`);
+    }
+  } else {
+    if (process.env.NODE_ENV === 'development') {
+      console.log('No CSRF token available for request');
+    }
   }
   
   // Add authorization header if token is available
@@ -78,10 +85,16 @@ function generateNonce(): string {
 
 // Get CSRF token from cookie
 function getCsrfToken(): string {
-  return document.cookie
+  const token = document.cookie
     .split('; ')
     .find(row => row.startsWith('XSRF-TOKEN='))
     ?.split('=')[1] || '';
+  
+  if (process.env.NODE_ENV === 'development') {
+    console.log('CSRF token from cookie:', token ? `${token.substring(0, 8)}...` : 'not found');
+  }
+  
+  return token;
 }
 
 
