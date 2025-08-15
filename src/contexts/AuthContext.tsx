@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import { http } from '../services/http';
 import tokenManager from '../utils/tokenManager';
 
 // API base URL
@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     if (accessToken && !tokenManager.isAccessTokenExpired()) {
       try {
         // Set default Authorization header for all requests
-        axios.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
+        http.defaults.headers.common['Authorization'] = `Bearer ${accessToken}`;
         
         // Try to get user info from token payload
         const payload = JSON.parse(atob(accessToken.split('.')[1]));
@@ -111,7 +111,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Test the backend connection first
       try {
-        const healthResponse = await axios.get('https://publishjockey-backend.onrender.com/health');
+        const healthResponse = await http.get('https://publishjockey-backend.onrender.com/health');
         console.log('Backend health check:', healthResponse.data);
       } catch (healthError) {
         console.error('Backend health check failed:', healthError);
@@ -119,7 +119,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Get CSRF token before login
       try {
-        await axios.get(`${API_BASE_URL}/csrf-token`, { withCredentials: true });
+        await http.get(`${API_BASE_URL}/csrf-token`);
       } catch (csrfError) {
         console.warn('CSRF token fetch failed:', csrfError);
       }
@@ -127,10 +127,10 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       // Make API call to backend
       const loginUrl = `${API_BASE_URL}/auth/login`;
       console.log(`Full login URL: ${loginUrl}`);
-      const response = await axios.post<LoginResponse>(loginUrl, { 
+      const response = await http.post<LoginResponse>(loginUrl, { 
         email, 
         password 
-      }, { withCredentials: true });
+      });
       
       console.log('Login response status:', response.status);
       console.log('Login response data:', JSON.stringify(response.data, null, 2));
@@ -165,7 +165,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       const newToken = tokenManager.getAccessToken();
       if (newToken) {
         // Update Authorization header
-        axios.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
+        http.defaults.headers.common['Authorization'] = `Bearer ${newToken}`;
         
         // Update user info from token
         const payload = JSON.parse(atob(newToken.split('.')[1]));
@@ -186,7 +186,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   function logout() {
     tokenManager.clearTokens();
-    delete axios.defaults.headers.common['Authorization'];
+    delete http.defaults.headers.common['Authorization'];
     setCurrentUser(null);
     navigate('/login');
   }
