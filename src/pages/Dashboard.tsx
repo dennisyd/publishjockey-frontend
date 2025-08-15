@@ -101,6 +101,7 @@ const Dashboard: React.FC = () => {
 
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
+  const { currentUser } = useAuth();
 
   useEffect(() => {
     // Fetch projects
@@ -112,7 +113,6 @@ const Dashboard: React.FC = () => {
         console.log('Projects API full response:', data);
         
         // Get user info from current auth context
-        const { currentUser } = useAuth();
         console.log('Current user from auth context:', currentUser);
         
         // Ensure projects is an array, handle different response structures
@@ -225,24 +225,13 @@ const Dashboard: React.FC = () => {
         return;
       }
       
-      console.log('Creating project with title:', newProjectName.trim());
+             console.log('Creating project with title:', newProjectName.trim());
 
-      const token = localStorage.getItem('token');
-      const response = await fetch(`${ENV.API_URL}/projects`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`
-        },
-        body: JSON.stringify({ title: newProjectName.trim() })
-      });
-      
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.message || 'Failed to create project');
-      }
-      
-      const data = await response.json();
+       const response = await http.post(`${ENV.API_URL}/projects`, {
+         title: newProjectName.trim()
+       });
+       
+       const data = response.data;
       console.log('Project creation response:', data);
       
       // Handle various response structures
@@ -253,35 +242,23 @@ const Dashboard: React.FC = () => {
       setNewProjectName('');
       setNewProjectDialogOpen(false);
       
-      // Explicitly call the book decrement API
-      try {
-        const decrementResponse = await fetch(`${ENV.API_URL}/users/me/books/decrement`, {
-          method: 'PUT',
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        });
-        
-        if (decrementResponse.ok) {
-          const decrementData = await decrementResponse.json();
-          console.log('Books remaining updated:', decrementData);
-          
-          // Update books remaining count after successful project creation
-          if (decrementData.booksRemaining !== undefined) {
-            setBooksRemaining(decrementData.booksRemaining);
-          } else {
-            setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
-          }
-        } else {
-          console.error('Failed to update books remaining count');
-          // Manual decrement if API fails
-          setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
-        }
-      } catch (error) {
-        console.error('Error updating books remaining:', error);
-        // Manual decrement if API call fails
-        setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
-      }
+             // Explicitly call the book decrement API
+       try {
+         const decrementResponse = await http.put(`${ENV.API_URL}/users/me/books/decrement`);
+         const decrementData = decrementResponse.data;
+         console.log('Books remaining updated:', decrementData);
+         
+         // Update books remaining count after successful project creation
+         if (decrementData.booksRemaining !== undefined) {
+           setBooksRemaining(decrementData.booksRemaining);
+         } else {
+           setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
+         }
+       } catch (error) {
+         console.error('Error updating books remaining:', error);
+         // Manual decrement if API call fails
+         setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
+       }
       
       // Navigate to the newly created project
       const projectId = newProject.id || newProject._id;
