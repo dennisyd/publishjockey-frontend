@@ -44,6 +44,7 @@ import ImageSlotPurchaseModal from './ImageSlotPurchaseModal';
 import { http } from '../services/http';
 import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -203,8 +204,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [loadingProject, setLoadingProject] = useState(true);
 
   
-  // Get auth token from localStorage
-  const token = localStorage.getItem('token');
+  // Get auth token from context
+  const { currentUser } = useAuth();
+  const token = tokenManager.getAccessToken();
   
   // Add ref for debounce timer at the component top level
   const debouncedSave = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -346,10 +348,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     console.log('🔍 FETCH PROJECT EFFECT:', {
       projectId,
       hasToken: !!token,
-      willFetch: !!(projectId && token)
+      willFetch: !!(projectId && token),
+      currentUser: !!currentUser
     });
     if (projectId && token) fetchProject();
-  }, [projectId, token]);
+  }, [projectId, token, currentUser]);
 
   // Load user subscription for deterrent banner
   useEffect(() => {
@@ -364,7 +367,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Autosave content to backend whenever it changes
   useEffect(() => {
-    if (!projectId || !token) return;
+    if (!projectId || !token || !currentUser) return;
     
     // Create a function to handle the actual save
     const saveContent = async () => {
