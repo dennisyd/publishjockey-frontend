@@ -111,6 +111,16 @@ const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-e
 
 // Define ProjectWorkspace component properly
 const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElement => {
+  console.log('🔍 PROJECT WORKSPACE RENDER:', { projectId });
+  
+  // Track component lifecycle
+  useEffect(() => {
+    console.log('🔍 PROJECT WORKSPACE MOUNTED:', { projectId });
+    return () => {
+      console.log('🔍 PROJECT WORKSPACE UNMOUNTED:', { projectId });
+    };
+  }, [projectId]);
+  
   // Structure state
   const [structure, setStructure] = useState({
     front: [
@@ -218,6 +228,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   useEffect(() => {
     async function fetchProject() {
+      console.log('🔍 FETCH PROJECT FUNCTION CALLED');
       setLoadingProject(true);
 
       try {
@@ -332,6 +343,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         setLoadingProject(false);
       }
     }
+    console.log('🔍 FETCH PROJECT EFFECT:', {
+      projectId,
+      hasToken: !!token,
+      willFetch: !!(projectId && token)
+    });
     if (projectId && token) fetchProject();
   }, [projectId, token]);
 
