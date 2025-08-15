@@ -247,6 +247,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         // Load content from backend if available
         if (projectData.content) {
           console.log('Loading content from backend:', Object.keys(projectData.content).length, 'sections');
+          console.log('🔍 CONTENT LOAD DEBUG:', {
+            contentKeys: Object.keys(projectData.content),
+            contentPreview: JSON.stringify(projectData.content).substring(0, 300)
+          });
           setContent(projectData.content);
         } else {
           console.log('No content found in project data');
@@ -642,6 +646,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           const contentBackup = JSON.stringify(newContent);
           console.log(`Content backup size: ${contentBackup.length} bytes`);
           
+          // Debug: Log what we're sending
+          console.log('🔍 FRONTEND DEBUG - Sending content:', {
+            contentType: typeof newContent,
+            contentKeys: Object.keys(newContent),
+            contentPreview: JSON.stringify(newContent).substring(0, 200)
+          });
+
           // Call the autosave function directly using the new content
           http.put(`${ENV.API_URL}/projects/${projectId}`, {
             title: projectTitle, // Add the title to fix validation error
@@ -2284,7 +2295,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   multiline
                   fullWidth
                   minRows={20}
-                  value={selected ? content[`${selected.area}:${structure[selected.area][selected.idx]}`] || '' : ''}
+                  value={selected ? (() => {
+                    const contentKey = `${selected.area}:${structure[selected.area][selected.idx]}`;
+                    const contentValue = content[contentKey] || '';
+                    console.log('🔍 EDITOR DISPLAY DEBUG:', {
+                      selected,
+                      contentKey,
+                      contentValue: contentValue.substring(0, 50),
+                      contentValueLength: contentValue.length
+                    });
+                    return contentValue;
+                  })() : ''}
                   onChange={(e) => {
                     if (selected) {
                       const { area, idx } = selected;
