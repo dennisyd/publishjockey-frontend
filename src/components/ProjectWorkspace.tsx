@@ -746,7 +746,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       // Validate export server is running
       try {
         setExportProgress('Connecting to export server...');
-        const response = await axios.get(`${API_URL}/health`);
+        const response = await http.get(`${API_URL}/health`);
         if (response.status !== 200) {
           throw new Error('Export backend is not available');
         }
@@ -1135,11 +1135,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         try {
           // Simplified error handling for all file types
-          const response = await axios.post<ImportResponse>(`${API_URL}/import`, formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-            },
-          });
+          const response = await http.post<ImportResponse>(`${API_URL}/import`, formData);
           
           if (response.data && response.data.success && response.data.markdown) {
             markdown = response.data.markdown;
@@ -1155,7 +1151,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         source = 'Google Docs';
         try {
           // Call the backend to fetch Google Docs content
-          const response = await axios.post<ImportResponse>(`${API_URL}/import/google`, {
+          const response = await http.post<ImportResponse>(`${API_URL}/import/google`, {
             url: settings.googleDocsUrl
           });
           
