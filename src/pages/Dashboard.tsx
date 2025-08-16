@@ -81,12 +81,7 @@ type Project = {
   title: string;
   // add other fields as needed
 };
-type ProjectsResponse = {
-  projects: Project[];
-};
-type CreateProjectResponse = {
-  project: Project;
-};
+
 
 const Dashboard: React.FC = () => {
   const [projects, setProjects] = useState<Project[]>([]);

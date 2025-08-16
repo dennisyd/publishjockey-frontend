@@ -20,7 +20,7 @@ import axios from 'axios';
 
 
 // API URL
-const API_URL = (process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com') + '/api';
+const API_URL = (process.env.REACT_APP_API_URL || '/api');
 
 // Define API response types
 interface SplitDoctorResponse {
@@ -35,16 +35,7 @@ interface SplitDoctorResponse {
   error?: string;
 }
 
-// Define custom props for DropZone
-interface DropZoneProps {
-  isDragActive: boolean;
-  children?: React.ReactNode;
-  onDragEnter: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragLeave: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
-  onDrop: (event: React.DragEvent<HTMLDivElement>) => void;
-  onClick: () => void;
-}
+
 
 // Styled components for file upload
 const VisuallyHiddenInput = styled('input')({
@@ -214,7 +205,7 @@ const SplitDoctor: React.FC = () => {
         });
         
         // Create direct file URLs using the most direct path possible
-        const baseUrl = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com';
+        const baseUrl = process.env.REACT_APP_API_URL || '';
         
         // Only set docxUrl if docxPath exists
         if (docxPath) {
@@ -304,6 +295,9 @@ const SplitDoctor: React.FC = () => {
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 {file ? `Selected: ${file.name}` : 'Only .docx files are supported'}
+              </Typography>
+              <Typography variant="caption" color="text.secondary" sx={{ mt: 1, mb: 1, display: 'block' }}>
+                15 MB Max • Supported format: DOCX
               </Typography>
               
               <VisuallyHiddenInput

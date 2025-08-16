@@ -60,19 +60,7 @@ const serverFonts = [
   { value: 'DejaVu Serif', label: 'DejaVu Serif' },
 ];
 
-function getPlatformFonts() {
-  if (navigator.platform && navigator.platform.startsWith('Win')) {
-    return windowsFonts;
-  }
-  return serverFonts;
-}
 
-function getDefaultFont() {
-  if (navigator.platform && navigator.platform.startsWith('Win')) {
-    return 'Times New Roman';
-  }
-  return 'Liberation Serif';
-}
 
 export interface ExportSettings {
   format: 'pdf' | 'epub' | 'docx' | 'html';
@@ -136,7 +124,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [imageUsage, setImageUsage] = useState<ImageUsageStats>(null);
   const [usageLoading, setUsageLoading] = useState<boolean>(false);
-  const [usageError, setUsageError] = useState<string | null>(null);
+
   // State for export settings
   const [settings, setSettings] = useState<ExportSettings>({
     format: 'pdf',
@@ -185,11 +173,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
         const stats = await realImageService.getImageUsageStats();
         if (!cancelled) {
           setImageUsage(stats);
-          setUsageError(null);
         }
       } catch (err: any) {
         if (!cancelled) {
-          setUsageError(null); // silently ignore in UI
+          // silently ignore in UI
         }
       } finally {
         if (!cancelled) setUsageLoading(false);
@@ -521,6 +508,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
               <Box sx={{ mb: 2 }}>
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
                   Cover Image (EPUB)
+                </Typography>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                  15 MB Max • Supported formats: JPEG, PNG
                 </Typography>
                 <Button
                   variant="outlined"

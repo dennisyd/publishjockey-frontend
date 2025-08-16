@@ -360,6 +360,9 @@ const ImageMagic: React.FC = () => {
                 ? `File: ${file.name} (${Math.round(file.size / 1024)} KB)` 
                 : 'Drag and drop an image here, or click to select'}
             </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ mt: 1, mb: 1, display: 'block' }}>
+              15 MB Max • Supported formats: JPEG, PNG, GIF, WebP
+            </Typography>
             {!file && (
               <Typography variant="caption" color="text.secondary" sx={{ mt: 1, mb: 1 }}>
                 Recommended: Images larger than 1000x1500 pixels (at least 200KB) for best results

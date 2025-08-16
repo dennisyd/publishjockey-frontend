@@ -1,10 +1,10 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { http } from '../services/http';
 import tokenManager from '../utils/tokenManager';
 
 // API base URL
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
+const API_BASE_URL = process.env.REACT_APP_API_URL || '/api';
 
 // Debug logging
 console.log('🔍 AuthContext loaded with:');
@@ -32,12 +32,7 @@ interface LoginResponse {
   user: User;
 }
 
-interface RefreshResponse {
-  success: boolean;
-  message: string;
-  token: string;
-  user: User;
-}
+
 
 interface AuthContextType {
   currentUser: User | null;
@@ -111,7 +106,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       
       // Test the backend connection first
       try {
-        const healthResponse = await http.get('https://publishjockey-backend.onrender.com/health');
+        const healthResponse = await http.get('/health');
         console.log('Backend health check:', healthResponse.data);
       } catch (healthError) {
         console.error('Backend health check failed:', healthError);

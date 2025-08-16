@@ -67,7 +67,7 @@ export function sanitizeHtml(input: string | null | undefined): string {
     ALLOW_ARIA_ATTR: false,
     ALLOW_DATA_ATTR: false,
     ALLOW_UNKNOWN_PROTOCOLS: false,
-    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.\-]+(?:[^a-z+.\-:]|$))/i,
+    ALLOWED_URI_REGEXP: /^(?:(?:(?:f|ht)tps?|mailto|tel|callto|cid|xmpp):|[^a-z]|[a-z+.-]+(?:[^a-z+.-:]|$))/i,
     KEEP_CONTENT: true,
     RETURN_DOM: false,
     RETURN_DOM_FRAGMENT: false,
@@ -109,6 +109,7 @@ export function sanitizeUrl(url: string | null | undefined): string {
   const urlString = String(url).trim();
   
   // Check for dangerous protocols
+  // eslint-disable-next-line no-script-url
   const dangerousProtocols = ['javascript:', 'vbscript:', 'data:', 'file:'];
   const lowerUrl = urlString.toLowerCase();
   

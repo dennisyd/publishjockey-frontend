@@ -13,7 +13,7 @@ import {
 import MarkEmailReadIcon from '@mui/icons-material/MarkEmailRead';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
 
-const API_URL = process.env.REACT_APP_API_URL || 'https://publishjockey-backend.onrender.com/api';
+const API_URL = process.env.REACT_APP_API_URL || '/api';
 
 // Define response type
 interface AuthResponse {
@@ -44,7 +44,7 @@ const VerifyEmail: React.FC = () => {
       }
 
       try {
-        const response = await axios.get<AuthResponse>(`${API_URL}/auth/verify-email?token=${token}`);
+        await axios.get<AuthResponse>(`${API_URL}/auth/verify-email?token=${token}`);
         setSuccess(true);
         setVerifying(false);
       } catch (err: any) {

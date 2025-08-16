@@ -378,21 +378,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         // Track autosave start time for performance monitoring
         const startTime = Date.now();
         
-        interface ProjectSaveResponse {
-          project: {
-            content?: Record<string, string>;
-            structure?: {
-              front: string[];
-              main: string[];
-              back: string[];
-            };
-            author?: string;
-            subtitle?: string;
-            isbn?: string;
-            [key: string]: any;
-          };
-          [key: string]: any;
-        }
+
         
         const response = await http.put<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           title: projectTitle,
@@ -779,7 +765,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       // Validate export server is running
       try {
         setExportProgress('Connecting to export server...');
-        const response = await http.get(`${API_URL}/health`);
+        const response = await fetch(`/health`, { 
+          method: 'GET', 
+          headers: { 'Content-Type': 'application/json' } 
+        });
         if (response.status !== 200) {
           throw new Error('Export backend is not available');
         }
@@ -2621,6 +2610,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           <Box sx={{ mb: 2 }}>
             <Typography variant="body2" color="text.secondary" gutterBottom>
               Upload an image. The path will be set automatically after upload.
+            </Typography>
+            <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+              15 MB Max • Supported formats: JPEG, PNG, GIF, WebP
             </Typography>
             
             {uploading && (

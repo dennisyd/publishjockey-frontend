@@ -419,7 +419,7 @@ const ImportModal: React.FC<ImportModalProps> = ({
                 <UploadFileIcon sx={{ fontSize: 40, color: 'primary.main', mb: 1 }} />
                 <Typography>Click to upload a document</Typography>
                 <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5 }}>
-                  (.DOCX, .MD, .TXT)
+                  (.DOCX, .MD, .TXT) • 15 MB Max
                 </Typography>
                 <input
                   type="file"

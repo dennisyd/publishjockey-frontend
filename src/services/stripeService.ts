@@ -81,8 +81,10 @@ export const redirectToCheckout = async (planId: string): Promise<void> => {
   }
 };
 
-export default {
+const stripeService = {
   createCheckoutSession,
   verifySession,
   redirectToCheckout
-}; 
+};
+
+export default stripeService; 

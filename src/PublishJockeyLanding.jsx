@@ -2387,27 +2387,15 @@ const Pricing = ({ handleRegister }) => {
   ];
 
   if (launchOfferActive) {
-    // Add launch offer plans
-    pricingPlans.push(
-      {
-        ...LAUNCH_OFFER_CONFIG.pricing.single,
-        price: LAUNCH_OFFER_CONFIG.pricing.single.price,
-        originalPrice: LAUNCH_OFFER_CONFIG.pricing.single.originalPrice,
+    // Add all launch offer plans
+    Object.entries(LAUNCH_OFFER_CONFIG.pricing).forEach(([key, plan]) => {
+      pricingPlans.push({
+        ...plan,
+        price: plan.price,
+        originalPrice: plan.originalPrice,
         launchOffer: true
-      },
-      {
-        ...LAUNCH_OFFER_CONFIG.pricing.bundle10,
-        price: LAUNCH_OFFER_CONFIG.pricing.bundle10.price,
-        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle10.originalPrice,
-        launchOffer: true
-      },
-      {
-        ...LAUNCH_OFFER_CONFIG.pricing.bundle20,
-        price: LAUNCH_OFFER_CONFIG.pricing.bundle20.price,
-        originalPrice: LAUNCH_OFFER_CONFIG.pricing.bundle20.originalPrice,
-        launchOffer: true
-      }
-    );
+      });
+    });
   } else {
     // Fallback to regular plans
     pricingPlans.push(
@@ -2415,8 +2403,8 @@ const Pricing = ({ handleRegister }) => {
         title: '✍️ Single Book',
         subtitle: 'Perfect for authors publishing their first book with professional-quality output.',
         oneTime: true,
-        price: 63,
-        perBookCost: 63,
+        price: 93,
+        perBookCost: 93,
         booksIncluded: 1,
         noRefunds: true,
         features: [
@@ -2428,11 +2416,123 @@ const Pricing = ({ handleRegister }) => {
           { title: 'Watermark-free output', included: true },
           { title: 'Email support', included: true },
           { title: 'Word document splitting by H1 sections', included: true },
+          { title: '12 images included', included: true },
           { title: '$100 value: Upscaled cover images for KDP', included: true }
         ],
         buttonText: 'Get Started',
         buttonVariant: 'contained',
         popular: true
+      },
+      {
+        title: '5 Book Pack',
+        subtitle: 'Great value for multiple books (3-year validity).',
+        oneTime: true,
+        price: 199,
+        perBookCost: 40,
+        booksIncluded: 5,
+        noRefunds: true,
+        features: [
+          { title: '5 book projects', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Email support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '50 images included', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get 5 Books',
+        buttonVariant: 'outlined'
+      },
+      {
+        title: '10 Book Pack',
+        subtitle: 'Publish up to 10 books (3-year validity).',
+        oneTime: true,
+        price: 349,
+        perBookCost: 35,
+        booksIncluded: 10,
+        noRefunds: true,
+        features: [
+          { title: '10 book projects', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Email support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '100 images included', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get 10 Books',
+        buttonVariant: 'outlined'
+      },
+      {
+        title: '20 Book Pack',
+        subtitle: 'Publish up to 20 books (3-year validity).',
+        oneTime: true,
+        price: 599,
+        perBookCost: 30,
+        booksIncluded: 20,
+        noRefunds: true,
+        features: [
+          { title: '20 book projects', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Email support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '200 images included', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get 20 Books',
+        buttonVariant: 'outlined'
+      },
+      {
+        title: 'Power User',
+        subtitle: 'For prolific authors (1-year validity).',
+        oneTime: true,
+        price: 1188,
+        perBookCost: 25,
+        booksIncluded: 48,
+        noRefunds: true,
+        features: [
+          { title: '48 book projects', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Priority support', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '480 images included', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get Power User',
+        buttonVariant: 'outlined'
+      },
+      {
+        title: 'Agency',
+        subtitle: 'For publishing agencies (1-year validity).',
+        oneTime: true,
+        price: 2988,
+        perBookCost: 17,
+        booksIncluded: 180,
+        noRefunds: true,
+        features: [
+          { title: '180 book projects', included: true },
+          { title: 'Full book export to PDF, Word, and EPUB', included: true },
+          { title: 'AI-assisted formatting', included: true },
+          { title: 'Advanced editing tools', included: true },
+          { title: 'Watermark-free output', included: true },
+          { title: 'Priority support', included: true },
+          { title: 'Dedicated account manager', included: true },
+          { title: 'Word document splitting by H1 sections', included: true },
+          { title: '1800 images included', included: true },
+          { title: '$100 value: Upscaled cover images for KDP', included: true }
+        ],
+        buttonText: 'Get Agency',
+        buttonVariant: 'outlined'
       },
       {
         title: 'Additional Books',
@@ -2449,29 +2549,10 @@ const Pricing = ({ handleRegister }) => {
           { title: 'Watermark-free output', included: true },
           { title: 'Email support', included: true },
           { title: 'Word document splitting by H1 sections', included: true },
+          { title: '+10 additional images', included: true },
           { title: '$100 value: Upscaled cover images for KDP', included: true }
         ],
         buttonText: 'Add Book',
-        buttonVariant: 'outlined'
-      },
-      {
-        title: '25 Book Pack',
-        subtitle: '25 books valid for 3 years — ideal for prolific authors.',
-        price: 399,
-        booksIncluded: 25,
-        perBookCost: 16,
-        noRefunds: true,
-        features: [
-          { title: '25 book projects', included: true },
-          { title: 'Export to PDF, Word, and EPUB', included: true },
-          { title: 'AI-assisted formatting', included: true },
-          { title: 'Advanced editing tools', included: true },
-          { title: 'Watermark-free output', included: true },
-          { title: 'Priority support', included: true },
-          { title: 'Word document splitting by H1 sections', included: true },
-          { title: '$100 value: Upscaled cover images for KDP', included: true }
-        ],
-        buttonText: 'Get 25 Books',
         buttonVariant: 'outlined'
       }
     );
@@ -2763,10 +2844,9 @@ const Pricing = ({ handleRegister }) => {
                           <Typography 
                             variant="body2" 
                             sx={{ 
-                              color: 'error.main', 
+                              color: 'error.dark', 
                               fontWeight: 600,
                               bgcolor: 'error.light',
-                              color: 'error.dark',
                               px: 2,
                               py: 0.5,
                               borderRadius: 1,

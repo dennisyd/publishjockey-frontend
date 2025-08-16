@@ -46,7 +46,7 @@ import {
     Gavel as GavelIcon
 } from '@mui/icons-material';
 import { listTitleChanges, TitleChangeItem } from '../../services/adminService';
-import { useAuth } from '../../contexts/AuthContext';
+
 import * as adminService from '../../services/adminService';
 import { AdminUser, AuditLogEntry } from '../../services/adminService';
 
@@ -525,20 +525,19 @@ const UserManagement: React.FC = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [totalUsers, setTotalUsers] = useState(0);
-  const [totalPages, setTotalPages] = useState(0);
+
   
   // Filters
   const [searchQuery, setSearchQuery] = useState('');
   const [roleFilter, setRoleFilter] = useState('');
   const [statusFilter, setStatusFilter] = useState('');
-  const [sortField, setSortField] = useState('createdAt');
-  const [sortOrder, setSortOrder] = useState('desc');
+
   
   // Selected users for bulk actions
   const [selectedUsers, setSelectedUsers] = useState<string[]>([]);
   
   // Dialogs
-  const [userDetailsDialogOpen, setUserDetailsDialogOpen] = useState(false);
+
   const [currentUser, setCurrentUser] = useState<AdminUser | null>(null);
   const [userLoginHistory, setUserLoginHistory] = useState<AuditLogEntry[]>([]);
   const [userRecentActivity, setUserRecentActivity] = useState<AuditLogEntry[]>([]);
@@ -577,14 +576,11 @@ const UserManagement: React.FC = () => {
         rowsPerPage, 
         searchQuery, 
         roleFilter, 
-        statusFilter,
-        sortField,
-        sortOrder
+        statusFilter
       );
       
       setUsers(response.users.map(u => ({ ...u, id: u.id || (u as any)._id })));
       setTotalUsers(response.pagination.totalUsers);
-      setTotalPages(response.pagination.totalPages);
     } catch (err: any) {
       console.error('Error loading users:', err);
       setError(err.response?.data?.message || 'Failed to load users');
@@ -603,7 +599,6 @@ const UserManagement: React.FC = () => {
       setCurrentUser(response.user);
       setUserLoginHistory(response.loginHistory || []);
       setUserRecentActivity(response.recentActivity || []);
-      setUserDetailsDialogOpen(true);
     } catch (err: any) {
       console.error('Error loading user details:', err);
       setError(err.response?.data?.message || 'Failed to load user details');
@@ -615,7 +610,7 @@ const UserManagement: React.FC = () => {
   // Initial load
   useEffect(() => {
     loadUsers();
-  }, [page, rowsPerPage, searchQuery, roleFilter, statusFilter, sortField, sortOrder]);
+  }, [page, rowsPerPage, searchQuery, roleFilter, statusFilter]);
   
   // Clear success message after 3 seconds
   useEffect(() => {
@@ -1105,7 +1100,7 @@ const UserManagement: React.FC = () => {
         loginHistory={userLoginHistory}
         recentActivity={userRecentActivity}
         onClose={() => {
-          setUserDetailsDialogOpen(false);
+      
           setCurrentUser(null);
         }}
       />

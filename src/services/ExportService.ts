@@ -3,12 +3,14 @@ import { ExportSettings } from "../components/ExportModal"
 import { MarkdownFormatter } from "./MarkdownFormatter"
 import { FormatAdapter } from "./FormatAdapter"
 import { ValidationService } from "./ValidationService"
+import tokenManager from "../utils/tokenManager"
 
 import axios from "axios"
 
 // Define API URL for the export backend
-import { ENV } from '../config/env'
-const API_URL = ENV.EXPORT_API_URL
+
+// Use empty string for relative URLs to work with proxy
+const API_URL = ''
 
 interface Section {
   id: string
@@ -32,12 +34,7 @@ interface ExportFormat {
   format: string
 }
 
-interface ExportResult {
-  blob: Blob | null
-  filename: string
-  success: boolean
-  message: string
-}
+
 
 
 
@@ -310,14 +307,29 @@ export class ExportService {
 
       try {
         console.log(`Making API call to ${API_URL}${endpoint}`)
-        const token = localStorage.getItem("token")
+        const token = tokenManager.getAccessToken()
+        
+        // Simple debug logs
+        console.log('🔍 TOKEN DEBUG - hasToken:', !!token);
+        console.log('🔍 TOKEN DEBUG - tokenLength:', token ? token.length : 0);
+        console.log('🔍 TOKEN DEBUG - isExpired:', tokenManager.isAccessTokenExpired());
+        console.log('🔍 TOKEN DEBUG - tokenPreview:', token ? `${token.substring(0, 20)}...` : 'null');
+        
+        const headers: Record<string, string> = {
+          "Content-Type": "application/json",
+          "Accept": "application/json"
+        };
+        
+        if (token && !tokenManager.isAccessTokenExpired()) {
+          headers["Authorization"] = `Bearer ${token}`;
+          console.log('🔍 AUTH HEADER SET:', `Bearer ${token.substring(0, 20)}...`);
+        } else {
+          console.log('🔍 AUTH HEADER NOT SET - Token missing or expired');
+        }
+        
         const response = await fetch(`${API_URL}${endpoint}`, {
           method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "Accept": "application/json",
-            ...(token ? { Authorization: "Bearer " + token } : {}),
-          },
+          headers,
           body: JSON.stringify(exportPayload),
         })
 
@@ -771,7 +783,7 @@ export class ExportService {
   ): string {
     // Apply book size settings
     const bookSize = settings.bookSize || "6x9"
-    const [width] = bookSize.split("x").map((dim) => parseFloat(dim))
+    bookSize.split("x").map((dim) => parseFloat(dim))
 
 
 
