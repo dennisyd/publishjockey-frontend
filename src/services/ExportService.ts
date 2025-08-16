@@ -9,8 +9,10 @@ import axios from "axios"
 
 // Define API URL for the export backend
 
-// Use empty string for relative URLs to work with proxy
-const API_URL = ''
+// Use production URL for export backend, or empty string for development proxy
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://publishjockey-export.onrender.com'
+  : ''
 
 interface Section {
   id: string
