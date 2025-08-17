@@ -20,7 +20,7 @@ import { http } from '../services/http';
 
 
 // API URL - use relative path for proxy
-const API_URL = '/api';
+const API_URL = '';
 
 // Define API response types
 interface SplitDoctorResponse {
@@ -166,7 +166,7 @@ const SplitDoctor: React.FC = () => {
       console.log('Token available:', !!token);
 
       const response = await http.post<SplitDoctorResponse>(
-        `${API_URL}/split-document`, 
+        `/api/split-document`, 
         formData, 
         {
           headers: {
