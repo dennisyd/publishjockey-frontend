@@ -29,7 +29,9 @@ import { exportHttp } from '../services/exportHttp';
 
 
 // API URL - use relative path for proxy
-const API_URL = '';
+const API_URL = process.env.NODE_ENV === 'production' 
+  ? 'https://publishjockey-export.onrender.com'
+  : '';
 
 // Define API response types
 interface ImageMagicResponse {
@@ -128,7 +130,7 @@ const ImageMagic: React.FC = () => {
   useEffect(() => {
     const fetchKdpSizes = async () => {
       try {
-        const response = await exportHttp.get<KdpSizesResponse>(`${API_URL}/kdp-sizes`);
+        const response = await exportHttp.get<KdpSizesResponse>(`/kdp-sizes`);
         if (response.data.success && response.data.sizes) {
           setKdpSizes(response.data.sizes);
         }
@@ -240,19 +242,19 @@ const ImageMagic: React.FC = () => {
       formData.append('image', file);
       formData.append('bookSize', bookSize);
       
-      console.log('Submitting to:', `${API_URL}/upscale-image`);
+             console.log('Submitting to:', `/upscale-image`);
 
-      const response = await exportHttp.post<ImageMagicResponse>(
-        `${API_URL}/upscale-image`, 
-        formData, 
-        {
-          headers: {
-            'Content-Type': 'multipart/form-data'
-          },
-          // Add timeout to prevent hanging requests
-          timeout: 60000, // 60 seconds
-        }
-      );
+       const response = await exportHttp.post<ImageMagicResponse>(
+         `/upscale-image`, 
+         formData, 
+         {
+           headers: {
+             'Content-Type': 'multipart/form-data'
+           },
+           // Add timeout to prevent hanging requests
+           timeout: 60000, // 60 seconds
+         }
+       );
       
       console.log('Response received:', response.data);
 
@@ -430,7 +432,10 @@ const ImageMagic: React.FC = () => {
                   variant="contained" 
                   color="primary" 
                   startIcon={<DownloadIcon />}
-                  href={`${API_URL}${success.outputPath}`}
+                                     href={process.env.NODE_ENV === 'production' 
+                    ? `https://publishjockey-export.onrender.com${success.outputPath}`
+                    : `http://localhost:3002${success.outputPath}`
+                  }
                   target="_blank"
                   sx={{ mt: 2 }}
                 >

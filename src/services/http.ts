@@ -1,32 +1,80 @@
-import axios from 'axios';
+import axios, { InternalAxiosRequestConfig } from 'axios';
+import { v4 as uuidv4 } from 'uuid';
 import { ENV } from '../config/env';
 import tokenManager from '../utils/tokenManager';
+
+// Extend Axios config type to include our custom properties
+interface CustomAxiosRequestConfig extends InternalAxiosRequestConfig {
+  _isRetry?: boolean;
+  _retry?: boolean;
+}
+
+// Track generated UUIDs for debugging
+const generatedUUIDs = new Set();
+let requestCounter = 0;
 
 // Centralized Axios instance for frontend API calls
 export const http = axios.create({
   baseURL: ENV.API_URL.replace(/\/$/, ''),
-  withCredentials: true // Enable cookies for CSRF protection
+  withCredentials: true, // Enable cookies for CSRF protection
+  headers: {
+    'Cache-Control': 'no-cache, no-store, must-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0'
+  }
 });
 
 // Add security headers to all requests
-http.interceptors.request.use((config) => {
-  // Add nonce and timestamp for anti-replay protection
-  const nonce = generateNonce();
-  const timestamp = Date.now().toString();
+http.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
+  // Cast to our custom type for internal use
+  const customConfig = config as CustomAxiosRequestConfig;
   
-  config.headers['x-nonce'] = nonce;
-  config.headers['x-timestamp'] = timestamp;
-  
-  // Add CSRF token if available
-  const csrfToken = getCsrfToken();
-  if (csrfToken) {
-    config.headers['x-csrf-token'] = csrfToken;
+  // Skip anti-replay protection for CSRF token endpoint and auth routes
+  if (!customConfig.url?.includes('/csrf-token') && !customConfig.url?.includes('/auth/')) {
+    // Increment request counter
+    requestCounter++;
+    
+    // Generate a unique UUID for each request
+    const nonce = uuidv4();
+    const timestamp = Date.now().toString();
+    
+    // Verify UUID format
+    const isUUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(nonce);
+    
+    // Check if this UUID was already generated (should never happen)
+    if (generatedUUIDs.has(nonce)) {
+      console.error('DUPLICATE UUID GENERATED ON FRONTEND - this should never happen!', {
+        nonce: nonce.substring(0, 8) + '...',
+        url: customConfig.url,
+        requestNumber: requestCounter
+      });
+    } else {
+      generatedUUIDs.add(nonce);
+    }
+    
+    // Ensure we're not reusing headers from a previous request
+    if (!customConfig.headers) {
+      customConfig.headers = {} as any;
+    }
+    
+    // Add nonce and timestamp headers
+    (customConfig.headers as any)['x-nonce'] = nonce;
+    (customConfig.headers as any)['x-timestamp'] = timestamp;
+    
+    // Debug logging with UUID verification
+    console.log('Request interceptor - Request #', requestCounter, 'URL:', customConfig.url, 'Nonce:', nonce.substring(0, 8) + '...', 'Timestamp:', timestamp, 'IsUUID:', isUUID, 'Length:', nonce.length, 'TotalGenerated:', generatedUUIDs.size);
+    
+    // Add CSRF token if available (but not for CSRF token endpoint)
+    const csrfToken = getCsrfToken();
+    if (csrfToken) {
+      (customConfig.headers as any)['x-csrf-token'] = csrfToken;
+    }
   }
   
   // Add authorization header if token is available
   const accessToken = tokenManager.getAccessToken();
   if (accessToken && !tokenManager.isAccessTokenExpired()) {
-    config.headers.Authorization = `Bearer ${accessToken}`;
+    (customConfig.headers as any).Authorization = `Bearer ${accessToken}`;
   }
   
   return config;
@@ -36,7 +84,13 @@ http.interceptors.request.use((config) => {
 http.interceptors.response.use(
   (response) => response,
   async (error) => {
-    const originalRequest = error.config;
+    const originalRequest = error.config as CustomAxiosRequestConfig;
+    
+    // Check if this is a nonce error - if so, don't retry
+    if (error.response?.data?.message === 'Nonce has already been used') {
+      console.error('Nonce already used error - not retrying');
+      return Promise.reject(error);
+    }
     
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true;
@@ -46,8 +100,16 @@ http.interceptors.response.use(
         const newToken = tokenManager.getAccessToken();
         
         if (newToken) {
+          // Clear old headers completely
+          delete originalRequest.headers['x-nonce'];
+          delete originalRequest.headers['x-timestamp'];
+          delete originalRequest.headers['Authorization'];
+          
+          // Set new auth token
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
-          return http(originalRequest);
+          
+          console.log('Retrying request with new token and fresh nonce');
+          return http(originalRequest as any);
         }
       } catch (refreshError) {
         console.error('Token refresh failed:', refreshError);
@@ -67,13 +129,6 @@ export function setAuthToken(token?: string): void {
   } else {
     delete http.defaults.headers.common.Authorization;
   }
-}
-
-// Generate cryptographically secure nonce
-function generateNonce(): string {
-  const array = new Uint8Array(16);
-  crypto.getRandomValues(array);
-  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('');
 }
 
 // Get CSRF token from session storage (set by the server response)

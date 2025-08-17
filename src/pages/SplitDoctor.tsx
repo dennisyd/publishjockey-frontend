@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { 
   Box, 
   Button, 
@@ -17,7 +17,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import ArticleIcon from '@mui/icons-material/Article';
 import MarkdownIcon from '@mui/icons-material/Code';
 import { http } from '../services/http';
-
+import { useAuth } from '../contexts/AuthContext';
 
 // API URL - use relative path for proxy
 const API_URL = '';
@@ -34,8 +34,6 @@ interface SplitDoctorResponse {
   };
   error?: string;
 }
-
-
 
 // Styled components for file upload
 const VisuallyHiddenInput = styled('input')({
@@ -74,12 +72,16 @@ const DropZone = styled(Paper)<{ isDragActive: boolean }>(({ theme, isDragActive
 
 // Main component
 const SplitDoctor: React.FC = () => {
-  const token = localStorage.getItem('token');
+  const { fetchCsrfToken } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<{ message: string, docxLink: string, mdLink: string } | null>(null);
+  
+  // Add refs to prevent double submission
+  const uploadInProgress = useRef(false);
+  const lastUploadTime = useRef(0);
 
   // Handle file selection
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -94,9 +96,7 @@ const SplitDoctor: React.FC = () => {
       
       setFile(selectedFile);
       setError(null);
-      
-      // Don't reset the input value here, as it causes the refresh issue
-      // If we need to clear it, do it only after successful upload
+      setSuccess(null); // Clear previous success
     }
   };
 
@@ -134,13 +134,28 @@ const SplitDoctor: React.FC = () => {
       
       setFile(droppedFile);
       setError(null);
+      setSuccess(null); // Clear previous success
     } else {
       console.log('No files in drop event');
     }
   };
 
-  // Upload and process the file
+  // Upload and process the file with debouncing
   const handleUpload = async () => {
+    // Debounce check - prevent rapid clicks
+    const now = Date.now();
+    if (now - lastUploadTime.current < 2000) {
+      console.log('Upload debounced - too soon after last upload');
+      return;
+    }
+    lastUploadTime.current = now;
+
+    // Check if upload is already in progress
+    if (uploadInProgress.current) {
+      console.log('Upload already in progress, ignoring duplicate request');
+      return;
+    }
+
     if (!file) {
       setError('Please select a file first');
       return;
@@ -152,21 +167,32 @@ const SplitDoctor: React.FC = () => {
       return;
     }
 
+    // Set flag to prevent concurrent uploads
+    uploadInProgress.current = true;
     setLoading(true);
     setError(null);
     setSuccess(null);
     
-    console.log('Starting file upload process', { fileName: file.name, fileSize: file.size });
+    console.log('Starting file upload process', { 
+      fileName: file.name, 
+      fileSize: file.size,
+      timestamp: new Date().toISOString()
+    });
 
     try {
+      // Fetch CSRF token before making the request
+      await fetchCsrfToken();
+      
+      // Add a small delay to ensure CSRF token is properly set
+      await new Promise(resolve => setTimeout(resolve, 100));
+      
       const formData = new FormData();
       formData.append('document', file);
       
-      console.log('Submitting to:', `${API_URL}/split-document`);
-      console.log('Token available:', !!token);
+      console.log('Submitting to:', `/api/split-document`);
 
       const response = await http.post<SplitDoctorResponse>(
-        `/api/split-document`, 
+        `/split-document`, 
         formData, 
         {
           headers: {
@@ -204,7 +230,8 @@ const SplitDoctor: React.FC = () => {
         });
         
         // Create direct file URLs using the most direct path possible
-        const baseUrl = process.env.REACT_APP_API_URL || '';
+        // Use the base URL without /api for public files
+        const baseUrl = process.env.REACT_APP_API_URL ? process.env.REACT_APP_API_URL.replace('/api', '') : '';
         
         // Only set docxUrl if docxPath exists
         if (docxPath) {
@@ -228,6 +255,9 @@ const SplitDoctor: React.FC = () => {
           docxLink: docxUrl,
           mdLink: mdUrl
         });
+        
+        // Clear the file after successful upload
+        setFile(null);
       } else {
         setError(response.data.message || 'Failed to process file');
         console.error('API returned error:', response.data);
@@ -240,13 +270,25 @@ const SplitDoctor: React.FC = () => {
         console.error('Response data:', err.response.data);
         console.error('Response status:', err.response.status);
         console.error('Response headers:', err.response.headers);
+        
+        // Handle specific error messages
+        if (err.response.data?.message === 'Nonce has already been used') {
+          setError('Request failed due to security check. Please try again.');
+        } else {
+          setError(err.response.data?.message || 'Error processing file. Please try again.');
+        }
       } else if (err.request) {
         console.error('Request made but no response received');
+        setError('Network error. Please check your connection and try again.');
+      } else {
+        setError('Error processing file. Please try again.');
       }
-      
-      setError(err.response?.data?.message || 'Error processing file. Please try again.');
     } finally {
       setLoading(false);
+      // Reset the upload flag after a delay to prevent race conditions
+      setTimeout(() => {
+        uploadInProgress.current = false;
+      }, 1000);
     }
   };
 
@@ -255,11 +297,15 @@ const SplitDoctor: React.FC = () => {
     setFile(null);
     setError(null);
     setSuccess(null);
-    // Don't reset the loading state here, it should be handled by handleUpload
+    uploadInProgress.current = false;
   };
 
   // Trigger file input click
   const handleFileInputClick = () => {
+    if (loading || uploadInProgress.current) {
+      console.log('Cannot select file while upload is in progress');
+      return;
+    }
     const fileInput = document.getElementById('docx-file-input');
     if (fileInput) {
       fileInput.click();
@@ -287,6 +333,7 @@ const SplitDoctor: React.FC = () => {
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               onClick={handleFileInputClick}
+              style={{ cursor: loading ? 'not-allowed' : 'pointer' }}
             >
               <CloudUploadIcon />
               <Typography variant="h6" gutterBottom>
@@ -304,6 +351,7 @@ const SplitDoctor: React.FC = () => {
                 id="docx-file-input"
                 accept=".docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 onChange={handleFileSelect}
+                disabled={loading}
               />
               
               <Button
@@ -314,6 +362,7 @@ const SplitDoctor: React.FC = () => {
                   e.stopPropagation(); // Prevent DropZone click
                   handleFileInputClick();
                 }}
+                disabled={loading}
               >
                 Select File
               </Button>

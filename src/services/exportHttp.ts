@@ -3,7 +3,9 @@ import tokenManager from '../utils/tokenManager';
 
 // HTTP service for export backend calls
 export const exportHttp = axios.create({
-  baseURL: '', // Use relative URLs for proxy
+  baseURL: process.env.NODE_ENV === 'production' 
+    ? 'https://publishjockey-export.onrender.com'
+    : '', // Use relative URLs for proxy in development
   withCredentials: true
 });
 
