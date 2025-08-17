@@ -46,7 +46,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: "Traditionally, preparing a manuscript for publishing involves multiple complex steps: formatting in Word (which often breaks), hiring a designer for layout, converting to PDF with proper margins, creating a table of contents, and ensuring proper page numbering. This cumbersome process can cost $300-500 or require learning specialized tools like InDesign or LaTeX."
+        text: "Traditionally, preparing a manuscript for publishing involves multiple complex steps: formatting in Word (which often breaks), hiring a designer for layout, converting to PDF with proper margins, creating a table of contents, and ensuring proper page numbering. This cumbersome process can cost $300-500 or require learning specialized tools like InDesign or professional typesetting software."
       },
       {
         type: 'paragraph',
@@ -91,7 +91,7 @@ const blogPostsData = {
       },
       {
         type: 'paragraph',
-        text: 'What makes PublishJockey different is our use of LaTeX typesetting behind the scenes. While you work with a simple, intuitive Markdown editor, our system leverages professional typesetting technology to handle:'
+        text: 'What makes PublishJockey different is our use of professional typesetting technology behind the scenes. While you work with a simple, intuitive Markdown editor, our system leverages publisher-grade formatting to handle:'
       },
       {
         type: 'list',
@@ -237,7 +237,7 @@ const blogPostsData = {
           },
           {
             title: 'Professional Typesetting',
-            content: 'Behind the scenes, modern platforms like PublishJockey use LaTeX—the same typesetting system preferred by publishers worldwide—to produce consistently excellent results without requiring technical knowledge.',
+            content: 'Behind the scenes, modern platforms like PublishJockey use professional typesetting technology—the same systems preferred by publishers worldwide—to produce consistently excellent results without requiring technical knowledge.',
             image: 'https://images.unsplash.com/photo-1476081718509-d5d0b661a376?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80'
           },
           {

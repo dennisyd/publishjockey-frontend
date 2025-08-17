@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { ENV } from '../config/env';
 
-const API_URL = ENV.API_URL.replace(/\/$/, '').replace(/\/api$/, '');
+const API_URL = ENV.API_URL;
 
 // Types
 export interface AdminUser {
@@ -117,7 +117,7 @@ export const getUsers = async (
   sortField = 'createdAt', 
   sortOrder = 'desc'
 ): Promise<PaginatedUsers> => {
-  const response = await axios.get(`${API_URL}/admin/users`, {
+  const response = await axios.get(`${API_URL}/api/admin/users`, {
     params: { page, limit, search, role, status, sortField, sortOrder },
     withCredentials: true
   });
@@ -125,70 +125,70 @@ export const getUsers = async (
 };
 
 export const getUserDetails = async (userId: string): Promise<UserDetailsResponse> => {
-  const response = await axios.get(`${API_URL}/admin/users/${userId}`, {
+  const response = await axios.get(`${API_URL}/api/admin/users/${userId}`, {
     withCredentials: true
   });
   return response.data as UserDetailsResponse;
 };
 
 export const updateUserInfo = async (userId: string, userData: Partial<AdminUser>): Promise<UpdateUserResponse> => {
-  const response = await axios.put(`${API_URL}/admin/users/${userId}`, userData, {
+  const response = await axios.put(`${API_URL}/api/admin/users/${userId}`, userData, {
     withCredentials: true
   });
   return response.data as UpdateUserResponse;
 };
 
 export const resetUserPassword = async (userId: string): Promise<SuccessResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/reset-password`, {}, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/reset-password`, {}, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
 };
 
 export const impersonateUser = async (userId: string): Promise<ImpersonateResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/impersonate`, {}, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/impersonate`, {}, {
     withCredentials: true
   });
   return response.data as ImpersonateResponse;
 };
 
 export const exportUserData = async (userId: string): Promise<UserDataExportResponse> => {
-  const response = await axios.get(`${API_URL}/admin/users/${userId}/export`, {
+  const response = await axios.get(`${API_URL}/api/admin/users/${userId}/export`, {
     withCredentials: true
   });
   return response.data as UserDataExportResponse;
 };
 
 export const suspendUser = async (userId: string, reason?: string): Promise<SuccessResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/suspend`, { reason }, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/suspend`, { reason }, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
 };
 
 export const unsuspendUser = async (userId: string): Promise<SuccessResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/unsuspend`, {}, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/unsuspend`, {}, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
 };
 
 export const changeUserRole = async (userId: string, role: string): Promise<SuccessResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/change-role`, { role }, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/change-role`, { role }, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
 };
 
 export const deleteUser = async (userId: string): Promise<SuccessResponse> => {
-  const response = await axios.delete(`${API_URL}/admin/users/${userId}`, {
+  const response = await axios.delete(`${API_URL}/api/admin/users/${userId}`, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
 };
 
 export const sendNotification = async (userId: string, subject: string, message: string, sendEmail: boolean = false): Promise<SuccessResponse> => {
-  const response = await axios.post(`${API_URL}/admin/users/${userId}/notify`, { subject, message, sendEmail }, {
+  const response = await axios.post(`${API_URL}/api/admin/users/${userId}/notify`, { subject, message, sendEmail }, {
     withCredentials: true
   });
   return response.data as SuccessResponse;
@@ -200,7 +200,7 @@ export const bulkUserAction = async (userIds: string[], action: string, reason?:
   if (reason) payload.reason = reason;
   if (role) payload.role = role;
   
-  const response = await axios.post(`${API_URL}/admin/users/bulk-action`, payload, {
+  const response = await axios.post(`${API_URL}/api/admin/users/bulk-action`, payload, {
     withCredentials: true
   });
   return response.data as BulkActionResponse;
@@ -223,7 +223,7 @@ export const getAuditLogs = async (
   if (startDate) params.startDate = startDate.toISOString();
   if (endDate) params.endDate = endDate.toISOString();
   
-  const response = await axios.get(`${API_URL}/admin/audit-logs`, {
+  const response = await axios.get(`${API_URL}/api/admin/audit-logs`, {
     params,
     withCredentials: true
   });
@@ -232,7 +232,7 @@ export const getAuditLogs = async (
 
 // Dashboard statistics
 export const getDashboardStats = async (): Promise<DashboardStatsResponse> => {
-  const response = await axios.get(`${API_URL}/admin/dashboard-stats`, {
+  const response = await axios.get(`${API_URL}/api/admin/dashboard-stats`, {
     withCredentials: true
   });
   return response.data as DashboardStatsResponse;
@@ -252,16 +252,16 @@ export interface TitleChangeItem {
 }
 
 export const listTitleChanges = async (params: { status?: string; userId?: string; projectId?: string; from?: string; to?: string } = {}) => {
-  const res = await axios.get(`${API_URL}/admin/title-changes`, { params, withCredentials: true });
+  const res = await axios.get(`${API_URL}/api/admin/title-changes`, { params, withCredentials: true });
   return res.data as { success: boolean; items: TitleChangeItem[] };
 };
 
 export const approveTitleChange = async (id: string) => {
-  const res = await axios.post(`${API_URL}/admin/title-changes/${id}/approve`, {}, { withCredentials: true });
+  const res = await axios.post(`${API_URL}/api/admin/title-changes/${id}/approve`, {}, { withCredentials: true });
   return res.data as { success: boolean };
 };
 
 export const denyTitleChange = async (id: string, reason?: string) => {
-  const res = await axios.post(`${API_URL}/admin/title-changes/${id}/deny`, { reason }, { withCredentials: true });
+  const res = await axios.post(`${API_URL}/api/admin/title-changes/${id}/deny`, { reason }, { withCredentials: true });
   return res.data as { success: boolean };
 };

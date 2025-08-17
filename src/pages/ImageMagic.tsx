@@ -25,11 +25,11 @@ import ImageIcon from '@mui/icons-material/Image';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import RefreshIcon from '@mui/icons-material/Refresh';
-import axios from 'axios';
+import { exportHttp } from '../services/exportHttp';
 
 
-// API URL
-const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com'; // Use export-backend for ImageMagic
+// API URL - use relative path for proxy
+const API_URL = '';
 
 // Define API response types
 interface ImageMagicResponse {
@@ -115,7 +115,6 @@ const PreviewBox = styled(Box)(({ theme }) => ({
 
 // Main component
 const ImageMagic: React.FC = () => {
-  const token = localStorage.getItem('token');
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -129,7 +128,7 @@ const ImageMagic: React.FC = () => {
   useEffect(() => {
     const fetchKdpSizes = async () => {
       try {
-        const response = await axios.get<KdpSizesResponse>(`${API_URL}/kdp-sizes`);
+        const response = await exportHttp.get<KdpSizesResponse>(`${API_URL}/kdp-sizes`);
         if (response.data.success && response.data.sizes) {
           setKdpSizes(response.data.sizes);
         }
@@ -242,15 +241,13 @@ const ImageMagic: React.FC = () => {
       formData.append('bookSize', bookSize);
       
       console.log('Submitting to:', `${API_URL}/upscale-image`);
-      console.log('Token available:', !!token);
 
-      const response = await axios.post<ImageMagicResponse>(
+      const response = await exportHttp.post<ImageMagicResponse>(
         `${API_URL}/upscale-image`, 
         formData, 
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'multipart/form-data'
           },
           // Add timeout to prevent hanging requests
           timeout: 60000, // 60 seconds

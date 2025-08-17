@@ -334,7 +334,7 @@ const TickerTape = () => {
   
   // Ticker items with icons
   const tickerItems = [
-    { text: "⚡ PDFs generated in ~60 seconds. EPUBs in ~2 seconds. Word docs in ~2 seconds." },
+    { text: "⚡ PDFs generated in ~30 seconds. EPUBs in ~5 seconds. Word docs in ~5 seconds." },
     { text: "🧠 Real-time preview shows your content before you publish." },
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
@@ -1407,11 +1407,11 @@ const Features = () => {
                     <CodeIcon fontSize="large" />
                   </Avatar>
                   <Typography variant="h5" component="h3" fontWeight={700}>
-                    LaTeX-Powered Export
+                    Professional Typesetting
                   </Typography>
                 </Box>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  Create beautifully typeset PDFs with LaTeX quality - without learning LaTeX yourself.
+                  Create beautifully typeset PDFs with publisher-quality formatting - no technical knowledge required.
                 </Typography>
                 <Typography variant="body1" color="text.secondary">
                   Our system handles all the complex typesetting rules, including proper page breaks, widow and orphan control.

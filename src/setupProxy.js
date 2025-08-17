@@ -12,9 +12,9 @@ module.exports = function (app) {
     })
   );
 
-  // Export backend API (for PDF generation, etc.)
+  // Export backend API (for PDF generation, ImageMagic, etc.)
   app.use(
-    ['/export', '/ping', '/health'],
+    ['/export', '/ping', '/health', '/upscale-image', '/kdp-sizes'],
     createProxyMiddleware({
       target: 'http://localhost:3002',
       changeOrigin: true,

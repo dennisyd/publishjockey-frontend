@@ -94,7 +94,11 @@ const TestimonialApproval = () => {
   
   const handleEditSave = async () => {
     try {
-      await axios.patch(`/api/testimonials/${currentTestimonial.id}`, editedTestimonial);
+      const { ENV } = await import('../../config/env');
+      const token = localStorage.getItem('token');
+      await axios.patch(`${ENV.API_URL}/testimonials/${currentTestimonial.id}`, editedTestimonial, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+      });
       
       // Update local state
       setTestimonials(prev => 
@@ -128,7 +132,11 @@ const TestimonialApproval = () => {
   
   const handleDelete = async () => {
     try {
-      await axios.delete(`/api/testimonials/${currentTestimonial.id}`);
+      const { ENV } = await import('../../config/env');
+      const token = localStorage.getItem('token');
+      await axios.delete(`${ENV.API_URL}/testimonials/${currentTestimonial.id}`, {
+        headers: token ? { Authorization: `Bearer ${token}` } : undefined
+      });
       
       // Update local state
       setTestimonials(prev => prev.filter(item => item.id !== currentTestimonial.id));
@@ -151,8 +159,12 @@ const TestimonialApproval = () => {
   
   const handleStatusChange = async (testimonial, newStatus) => {
     try {
+      const { ENV } = await import('../../config/env');
+      const token = localStorage.getItem('token');
       if (newStatus === 'approved') {
-        await axios.patch(`/api/testimonials/${testimonial.id}/approve`);
+        await axios.patch(`${ENV.API_URL}/testimonials/${testimonial.id}/approve`, {}, {
+          headers: token ? { Authorization: `Bearer ${token}` } : undefined
+        });
       }
       
       // Update local state

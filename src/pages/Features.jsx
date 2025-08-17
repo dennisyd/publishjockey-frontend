@@ -151,11 +151,11 @@ const Features = () => {
                     <CodeIcon fontSize="large" />
                   </Avatar>
                   <Typography variant="h5" component="h3" fontWeight={700}>
-                    LaTeX-Powered Export
+                    Professional Typesetting
                   </Typography>
                 </Box>
                 <Typography variant="body1" color="text.secondary" paragraph>
-                  Create beautifully typeset PDFs with LaTeX quality - without learning LaTeX yourself.
+                  Create beautifully typeset PDFs with publisher-quality formatting - no technical knowledge required.
                 </Typography>
                 <Typography variant="body1" color="text.secondary" paragraph>
                   Our system handles all the complex typesetting rules behind the scenes, ensuring your book meets professional publishing standards.

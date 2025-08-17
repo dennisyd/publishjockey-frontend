@@ -45,7 +45,7 @@ interface ExportFormat {
  */
 export class ExportService {
   /**
-   * Escape LaTeX-reserved characters that break section headings.
+   * Escape special characters that break section headings.
    * Keep conservative: only escape ampersand per current requirement.
    * Do NOT touch body content to preserve plain text citations.
    */
@@ -55,7 +55,7 @@ export class ExportService {
   }
 
   /**
-   * Escape ampersands only on markdown heading lines for LaTeX PDF builds.
+   * Escape ampersands only on markdown heading lines for PDF builds.
    */
   private static sanitizeAmpersandInMarkdownHeadings(markdown: string): string {
     const lines = markdown.split(/\r?\n/);

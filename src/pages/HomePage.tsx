@@ -124,7 +124,7 @@ const HomePage: React.FC = () => {
                 Beautiful Typography
               </Typography>
               <Typography variant="body1" color="text.secondary" sx={{ flex: 1 }}>
-                Professional typesetting powered by LaTeX creates beautiful books with proper kerning, ligatures and page layouts.
+                Professional typesetting creates beautiful books with proper kerning, ligatures and page layouts.
               </Typography>
             </Paper>
           </Box>

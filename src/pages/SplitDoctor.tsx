@@ -16,11 +16,11 @@ import FileUploadIcon from '@mui/icons-material/FileUpload';
 import InfoIcon from '@mui/icons-material/Info';
 import ArticleIcon from '@mui/icons-material/Article';
 import MarkdownIcon from '@mui/icons-material/Code';
-import axios from 'axios';
+import { http } from '../services/http';
 
 
-// API URL
-const API_URL = (process.env.REACT_APP_API_URL || '/api');
+// API URL - use relative path for proxy
+const API_URL = '/api';
 
 // Define API response types
 interface SplitDoctorResponse {
@@ -165,13 +165,12 @@ const SplitDoctor: React.FC = () => {
       console.log('Submitting to:', `${API_URL}/split-document`);
       console.log('Token available:', !!token);
 
-      const response = await axios.post<SplitDoctorResponse>(
+      const response = await http.post<SplitDoctorResponse>(
         `${API_URL}/split-document`, 
         formData, 
         {
           headers: {
-            'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${token}`
+            'Content-Type': 'multipart/form-data'
           },
           // Add timeout to prevent hanging requests
           timeout: 60000, // 60 seconds

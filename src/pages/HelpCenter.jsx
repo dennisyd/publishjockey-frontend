@@ -63,7 +63,7 @@ We show a short 'Heads up' message only to Single-book plans after the 3-day win
   },
   {
     question: 'Why does my exported PDF look different from the editor?',
-    answer: 'The editor provides a close preview, but final typesetting (fonts, margins, page breaks) is handled by our LaTeX engine for professional results.'
+    answer: 'The editor provides a close preview, but final typesetting (fonts, margins, page breaks) is handled by our professional typesetting engine for publisher-quality results.'
   },
   {
     question: 'How do I publish to Amazon KDP?',
