@@ -8,6 +8,9 @@ interface EditorSettings {
   autosaveInterval: string;
   defaultExportFormat: string;
   darkMode: boolean;
+  // New settings for language and export fonts
+  documentLanguage: string;
+  exportFontFamily: string;
 }
 
 interface SettingsContextType {
@@ -23,7 +26,10 @@ const defaultSettings: EditorSettings = {
   autoSave: true,
   autosaveInterval: '5',
   defaultExportFormat: 'pdf',
-  darkMode: false
+  darkMode: false,
+  // Default language and font settings
+  documentLanguage: 'en',
+  exportFontFamily: 'Liberation Serif'
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

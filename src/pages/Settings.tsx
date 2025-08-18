@@ -15,12 +15,18 @@ import {
   Alert,
   Stack,
   SelectChangeEvent,
-  Container
+  Container,
+  Chip,
+  Grid
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
+import { useSettings } from '../contexts/SettingsContext';
 import SaveIcon from '@mui/icons-material/Save';
+import LanguageIcon from '@mui/icons-material/Language';
+import FontDownloadIcon from '@mui/icons-material/FontDownload';
 import axios from 'axios';
 import { ENV } from '../config/env';
+import LanguageSwitcher from '../components/LanguageSwitcher';
 
 interface ProfileUpdateResponse {
   success: boolean;
@@ -35,16 +41,73 @@ interface ProfileUpdateResponse {
 
 const Settings: React.FC = () => {
   const { currentUser } = useAuth();
+  const { settings, updateSettings, saveSettings } = useSettings();
   
   const [name, setName] = useState(currentUser?.name || '');
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
-  const [darkMode, setDarkMode] = useState(false);
-  const [editorFontSize, setEditorFontSize] = useState('16');
-  const [editorTheme, setEditorTheme] = useState('light');
-  const [autoSave, setAutoSave] = useState(true);
-  const [autosaveInterval, setAutosaveInterval] = useState('5');
-  const [defaultExportFormat, setDefaultExportFormat] = useState('pdf');
+  const [darkMode, setDarkMode] = useState(settings.darkMode);
+  const [editorFontSize, setEditorFontSize] = useState(settings.fontSize);
+  const [editorTheme, setEditorTheme] = useState(settings.theme);
+  const [autoSave, setAutoSave] = useState(settings.autoSave);
+  const [autosaveInterval, setAutosaveInterval] = useState(settings.autosaveInterval);
+  const [defaultExportFormat, setDefaultExportFormat] = useState(settings.defaultExportFormat);
+  const [selectedFont, setSelectedFont] = useState(settings.exportFontFamily || 'Liberation Serif');
+  const [selectedLanguage, setSelectedLanguage] = useState(settings.documentLanguage || 'en');
+
+  // Font options organized by language
+  const fontOptions = {
+    // Latin-based languages (English, Spanish, French, German, Italian)
+    latin: [
+      { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Linux equivalent of Times New Roman' },
+      { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Unicode support' },
+      { value: 'Liberation Sans', label: 'Liberation Sans', description: 'Linux equivalent of Arial' },
+      { value: 'DejaVu Sans', label: 'DejaVu Sans', description: 'Clean sans-serif font' }
+    ],
+    // Chinese
+    chinese: [
+      { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Recommended)', description: 'Simplified Chinese' },
+      { value: 'Noto Sans CJK TC', label: 'Noto Sans CJK TC', description: 'Traditional Chinese' }
+    ],
+    // Japanese
+    japanese: [
+      { value: 'Noto Sans CJK JP', label: 'Noto Sans CJK JP (Recommended)', description: 'Japanese' }
+    ],
+    // Korean
+    korean: [
+      { value: 'Noto Sans CJK KR', label: 'Noto Sans CJK KR (Recommended)', description: 'Korean' }
+    ],
+    // Arabic
+    arabic: [
+      { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Recommended)', description: 'Arabic script' }
+    ],
+    // Russian
+    russian: [
+      { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Good Cyrillic support' },
+      { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Cyrillic support' }
+    ]
+  };
+
+  // Language to font category mapping
+  const languageFontMap = {
+    en: 'latin',
+    es: 'latin',
+    fr: 'latin',
+    de: 'latin',
+    it: 'latin',
+    zh: 'chinese',
+    ja: 'japanese',
+    ko: 'korean',
+    ar: 'arabic',
+    ru: 'russian'
+  };
+
+  // Get recommended fonts for current language
+  const getRecommendedFonts = (languageCode: string) => {
+    if (!languageCode) return fontOptions.latin;
+    const fontCategory = languageFontMap[languageCode as keyof typeof languageFontMap] || 'latin';
+    return fontOptions[fontCategory as keyof typeof fontOptions] || fontOptions.latin;
+  };
   
   const handleUpdateProfile = async () => {
     try {
@@ -77,21 +140,65 @@ const Settings: React.FC = () => {
   };
   
   const handleFontSizeChange = (event: SelectChangeEvent) => {
-    setEditorFontSize(event.target.value as string);
+    const newSize = event.target.value as string;
+    setEditorFontSize(newSize);
+    updateSettings({ fontSize: newSize });
   };
   
   const handleThemeChange = (event: SelectChangeEvent) => {
-    setEditorTheme(event.target.value as string);
+    const newTheme = event.target.value as string;
+    setEditorTheme(newTheme);
+    updateSettings({ theme: newTheme });
   };
   
   const handleExportFormatChange = (event: SelectChangeEvent) => {
-    setDefaultExportFormat(event.target.value as string);
+    const newFormat = event.target.value as string;
+    setDefaultExportFormat(newFormat);
+    updateSettings({ defaultExportFormat: newFormat });
   };
   
   const handleAutosaveIntervalChange = (event: SelectChangeEvent) => {
-    setAutosaveInterval(event.target.value as string);
+    const newInterval = event.target.value as string;
+    setAutosaveInterval(newInterval);
+    updateSettings({ autosaveInterval: newInterval });
   };
-  
+
+  const handleFontChange = (event: SelectChangeEvent) => {
+    const newFont = event.target.value as string;
+    setSelectedFont(newFont);
+    updateSettings({ exportFontFamily: newFont });
+  };
+
+  const handleLanguageChange = (event: SelectChangeEvent) => {
+    const newLanguage = event.target.value as string;
+    setSelectedLanguage(newLanguage);
+    updateSettings({ documentLanguage: newLanguage });
+    
+    // Auto-select recommended font for the language
+    const recommendedFonts = getRecommendedFonts(newLanguage);
+    if (recommendedFonts.length > 0) {
+      const recommendedFont = recommendedFonts[0].value;
+      setSelectedFont(recommendedFont);
+      updateSettings({ exportFontFamily: recommendedFont });
+    }
+  };
+
+  const handleDarkModeChange = (checked: boolean) => {
+    setDarkMode(checked);
+    updateSettings({ darkMode: checked });
+  };
+
+  const handleAutoSaveChange = (checked: boolean) => {
+    setAutoSave(checked);
+    updateSettings({ autoSave: checked });
+  };
+
+  const handleSaveSettings = () => {
+    saveSettings();
+    setSuccessMessage('Settings saved successfully!');
+    setTimeout(() => setSuccessMessage(''), 3000);
+  };
+
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
       <Typography variant="h4" gutterBottom>Settings</Typography>
@@ -158,6 +265,89 @@ const Settings: React.FC = () => {
           </Paper>
         </Box>
         
+        {/* Language & Font Settings */}
+        <Box>
+          <Paper sx={{ p: 3, borderRadius: 2, height: '100%' }}>
+            <Typography variant="h6" gutterBottom>
+              <LanguageIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
+              Language & Font Settings
+            </Typography>
+            <Divider sx={{ mb: 3 }} />
+            
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                Interface Language
+              </Typography>
+              <LanguageSwitcher variant="select" sx={{ mb: 2 }} />
+            </Box>
+            
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                Document Language
+              </Typography>
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <InputLabel id="document-language-label">Document Language</InputLabel>
+                <Select
+                  labelId="document-language-label"
+                  id="document-language-select"
+                  value={selectedLanguage}
+                  label="Document Language"
+                  onChange={handleLanguageChange}
+                  size="small"
+                >
+                  <MenuItem value="en">🇺🇸 English</MenuItem>
+                  <MenuItem value="es">🇪🇸 Español</MenuItem>
+                  <MenuItem value="fr">🇫🇷 Français</MenuItem>
+                  <MenuItem value="de">🇩🇪 Deutsch</MenuItem>
+                  <MenuItem value="it">🇮🇹 Italiano</MenuItem>
+                  <MenuItem value="ru">🇷🇺 Русский</MenuItem>
+                  <MenuItem value="zh">🇨🇳 中文 (Simplified)</MenuItem>
+                  <MenuItem value="ja">🇯🇵 日本語</MenuItem>
+                  <MenuItem value="ko">🇰🇷 한국어</MenuItem>
+                  <MenuItem value="ar">🇸🇦 العربية</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            
+            <Box sx={{ mb: 3 }}>
+              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
+                <FontDownloadIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 16 }} />
+                Recommended Font for {selectedLanguage?.toUpperCase() || 'EN'}
+              </Typography>
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <InputLabel id="font-family-label">Font Family</InputLabel>
+                <Select
+                  labelId="font-family-label"
+                  id="font-family-select"
+                  value={selectedFont}
+                  label="Font Family"
+                  onChange={handleFontChange}
+                  size="small"
+                >
+                  {getRecommendedFonts(selectedLanguage).map((font) => (
+                    <MenuItem key={font.value} value={font.value}>
+                      <Box>
+                        <Typography variant="body2" fontWeight={font.value.includes('Recommended') ? 600 : 400}>
+                          {font.label}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary">
+                          {font.description}
+                        </Typography>
+                      </Box>
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+              
+              <Box sx={{ mt: 2 }}>
+                <Typography variant="caption" color="text.secondary">
+                  This font will be used for document exports in {selectedLanguage?.toUpperCase() || 'EN'}
+                </Typography>
+              </Box>
+            </Box>
+          </Paper>
+        </Box>
+        
         {/* Editor Settings */}
         <Box>
           <Paper sx={{ p: 3, borderRadius: 2, height: '100%' }}>
@@ -203,7 +393,7 @@ const Settings: React.FC = () => {
                 control={
                   <Switch 
                     checked={darkMode} 
-                    onChange={(e) => setDarkMode(e.target.checked)} 
+                    onChange={(e) => handleDarkModeChange(e.target.checked)} 
                   />
                 } 
                 label="Dark Mode (App Theme)" 
@@ -214,7 +404,7 @@ const Settings: React.FC = () => {
                 control={
                   <Switch 
                     checked={autoSave} 
-                    onChange={(e) => setAutoSave(e.target.checked)} 
+                    onChange={(e) => handleAutoSaveChange(e.target.checked)} 
                   />
                 } 
                 label="Auto Save" 
@@ -286,6 +476,7 @@ const Settings: React.FC = () => {
                 variant="contained" 
                 color="primary" 
                 sx={{ borderRadius: '8px' }}
+                onClick={handleSaveSettings}
               >
                 Save Settings
               </Button>
