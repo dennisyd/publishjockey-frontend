@@ -196,7 +196,22 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const handleCoverImageChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files && e.target.files[0] ? e.target.files[0] : null;
     if (file) {
+      // Validate file type
+      if (!file.type.startsWith('image/')) {
+        setCoverUploadError('Please upload a valid image file (JPEG, PNG)');
+        return;
+      }
+      
+      // Validate file size (15MB = 15 * 1024 * 1024 bytes)
+      const maxSize = 15 * 1024 * 1024; // 15MB in bytes
+      if (file.size > maxSize) {
+        const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+        setCoverUploadError(`Image file is too large (${fileSizeMB} MB). Maximum file size is 15 MB. Please choose a smaller image.`);
+        return;
+      }
+      
       setCoverUploading(true);
+      setCoverUploadError(null); // Clear any previous errors
       try {
         const formData = new FormData();
         formData.append('cover', file);

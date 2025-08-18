@@ -149,10 +149,12 @@ const ImageMagic: React.FC = () => {
       return;
     }
 
+    // Create preview for the file
     const objectUrl = URL.createObjectURL(file);
     setPreview(objectUrl);
+    console.log('Preview created for:', file.name);
 
-    // Clean up on unmount
+    // Clean up on unmount or when file changes
     return () => {
       URL.revokeObjectURL(objectUrl);
     };
@@ -165,17 +167,33 @@ const ImageMagic: React.FC = () => {
 
   // Handle file selection
   const handleFileSelect = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files.length > 0) {
-      const selectedFile = event.target.files[0];
+    const files = event.target.files;
+    console.log('File input change event triggered', { filesCount: files?.length });
+    
+    if (files && files.length > 0) {
+      const selectedFile = files[0];
       console.log('File selected via input:', selectedFile.name, selectedFile.size, selectedFile.type);
       
+      // Validate file type
       if (!selectedFile.type.startsWith('image/')) {
-        setError('Please upload a valid image file (JPEG, PNG)');
+        setError('Please upload a valid image file (JPEG, PNG, GIF, WebP)');
         return;
       }
       
-      setFile(selectedFile);
+      // Validate file size (15MB = 15 * 1024 * 1024 bytes)
+      const maxSize = 15 * 1024 * 1024; // 15MB in bytes
+      if (selectedFile.size > maxSize) {
+        const fileSizeMB = (selectedFile.size / (1024 * 1024)).toFixed(1);
+        setError(`Image file is too large (${fileSizeMB} MB). Maximum file size is 15 MB. Please choose a smaller image.`);
+        return;
+      }
+      
+      // Clear any previous errors and set the file
       setError(null);
+      setSuccess(null);
+      setFile(selectedFile);
+      
+      console.log('File set successfully:', selectedFile.name);
     }
   };
 
@@ -202,17 +220,35 @@ const ImageMagic: React.FC = () => {
     event.stopPropagation();
     setIsDragActive(false);
     
-    if (event.dataTransfer.files && event.dataTransfer.files.length > 0) {
-      const droppedFile = event.dataTransfer.files[0];
+    const files = event.dataTransfer.files;
+    if (files && files.length > 0) {
+      const droppedFile = files[0];
       console.log('File dropped:', droppedFile.name, droppedFile.size, droppedFile.type);
       
+      // Validate file type
       if (!droppedFile.type.startsWith('image/')) {
-        setError('Please upload a valid image file (JPEG, PNG)');
+        setError('Please upload a valid image file (JPEG, PNG, GIF, WebP)');
         return;
       }
       
-      setFile(droppedFile);
+      // Validate file size (15MB = 15 * 1024 * 1024 bytes)
+      const maxSize = 15 * 1024 * 1024; // 15MB in bytes
+      if (droppedFile.size > maxSize) {
+        const fileSizeMB = (droppedFile.size / (1024 * 1024)).toFixed(1);
+        setError(`Image file is too large (${fileSizeMB} MB). Maximum file size is 15 MB. Please choose a smaller image.`);
+        return;
+      }
+      
+      // Clear any previous errors and set the file
       setError(null);
+      setSuccess(null);
+      setFile(droppedFile);
+      
+      // Force a re-render by updating the preview immediately
+      const objectUrl = URL.createObjectURL(droppedFile);
+      setPreview(objectUrl);
+      
+      console.log('File dropped successfully:', droppedFile.name);
     } else {
       console.log('No files in drop event');
     }
@@ -295,16 +331,20 @@ const ImageMagic: React.FC = () => {
 
   // Reset the form
   const handleReset = () => {
+    // Clear the file input
+    const fileInput = document.getElementById('image-upload-input') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
+    }
+    
+    // Clear state
     setFile(null);
     setPreview(null);
     setError(null);
     setSuccess(null);
     setBookSize('auto');
-  };
-
-  // Handle file input click
-  const handleFileInputClick = () => {
-    document.getElementById('image-upload-input')?.click();
+    
+    console.log('Form reset completed');
   };
 
   return (
@@ -348,7 +388,6 @@ const ImageMagic: React.FC = () => {
             onDragLeave={handleDragLeave}
             onDragOver={handleDragOver}
             onDrop={handleDrop}
-            onClick={handleFileInputClick}
           >
             <ImageIcon />
             <Typography variant="h6" gutterBottom>
@@ -373,8 +412,10 @@ const ImageMagic: React.FC = () => {
                 larger images (200KB+) are recommended.
               </Typography>
             )}
+            
             <Button 
               component="label"
+              variant="outlined"
               startIcon={<FileUploadIcon />}
               sx={{ mt: 2 }}
             >

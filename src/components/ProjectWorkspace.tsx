@@ -2630,8 +2630,34 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 const file = e.target.files?.[0];
                 if (!file) return;
                 
+                // Validate file type
+                if (!file.type.startsWith('image/')) {
+                  setNotification({
+                    open: true,
+                    message: 'Please upload a valid image file (JPEG, PNG, GIF, WebP)',
+                    severity: 'error'
+                  });
+                  return;
+                }
+                
+                // Validate file size (15MB = 15 * 1024 * 1024 bytes)
+                const maxSize = 15 * 1024 * 1024; // 15MB in bytes
+                if (file.size > maxSize) {
+                  const fileSizeMB = (file.size / (1024 * 1024)).toFixed(1);
+                  setNotification({
+                    open: true,
+                    message: `Image file is too large (${fileSizeMB} MB). Maximum file size is 15 MB. Please choose a smaller image.`,
+                    severity: 'error'
+                  });
+                  return;
+                }
+                
                 if (/\s/.test(file.name)) {
-                  alert('No spaces allowed in image name.');
+                  setNotification({
+                    open: true,
+                    message: 'No spaces allowed in image name.',
+                    severity: 'error'
+                  });
                   return;
                 }
                 
