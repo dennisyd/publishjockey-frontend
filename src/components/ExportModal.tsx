@@ -689,18 +689,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
             {(settings.format === 'pdf' || settings.format === 'epub') && (
               <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                    {getFilteredFontOptions(settings.language || 'en').map(font => (
-                      <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  💡 Font options are filtered based on your document language. The best font for your language is automatically selected.
-                </Typography>
-
                 {/* Document Language */}
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
                 <FormControl fullWidth sx={{ mb: 2 }}>
@@ -712,6 +700,18 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     ))}
                   </Select>
                 </FormControl>
+
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
+                    {getFilteredFontOptions(settings.language || 'en').map(font => (
+                      <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                  💡 Font options are filtered based on your document language. The best font for your language is automatically selected.
+                </Typography>
               </>
             )}
 
