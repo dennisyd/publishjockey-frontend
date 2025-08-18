@@ -13,11 +13,14 @@ import {
   Box,
   Select,
   MenuItem,
-  CircularProgress
+  CircularProgress,
+  InputLabel
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useAuth } from '../contexts/AuthContext';
+import { useSettings } from '../contexts/SettingsContext';
+import { useTranslation } from 'react-i18next';
 
 import ExportInstructionsTabs from './ExportInstructionsTabs';
 
@@ -60,6 +63,19 @@ const serverFonts = [
   { value: 'DejaVu Serif', label: 'DejaVu Serif' },
 ];
 
+// Language options for document export
+const languageOptions = [
+  { value: 'en', label: '🇺🇸 English', description: 'English' },
+  { value: 'es', label: '🇪🇸 Español', description: 'Spanish' },
+  { value: 'fr', label: '🇫🇷 Français', description: 'French' },
+  { value: 'de', label: '🇩🇪 Deutsch', description: 'German' },
+  { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
+  { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
+  { value: 'zh', label: '🇨🇳 中文 (Simplified)', description: 'Chinese (Simplified)' },
+  { value: 'ja', label: '🇯🇵 日本語', description: 'Japanese' },
+  { value: 'ko', label: '🇰🇷 한국어', description: 'Korean' },
+  { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' }
+];
 
 
 export interface ExportSettings {
@@ -112,6 +128,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   exportError
 }) => {
   const { currentUser } = useAuth();
+  const { settings: userSettings } = useSettings();
+  const { i18n } = useTranslation();
   const isFreePlan = (currentUser?.subscription || 'free') === 'free';
 
   type ImageUsageStats = {
@@ -146,6 +164,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
     htmlStylesheet: 'default',
     // Force title page to be first
     forceTitleFirst: true,
+    // Language and font settings from user settings
+    language: userSettings.documentLanguage || i18n.language || 'en',
+    fontFamily: userSettings.exportFontFamily || 'Liberation Serif',
+    tocDepth: 1
   });
 
   // State for cover image (EPUB only)
@@ -159,8 +181,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 'server';
   const fontOptions = exportPlatform === 'windows' ? windowsFonts : serverFonts;
   const defaultFont = exportPlatform === 'windows' ? 'Times New Roman' : 'Liberation Serif';
-
-  const [fontFamily, setFontFamily] = useState<string>(defaultFont);
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
@@ -302,7 +322,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
           console.log('Image validation passed, proceeding with export...');
           
           // Call parent onExport handler with settings
-          const exportSettings = { ...settings, tocDepth, fontFamily };
+          const exportSettings = { ...settings, tocDepth, fontFamily: settings.fontFamily };
           if (settings.format === 'epub' && coverImageFilename) {
             exportSettings.coverImage = coverImageFilename;
           }
@@ -400,6 +420,15 @@ const ExportModal: React.FC<ExportModalProps> = ({
       }));
     }
   }, [settings.format]);
+
+  // Update settings when user settings change
+  useEffect(() => {
+    setSettings(prev => ({
+      ...prev,
+      language: userSettings.documentLanguage || i18n.language || 'en',
+      fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
+    }));
+  }, [userSettings.documentLanguage, userSettings.exportFontFamily, i18n.language]);
 
   return (
     <Dialog
@@ -592,9 +621,21 @@ const ExportModal: React.FC<ExportModalProps> = ({
               <>
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={fontFamily} onChange={e => setFontFamily(e.target.value)}>
+                  <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
                     {fontOptions.map(font => (
                       <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+
+                {/* Document Language */}
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={settings.language} onChange={e => setSettings({ ...settings, language: e.target.value })}>
+                    {languageOptions.map(lang => (
+                      <MenuItem key={lang.value} value={lang.value}>
+                        {lang.label}
+                      </MenuItem>
                     ))}
                   </Select>
                 </FormControl>

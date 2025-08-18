@@ -196,7 +196,7 @@ export class ExportService {
       }
 
       // Get current language for export
-      const currentLanguage = getCurrentLanguage();
+      const currentLanguage = settings.language || getCurrentLanguage();
       console.log(`Exporting with language: ${currentLanguage}`);
 
       // Prepare the new payload with explicit TOC settings
@@ -240,7 +240,7 @@ export class ExportService {
         }),
         exportOptions: {
           ...settings,
-          language: currentLanguage, // Add language to export options
+          language: currentLanguage, // Use language from settings
           fontFamily: settings.fontFamily, // Ensure fontFamily is always included
           // Turn OFF chapter formatting in the backend since we've already done it here
           useChapterPrefix: false,
