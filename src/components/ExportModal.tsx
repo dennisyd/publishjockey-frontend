@@ -55,12 +55,35 @@ const windowsFonts = [
   { value: 'Arial', label: 'Arial' },
   { value: 'Georgia', label: 'Georgia' },
 ];
+
 const serverFonts = [
-  { value: 'Liberation Serif', label: 'Liberation Serif' },
-  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
-  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
-  { value: 'Linux Libertine', label: 'Linux Libertine' },
-  { value: 'DejaVu Serif', label: 'DejaVu Serif' },
+  // Latin fonts
+  { value: 'Liberation Serif', label: 'Liberation Serif (Latin)' },
+  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes (Latin)' },
+  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella (Latin)' },
+  { value: 'Linux Libertine', label: 'Linux Libertine (Latin)' },
+  { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin)' },
+  { value: 'Liberation Sans', label: 'Liberation Sans (Latin)' },
+  { value: 'DejaVu Sans', label: 'DejaVu Sans (Latin)' },
+  
+  // Chinese fonts
+  { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Chinese Simplified)' },
+  { value: 'Noto Sans CJK TC', label: 'Noto Sans CJK TC (Chinese Traditional)' },
+  
+  // Japanese fonts
+  { value: 'Noto Sans CJK JP', label: 'Noto Sans CJK JP (Japanese)' },
+  
+  // Korean fonts
+  { value: 'Noto Sans CJK KR', label: 'Noto Sans CJK KR (Korean)' },
+  
+  // Arabic fonts
+  { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
+  { value: 'Amiri', label: 'Amiri (Arabic)' },
+  
+  // Cyrillic fonts
+  { value: 'Times New Roman', label: 'Times New Roman (Cyrillic)' },
+  { value: 'Liberation Serif', label: 'Liberation Serif (Cyrillic)' },
+  { value: 'DejaVu Serif', label: 'DejaVu Serif (Cyrillic)' }
 ];
 
 // Language options for document export
@@ -430,6 +453,34 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }));
   }, [userSettings.documentLanguage, userSettings.exportFontFamily, i18n.language]);
 
+  // Get recommended font for a given language
+  const getRecommendedFont = (language: string): string => {
+    const languageFontMap: { [key: string]: string } = {
+      'zh': 'Noto Sans CJK SC', // Chinese Simplified
+      'ja': 'Noto Sans CJK JP', // Japanese
+      'ko': 'Noto Sans CJK KR', // Korean
+      'ar': 'Noto Sans Arabic', // Arabic
+      'ru': 'Times New Roman', // Russian (Cyrillic)
+      'en': 'Liberation Serif', // English
+      'es': 'Liberation Serif', // Spanish
+      'fr': 'Liberation Serif', // French
+      'de': 'Liberation Serif', // German
+      'it': 'Liberation Serif'  // Italian
+    };
+    
+    return languageFontMap[language] || 'Liberation Serif';
+  };
+
+  // Handle language change and auto-select appropriate font
+  const handleLanguageChange = (language: string) => {
+    const recommendedFont = getRecommendedFont(language);
+    setSettings(prev => ({
+      ...prev,
+      language,
+      fontFamily: recommendedFont
+    }));
+  };
+
   return (
     <Dialog
       open={isOpen}
@@ -627,11 +678,14 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     ))}
                   </Select>
                 </FormControl>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                  💡 Font is automatically selected based on your document language. You can change it manually if needed.
+                </Typography>
 
                 {/* Document Language */}
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
                 <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.language} onChange={e => setSettings({ ...settings, language: e.target.value })}>
+                  <Select value={settings.language} onChange={e => handleLanguageChange(e.target.value as string)}>
                     {languageOptions.map(lang => (
                       <MenuItem key={lang.value} value={lang.value}>
                         {lang.label}
