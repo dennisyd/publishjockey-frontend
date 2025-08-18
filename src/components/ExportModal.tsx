@@ -460,7 +460,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
       'ja': 'Noto Sans CJK JP', // Japanese
       'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'Times New Roman', // Russian (Cyrillic)
+      'ru': 'Liberation Serif', // Russian (Cyrillic) - Changed from Times New Roman
       'en': 'Liberation Serif', // English
       'es': 'Liberation Serif', // Spanish
       'fr': 'Liberation Serif', // French
@@ -469,6 +469,25 @@ const ExportModal: React.FC<ExportModalProps> = ({
     };
     
     return languageFontMap[language] || 'Liberation Serif';
+  };
+
+  // Get filtered font options based on selected language
+  const getFilteredFontOptions = (language: string) => {
+    const languageFontMap: { [key: string]: string[] } = {
+      'ru': ['Liberation Serif'], // Russian - only Liberation Serif
+      'zh': ['Noto Sans CJK SC', 'Noto Sans CJK TC'], // Chinese fonts
+      'ja': ['Noto Sans CJK JP'], // Japanese fonts
+      'ko': ['Noto Sans CJK KR'], // Korean fonts
+      'ar': ['Noto Sans Arabic', 'Amiri'], // Arabic fonts
+      'en': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // Latin fonts
+      'es': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // Spanish
+      'fr': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // French
+      'de': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // German
+      'it': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans']  // Italian
+    };
+    
+    const allowedFonts = languageFontMap[language] || languageFontMap['en'];
+    return fontOptions.filter(font => allowedFonts.includes(font.value));
   };
 
   // Handle language change and auto-select appropriate font
@@ -673,13 +692,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                 <FormControl fullWidth sx={{ mb: 2 }}>
                   <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                    {fontOptions.map(font => (
+                    {getFilteredFontOptions(settings.language || 'en').map(font => (
                       <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
                     ))}
                   </Select>
                 </FormControl>
                 <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  💡 Font is automatically selected based on your document language. You can change it manually if needed.
+                  💡 Font options are filtered based on your document language. The best font for your language is automatically selected.
                 </Typography>
 
                 {/* Document Language */}
