@@ -80,10 +80,10 @@ const serverFonts = [
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
   { value: 'Amiri', label: 'Amiri (Arabic)' },
   
-  // Cyrillic fonts
-  { value: 'Times New Roman', label: 'Times New Roman (Cyrillic)' },
-  { value: 'Liberation Serif', label: 'Liberation Serif (Cyrillic)' },
-  { value: 'DejaVu Serif', label: 'DejaVu Serif (Cyrillic)' }
+  // Cyrillic fonts (separate from Latin)
+  { value: 'Times New Roman Cyrillic', label: 'Times New Roman (Cyrillic)' },
+  { value: 'Liberation Serif Cyrillic', label: 'Liberation Serif (Cyrillic)' },
+  { value: 'DejaVu Serif Cyrillic', label: 'DejaVu Serif (Cyrillic)' }
 ];
 
 // Language options for document export
@@ -460,7 +460,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
       'ja': 'Noto Sans CJK JP', // Japanese
       'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'Liberation Serif', // Russian (Cyrillic) - Changed from Times New Roman
+      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic) - Updated to Cyrillic version
       'en': 'Liberation Serif', // English
       'es': 'Liberation Serif', // Spanish
       'fr': 'Liberation Serif', // French
@@ -474,7 +474,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Get filtered font options based on selected language
   const getFilteredFontOptions = (language: string) => {
     const languageFontMap: { [key: string]: string[] } = {
-      'ru': ['Liberation Serif'], // Russian - only Liberation Serif
+      'ru': ['Liberation Serif Cyrillic'], // Russian - only Liberation Serif Cyrillic
       'zh': ['Noto Sans CJK SC', 'Noto Sans CJK TC'], // Chinese fonts
       'ja': ['Noto Sans CJK JP'], // Japanese fonts
       'ko': ['Noto Sans CJK KR'], // Korean fonts
