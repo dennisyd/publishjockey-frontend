@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { isLaunchOfferActive, LAUNCH_OFFER_CONFIG } from '../config/launchOffer';
 import {
@@ -34,6 +35,7 @@ import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
 const Pricing = () => {
   console.log('🔍 PRICING COMPONENT LOADED');
   
+  const { t } = useTranslation();
   const [loadingPlanId, setLoadingPlanId] = useState(null);
   const [error, setError] = useState(null);
   const [customOpen, setCustomOpen] = useState(false);
@@ -252,22 +254,22 @@ const Pricing = () => {
 
   return (
     <Container maxWidth="xl" sx={{ py: 4 }}>
-      <Box sx={{ textAlign: 'center', mb: 6 }}>
-        <Typography variant="h3" component="h1" gutterBottom>
-          Simple, Transparent Pricing
-        </Typography>
-        <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
-          Compare plans at a glance, then expand any row to see full details
-        </Typography>
-        {launchOfferActive && (
-          <Chip 
-            label="🎉 Launch Offer Active - Limited Time Pricing!" 
-            color="warning" 
-            variant="filled"
-            sx={{ fontSize: '1rem', py: 1 }}
-          />
-        )}
-      </Box>
+             <Box sx={{ textAlign: 'center', mb: 6 }}>
+         <Typography variant="h3" component="h1" gutterBottom>
+           {t('landing.pricing.title')}
+         </Typography>
+         <Typography variant="h6" color="text.secondary" sx={{ mb: 2 }}>
+           {t('landing.pricing.subtitle')}
+         </Typography>
+         {launchOfferActive && (
+           <Chip 
+             label={t('landing.pricing.launchOffer')} 
+             color="warning" 
+             variant="filled"
+             sx={{ fontSize: '1rem', py: 1 }}
+           />
+         )}
+       </Box>
 
              {/* Desktop Table */}
        <Box sx={{ display: { xs: 'none', md: 'block' }, mb: 4 }}>

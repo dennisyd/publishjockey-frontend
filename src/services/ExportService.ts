@@ -36,8 +36,18 @@ interface ExportFormat {
   format: string
 }
 
-
-
+// Helper function to get current language
+function getCurrentLanguage(): string {
+  // Try to get language from localStorage (set by i18n)
+  const storedLang = localStorage.getItem('i18nextLng');
+  if (storedLang) {
+    return storedLang;
+  }
+  
+  // Fallback to browser language
+  const browserLang = navigator.language || navigator.languages?.[0] || 'en';
+  return browserLang.split('-')[0]; // Get primary language code
+}
 
 
 /**
@@ -185,6 +195,10 @@ export class ExportService {
         console.log("Created fallback title page content")
       }
 
+      // Get current language for export
+      const currentLanguage = getCurrentLanguage();
+      console.log(`Exporting with language: ${currentLanguage}`);
+
       // Prepare the new payload with explicit TOC settings
       const exportPayload = {
         sections: adaptedSections.map((s) => {
@@ -226,6 +240,7 @@ export class ExportService {
         }),
         exportOptions: {
           ...settings,
+          language: currentLanguage, // Add language to export options
           fontFamily: settings.fontFamily, // Ensure fontFamily is always included
           // Turn OFF chapter formatting in the backend since we've already done it here
           useChapterPrefix: false,

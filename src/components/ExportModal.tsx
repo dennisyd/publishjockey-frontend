@@ -87,6 +87,7 @@ export interface ExportSettings {
   isbn?: string; // Optional ISBN
   tocDepth?: number; // Add this line
   fontFamily?: string; // Add this line
+  language?: string; // Language for export (auto-detected from i18n)
 }
 
 interface ExportModalProps {

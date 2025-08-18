@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import {
   CssBaseline, ThemeProvider, createTheme, Box
 } from '@mui/material';
+import './i18n'; // Initialize i18n
 
 // Import pages
 import Dashboard from './pages/Dashboard';

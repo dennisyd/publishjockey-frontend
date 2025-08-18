@@ -1,0 +1,315 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "submit": "Submit",
+    "close": "Close",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "yes": "Yes",
+    "no": "No",
+    "ok": "OK",
+    "select": "Select",
+    "search": "Search",
+    "filter": "Filter",
+    "sort": "Sort",
+    "refresh": "Refresh",
+    "download": "Download",
+    "upload": "Upload",
+    "export": "Export",
+    "import": "Import",
+    "settings": "Settings",
+    "profile": "Profile",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register",
+    "forgotPassword": "Forgot Password?",
+    "resetPassword": "Reset Password",
+    "verifyEmail": "Verify Email",
+    "contactUs": "Contact Us",
+    "help": "Help",
+    "about": "About",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "pricing": "Pricing",
+    "features": "Features",
+    "howItWorks": "How It Works",
+    "testimonials": "Testimonials",
+    "blog": "Blog",
+    "helpCenter": "Help Center",
+    "admin": "Admin"
+  },
+  "landing": {
+    "hero": {
+      "title": "Transform Your Manuscript into a Professional Book",
+      "subtitle": "AI-powered formatting, professional exports, and seamless publishing workflow",
+      "cta": "Start Writing Now",
+      "secondaryCta": "See How It Works"
+    },
+    "features": {
+      "title": "Everything You Need to Publish",
+      "subtitle": "Professional tools for serious authors"
+    },
+    "pricing": {
+      "title": "Simple, Transparent Pricing",
+      "subtitle": "Compare plans at a glance, then expand any row to see full details",
+      "launchOffer": "🎉 Launch Offer Active - Limited Time Pricing!"
+    },
+    "faq": {
+      "title": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about PublishJockey"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Free",
+        "description": "Try before you buy with the first 12 pages. Perfect for testing the platform.",
+        "features": [
+          "1 book project",
+          "Export limited to first 12 pages",
+          "AI-assisted formatting",
+          "Watermark on output",
+          "Word document splitting by H1 sections",
+          "2 images included"
+        ]
+      },
+      "single": {
+        "name": "Single",
+        "description": "One-time purchase (3-year validity)",
+        "features": [
+          "1 book project",
+          "Full book export",
+          "AI-assisted formatting",
+          "Watermark-free output",
+          "Word document splitting by H1 sections",
+          "10 images included"
+        ]
+      },
+      "bundle5": {
+        "name": "5 Book Pack",
+        "description": "Great value for multiple books (3-year validity)",
+        "features": [
+          "5 book projects",
+          "Full book export",
+          "AI-assisted formatting",
+          "Watermark-free output",
+          "Word document splitting by H1 sections",
+          "50 images included"
+        ]
+      }
+    },
+    "categories": {
+      "free": "Free",
+      "standard": "Standard",
+      "premium": "Premium",
+      "ebook": "Ebook",
+      "ebookPremium": "Ebook Premium",
+      "fullService": "Full Service",
+      "addons": "Add-ons"
+    },
+    "formats": {
+      "any": "Any",
+      "print": "Print",
+      "ebook": "Ebook",
+      "printEbook": "Print + Ebook"
+    },
+    "actions": {
+      "select": "Select",
+      "details": "Details",
+      "hide": "Hide"
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome back",
+    "stats": {
+      "totalProjects": "Total Projects",
+      "activeProjects": "Active Projects",
+      "completedExports": "Completed Exports",
+      "imagesUsed": "Images Used"
+    },
+    "recentProjects": "Recent Projects",
+    "quickActions": "Quick Actions",
+    "createProject": "Create New Project",
+    "importDocument": "Import Document"
+  },
+  "project": {
+    "create": "Create New Project",
+    "edit": "Edit Project",
+    "delete": "Delete Project",
+    "export": "Export Book",
+    "import": "Import Document",
+    "save": "Save Project",
+    "autoSave": "Auto-saved",
+    "lastSaved": "Last saved",
+    "title": "Project Title",
+    "author": "Author",
+    "subtitle": "Subtitle",
+    "isbn": "ISBN",
+    "structure": {
+      "front": "Front Matter",
+      "main": "Main Content",
+      "back": "Back Matter"
+    },
+    "sections": {
+      "titlePage": "Title Page",
+      "copyright": "Copyright",
+      "disclaimer": "Disclaimer",
+      "acknowledgments": "Acknowledgments",
+      "foreword": "Foreword",
+      "introduction": "Introduction",
+      "chapter": "Chapter",
+      "appendix": "Appendix",
+      "references": "References"
+    }
+  },
+  "export": {
+    "title": "Export Book",
+    "formats": {
+      "pdf": "PDF",
+      "epub": "EPUB",
+      "docx": "Word Document",
+      "html": "HTML"
+    },
+    "settings": {
+      "includeToc": "Include Table of Contents",
+      "numberedHeadings": "Numbered Headings",
+      "bookSize": "Book Size",
+      "bleed": "Include Bleed",
+      "bindingType": "Binding Type",
+      "customMargins": "Custom Margins",
+      "marginSize": "Margin Size",
+      "includeTitlePage": "Include Title Page",
+      "useChapterPrefix": "Use Chapter Prefix",
+      "chapterLabelFormat": "Chapter Label Format",
+      "noSeparatorPages": "No Separator Pages",
+      "frontMatterContinuous": "Front Matter Continuous",
+      "htmlStylesheet": "HTML Stylesheet",
+      "forceTitleFirst": "Force Title First"
+    },
+    "sizes": {
+      "6x9": "6\" x 9\"",
+      "5x8": "5\" x 8\"",
+      "8x10": "8\" x 10\"",
+      "a4": "A4",
+      "letter": "Letter"
+    },
+    "binding": {
+      "paperback": "Paperback",
+      "hardcover": "Hardcover"
+    },
+    "margins": {
+      "normal": "Normal",
+      "wide": "Wide",
+      "narrow": "Narrow"
+    },
+    "processing": "Processing export...",
+    "success": "Export completed successfully!",
+    "error": "Export failed. Please try again."
+  },
+  "images": {
+    "upload": "Upload Image",
+    "insert": "Insert Image",
+    "delete": "Delete Image",
+    "usage": "Image Usage",
+    "limit": "Image Limit",
+    "remaining": "{{count}} images remaining",
+    "upgrade": "Upgrade for more images",
+    "fileSizeLimit": "File size must be less than 15MB",
+    "fileTypeError": "Please select an image file",
+    "uploadError": "Failed to upload image",
+    "processing": "Processing image..."
+  },
+  "auth": {
+    "login": {
+      "title": "Welcome Back",
+      "subtitle": "Sign in to your account",
+      "email": "Email Address",
+      "password": "Password",
+      "rememberMe": "Remember me",
+      "forgotPassword": "Forgot your password?",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "error": "Invalid email or password"
+    },
+    "register": {
+      "title": "Create Account",
+      "subtitle": "Join thousands of authors",
+      "name": "Full Name",
+      "email": "Email Address",
+      "password": "Password",
+      "confirmPassword": "Confirm Password",
+      "agreeTerms": "I agree to the Terms of Service and Privacy Policy",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "error": "Registration failed"
+    },
+    "forgotPassword": {
+      "title": "Reset Password",
+      "subtitle": "Enter your email to receive reset instructions",
+      "email": "Email Address",
+      "sendReset": "Send Reset Link",
+      "backToLogin": "Back to Login",
+      "success": "Reset link sent to your email"
+    },
+    "resetPassword": {
+      "title": "Set New Password",
+      "subtitle": "Enter your new password",
+      "password": "New Password",
+      "confirmPassword": "Confirm New Password",
+      "reset": "Reset Password",
+      "success": "Password reset successfully"
+    },
+    "verifyEmail": {
+      "title": "Verify Your Email",
+      "subtitle": "Please check your email and click the verification link",
+      "resend": "Resend Verification",
+      "success": "Email verified successfully"
+    }
+  },
+  "admin": {
+    "dashboard": "Admin Dashboard",
+    "users": "User Management",
+    "testimonials": "Testimonial Management",
+    "stats": "Statistics",
+    "audit": "Audit Log",
+    "actions": {
+      "approve": "Approve",
+      "reject": "Reject",
+      "suspend": "Suspend",
+      "activate": "Activate",
+      "delete": "Delete"
+    }
+  },
+  "errors": {
+    "network": "Network error. Please check your connection.",
+    "unauthorized": "You are not authorized to perform this action.",
+    "forbidden": "Access denied.",
+    "notFound": "The requested resource was not found.",
+    "serverError": "Server error. Please try again later.",
+    "validation": "Please check your input and try again.",
+    "fileTooLarge": "File is too large. Maximum size is 15MB.",
+    "invalidFileType": "Invalid file type. Please select a valid file.",
+    "quotaExceeded": "You have exceeded your quota. Please upgrade your plan."
+  },
+  "validation": {
+    "required": "This field is required",
+    "email": "Please enter a valid email address",
+    "minLength": "Must be at least {{min}} characters",
+    "maxLength": "Must be no more than {{max}} characters",
+    "passwordMatch": "Passwords must match",
+    "fileSize": "File size must be less than {{size}}MB",
+    "fileType": "Please select a valid file type"
+  }
+}
