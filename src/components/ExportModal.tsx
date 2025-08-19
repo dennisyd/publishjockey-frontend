@@ -99,7 +99,7 @@ const languageOptions = [
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
   { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
-  { value: 'zh', label: '🇨🇳 中文 (Simplified)', description: 'Chinese (Simplified)' },
+  { value: 'zh', label: '🇨🇳 中文', description: 'Chinese' },
   { value: 'ja', label: '🇯🇵 日本語', description: 'Japanese' },
   { value: 'ko', label: '🇰🇷 한국어', description: 'Korean' },
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
