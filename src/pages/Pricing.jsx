@@ -27,7 +27,6 @@ import {
   IconButton,
   Card,
   CardContent,
-  CardActions,
   Divider
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';

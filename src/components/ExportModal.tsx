@@ -13,8 +13,7 @@ import {
   Box,
   Select,
   MenuItem,
-  CircularProgress,
-  InputLabel
+  CircularProgress
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -98,6 +97,10 @@ const languageOptions = [
   { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },
   { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' }
 ];
+
+
+
+
 
 
 export interface ExportSettings {
@@ -202,7 +205,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [showAdvanced, setShowAdvanced] = useState(false);
   const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 'server';
   const fontOptions = exportPlatform === 'windows' ? windowsFonts : serverFonts;
-  const defaultFont = exportPlatform === 'windows' ? 'Times New Roman' : 'Liberation Serif';
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 

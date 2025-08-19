@@ -19,8 +19,7 @@ import MarkdownIcon from '@mui/icons-material/Code';
 import { http } from '../services/http';
 import { useAuth } from '../contexts/AuthContext';
 
-// API URL - use relative path for proxy
-const API_URL = '';
+
 
 // Define API response types
 interface SplitDoctorResponse {

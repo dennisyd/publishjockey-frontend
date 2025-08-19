@@ -107,10 +107,40 @@
   word-wrap: break-word !important;
 }
 
-/* Fix for RTL text content */
+/* Bidirectional text support for RTL languages */
 [dir="rtl"] .project-workspace-editor textarea {
   text-align: right !important;
   direction: rtl !important;
+  unicode-bidi: embed !important; /* Enable bidirectional text support */
+}
+
+/* Handle mixed content (Hebrew + English) properly */
+[dir="rtl"] .project-workspace-editor textarea,
+[dir="rtl"] .project-workspace-editor .MuiBox-root {
+  unicode-bidi: embed !important;
+}
+
+/* Ensure LTR content within RTL text is handled properly */
+[dir="rtl"] .project-workspace-editor textarea bdi,
+[dir="rtl"] .project-workspace-editor textarea span[dir="ltr"],
+[dir="rtl"] .project-workspace-editor .MuiBox-root bdi,
+[dir="rtl"] .project-workspace-editor .MuiBox-root span[dir="ltr"] {
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+}
+
+/* Handle URLs, email addresses, and English names in RTL text */
+[dir="rtl"] .project-workspace-editor textarea a,
+[dir="rtl"] .project-workspace-editor .MuiBox-root a {
+  direction: ltr !important;
+  unicode-bidi: embed !important;
+}
+
+/* Handle numbers in RTL text (should remain LTR) */
+[dir="rtl"] .project-workspace-editor textarea .number,
+[dir="rtl"] .project-workspace-editor .MuiBox-root .number {
+  direction: ltr !important;
+  unicode-bidi: embed !important;
 }
 
 /* Ensure scrollbars don't cause layout shifts */

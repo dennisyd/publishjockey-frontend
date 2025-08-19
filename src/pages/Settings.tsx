@@ -15,9 +15,7 @@ import {
   Alert,
   Stack,
   SelectChangeEvent,
-  Container,
-  Chip,
-  Grid
+  Container
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';

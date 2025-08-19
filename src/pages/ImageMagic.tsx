@@ -28,10 +28,7 @@ import RefreshIcon from '@mui/icons-material/Refresh';
 import { exportHttp } from '../services/exportHttp';
 
 
-// API URL - use relative path for proxy
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://publishjockey-export.onrender.com'
-  : '';
+
 
 // Define API response types
 interface ImageMagicResponse {
