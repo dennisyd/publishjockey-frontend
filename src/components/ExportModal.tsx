@@ -67,7 +67,6 @@ const serverFonts = [
   
   // Arabic fonts
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
-  { value: 'Amiri', label: 'Amiri (Arabic)' },
   
   // Hebrew fonts
   { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Hebrew)' },
