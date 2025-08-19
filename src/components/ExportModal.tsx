@@ -67,9 +67,8 @@ const serverFonts = [
   { value: 'DejaVu Sans', label: 'DejaVu Sans' },
   
   // Chinese fonts
-  { value: 'Noto Sans CJK', label: 'Noto Sans CJK (Chinese)' },
-  { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Chinese Simplified)' },
   { value: 'Noto Sans CJK TC', label: 'Noto Sans CJK TC (Chinese Traditional)' },
+  { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Chinese Simplified)' },
   
   // Japanese fonts
   { value: 'Noto Sans CJK JP', label: 'Noto Sans CJK JP (Japanese)' },
@@ -99,7 +98,7 @@ const languageOptions = [
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
   { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
-  { value: 'zh', label: '🇨🇳 中文', description: 'Chinese' },
+  { value: 'zh', label: '🇨🇳 繁體中文', description: 'Chinese Traditional' },
   { value: 'ja', label: '🇯🇵 日本語', description: 'Japanese' },
   { value: 'ko', label: '🇰🇷 한국어', description: 'Korean' },
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
@@ -463,7 +462,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const getRecommendedFont = (language: string): string => {
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
-      'zh': 'Noto Sans CJK SC', // Chinese - use Simplified Chinese font (available on system)
+      'zh': 'Noto Sans CJK TC', // Chinese - use Traditional Chinese font (available on system)
       'ja': 'Noto Sans CJK JP', // Japanese
       'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
