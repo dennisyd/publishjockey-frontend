@@ -20,8 +20,9 @@ const LanguageSwitcher = ({ variant = 'select', sx = {} }) => {
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'it', name: 'Italiano', flag: '🇮🇹' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
-    { code: 'zh', name: '中文', flag: '🇨🇳' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
+    { code: 'ar', name: 'العربية', flag: '🇸🇦' },
+    { code: 'he', name: 'עברית', flag: '🇮🇱' },
+    { code: 'yi', name: 'יידיש', flag: '🇮🇱' }
   ];
 
   const handleLanguageChange = (event) => {
@@ -29,9 +30,9 @@ const LanguageSwitcher = ({ variant = 'select', sx = {} }) => {
     i18n.changeLanguage(newLang);
     
     // Update document direction for RTL languages
-    if (newLang === 'ar') {
+    if (newLang === 'ar' || newLang === 'he' || newLang === 'yi') {
       document.documentElement.dir = 'rtl';
-      document.documentElement.lang = 'ar';
+      document.documentElement.lang = newLang;
     } else {
       document.documentElement.dir = 'ltr';
       document.documentElement.lang = newLang;

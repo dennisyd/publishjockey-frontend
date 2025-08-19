@@ -66,19 +66,14 @@ const serverFonts = [
   { value: 'Liberation Sans', label: 'Liberation Sans' },
   { value: 'DejaVu Sans', label: 'DejaVu Sans' },
   
-  // Chinese fonts
-  { value: 'Noto Sans CJK TC', label: 'Noto Sans CJK TC (Chinese Traditional)' },
-  { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Chinese Simplified)' },
-  
-  // Japanese fonts
-  { value: 'Noto Sans CJK JP', label: 'Noto Sans CJK JP (Japanese)' },
-  
-  // Korean fonts
-  { value: 'Noto Sans CJK KR', label: 'Noto Sans CJK KR (Korean)' },
-  
   // Arabic fonts
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
   { value: 'Amiri', label: 'Amiri (Arabic)' },
+  
+  // Hebrew fonts
+  { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Hebrew)' },
+  { value: 'Noto Serif Hebrew', label: 'Noto Serif Hebrew (Hebrew)' },
+  { value: 'Noto Rashi Hebrew', label: 'Noto Rashi Hebrew (Hebrew)' },
   
   // Hindi fonts (Devanagari script)
   { value: 'Noto Sans Devanagari', label: 'Noto Sans Devanagari (Hindi)' },
@@ -98,11 +93,10 @@ const languageOptions = [
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
   { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
-  { value: 'zh', label: '🇨🇳 繁體中文', description: 'Chinese Traditional' },
-  { value: 'ja', label: '🇯🇵 日本語', description: 'Japanese' },
-  { value: 'ko', label: '🇰🇷 한국어', description: 'Korean' },
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
-  { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' }
+  { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' },
+  { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },
+  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' }
 ];
 
 
@@ -462,12 +456,11 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const getRecommendedFont = (language: string): string => {
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
-      'zh': 'Noto Sans CJK TC', // Chinese - use Traditional Chinese font (available on system)
-      'ja': 'Noto Sans CJK JP', // Japanese
-      'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
       'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
       'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
+      'he': 'Noto Sans Hebrew', // Hebrew
+      'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
       
       // All Latin-based languages use the same default font
       'latin': 'Liberation Serif'
@@ -692,7 +685,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 </FormControl>
 
                 {/* Font Family - Only show for Latin-based languages */}
-                {['en', 'es', 'fr', 'de', 'it', 'id'].includes(settings.language || 'en') && (
+                {['en', 'es', 'fr', 'de', 'it', 'id', 'ru'].includes(settings.language || 'en') && (
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                     <FormControl fullWidth sx={{ mb: 2 }}>
@@ -708,7 +701,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 )}
 
                 <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  {['en', 'es', 'fr', 'de', 'it', 'id'].includes(settings.language || 'en') 
+                  {['en', 'es', 'fr', 'de', 'it', 'id', 'ru'].includes(settings.language || 'en') 
                     ? '💡 Choose your preferred font for Latin-based languages.'
                     : '💡 The optimal font for your selected language is automatically chosen for best rendering.'
                   }

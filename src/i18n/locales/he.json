@@ -1,0 +1,148 @@
+{
+  "common": {
+    "loading": "טוען...",
+    "error": "שגיאה",
+    "success": "הצלחה",
+    "cancel": "ביטול",
+    "save": "שמור",
+    "delete": "מחק",
+    "edit": "ערוך",
+    "add": "הוסף",
+    "submit": "שלח",
+    "close": "סגור",
+    "back": "חזור",
+    "next": "הבא",
+    "previous": "הקודם",
+    "yes": "כן",
+    "no": "לא",
+    "ok": "אישור",
+    "select": "בחר",
+    "search": "חיפוש",
+    "filter": "סינון",
+    "sort": "מיון",
+    "refresh": "רענן",
+    "download": "הורד",
+    "upload": "העלה",
+    "export": "ייצא",
+    "import": "ייבא",
+    "settings": "הגדרות",
+    "profile": "פרופיל",
+    "logout": "התנתק",
+    "login": "התחבר",
+    "register": "הרשמה",
+    "forgotPassword": "שכחת סיסמה?",
+    "resetPassword": "איפוס סיסמה",
+    "verifyEmail": "אימות דוא״ל",
+    "contactUs": "צור קשר",
+    "help": "עזרה",
+    "about": "אודות",
+    "privacy": "מדיניות פרטיות",
+    "terms": "תנאי שימוש"
+  },
+  "navigation": {
+    "dashboard": "לוח בקרה",
+    "projects": "פרויקטים",
+    "pricing": "מחירים",
+    "features": "תכונות",
+    "howItWorks": "איך זה עובד",
+    "testimonials": "המלצות",
+    "blog": "בלוג",
+    "helpCenter": "מרכז עזרה",
+    "admin": "מנהל"
+  },
+  "landing": {
+    "hero": {
+      "title": "הפוך את כתב היד שלך לספר מקצועי",
+      "subtitle": "כלי כתיבה מתקדם עם תמיכה בייצוא PDF, EPUB ו-DOCX",
+      "cta": "התחל לכתוב",
+      "learnMore": "למידע נוסף"
+    },
+    "features": {
+      "title": "תכונות מתקדמות",
+      "subtitle": "כל מה שצריך לכתיבת ספר מקצועי",
+      "items": {
+        "editor": "עורך טקסט מתקדם",
+        "export": "ייצוא למספר פורמטים",
+        "collaboration": "עבודה משותפת",
+        "templates": "תבניות מוכנות"
+      }
+    },
+    "pricing": {
+      "title": "תוכניות מחיר",
+      "subtitle": "בחר את התוכנית המתאימה לך",
+      "monthly": "חודשי",
+      "yearly": "שנתי",
+      "save": "חסוך"
+    }
+  },
+  "auth": {
+    "login": {
+      "title": "התחבר לחשבונך",
+      "email": "דוא״ל",
+      "password": "סיסמה",
+      "submit": "התחבר",
+      "forgotPassword": "שכחת סיסמה?",
+      "noAccount": "אין לך חשבון?",
+      "register": "הירשם עכשיו"
+    },
+    "register": {
+      "title": "צור חשבון חדש",
+      "name": "שם מלא",
+      "email": "דוא״ל",
+      "password": "סיסמה",
+      "confirmPassword": "אימות סיסמה",
+      "submit": "הירשם",
+      "hasAccount": "יש לך כבר חשבון?",
+      "login": "התחבר עכשיו"
+    }
+  },
+  "dashboard": {
+    "welcome": "ברוך הבא",
+    "recentProjects": "פרויקטים אחרונים",
+    "createNew": "צור פרויקט חדש",
+    "noProjects": "אין פרויקטים עדיין",
+    "startWriting": "התחל לכתוב"
+  },
+  "projects": {
+    "title": "הפרויקטים שלי",
+    "createNew": "פרויקט חדש",
+    "search": "חיפוש פרויקטים",
+    "noProjects": "אין פרויקטים",
+    "lastModified": "שונה לאחרונה",
+    "wordCount": "מספר מילים",
+    "actions": "פעולות"
+  },
+  "editor": {
+    "save": "שמור",
+    "export": "ייצא",
+    "undo": "בטל",
+    "redo": "בצע שוב",
+    "bold": "מודגש",
+    "italic": "נטוי",
+    "underline": "קו תחתון",
+    "heading": "כותרת",
+    "list": "רשימה",
+    "link": "קישור",
+    "image": "תמונה",
+    "table": "טבלה"
+  },
+  "export": {
+    "title": "ייצוא מסמך",
+    "format": "פורמט",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "DOCX",
+    "html": "HTML",
+    "settings": "הגדרות ייצוא",
+    "export": "ייצא",
+    "cancel": "ביטול"
+  },
+  "settings": {
+    "title": "הגדרות",
+    "profile": "פרופיל",
+    "preferences": "העדפות",
+    "security": "אבטחה",
+    "notifications": "התראות",
+    "save": "שמור הגדרות"
+  }
+}

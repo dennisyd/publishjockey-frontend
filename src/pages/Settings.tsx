@@ -64,19 +64,7 @@ const Settings: React.FC = () => {
       { value: 'Liberation Sans', label: 'Liberation Sans', description: 'Linux equivalent of Arial' },
       { value: 'DejaVu Sans', label: 'DejaVu Sans', description: 'Clean sans-serif font' }
     ],
-    // Chinese
-    chinese: [
-      { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Recommended)', description: 'Simplified Chinese' },
-      { value: 'Noto Sans CJK TC', label: 'Noto Sans CJK TC', description: 'Traditional Chinese' }
-    ],
-    // Japanese
-    japanese: [
-      { value: 'Noto Sans CJK JP', label: 'Noto Sans CJK JP (Recommended)', description: 'Japanese' }
-    ],
-    // Korean
-    korean: [
-      { value: 'Noto Sans CJK KR', label: 'Noto Sans CJK KR (Recommended)', description: 'Korean' }
-    ],
+
     // Arabic
     arabic: [
       { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Recommended)', description: 'Arabic script' }
@@ -85,6 +73,12 @@ const Settings: React.FC = () => {
     russian: [
       { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Good Cyrillic support' },
       { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Cyrillic support' }
+    ],
+    // Hebrew
+    hebrew: [
+      { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Recommended)', description: 'Hebrew script' },
+      { value: 'Noto Serif Hebrew', label: 'Noto Serif Hebrew', description: 'Hebrew serif font' },
+      { value: 'Noto Rashi Hebrew', label: 'Noto Rashi Hebrew', description: 'Hebrew Rashi script' }
     ]
   };
 
@@ -95,11 +89,10 @@ const Settings: React.FC = () => {
     fr: 'latin',
     de: 'latin',
     it: 'latin',
-    zh: 'chinese',
-    ja: 'japanese',
-    ko: 'korean',
     ar: 'arabic',
-    ru: 'russian'
+    ru: 'russian',
+    he: 'hebrew',
+    yi: 'hebrew' // Yiddish uses Hebrew script
   };
 
   // Get recommended fonts for current language
@@ -301,10 +294,9 @@ const Settings: React.FC = () => {
                   <MenuItem value="de">🇩🇪 Deutsch</MenuItem>
                   <MenuItem value="it">🇮🇹 Italiano</MenuItem>
                   <MenuItem value="ru">🇷🇺 Русский</MenuItem>
-                  <MenuItem value="zh">🇨🇳 中文 (Simplified)</MenuItem>
-                  <MenuItem value="ja">🇯🇵 日本語</MenuItem>
-                  <MenuItem value="ko">🇰🇷 한국어</MenuItem>
                   <MenuItem value="ar">🇸🇦 العربية</MenuItem>
+                  <MenuItem value="he">🇮🇱 עברית</MenuItem>
+                  <MenuItem value="yi">🇮🇱 יידיש</MenuItem>
                 </Select>
               </FormControl>
             </Box>
