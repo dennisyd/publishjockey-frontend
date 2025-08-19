@@ -1858,7 +1858,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Wrap the main JSX in DndProvider
   return (
-    <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', overflow: 'hidden' }}>
+    <Box sx={{ display: 'flex', height: 'calc(100vh - 64px)', overflow: 'hidden' }} className="project-workspace-container">
       {/* Document Structure Sidebar */}
       <Box
         sx={{
@@ -1869,6 +1869,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           flexDirection: 'column',
           backgroundColor: 'background.paper'
         }}
+        className="project-workspace-sidebar"
       >
         {/* Project title with edit option */}
         <Box sx={{ 
@@ -2037,7 +2038,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       </Box>
 
       {/* Editor Area */}
-      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <Box sx={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }} className="project-workspace-editor">
         {/* Add Toolbar */}
         <Box sx={{ 
           display: 'flex', 

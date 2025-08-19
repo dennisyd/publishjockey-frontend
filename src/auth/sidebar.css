@@ -11,6 +11,7 @@
   flex-direction: column !important;
   background-color: #ffffff !important;
   border-right: 1px solid rgba(0, 0, 0, 0.12) !important;
+  flex-shrink: 0 !important; /* Prevent sidebar from shrinking */
 }
 
 /* Force layout container to flex */
@@ -56,4 +57,87 @@
   padding: 24px !important;
   padding-bottom: 50px !important;
   overflow-y: auto !important;
+  min-width: 0 !important; /* Allow content to shrink below its minimum content size */
+  box-sizing: border-box !important; /* Include padding in width calculations */
+}
+
+/* RTL-specific fixes for layout stability */
+[dir="rtl"] .sidebar-container {
+  flex-direction: row-reverse !important; /* Reverse the flex direction for RTL */
+}
+
+[dir="rtl"] [data-sidebar] {
+  border-right: none !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+  box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1) !important; /* Adjust shadow for RTL */
+}
+
+/* Ensure content area maintains proper width calculations */
+[dir="rtl"] .main-content {
+  overflow-x: hidden !important; /* Prevent horizontal overflow in RTL */
+}
+
+/* Fix for ProjectWorkspace layout in RTL */
+[dir="rtl"] .project-workspace-container {
+  flex-direction: row-reverse !important;
+}
+
+[dir="rtl"] .project-workspace-sidebar {
+  border-right: none !important;
+  border-left: 1px solid rgba(0, 0, 0, 0.12) !important;
+}
+
+/* ProjectWorkspace editor area fixes */
+.project-workspace-editor {
+  min-width: 0 !important; /* Allow editor to shrink */
+  overflow-x: hidden !important; /* Prevent horizontal overflow */
+  box-sizing: border-box !important;
+}
+
+[dir="rtl"] .project-workspace-editor {
+  direction: rtl !important;
+}
+
+/* Ensure textarea and content areas don't cause layout shifts */
+.project-workspace-editor textarea,
+.project-workspace-editor .MuiBox-root {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
+  overflow-wrap: break-word !important;
+  word-wrap: break-word !important;
+}
+
+/* Fix for RTL text content */
+[dir="rtl"] .project-workspace-editor textarea {
+  text-align: right !important;
+  direction: rtl !important;
+}
+
+/* Ensure scrollbars don't cause layout shifts */
+.main-content::-webkit-scrollbar,
+.project-workspace-editor::-webkit-scrollbar {
+  width: 8px !important;
+}
+
+.main-content::-webkit-scrollbar-track,
+.project-workspace-editor::-webkit-scrollbar-track {
+  background: #f1f1f1 !important;
+}
+
+.main-content::-webkit-scrollbar-thumb,
+.project-workspace-editor::-webkit-scrollbar-thumb {
+  background: #c1c1c1 !important;
+  border-radius: 4px !important;
+}
+
+.main-content::-webkit-scrollbar-thumb:hover,
+.project-workspace-editor::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8 !important;
+}
+
+/* Prevent content from overflowing in any direction */
+.main-content > *,
+.project-workspace-editor > * {
+  max-width: 100% !important;
+  box-sizing: border-box !important;
 } 
