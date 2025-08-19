@@ -480,29 +480,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
     return languageFontMap[category] || 'Liberation Serif';
   };
 
-  // Get filtered font options based on selected language
-  const getFilteredFontOptions = (language: string) => {
-    const languageFontMap: { [key: string]: string[] } = {
-      // Languages that need special fonts
-      'ru': ['Liberation Serif Cyrillic'], // Russian - only Cyrillic fonts
-      'zh': ['Noto Sans CJK SC', 'Noto Sans CJK TC'], // Chinese fonts
-      'ja': ['Noto Sans CJK JP'], // Japanese fonts
-      'ko': ['Noto Sans CJK KR'], // Korean fonts
-      'ar': ['Noto Sans Arabic', 'Amiri'], // Arabic fonts
-      'hi': ['Noto Sans Devanagari'], // Hindi fonts (Devanagari script)
-      
-      // All Latin-based languages use the same fonts
-      'latin': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans']
-    };
-    
-    // Map Latin-based languages to 'latin' category
-    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
-    const category = latinLanguages.includes(language) ? 'latin' : language;
-    
-    const allowedFonts = languageFontMap[category] || languageFontMap['latin'];
-    return fontOptions.filter(font => allowedFonts.includes(font.value));
-  };
-
   // Handle language change and auto-select appropriate font
   const handleLanguageChange = (language: string) => {
     const recommendedFont = getRecommendedFont(language);
@@ -714,16 +691,27 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Select>
                 </FormControl>
 
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                    {getFilteredFontOptions(settings.language || 'en').map(font => (
-                      <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
+                {/* Font Family - Only show for Latin-based languages */}
+                {['en', 'es', 'fr', 'de', 'it', 'id'].includes(settings.language || 'en') && (
+                  <>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                      <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
+                        {fontOptions.filter(font => 
+                          ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'].includes(font.value)
+                        ).map(font => (
+                          <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </>
+                )}
+
                 <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  💡 Font options are filtered based on your document language. The best font for your language is automatically selected.
+                  {['en', 'es', 'fr', 'de', 'it', 'id'].includes(settings.language || 'en') 
+                    ? '💡 Choose your preferred font for Latin-based languages.'
+                    : '💡 The optimal font for your selected language is automatically chosen for best rendering.'
+                  }
                 </Typography>
               </>
             )}
