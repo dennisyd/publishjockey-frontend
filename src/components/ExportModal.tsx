@@ -57,14 +57,14 @@ const windowsFonts = [
 ];
 
 const serverFonts = [
-  // Latin fonts
-  { value: 'Liberation Serif', label: 'Liberation Serif (Latin)' },
-  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes (Latin)' },
-  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella (Latin)' },
-  { value: 'Linux Libertine', label: 'Linux Libertine (Latin)' },
-  { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin)' },
-  { value: 'Liberation Sans', label: 'Liberation Sans (Latin)' },
-  { value: 'DejaVu Sans', label: 'DejaVu Sans (Latin)' },
+  // Latin fonts (for English, Spanish, French, German, Italian, Indonesian)
+  { value: 'Liberation Serif', label: 'Liberation Serif' },
+  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
+  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
+  { value: 'Linux Libertine', label: 'Linux Libertine' },
+  { value: 'DejaVu Serif', label: 'DejaVu Serif' },
+  { value: 'Liberation Sans', label: 'Liberation Sans' },
+  { value: 'DejaVu Sans', label: 'DejaVu Sans' },
   
   // Chinese fonts
   { value: 'Noto Sans CJK SC', label: 'Noto Sans CJK SC (Chinese Simplified)' },
@@ -80,7 +80,10 @@ const serverFonts = [
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
   { value: 'Amiri', label: 'Amiri (Arabic)' },
   
-  // Cyrillic fonts (separate from Latin)
+  // Hindi fonts (Devanagari script)
+  { value: 'Noto Sans Devanagari', label: 'Noto Sans Devanagari (Hindi)' },
+  
+  // Cyrillic fonts (for Russian)
   { value: 'Times New Roman Cyrillic', label: 'Times New Roman (Cyrillic)' },
   { value: 'Liberation Serif Cyrillic', label: 'Liberation Serif (Cyrillic)' },
   { value: 'DejaVu Serif Cyrillic', label: 'DejaVu Serif (Cyrillic)' }
@@ -93,10 +96,12 @@ const languageOptions = [
   { value: 'fr', label: '🇫🇷 Français', description: 'French' },
   { value: 'de', label: '🇩🇪 Deutsch', description: 'German' },
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
+  { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
   { value: 'zh', label: '🇨🇳 中文 (Simplified)', description: 'Chinese (Simplified)' },
   { value: 'ja', label: '🇯🇵 日本語', description: 'Japanese' },
   { value: 'ko', label: '🇰🇷 한국어', description: 'Korean' },
+  { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
   { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' }
 ];
 
@@ -456,37 +461,45 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Get recommended font for a given language
   const getRecommendedFont = (language: string): string => {
     const languageFontMap: { [key: string]: string } = {
+      // Languages that need special fonts
       'zh': 'Noto Sans CJK SC', // Chinese Simplified
       'ja': 'Noto Sans CJK JP', // Japanese
       'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic) - Updated to Cyrillic version
-      'en': 'Liberation Serif', // English
-      'es': 'Liberation Serif', // Spanish
-      'fr': 'Liberation Serif', // French
-      'de': 'Liberation Serif', // German
-      'it': 'Liberation Serif'  // Italian
+      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
+      'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
+      
+      // All Latin-based languages use the same default font
+      'latin': 'Liberation Serif'
     };
     
-    return languageFontMap[language] || 'Liberation Serif';
+    // Map Latin-based languages to 'latin' category
+    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
+    const category = latinLanguages.includes(language) ? 'latin' : language;
+    
+    return languageFontMap[category] || 'Liberation Serif';
   };
 
   // Get filtered font options based on selected language
   const getFilteredFontOptions = (language: string) => {
     const languageFontMap: { [key: string]: string[] } = {
-      'ru': ['Liberation Serif Cyrillic'], // Russian - only Liberation Serif Cyrillic
+      // Languages that need special fonts
+      'ru': ['Liberation Serif Cyrillic'], // Russian - only Cyrillic fonts
       'zh': ['Noto Sans CJK SC', 'Noto Sans CJK TC'], // Chinese fonts
       'ja': ['Noto Sans CJK JP'], // Japanese fonts
       'ko': ['Noto Sans CJK KR'], // Korean fonts
       'ar': ['Noto Sans Arabic', 'Amiri'], // Arabic fonts
-      'en': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // Latin fonts
-      'es': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // Spanish
-      'fr': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // French
-      'de': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'], // German
-      'it': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans']  // Italian
+      'hi': ['Noto Sans Devanagari'], // Hindi fonts (Devanagari script)
+      
+      // All Latin-based languages use the same fonts
+      'latin': ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans']
     };
     
-    const allowedFonts = languageFontMap[language] || languageFontMap['en'];
+    // Map Latin-based languages to 'latin' category
+    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
+    const category = latinLanguages.includes(language) ? 'latin' : language;
+    
+    const allowedFonts = languageFontMap[category] || languageFontMap['latin'];
     return fontOptions.filter(font => allowedFonts.includes(font.value));
   };
 
