@@ -463,7 +463,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const getRecommendedFont = (language: string): string => {
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
-      'zh': 'Noto Sans CJK', // Chinese - use generic CJK font
+      'zh': 'Noto Sans CJK SC', // Chinese - use Simplified Chinese font (available on system)
       'ja': 'Noto Sans CJK JP', // Japanese
       'ko': 'Noto Sans CJK KR', // Korean
       'ar': 'Noto Sans Arabic', // Arabic
