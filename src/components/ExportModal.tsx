@@ -685,6 +685,37 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Select>
                 </FormControl>
 
+                {/* General Language Support Notice */}
+                <Alert severity="info" sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="text.primary" sx={{ fontWeight: 600, mb: 1 }}>
+                    🌍 Language Support Notice
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                    <strong>Content Responsibility:</strong> You are responsible for ensuring your content is appropriate, accurate, and compliant with all applicable laws and regulations.
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                    <strong>Recommendation:</strong> For important publications, consider professional review and always test your exports thoroughly before publishing.
+                  </Typography>
+                </Alert>
+
+                {/* RTL Language Warning */}
+                {['ar', 'he', 'yi'].includes(settings.language || 'en') && (
+                  <Alert severity="warning" sx={{ mb: 2 }}>
+                    <Typography variant="body2" color="text.primary" sx={{ fontWeight: 600, mb: 1 }}>
+                      ⚠️ Important: {settings.language === 'ar' ? 'Arabic' : settings.language === 'he' ? 'Hebrew' : 'Yiddish'} Language Limitations
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      <strong>Pure Language Content:</strong> For best results, use only {settings.language === 'ar' ? 'Arabic' : settings.language === 'he' ? 'Hebrew' : 'Yiddish'} text. Mixed content (English text, URLs, email addresses) may not display correctly.
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      <strong>Your Responsibility:</strong> You are responsible for ensuring your content is appropriate, accurate, and compliant with all applicable laws and regulations.
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                      <strong>Recommendation:</strong> Test your export thoroughly before publishing and consider professional review for important publications.
+                    </Typography>
+                  </Alert>
+                )}
+
                 {/* Font Family - Only show for Latin-based languages */}
                 {['en', 'es', 'fr', 'de', 'it', 'id', 'ru'].includes(settings.language || 'en') && (
                   <>

@@ -343,6 +343,8 @@ const TickerTape = () => {
         : "💰 Pricing: $63 single, $199 (10 books), $299 (20 books) — 3-year validity." 
     },
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
+    { text: "🌍 Multi-lingual support for 11+ languages including Arabic, Hebrew, Russian & more!" },
+    { text: "⚠️ Verify native language quality before purchasing—test exports thoroughly!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
     { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
@@ -3497,6 +3499,26 @@ const FAQ = () => {
           id: "international-use",
           question: "Can I use Publish Jockey if I'm outside the US?",
           answer: "Yes, our platform is global! We support multiple currencies and common book formats accepted by major platforms worldwide."
+        },
+        {
+          id: "language-support",
+          question: "What languages does Publish Jockey support?",
+          answer: "Publish Jockey supports multiple languages for both the user interface and document export. Here's our current language support:<br><br><strong>Interface Languages (UI):</strong><br>• English (en) - Primary language<br>• Spanish (es) - Español<br>• German (de) - Deutsch<br>• French (fr) - Français<br>• Italian (it) - Italiano<br>• Russian (ru) - Русский<br>• Arabic (ar) - العربية<br>• Hebrew (he) - עברית<br>• Yiddish (yi) - יידיש<br>• Indonesian (id) - Bahasa Indonesia<br>• Hindi (hi) - हिन्दी<br><br><strong>Document Export Languages:</strong><br>• <strong>Latin-based languages:</strong> English, Spanish, German, French, Italian, Indonesian<br>• <strong>Cyrillic languages:</strong> Russian<br>• <strong>Right-to-Left (RTL) languages:</strong> Arabic, Hebrew, Yiddish<br>• <strong>Devanagari script:</strong> Hindi<br><br>Each language has optimized font support and proper text direction handling for professional publishing."
+        },
+        {
+          id: "rtl-language-limitations",
+          question: "Are there any limitations with Arabic, Hebrew, or Yiddish?",
+          answer: "Yes, there are important limitations for Right-to-Left (RTL) languages:<br><br><strong>Pure Language Content:</strong> For best results with Arabic, Hebrew, and Yiddish, we recommend using pure language content only. Mixed content (English text, URLs, email addresses) may not display correctly in the exported PDF.<br><br><strong>Font Selection:</strong> RTL languages use automatically selected fonts optimized for each language. Font selection is limited to ensure proper rendering.<br><br><strong>Text Direction:</strong> These languages are automatically set to right-to-left text direction in exports.<br><br><strong>Recommendation:</strong> If your content includes mixed languages, consider creating separate documents or using Latin-based languages for mixed content."
+        },
+        {
+          id: "font-support",
+          question: "What fonts are available for different languages?",
+          answer: "Font availability varies by language group:<br><br><strong>Latin-based languages (English, Spanish, German, French, Italian, Indonesian):</strong><br>• Multiple font choices including Liberation Serif, Liberation Sans, DejaVu Serif, DejaVu Sans, Times New Roman<br><br><strong>Russian (Cyrillic):</strong><br>• Liberation Serif (Cyrillic), Times New Roman (Cyrillic), DejaVu Serif (Cyrillic)<br><br><strong>Arabic:</strong><br>• Noto Sans Arabic (automatically selected)<br><br><strong>Hebrew:</strong><br>• Noto Sans Hebrew, Noto Serif Hebrew, Noto Rashi Hebrew (automatically selected)<br><br><strong>Yiddish:</strong><br>• Noto Sans Hebrew, Noto Serif Hebrew (automatically selected)<br><br><strong>Hindi (Devanagari):</strong><br>• Noto Sans Devanagari (automatically selected)<br><br>Fonts are automatically optimized for each language to ensure proper rendering and professional appearance."
+        },
+        {
+          id: "language-switching",
+          question: "How do I change the interface language?",
+          answer: "You can change the interface language in two ways:<br><br><strong>From the Navigation Bar:</strong> Look for the language selector in the top navigation bar. Click on it to see all available languages and select your preferred language.<br><br><strong>From Settings:</strong> Go to your account Settings page and find the 'Language & Font Settings' section. Select your preferred interface language from the dropdown menu.<br><br>The language change takes effect immediately and will be remembered for future visits. Note that changing the interface language does not affect the language of your document content."
         }
       ]
     },
@@ -3513,6 +3535,11 @@ const FAQ = () => {
           id: "fair-use-notice",
           question: "What is the Fair Use Protection notice?",
           answer: "The Fair Use Protection notice is a system that helps maintain the integrity of our platform. Here's what it means:<br><br><strong>Purpose:</strong> Our AI-powered system monitors book content to ensure compliance with our fair use policy. Each license purchase entitles you to create and publish a single book.<br><br><strong>Book Changes:</strong> Making substantial changes to transform a project into a completely different book will require an additional purchase. This ensures fair usage of the platform across all users.<br><br><strong>Manual Downloads:</strong> For security reasons, files must be manually downloaded by clicking the download button after export.<br><br>You'll see a compact version of this notice in your dashboard to remind you of these policies. This helps us maintain a sustainable platform while protecting the rights of all users."
+        },
+        {
+          id: "language-disclaimer",
+          question: "What is the Language Support Disclaimer?",
+          answer: "Publish Jockey provides comprehensive language support, but users have important responsibilities:<br><br><strong>Content Responsibility:</strong> You are responsible for ensuring your content is appropriate, accurate, and compliant with all applicable laws and regulations in your target markets.<br><br><strong>RTL Language Limitations:</strong> For Arabic, Hebrew, and Yiddish, we recommend using pure language content only. Mixed content may not render correctly. This limitation is clearly communicated in the export interface.<br><br><strong>Font and Rendering:</strong> While we optimize fonts for each language, final rendering may vary depending on the viewing platform and device. Test your exports thoroughly before publishing.<br><br><strong>Cultural Sensitivity:</strong> Ensure your content respects cultural norms and sensitivities of your target audience. We provide tools but cannot guarantee cultural appropriateness.<br><br><strong>Professional Review:</strong> For important publications, we recommend having your content reviewed by native speakers or professional translators.<br><br><strong>Platform Compatibility:</strong> Different publishing platforms may have varying support for certain languages and fonts. Verify compatibility with your chosen publishing platform.<br><br>By using our language features, you acknowledge these limitations and accept responsibility for your content's appropriateness and accuracy."
         }
       ]
     }

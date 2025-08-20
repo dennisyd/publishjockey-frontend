@@ -104,6 +104,14 @@ We show a short 'Heads up' message only to Single-book plans after the 3-day win
   {
     question: 'Can I cancel my subscription anytime?',
     answer: 'Yes, you can cancel anytime from your account settings. Your plan will remain active until the end of the billing period.'
+  },
+  {
+    question: 'What languages does PublishJockey support?',
+    answer: 'PublishJockey supports multiple languages for both interface and document export. We support English, Spanish, German, French, Italian, Russian, Arabic, Hebrew, Yiddish, Indonesian, and Hindi. Each language has optimized font support and proper text direction handling. For Arabic, Hebrew, and Yiddish, we recommend using pure language content only for best results.'
+  },
+  {
+    question: 'Are there any language limitations I should know about?',
+    answer: 'Yes, there are important limitations for Right-to-Left (RTL) languages (Arabic, Hebrew, Yiddish). For best results, use pure language content only. Mixed content (English text, URLs, email addresses) may not display correctly in exported PDFs. Font selection is automatically optimized for each language to ensure proper rendering. Always test your exports thoroughly before publishing.'
   }
 ];
 

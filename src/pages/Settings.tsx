@@ -192,6 +192,42 @@ const Settings: React.FC = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
+      {/* Language Support Disclaimer */}
+      <Alert 
+        severity="info" 
+        sx={{ 
+          mb: 4, 
+          p: 3,
+          '& .MuiAlert-message': {
+            width: '100%'
+          }
+        }}
+      >
+        <Typography variant="h6" sx={{ mb: 2, fontWeight: 600 }}>
+          🌍 Language Support Notice
+        </Typography>
+        <Typography variant="body2" sx={{ mb: 2 }}>
+          <strong>Important:</strong> Publish Jockey supports multiple languages, but users have important responsibilities:
+        </Typography>
+        <Box component="ul" sx={{ pl: 2, mb: 2 }}>
+          <Typography component="li" variant="body2" sx={{ mb: 1 }}>
+            <strong>Content Responsibility:</strong> You are responsible for ensuring your content is appropriate, accurate, and compliant with all applicable laws and regulations.
+          </Typography>
+          <Typography component="li" variant="body2" sx={{ mb: 1 }}>
+            <strong>RTL Languages (Arabic, Hebrew, Yiddish):</strong> For best results, use pure language content only. Mixed content may not render correctly.
+          </Typography>
+          <Typography component="li" variant="body2" sx={{ mb: 1 }}>
+            <strong>Professional Review:</strong> For important publications, we recommend having your content reviewed by native speakers or professional translators.
+          </Typography>
+          <Typography component="li" variant="body2">
+            <strong>Testing:</strong> Always test your exports thoroughly before publishing to ensure proper rendering.
+          </Typography>
+        </Box>
+        <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+          By using our language features, you acknowledge these limitations and accept responsibility for your content's appropriateness and accuracy.
+        </Typography>
+      </Alert>
+
       <Typography variant="h4" gutterBottom>Settings</Typography>
       
       {/* Messages */}
@@ -297,6 +333,18 @@ const Settings: React.FC = () => {
                   <MenuItem value="yi">🇮🇱 יידיש</MenuItem>
                 </Select>
               </FormControl>
+
+              {/* RTL Language Warning */}
+              {['ar', 'he', 'yi'].includes(selectedLanguage) && (
+                <Alert severity="info" sx={{ mb: 2 }}>
+                  <Typography variant="body2" color="text.primary">
+                    <strong>RTL Language Notice:</strong> For best results with {selectedLanguage === 'ar' ? 'Arabic' : selectedLanguage === 'he' ? 'Hebrew' : 'Yiddish'}, use pure language content only.
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    Mixed content (English text, URLs, email addresses) may not display correctly. Consider using only {selectedLanguage === 'ar' ? 'Arabic' : selectedLanguage === 'he' ? 'Hebrew' : 'Yiddish'} text for optimal formatting.
+                  </Typography>
+                </Alert>
+              )}
             </Box>
             
             <Box sx={{ mb: 3 }}>
