@@ -327,7 +327,7 @@ const PublishJockeyLanding = () => {
   );
 };
 
-// Ticker Tape Component
+// Ticker Tape Component - Yancy Dennis
 const TickerTape = () => {
   // Use launch offer if active
   const launchOfferActive = isLaunchOfferActive();
@@ -3285,7 +3285,7 @@ const FAQ = () => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  // FAQ data organized by categories
+  // FAQ data organized by categories - Yancy Dennis
   const faqCategories = [
     {
       category: "Getting Started",

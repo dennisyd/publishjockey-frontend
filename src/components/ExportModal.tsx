@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Yancy Dennis
+import React, { useState, useEffect } from 'react'; // Yancy Dennis - Language Support Updates
 import { realImageService } from '../services/realImageService';
 import {
   Dialog,
