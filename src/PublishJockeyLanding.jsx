@@ -339,11 +339,11 @@ const TickerTape = () => {
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
     { text: launchOfferActive 
-        ? "🚀 LAUNCH OFFER: $49 single, $125 (10 books), $199 (20 books) — 3-year validity." 
-        : "💰 Pricing: $63 single, $199 (10 books), $299 (20 books) — 3-year validity." 
+        ? "🚀 LAUNCH OFFER: $31/$49 single, $125 (10 books), $199 (20 books) — 3-year validity." 
+        : "💰 Pricing: $46/$93 single, $199 (10 books), $299 (20 books) — 3-year validity." 
     },
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
-    { text: "🌍 Multi-lingual support for 11+ languages including Arabic, Hebrew, Russian & more!" },
+    { text: "🌍 Multi-lingual support for 100+ languages including Arabic, Hebrew, Russian & more!" },
     { text: "⚠️ Verify native language quality before purchasing—test exports thoroughly!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
@@ -962,7 +962,7 @@ const Hero = ({ handleRegister }) => {
                 </Box>
                 <Box sx={{ textAlign: 'center' }}>
                   <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>
-                    {launchOfferActive ? 'Starting at $49' : 'Starting at $63'}
+                    {launchOfferActive ? 'Starting at $31' : 'Starting at $46'}
                   </Typography>
                 </Box>
               </Box>
