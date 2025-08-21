@@ -131,8 +131,10 @@ const UserBooksDialog = ({
     }
 
     setDeletingBook(bookId);
+    setError(null); // Clear any previous errors
     try {
       const response = await adminService.deleteBook(user.id, bookId);
+      console.log('Delete book response:', response); // Debug log
       setDeletionReport(response.deletionReport);
       
       // Reload books list
