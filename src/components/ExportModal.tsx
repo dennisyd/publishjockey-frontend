@@ -725,74 +725,132 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Alert>
                 )}
 
-                                 {/* Font Family - Language-specific filtering */}
-                 {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                      <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                        {fontOptions.filter(font => {
-                          const language = settings.language || 'en';
-                          
-                          // Tamil - only show Tamil fonts
-                          if (language === 'ta') {
-                            return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
-                          }
-                          
-                          // Russian - only show Cyrillic fonts
-                          if (language === 'ru') {
-                            return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
-                          }
-                          
-                          // Hindi - only show Devanagari fonts
-                          if (language === 'hi') {
-                            return ['Noto Sans Devanagari'].includes(font.value);
-                          }
-                          
-                          // Arabic - only show Arabic fonts
-                          if (language === 'ar') {
-                            return ['Noto Sans Arabic'].includes(font.value);
-                          }
-                          
-                          // Hebrew/Yiddish - only show Hebrew fonts
-                          if (language === 'he' || language === 'yi') {
-                            return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
-                          }
-                          
-                                                     // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
+                                                                  {/* Font Family - Language-specific filtering */}
+                  {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
+                   <>
+                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                     <FormControl fullWidth sx={{ mb: 2 }}>
+                       <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
+                         {fontOptions.filter(font => {
+                           const language = settings.language || 'en';
+                           
+                           // For EPUB, only show fonts that work well across e-readers
+                           if (settings.format === 'epub') {
+                             // EPUB-compatible fonts for Latin-based languages
+                             if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                               return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
+                             }
+                             // For other languages, keep their specific fonts
+                             if (language === 'ta') {
+                               return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+                             }
+                             if (language === 'ru') {
+                               return ['Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+                             }
+                             if (language === 'hi') {
+                               return ['Noto Sans Devanagari'].includes(font.value);
+                             }
+                             if (language === 'ar') {
+                               return ['Noto Sans Arabic'].includes(font.value);
+                             }
+                             if (language === 'he' || language === 'yi') {
+                               return ['Noto Sans Hebrew', 'Noto Serif Hebrew'].includes(font.value);
+                             }
+                             return false;
+                           }
+                           
+                           // For PDF and other formats, show all appropriate fonts
+                           // Tamil - only show Tamil fonts
+                           if (language === 'ta') {
+                             return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+                           }
+                           
+                           // Russian - only show Cyrillic fonts
+                           if (language === 'ru') {
+                             return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+                           }
+                           
+                           // Hindi - only show Devanagari fonts
+                           if (language === 'hi') {
+                             return ['Noto Sans Devanagari'].includes(font.value);
+                           }
+                           
+                           // Arabic - only show Arabic fonts
+                           if (language === 'ar') {
+                             return ['Noto Sans Arabic'].includes(font.value);
+                           }
+                           
+                           // Hebrew/Yiddish - only show Hebrew fonts
+                           if (language === 'he' || language === 'yi') {
+                             return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
+                           }
+                           
+                           // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
                            if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
                              return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'].includes(font.value);
                            }
-                          
-                          return false;
-                        }).map(font => (
-                          <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                        ))}
-                      </Select>
-                    </FormControl>
-                  </>
-                )}
+                           
+                           return false;
+                         }).map(font => (
+                           <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                         ))}
+                       </Select>
+                     </FormControl>
+                   </>
+                 )}
 
-                                 <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                   {(() => {
-                     const language = settings.language || 'en';
-                     if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                       return '💡 Choose your preferred font for Latin-based languages.';
-                     } else if (language === 'ru') {
-                       return '💡 Choose your preferred Cyrillic font for Russian.';
-                     } else if (language === 'ta') {
-                       return '💡 Choose your preferred Tamil font.';
-                     } else if (language === 'hi') {
-                       return '💡 Choose your preferred Devanagari font for Hindi.';
-                     } else if (language === 'ar') {
-                       return '💡 Choose your preferred Arabic font.';
-                     } else if (language === 'he' || language === 'yi') {
-                       return '💡 Choose your preferred Hebrew font.';
-                     } else {
-                       return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
-                     }
-                   })()}
-                 </Typography>
+                                                                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                    {(() => {
+                      const language = settings.language || 'en';
+                      const format = settings.format;
+                      
+                      if (format === 'epub') {
+                        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                          return '💡 Choose your preferred EPUB-compatible font for Latin-based languages.';
+                        } else if (language === 'ru') {
+                          return '💡 Choose your preferred Cyrillic font for Russian (EPUB-compatible).';
+                        } else if (language === 'ta') {
+                          return '💡 Choose your preferred Tamil font (EPUB-compatible).';
+                        } else if (language === 'hi') {
+                          return '💡 Choose your preferred Devanagari font for Hindi (EPUB-compatible).';
+                        } else if (language === 'ar') {
+                          return '💡 Choose your preferred Arabic font (EPUB-compatible).';
+                        } else if (language === 'he' || language === 'yi') {
+                          return '💡 Choose your preferred Hebrew font (EPUB-compatible).';
+                        }
+                      } else if (format === 'pdf') {
+                        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                          return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts).';
+                        } else if (language === 'ru') {
+                          return '💡 Choose your preferred Cyrillic font for Russian.';
+                        } else if (language === 'ta') {
+                          return '💡 Choose your preferred Tamil font.';
+                        } else if (language === 'hi') {
+                          return '💡 Choose your preferred Devanagari font for Hindi.';
+                        } else if (language === 'ar') {
+                          return '💡 Choose your preferred Arabic font.';
+                        } else if (language === 'he' || language === 'yi') {
+                          return '💡 Choose your preferred Hebrew font.';
+                        }
+                      } else {
+                        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                          return '💡 Choose your preferred font for Latin-based languages.';
+                        } else if (language === 'ru') {
+                          return '💡 Choose your preferred Cyrillic font for Russian.';
+                        } else if (language === 'ta') {
+                          return '💡 Choose your preferred Tamil font.';
+                        } else if (language === 'hi') {
+                          return '💡 Choose your preferred Devanagari font for Hindi.';
+                        } else if (language === 'ar') {
+                          return '💡 Choose your preferred Arabic font.';
+                        } else if (language === 'he' || language === 'yi') {
+                          return '💡 Choose your preferred Hebrew font.';
+                        }
+                      }
+                      
+                      return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
+                    })()}
+                  </Typography>
               </>
             )}
 
