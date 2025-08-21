@@ -197,8 +197,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
     htmlStylesheet: 'default',
     // Force title page to be first
     forceTitleFirst: true,
-    // Language and font settings - use current interface language as default
-    language: i18n.language || userSettings.documentLanguage || 'en',
+    // Language and font settings - use current interface language from Dashboard as default
+    language: i18n.language || 'en',
     fontFamily: userSettings.exportFontFamily || 'Liberation Serif',
     tocDepth: 1
   });
@@ -239,12 +239,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
     return () => { cancelled = true; };
   }, [isOpen]);
 
-  // Update language when modal opens to match current interface language
+  // Update language when modal opens to match current interface language from Dashboard
   useEffect(() => {
     if (isOpen) {
       setSettings(prev => ({
         ...prev,
-        language: i18n.language || userSettings.documentLanguage || 'en'
+        language: i18n.language || 'en'
       }));
     }
   }, [isOpen, i18n.language, userSettings.documentLanguage]);
@@ -463,14 +463,14 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
-  // Update settings when user settings change
+  // Update settings when user settings change - now syncs with Dashboard language
   useEffect(() => {
     setSettings(prev => ({
       ...prev,
-      language: userSettings.documentLanguage || i18n.language || 'en',
+      language: i18n.language || 'en',
       fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
     }));
-  }, [userSettings.documentLanguage, userSettings.exportFontFamily, i18n.language]);
+  }, [i18n.language, userSettings.exportFontFamily]);
 
   // Get recommended font for a given language
   const getRecommendedFont = (language: string): string => {

@@ -348,7 +348,7 @@ const TickerTape = () => {
     { text: "🌍 Multi-lingual support for 100+ languages including Spanish, French, German, Russian & more!" },
     { text: "⚠️ Verify native language quality before purchasing—test export with free plan!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
-    { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
+    { text: "📘 Your finished manuscript isn't stored—only Markdown files while your account is active." },
     { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
   ];
 
