@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Gem",
+    "cancel": "Annuller",
+    "delete": "Slet",
+    "edit": "Rediger",
+    "add": "Tilføj",
+    "close": "Luk",
+    "loading": "Indlæser...",
+    "error": "Fejl",
+    "success": "Succes",
+    "confirm": "Bekræft",
+    "back": "Tilbage",
+    "next": "Næste",
+    "previous": "Forrige"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projekter",
+    "settings": "Indstillinger",
+    "logout": "Log ud",
+    "login": "Log ind",
+    "register": "Registrer"
+  },
+  "dashboard": {
+    "welcome": "Velkommen",
+    "createNewBook": "Opret ny bog",
+    "recentProjects": "Seneste projekter",
+    "noProjects": "Du har ingen projekter",
+    "startWriting": "Start med at skrive"
+  },
+  "bookStructure": {
+    "frontMatter": "Forord",
+    "mainMatter": "Hoveddel",
+    "backMatter": "Efterskrift",
+    "chapter": "Kapitel",
+    "section": "Afsnit",
+    "title": "Titel",
+    "content": "Indhold"
+  },
+  "export": {
+    "exportBook": "Eksporter bog",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Sprog",
+    "font": "Skrifttype",
+    "includeToc": "Inkluder indholdsfortegnelse",
+    "export": "Eksporter"
+  },
+  "settings": {
+    "language": "Sprog",
+    "theme": "Tema",
+    "notifications": "Meddelelser",
+    "account": "Konto",
+    "saveSettings": "Gem indstillinger"
+  }
+}

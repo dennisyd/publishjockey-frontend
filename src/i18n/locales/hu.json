@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Mentés",
+    "cancel": "Mégse",
+    "delete": "Törlés",
+    "edit": "Szerkesztés",
+    "add": "Hozzáadás",
+    "close": "Bezárás",
+    "loading": "Betöltés...",
+    "error": "Hiba",
+    "success": "Siker",
+    "confirm": "Megerősítés",
+    "back": "Vissza",
+    "next": "Következő",
+    "previous": "Előző"
+  },
+  "navigation": {
+    "dashboard": "Vezérlőpult",
+    "projects": "Projektek",
+    "settings": "Beállítások",
+    "logout": "Kijelentkezés",
+    "login": "Bejelentkezés",
+    "register": "Regisztráció"
+  },
+  "dashboard": {
+    "welcome": "Üdvözöljük",
+    "createNewBook": "Új könyv létrehozása",
+    "recentProjects": "Legutóbbi projektek",
+    "noProjects": "Nincsenek projektek",
+    "startWriting": "Kezdje el az írást"
+  },
+  "bookStructure": {
+    "frontMatter": "Előszó",
+    "mainMatter": "Fő rész",
+    "backMatter": "Utószó",
+    "chapter": "Fejezet",
+    "section": "Szakasz",
+    "title": "Cím",
+    "content": "Tartalom"
+  },
+  "export": {
+    "exportBook": "Könyv exportálása",
+    "format": "Formátum",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Nyelv",
+    "font": "Betűtípus",
+    "includeToc": "Tartalomjegyzék belefoglalása",
+    "export": "Exportálás"
+  },
+  "settings": {
+    "language": "Nyelv",
+    "theme": "Téma",
+    "notifications": "Értesítések",
+    "account": "Fiók",
+    "saveSettings": "Beállítások mentése"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Kaydet",
+    "cancel": "İptal",
+    "delete": "Sil",
+    "edit": "Düzenle",
+    "add": "Ekle",
+    "close": "Kapat",
+    "loading": "Yükleniyor...",
+    "error": "Hata",
+    "success": "Başarılı",
+    "confirm": "Onayla",
+    "back": "Geri",
+    "next": "Sonraki",
+    "previous": "Önceki"
+  },
+  "navigation": {
+    "dashboard": "Kontrol Paneli",
+    "projects": "Projeler",
+    "settings": "Ayarlar",
+    "logout": "Çıkış",
+    "login": "Giriş",
+    "register": "Kayıt Ol"
+  },
+  "dashboard": {
+    "welcome": "Hoş Geldiniz",
+    "createNewBook": "Yeni Kitap Oluştur",
+    "recentProjects": "Son Projeler",
+    "noProjects": "Projeniz yok",
+    "startWriting": "Yazmaya başlayın"
+  },
+  "bookStructure": {
+    "frontMatter": "Önsöz",
+    "mainMatter": "Ana Bölüm",
+    "backMatter": "Sonsöz",
+    "chapter": "Bölüm",
+    "section": "Kısım",
+    "title": "Başlık",
+    "content": "İçerik"
+  },
+  "export": {
+    "exportBook": "Kitabı Dışa Aktar",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Dil",
+    "font": "Yazı Tipi",
+    "includeToc": "İçindekiler Tablosunu Dahil Et",
+    "export": "Dışa Aktar"
+  },
+  "settings": {
+    "language": "Dil",
+    "theme": "Tema",
+    "notifications": "Bildirimler",
+    "account": "Hesap",
+    "saveSettings": "Ayarları Kaydet"
+  }
+}

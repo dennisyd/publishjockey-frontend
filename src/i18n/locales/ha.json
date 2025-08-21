@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Ajiye",
+    "cancel": "Soke",
+    "delete": "Share",
+    "edit": "Gyara",
+    "add": "Ƙara",
+    "close": "Rufe",
+    "loading": "Ana loda...",
+    "error": "Kuskure",
+    "success": "Nasara",
+    "confirm": "Tabbatar",
+    "back": "Baya",
+    "next": "Na gaba",
+    "previous": "Na baya"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Ayyuka",
+    "settings": "Saiti",
+    "logout": "Fita",
+    "login": "Shiga",
+    "register": "Yi rijista"
+  },
+  "dashboard": {
+    "welcome": "Barka da zuwa",
+    "createNewBook": "Ƙirƙiri littafi sabo",
+    "recentProjects": "Ayyukan kwanan nan",
+    "noProjects": "Ba ka da ayyuka",
+    "startWriting": "Fara rubutu"
+  },
+  "bookStructure": {
+    "frontMatter": "Gabatarwa",
+    "mainMatter": "Babban sashi",
+    "backMatter": "Karshe",
+    "chapter": "Babbi",
+    "section": "Sashe",
+    "title": "Take",
+    "content": "Abun ciki"
+  },
+  "export": {
+    "exportBook": "Fitar da littafi",
+    "format": "Tsari",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Harshe",
+    "font": "Rubutu",
+    "includeToc": "Haɗa jadawalin abubuwa",
+    "export": "Fitar da"
+  },
+  "settings": {
+    "language": "Harshe",
+    "theme": "Jigo",
+    "notifications": "Sanarwa",
+    "account": "Asusu",
+    "saveSettings": "Ajiye saitunan"
+  }
+}

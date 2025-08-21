@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Chengeta",
+    "cancel": "Kanzura",
+    "delete": "Dzima",
+    "edit": "Gadzirisa",
+    "add": "Wedzera",
+    "close": "Vhara",
+    "loading": "Kurodha...",
+    "error": "Kukanganisa",
+    "success": "Kubudirira",
+    "confirm": "Simbisa",
+    "back": "Shure",
+    "next": "Inotevera",
+    "previous": "Yapfuura"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Mapurojekiti",
+    "settings": "Zvishandiso",
+    "logout": "Buda",
+    "login": "Pinda",
+    "register": "Nyoresa"
+  },
+  "dashboard": {
+    "welcome": "Tinokugamuchirai",
+    "createNewBook": "Gadzira bhuku idzva",
+    "recentProjects": "Mapurojekiti achangoburwa",
+    "noProjects": "Hauna mapurojekiti",
+    "startWriting": "Tanga kunyora"
+  },
+  "bookStructure": {
+    "frontMatter": "Nhanganyaya",
+    "mainMatter": "Chikamu chikuru",
+    "backMatter": "Magumo",
+    "chapter": "Chitsauko",
+    "section": "Chikamu",
+    "title": "Musoro",
+    "content": "Zviri mukati"
+  },
+  "export": {
+    "exportBook": "Tora bhuku",
+    "format": "Fomati",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Mutauro",
+    "font": "Mafonti",
+    "includeToc": "Isa rondedzero yezviri mukati",
+    "export": "Tora"
+  },
+  "settings": {
+    "language": "Mutauro",
+    "theme": "Dingindira",
+    "notifications": "Ziviso",
+    "account": "Akaundi",
+    "saveSettings": "Chengeta zvishandiso"
+  }
+}

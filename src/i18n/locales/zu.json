@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Londoloza",
+    "cancel": "Khansela",
+    "delete": "Susa",
+    "edit": "Hlela",
+    "add": "Engeza",
+    "close": "Vala",
+    "loading": "Iyalayisha...",
+    "error": "Iphutha",
+    "success": "Impumelelo",
+    "confirm": "Qinisekisa",
+    "back": "Emuva",
+    "next": "Okulandelayo",
+    "previous": "Okwangaphambilini"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Amaphrojekthi",
+    "settings": "Izilungiselelo",
+    "logout": "Phuma",
+    "login": "Ngena",
+    "register": "Bhalisa"
+  },
+  "dashboard": {
+    "welcome": "Sawubona",
+    "createNewBook": "Dala incwadi entsha",
+    "recentProjects": "Amaphrojekthi akamuva",
+    "noProjects": "Awunayo amaphrojekthi",
+    "startWriting": "Qala ukubhala"
+  },
+  "bookStructure": {
+    "frontMatter": "Intshayelelo",
+    "mainMatter": "Ingxenye enkulu",
+    "backMatter": "Isiphetho",
+    "chapter": "Isahluko",
+    "section": "Ingxenye",
+    "title": "Isihloko",
+    "content": "Okuqukethwe"
+  },
+  "export": {
+    "exportBook": "Khipha incwadi",
+    "format": "Ifomethi",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Ulimi",
+    "font": "Ifonti",
+    "includeToc": "Faka uhlu lokuqukethwe",
+    "export": "Khipha"
+  },
+  "settings": {
+    "language": "Ulimi",
+    "theme": "Indikimba",
+    "notifications": "Izaziso",
+    "account": "I-akhawunti",
+    "saveSettings": "Londoloza izilungiselelo"
+  }
+}

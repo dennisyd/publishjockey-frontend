@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Simpan",
+    "cancel": "Batal",
+    "delete": "Padam",
+    "edit": "Sunting",
+    "add": "Tambah",
+    "close": "Tutup",
+    "loading": "Memuat...",
+    "error": "Ralat",
+    "success": "Berjaya",
+    "confirm": "Sahkan",
+    "back": "Kembali",
+    "next": "Seterusnya",
+    "previous": "Sebelumnya"
+  },
+  "navigation": {
+    "dashboard": "Papan Pemuka",
+    "projects": "Projek",
+    "settings": "Tetapan",
+    "logout": "Log Keluar",
+    "login": "Log Masuk",
+    "register": "Daftar"
+  },
+  "dashboard": {
+    "welcome": "Selamat Datang",
+    "createNewBook": "Cipta Buku Baharu",
+    "recentProjects": "Projek Terkini",
+    "noProjects": "Anda tiada projek",
+    "startWriting": "Mula Menulis"
+  },
+  "bookStructure": {
+    "frontMatter": "Pendahuluan",
+    "mainMatter": "Bahagian Utama",
+    "backMatter": "Penutup",
+    "chapter": "Bab",
+    "section": "Bahagian",
+    "title": "Tajuk",
+    "content": "Kandungan"
+  },
+  "export": {
+    "exportBook": "Eksport Buku",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Bahasa",
+    "font": "Fon",
+    "includeToc": "Sertakan Senarai Kandungan",
+    "export": "Eksport"
+  },
+  "settings": {
+    "language": "Bahasa",
+    "theme": "Tema",
+    "notifications": "Pemberitahuan",
+    "account": "Akaun",
+    "saveSettings": "Simpan Tetapan"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Uložit",
+    "cancel": "Zrušit",
+    "delete": "Smazat",
+    "edit": "Upravit",
+    "add": "Přidat",
+    "close": "Zavřít",
+    "loading": "Načítání...",
+    "error": "Chyba",
+    "success": "Úspěch",
+    "confirm": "Potvrdit",
+    "back": "Zpět",
+    "next": "Další",
+    "previous": "Předchozí"
+  },
+  "navigation": {
+    "dashboard": "Nástěnka",
+    "projects": "Projekty",
+    "settings": "Nastavení",
+    "logout": "Odhlásit",
+    "login": "Přihlásit",
+    "register": "Registrace"
+  },
+  "dashboard": {
+    "welcome": "Vítejte",
+    "createNewBook": "Vytvořit novou knihu",
+    "recentProjects": "Poslední projekty",
+    "noProjects": "Nemáte žádné projekty",
+    "startWriting": "Začněte psát"
+  },
+  "bookStructure": {
+    "frontMatter": "Předmluva",
+    "mainMatter": "Hlavní část",
+    "backMatter": "Dodatek",
+    "chapter": "Kapitola",
+    "section": "Sekce",
+    "title": "Název",
+    "content": "Obsah"
+  },
+  "export": {
+    "exportBook": "Exportovat knihu",
+    "format": "Formát",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Jazyk",
+    "font": "Font",
+    "includeToc": "Zahrnout obsah",
+    "export": "Exportovat"
+  },
+  "settings": {
+    "language": "Jazyk",
+    "theme": "Motiv",
+    "notifications": "Oznámení",
+    "account": "Účet",
+    "saveSettings": "Uložit nastavení"
+  }
+}

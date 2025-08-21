@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Chekwaa",
+    "cancel": "Kagbuo",
+    "delete": "Hichapụ",
+    "edit": "Dezie",
+    "add": "Tinye",
+    "close": "Mechie",
+    "loading": "Na-ebunye...",
+    "error": "Njehie",
+    "success": "Ihe ịga nke ọma",
+    "confirm": "Kwenye",
+    "back": "Azụ",
+    "next": "Ọzọ",
+    "previous": "Nke gara aga"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Ọrụ",
+    "settings": "Ntọala",
+    "logout": "Pụọ",
+    "login": "Banye",
+    "register": "Debanye aha"
+  },
+  "dashboard": {
+    "welcome": "Nnọọ",
+    "createNewBook": "Mepụta akwụkwọ ọhụrụ",
+    "recentProjects": "Ọrụ ndị na-adịbeghị anya",
+    "noProjects": "Ị nweghị ọrụ",
+    "startWriting": "Malite ide"
+  },
+  "bookStructure": {
+    "frontMatter": "Okwu mmalite",
+    "mainMatter": "Isi akụkụ",
+    "backMatter": "Okwu mmechi",
+    "chapter": "Isi",
+    "section": "Ngalaba",
+    "title": "Aha",
+    "content": "Ọdịnaya"
+  },
+  "export": {
+    "exportBook": "Wepụta akwụkwọ",
+    "format": "Ụdị",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Asụsụ",
+    "font": "Ụdị mkpụrụedemede",
+    "includeToc": "Gụnye ndepụta ọdịnaya",
+    "export": "Wepụta"
+  },
+  "settings": {
+    "language": "Asụsụ",
+    "theme": "Isiokwu",
+    "notifications": "Ọkwa",
+    "account": "Akaụntụ",
+    "saveSettings": "Chekwaa ntọala"
+  }
+}

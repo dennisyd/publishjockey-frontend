@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Hifadhi",
+    "cancel": "Ghairi",
+    "delete": "Futa",
+    "edit": "Hariri",
+    "add": "Ongeza",
+    "close": "Funga",
+    "loading": "Inakuja...",
+    "error": "Kosa",
+    "success": "Mafanikio",
+    "confirm": "Thibitisha",
+    "back": "Nyuma",
+    "next": "Inayofuata",
+    "previous": "Iliyotangulia"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Miradi",
+    "settings": "Mipangilio",
+    "logout": "Ondoka",
+    "login": "Ingia",
+    "register": "Jisajili"
+  },
+  "dashboard": {
+    "welcome": "Karibu",
+    "createNewBook": "Unda kitabu kipya",
+    "recentProjects": "Miradi ya hivi karibuni",
+    "noProjects": "Huna miradi",
+    "startWriting": "Anza kuandika"
+  },
+  "bookStructure": {
+    "frontMatter": "Utangulizi",
+    "mainMatter": "Sehemu kuu",
+    "backMatter": "Hitimisho",
+    "chapter": "Sura",
+    "section": "Sehemu",
+    "title": "Jina",
+    "content": "Maudhui"
+  },
+  "export": {
+    "exportBook": "Hamisha kitabu",
+    "format": "Muundo",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Lugha",
+    "font": "Fonti",
+    "includeToc": "Jumuisha orodha ya maudhui",
+    "export": "Hamisha"
+  },
+  "settings": {
+    "language": "Lugha",
+    "theme": "Mada",
+    "notifications": "Arifa",
+    "account": "Akaunti",
+    "saveSettings": "Hifadhi mipangilio"
+  }
+}

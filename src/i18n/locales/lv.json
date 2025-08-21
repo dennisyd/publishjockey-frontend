@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Saglabāt",
+    "cancel": "Atcelt",
+    "delete": "Dzēst",
+    "edit": "Rediģēt",
+    "add": "Pievienot",
+    "close": "Aizvērt",
+    "loading": "Ielādē...",
+    "error": "Kļūda",
+    "success": "Veiksmīgi",
+    "confirm": "Apstiprināt",
+    "back": "Atpakaļ",
+    "next": "Nākamais",
+    "previous": "Iepriekšējais"
+  },
+  "navigation": {
+    "dashboard": "Informācijas panelis",
+    "projects": "Projekti",
+    "settings": "Iestatījumi",
+    "logout": "Izrakstīties",
+    "login": "Ielogoties",
+    "register": "Reģistrēties"
+  },
+  "dashboard": {
+    "welcome": "Laipni lūdzam",
+    "createNewBook": "Izveidot jaunu grāmatu",
+    "recentProjects": "Nesenākie projekti",
+    "noProjects": "Jums nav projektu",
+    "startWriting": "Sāciet rakstīt"
+  },
+  "bookStructure": {
+    "frontMatter": "Ievads",
+    "mainMatter": "Galvenā daļa",
+    "backMatter": "Nobeigums",
+    "chapter": "Nodaļa",
+    "section": "Sadaļa",
+    "title": "Nosaukums",
+    "content": "Saturs"
+  },
+  "export": {
+    "exportBook": "Eksportēt grāmatu",
+    "format": "Formāts",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Valoda",
+    "font": "Fonts",
+    "includeToc": "Iekļaut satura rādītāju",
+    "export": "Eksportēt"
+  },
+  "settings": {
+    "language": "Valoda",
+    "theme": "Tēma",
+    "notifications": "Paziņojumi",
+    "account": "Konts",
+    "saveSettings": "Saglabāt iestatījumus"
+  }
+}

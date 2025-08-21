@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Tallenna",
+    "cancel": "Peruuta",
+    "delete": "Poista",
+    "edit": "Muokkaa",
+    "add": "Lisää",
+    "close": "Sulje",
+    "loading": "Ladataan...",
+    "error": "Virhe",
+    "success": "Onnistui",
+    "confirm": "Vahvista",
+    "back": "Takaisin",
+    "next": "Seuraava",
+    "previous": "Edellinen"
+  },
+  "navigation": {
+    "dashboard": "Kojelauta",
+    "projects": "Projektit",
+    "settings": "Asetukset",
+    "logout": "Kirjaudu ulos",
+    "login": "Kirjaudu sisään",
+    "register": "Rekisteröidy"
+  },
+  "dashboard": {
+    "welcome": "Tervetuloa",
+    "createNewBook": "Luo uusi kirja",
+    "recentProjects": "Viimeisimmät projektit",
+    "noProjects": "Sinulla ei ole projekteja",
+    "startWriting": "Aloita kirjoittaminen"
+  },
+  "bookStructure": {
+    "frontMatter": "Esipuhe",
+    "mainMatter": "Pääosa",
+    "backMatter": "Jälkipuhe",
+    "chapter": "Luku",
+    "section": "Osio",
+    "title": "Otsikko",
+    "content": "Sisältö"
+  },
+  "export": {
+    "exportBook": "Vie kirja",
+    "format": "Muoto",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Kieli",
+    "font": "Fontti",
+    "includeToc": "Sisällytä sisällysluettelo",
+    "export": "Vie"
+  },
+  "settings": {
+    "language": "Kieli",
+    "theme": "Teema",
+    "notifications": "Ilmoitukset",
+    "account": "Tili",
+    "saveSettings": "Tallenna asetukset"
+  }
+}

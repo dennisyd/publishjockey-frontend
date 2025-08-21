@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "delete": "Verwijderen",
+    "edit": "Bewerken",
+    "add": "Toevoegen",
+    "close": "Sluiten",
+    "loading": "Laden...",
+    "error": "Fout",
+    "success": "Succes",
+    "confirm": "Bevestigen",
+    "back": "Terug",
+    "next": "Volgende",
+    "previous": "Vorige"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projecten",
+    "settings": "Instellingen",
+    "logout": "Uitloggen",
+    "login": "Inloggen",
+    "register": "Registreren"
+  },
+  "dashboard": {
+    "welcome": "Welkom",
+    "createNewBook": "Nieuw boek maken",
+    "recentProjects": "Recente projecten",
+    "noProjects": "U heeft geen projecten",
+    "startWriting": "Begin met schrijven"
+  },
+  "bookStructure": {
+    "frontMatter": "Voorwerk",
+    "mainMatter": "Hoofdtekst",
+    "backMatter": "Nawerk",
+    "chapter": "Hoofdstuk",
+    "section": "Sectie",
+    "title": "Titel",
+    "content": "Inhoud"
+  },
+  "export": {
+    "exportBook": "Boek exporteren",
+    "format": "Formaat",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Taal",
+    "font": "Lettertype",
+    "includeToc": "Inhoudsopgave opnemen",
+    "export": "Exporteren"
+  },
+  "settings": {
+    "language": "Taal",
+    "theme": "Thema",
+    "notifications": "Meldingen",
+    "account": "Account",
+    "saveSettings": "Instellingen opslaan"
+  }
+}

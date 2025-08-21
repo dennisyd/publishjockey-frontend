@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Зачувај",
+    "cancel": "Откажи",
+    "delete": "Избриши",
+    "edit": "Уреди",
+    "add": "Додај",
+    "close": "Затвори",
+    "loading": "Се вчитува...",
+    "error": "Грешка",
+    "success": "Успешно",
+    "confirm": "Потврди",
+    "back": "Назад",
+    "next": "Следно",
+    "previous": "Претходно"
+  },
+  "navigation": {
+    "dashboard": "Контролна табла",
+    "projects": "Проекти",
+    "settings": "Поставки",
+    "logout": "Одјави се",
+    "login": "Најави се",
+    "register": "Регистрирај се"
+  },
+  "dashboard": {
+    "welcome": "Добредојдовте",
+    "createNewBook": "Создај нова книга",
+    "recentProjects": "Неодамнешни проекти",
+    "noProjects": "Немате проекти",
+    "startWriting": "Започнете да пишувате"
+  },
+  "bookStructure": {
+    "frontMatter": "Предговор",
+    "mainMatter": "Главен дел",
+    "backMatter": "Послеслов",
+    "chapter": "Поглавје",
+    "section": "Секција",
+    "title": "Наслов",
+    "content": "Содржина"
+  },
+  "export": {
+    "exportBook": "Извези книга",
+    "format": "Формат",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Јазик",
+    "font": "Фонт",
+    "includeToc": "Вклучи содржина",
+    "export": "Извези"
+  },
+  "settings": {
+    "language": "Јазик",
+    "theme": "Тема",
+    "notifications": "Известувања",
+    "account": "Сметка",
+    "saveSettings": "Зачувај поставки"
+  }
+}

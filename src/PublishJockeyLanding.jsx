@@ -345,7 +345,7 @@ const TickerTape = () => {
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
     { text: "📖 Ebook plans: 50-page limit for shorter works. Full Books: unlimited pages for complete manuscripts!" },
     { text: "🎨 Full Service: Complete package with 3 custom cover designs + optional KDP setup!" },
-    { text: "🌍 Multi-lingual support for 100+ languages including Spanish, French, German, Russian & more!" },
+    { text: "🌍 Multi-lingual support for 50+ languages including Spanish, French, German, Russian & more!" },
     { text: "⚠️ Verify native language quality before purchasing—test export with free plan!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your finished manuscript isn't stored—only Markdown files while your account is active." },

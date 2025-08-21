@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Αποθήκευση",
+    "cancel": "Ακύρωση",
+    "delete": "Διαγραφή",
+    "edit": "Επεξεργασία",
+    "add": "Προσθήκη",
+    "close": "Κλείσιμο",
+    "loading": "Φόρτωση...",
+    "error": "Σφάλμα",
+    "success": "Επιτυχία",
+    "confirm": "Επιβεβαίωση",
+    "back": "Πίσω",
+    "next": "Επόμενο",
+    "previous": "Προηγούμενο"
+  },
+  "navigation": {
+    "dashboard": "Πίνακας ελέγχου",
+    "projects": "Projects",
+    "settings": "Ρυθμίσεις",
+    "logout": "Αποσύνδεση",
+    "login": "Σύνδεση",
+    "register": "Εγγραφή"
+  },
+  "dashboard": {
+    "welcome": "Καλώς ήρθατε",
+    "createNewBook": "Δημιουργία νέου βιβλίου",
+    "recentProjects": "Πρόσφατα projects",
+    "noProjects": "Δεν έχετε projects",
+    "startWriting": "Ξεκινήστε τη γραφή"
+  },
+  "bookStructure": {
+    "frontMatter": "Πρόλογος",
+    "mainMatter": "Κύριο μέρος",
+    "backMatter": "Επίλογος",
+    "chapter": "Κεφάλαιο",
+    "section": "Ενότητα",
+    "title": "Τίτλος",
+    "content": "Περιεχόμενο"
+  },
+  "export": {
+    "exportBook": "Εξαγωγή βιβλίου",
+    "format": "Μορφή",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Γλώσσα",
+    "font": "Γραμματοσειρά",
+    "includeToc": "Συμπερίληψη περιεχομένου",
+    "export": "Εξαγωγή"
+  },
+  "settings": {
+    "language": "Γλώσσα",
+    "theme": "Θέμα",
+    "notifications": "Ειδοποιήσεις",
+    "account": "Λογαριασμός",
+    "saveSettings": "Αποθήκευση ρυθμίσεων"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Bika",
+    "cancel": "Kuraho",
+    "delete": "Siba",
+    "edit": "Hindura",
+    "add": "Ongera",
+    "close": "Funga",
+    "loading": "Irakura...",
+    "error": "Ikosa",
+    "success": "Intsinzi",
+    "confirm": "Emeza",
+    "back": "Inyuma",
+    "next": "Ibikurikira",
+    "previous": "Ibanza"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Ibikorwa",
+    "settings": "Igenamiterere",
+    "logout": "Sohoka",
+    "login": "Injira",
+    "register": "Iyandikishe"
+  },
+  "dashboard": {
+    "welcome": "Murakaza neza",
+    "createNewBook": "Kora igitabo gishya",
+    "recentProjects": "Ibikorwa bya vuba",
+    "noProjects": "Nta bikorwa ufite",
+    "startWriting": "Tangira kwandika"
+  },
+  "bookStructure": {
+    "frontMatter": "Intangiriro",
+    "mainMatter": "Igice gikomeye",
+    "backMatter": "Iherezo",
+    "chapter": "Umutekano",
+    "section": "Igice",
+    "title": "Umutekano",
+    "content": "Ibiri"
+  },
+  "export": {
+    "exportBook": "Kura igitabo",
+    "format": "Uburyo",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Ururimi",
+    "font": "Inyandiko",
+    "includeToc": "Shyiramo urutonde rw'ibiri",
+    "export": "Kura"
+  },
+  "settings": {
+    "language": "Ururimi",
+    "theme": "Urugero",
+    "notifications": "Ubutumwa",
+    "account": "Konti",
+    "saveSettings": "Bika igenamiterere"
+  }
+}

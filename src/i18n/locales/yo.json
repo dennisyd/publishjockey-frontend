@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Fi pamọ",
+    "cancel": "Fagilee",
+    "delete": "Pa",
+    "edit": "Ṣatunkọ",
+    "add": "Fi kun",
+    "close": "Ti",
+    "loading": "N gbe soke...",
+    "error": "Aṣiṣe",
+    "success": "Aṣeyọri",
+    "confirm": "Jẹrisi",
+    "back": "Pada",
+    "next": "Ti o tẹle",
+    "previous": "Ti o kọja"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Iṣẹ",
+    "settings": "Iṣeto",
+    "logout": "Jade",
+    "login": "Wọle",
+    "register": "Forukọsilẹ"
+  },
+  "dashboard": {
+    "welcome": "Kaabo",
+    "createNewBook": "Ṣe iwe tuntun",
+    "recentProjects": "Iṣẹ ti o ṣe lẹhinna",
+    "noProjects": "O ko ni iṣẹ",
+    "startWriting": "Bẹrẹ kikọ"
+  },
+  "bookStructure": {
+    "frontMatter": "Ifihan",
+    "mainMatter": "Apakan pataki",
+    "backMatter": "Ipari",
+    "chapter": "Orile-ede",
+    "section": "Apakan",
+    "title": "Akọle",
+    "content": "Akoonu"
+  },
+  "export": {
+    "exportBook": "Jade iwe",
+    "format": "Ibi",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Ede",
+    "font": "Awọn iwe",
+    "includeToc": "Fi akoonu akoonu kun",
+    "export": "Jade"
+  },
+  "settings": {
+    "language": "Ede",
+    "theme": "Koko-ọrọ",
+    "notifications": "Iwifunni",
+    "account": "Iroyin",
+    "saveSettings": "Fi awọn iṣeto pamọ"
+  }
+}

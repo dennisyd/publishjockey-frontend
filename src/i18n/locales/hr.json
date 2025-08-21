@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Spremi",
+    "cancel": "Odustani",
+    "delete": "Obriši",
+    "edit": "Uredi",
+    "add": "Dodaj",
+    "close": "Zatvori",
+    "loading": "Učitavanje...",
+    "error": "Greška",
+    "success": "Uspjeh",
+    "confirm": "Potvrdi",
+    "back": "Natrag",
+    "next": "Sljedeći",
+    "previous": "Prethodni"
+  },
+  "navigation": {
+    "dashboard": "Nadzorna ploča",
+    "projects": "Projekti",
+    "settings": "Postavke",
+    "logout": "Odjava",
+    "login": "Prijava",
+    "register": "Registracija"
+  },
+  "dashboard": {
+    "welcome": "Dobrodošli",
+    "createNewBook": "Stvori novu knjigu",
+    "recentProjects": "Nedavni projekti",
+    "noProjects": "Nemate projekata",
+    "startWriting": "Započnite pisanje"
+  },
+  "bookStructure": {
+    "frontMatter": "Predgovor",
+    "mainMatter": "Glavni dio",
+    "backMatter": "Dodatak",
+    "chapter": "Poglavlje",
+    "section": "Odjeljak",
+    "title": "Naslov",
+    "content": "Sadržaj"
+  },
+  "export": {
+    "exportBook": "Izvezi knjigu",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Jezik",
+    "font": "Font",
+    "includeToc": "Uključi sadržaj",
+    "export": "Izvezi"
+  },
+  "settings": {
+    "language": "Jezik",
+    "theme": "Tema",
+    "notifications": "Obavijesti",
+    "account": "Račun",
+    "saveSettings": "Spremi postavke"
+  }
+}

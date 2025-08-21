@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Tehirizo",
+    "cancel": "Aoka ihany",
+    "delete": "Fafao",
+    "edit": "Ovay",
+    "add": "Ampidiro",
+    "close": "Hidio",
+    "loading": "Mampiditra...",
+    "error": "Fahadisoana",
+    "success": "Fahombiazana",
+    "confirm": "Eny",
+    "back": "Miverina",
+    "next": "Manaraka",
+    "previous": "Teo aloha"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Tetikasa",
+    "settings": "Safidy",
+    "logout": "Hivoaka",
+    "login": "Hiditra",
+    "register": "Hisoratra anarana"
+  },
+  "dashboard": {
+    "welcome": "Tongasoa",
+    "createNewBook": "Mamorona boky vaovao",
+    "recentProjects": "Tetikasa vao haingana",
+    "noProjects": "Tsy manana tetikasa ianao",
+    "startWriting": "Atombohy manoratra"
+  },
+  "bookStructure": {
+    "frontMatter": "Teny fampidirana",
+    "mainMatter": "Teny fototra",
+    "backMatter": "Teny famaranana",
+    "chapter": "Toko",
+    "section": "Fizarana",
+    "title": "Lohateny",
+    "content": "Votoaty"
+  },
+  "export": {
+    "exportBook": "Avoahy ny boky",
+    "format": "Endrika",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Fiteny",
+    "font": "Endri-tsoratra",
+    "includeToc": "Ampidiro ny tabilao votoaty",
+    "export": "Avoahy"
+  },
+  "settings": {
+    "language": "Fiteny",
+    "theme": "Lohahevitra",
+    "notifications": "Fampahafantarana",
+    "account": "Kaonty",
+    "saveSettings": "Tehirizo ny safidy"
+  }
+}

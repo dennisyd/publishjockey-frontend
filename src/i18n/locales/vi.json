@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Lưu",
+    "cancel": "Hủy",
+    "delete": "Xóa",
+    "edit": "Chỉnh sửa",
+    "add": "Thêm",
+    "close": "Đóng",
+    "loading": "Đang tải...",
+    "error": "Lỗi",
+    "success": "Thành công",
+    "confirm": "Xác nhận",
+    "back": "Quay lại",
+    "next": "Tiếp theo",
+    "previous": "Trước"
+  },
+  "navigation": {
+    "dashboard": "Bảng điều khiển",
+    "projects": "Dự án",
+    "settings": "Cài đặt",
+    "logout": "Đăng xuất",
+    "login": "Đăng nhập",
+    "register": "Đăng ký"
+  },
+  "dashboard": {
+    "welcome": "Chào mừng",
+    "createNewBook": "Tạo sách mới",
+    "recentProjects": "Dự án gần đây",
+    "noProjects": "Bạn không có dự án nào",
+    "startWriting": "Bắt đầu viết"
+  },
+  "bookStructure": {
+    "frontMatter": "Lời nói đầu",
+    "mainMatter": "Phần chính",
+    "backMatter": "Lời kết",
+    "chapter": "Chương",
+    "section": "Phần",
+    "title": "Tiêu đề",
+    "content": "Nội dung"
+  },
+  "export": {
+    "exportBook": "Xuất sách",
+    "format": "Định dạng",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Ngôn ngữ",
+    "font": "Font chữ",
+    "includeToc": "Bao gồm mục lục",
+    "export": "Xuất"
+  },
+  "settings": {
+    "language": "Ngôn ngữ",
+    "theme": "Chủ đề",
+    "notifications": "Thông báo",
+    "account": "Tài khoản",
+    "saveSettings": "Lưu cài đặt"
+  }
+}

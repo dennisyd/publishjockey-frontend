@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Išsaugoti",
+    "cancel": "Atšaukti",
+    "delete": "Ištrinti",
+    "edit": "Redaguoti",
+    "add": "Pridėti",
+    "close": "Uždaryti",
+    "loading": "Kraunama...",
+    "error": "Klaida",
+    "success": "Sėkmingai",
+    "confirm": "Patvirtinti",
+    "back": "Atgal",
+    "next": "Kitas",
+    "previous": "Ankstesnis"
+  },
+  "navigation": {
+    "dashboard": "Valdymo skydelis",
+    "projects": "Projektai",
+    "settings": "Nustatymai",
+    "logout": "Atsijungti",
+    "login": "Prisijungti",
+    "register": "Registruotis"
+  },
+  "dashboard": {
+    "welcome": "Sveiki atvykę",
+    "createNewBook": "Sukurti naują knygą",
+    "recentProjects": "Naujausi projektai",
+    "noProjects": "Jūs neturite projektų",
+    "startWriting": "Pradėkite rašyti"
+  },
+  "bookStructure": {
+    "frontMatter": "Įvadas",
+    "mainMatter": "Pagrindinė dalis",
+    "backMatter": "Užuomazga",
+    "chapter": "Skyrius",
+    "section": "Skirsnis",
+    "title": "Pavadinimas",
+    "content": "Turinys"
+  },
+  "export": {
+    "exportBook": "Eksportuoti knygą",
+    "format": "Formatas",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Kalba",
+    "font": "Šriftas",
+    "includeToc": "Įtraukti turinio rodyklę",
+    "export": "Eksportuoti"
+  },
+  "settings": {
+    "language": "Kalba",
+    "theme": "Tema",
+    "notifications": "Pranešimai",
+    "account": "Paskyra",
+    "saveSettings": "Išsaugoti nustatymus"
+  }
+}

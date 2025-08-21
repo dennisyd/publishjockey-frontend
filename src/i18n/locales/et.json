@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Salvesta",
+    "cancel": "Tühista",
+    "delete": "Kustuta",
+    "edit": "Redigeeri",
+    "add": "Lisa",
+    "close": "Sulge",
+    "loading": "Laadimine...",
+    "error": "Viga",
+    "success": "Edu",
+    "confirm": "Kinnita",
+    "back": "Tagasi",
+    "next": "Järgmine",
+    "previous": "Eelmine"
+  },
+  "navigation": {
+    "dashboard": "Juhtpaneel",
+    "projects": "Projektid",
+    "settings": "Seaded",
+    "logout": "Logi välja",
+    "login": "Logi sisse",
+    "register": "Registreeri"
+  },
+  "dashboard": {
+    "welcome": "Tere tulemast",
+    "createNewBook": "Loo uus raamat",
+    "recentProjects": "Hiljutised projektid",
+    "noProjects": "Sul pole projekte",
+    "startWriting": "Alusta kirjutamist"
+  },
+  "bookStructure": {
+    "frontMatter": "Eessõna",
+    "mainMatter": "Põhiosa",
+    "backMatter": "Järelsõna",
+    "chapter": "Peatükk",
+    "section": "Jagu",
+    "title": "Pealkiri",
+    "content": "Sisu"
+  },
+  "export": {
+    "exportBook": "Ekspordi raamat",
+    "format": "Vorming",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Keel",
+    "font": "Font",
+    "includeToc": "Lisa sisukord",
+    "export": "Ekspordi"
+  },
+  "settings": {
+    "language": "Keel",
+    "theme": "Teema",
+    "notifications": "Teated",
+    "account": "Konto",
+    "saveSettings": "Salvesta seaded"
+  }
+}

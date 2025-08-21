@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Spara",
+    "cancel": "Avbryt",
+    "delete": "Radera",
+    "edit": "Redigera",
+    "add": "Lägg till",
+    "close": "Stäng",
+    "loading": "Laddar...",
+    "error": "Fel",
+    "success": "Framgång",
+    "confirm": "Bekräfta",
+    "back": "Tillbaka",
+    "next": "Nästa",
+    "previous": "Föregående"
+  },
+  "navigation": {
+    "dashboard": "Instrumentpanel",
+    "projects": "Projekt",
+    "settings": "Inställningar",
+    "logout": "Logga ut",
+    "login": "Logga in",
+    "register": "Registrera"
+  },
+  "dashboard": {
+    "welcome": "Välkommen",
+    "createNewBook": "Skapa ny bok",
+    "recentProjects": "Senaste projekt",
+    "noProjects": "Du har inga projekt",
+    "startWriting": "Börja skriva"
+  },
+  "bookStructure": {
+    "frontMatter": "Förord",
+    "mainMatter": "Huvuddel",
+    "backMatter": "Efterord",
+    "chapter": "Kapitel",
+    "section": "Sektion",
+    "title": "Titel",
+    "content": "Innehåll"
+  },
+  "export": {
+    "exportBook": "Exportera bok",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Språk",
+    "font": "Teckensnitt",
+    "includeToc": "Inkludera innehållsförteckning",
+    "export": "Exportera"
+  },
+  "settings": {
+    "language": "Språk",
+    "theme": "Tema",
+    "notifications": "Aviseringar",
+    "account": "Konto",
+    "saveSettings": "Spara inställningar"
+  }
+}

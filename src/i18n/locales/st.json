@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Boloka",
+    "cancel": "Khansela",
+    "delete": "Hlakola",
+    "edit": "Fetola",
+    "add": "Eketsa",
+    "close": "Koala",
+    "loading": "E tsamaisa...",
+    "error": "Phoso",
+    "success": "Katleho",
+    "confirm": "Netefatsa",
+    "back": "Morao",
+    "next": "E latelang",
+    "previous": "E fetileng"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Mesebetsi",
+    "settings": "Litlhophiso",
+    "logout": "Tsoa",
+    "login": "Kena",
+    "register": "Ingodisa"
+  },
+  "dashboard": {
+    "welcome": "Rea u amohela",
+    "createNewBook": "Etsa buka e ncha",
+    "recentProjects": "Mesebetsi e sa tsoa etsa",
+    "noProjects": "Ha u na mesebetsi",
+    "startWriting": "Qala ho ngola"
+  },
+  "bookStructure": {
+    "frontMatter": "Pele",
+    "mainMatter": "Karolo e kgolo",
+    "backMatter": "Mafelelong",
+    "chapter": "Khaolo",
+    "section": "Karolo",
+    "title": "Sehlooho",
+    "content": "Litaba"
+  },
+  "export": {
+    "exportBook": "Ntsha buka",
+    "format": "Mokhoa",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Puo",
+    "font": "Mongolo",
+    "includeToc": "Kenya tafole ea litaba",
+    "export": "Ntsha"
+  },
+  "settings": {
+    "language": "Puo",
+    "theme": "Sehlooho",
+    "notifications": "Litsebiso",
+    "account": "Akhaonto",
+    "saveSettings": "Boloka litlhophiso"
+  }
+}

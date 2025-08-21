@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Vista",
+    "cancel": "Hætta við",
+    "delete": "Eyða",
+    "edit": "Breyta",
+    "add": "Bæta við",
+    "close": "Loka",
+    "loading": "Hleður...",
+    "error": "Villa",
+    "success": "Tókst",
+    "confirm": "Staðfesta",
+    "back": "Til baka",
+    "next": "Næsta",
+    "previous": "Fyrri"
+  },
+  "navigation": {
+    "dashboard": "Mælaborð",
+    "projects": "Verkefni",
+    "settings": "Stillingar",
+    "logout": "Útskráning",
+    "login": "Innskráning",
+    "register": "Nýskráning"
+  },
+  "dashboard": {
+    "welcome": "Velkomin",
+    "createNewBook": "Búa til nýja bók",
+    "recentProjects": "Nýleg verkefni",
+    "noProjects": "Þú hefur engin verkefni",
+    "startWriting": "Byrjaðu að skrifa"
+  },
+  "bookStructure": {
+    "frontMatter": "Forspjall",
+    "mainMatter": "Aðalhluti",
+    "backMatter": "Eftirmáli",
+    "chapter": "Kafli",
+    "section": "Hluti",
+    "title": "Titill",
+    "content": "Efni"
+  },
+  "export": {
+    "exportBook": "Flytja út bók",
+    "format": "Form",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Tungumál",
+    "font": "Letur",
+    "includeToc": "Hafa efnisyfirlit",
+    "export": "Flytja út"
+  },
+  "settings": {
+    "language": "Tungumál",
+    "theme": "Þema",
+    "notifications": "Tilkynningar",
+    "account": "Reikningur",
+    "saveSettings": "Vista stillingar"
+  }
+}

@@ -1,0 +1,59 @@
+{
+  "common": {
+    "save": "Tereka",
+    "cancel": "Kankana",
+    "delete": "Sangula",
+    "edit": "Kyusa",
+    "add": "Yongera",
+    "close": "Ggalawo",
+    "loading": "Kikola...",
+    "error": "Ensobi",
+    "success": "Kikole",
+    "confirm": "Kakasa",
+    "back": "Emabega",
+    "next": "Ekiddako",
+    "previous": "Ekyasooka"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Ebikolebwa",
+    "settings": "Enteekateeka",
+    "logout": "Fuluma",
+    "login": "Yingira",
+    "register": "Wewandise"
+  },
+  "dashboard": {
+    "welcome": "Tukusanyukidde",
+    "createNewBook": "Kola ekitabo ekisya",
+    "recentProjects": "Ebikolebwa ebipya",
+    "noProjects": "Tolina bikolebwa",
+    "startWriting": "Tandika okuwandiika"
+  },
+  "bookStructure": {
+    "frontMatter": "Entandikwa",
+    "mainMatter": "Ekigaso eky'enkizo",
+    "backMatter": "Enkomerero",
+    "chapter": "Essomo",
+    "section": "Ekigaso",
+    "title": "Erinnya",
+    "content": "Ebiri mu kyo"
+  },
+  "export": {
+    "exportBook": "Fuluma ekitabo",
+    "format": "Enkola",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Olulimi",
+    "font": "Ennyandika",
+    "includeToc": "Yongera akasengejjo k'ebiri mu kyo",
+    "export": "Fuluma"
+  },
+  "settings": {
+    "language": "Olulimi",
+    "theme": "Ekigendererwa",
+    "notifications": "Ebikulira",
+    "account": "Akawunti",
+    "saveSettings": "Tereka enteekateeka"
+  }
+}
