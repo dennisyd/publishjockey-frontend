@@ -47,7 +47,8 @@
     "language": "Lugha",
     "font": "Fonti",
     "includeToc": "Jumuisha orodha ya maudhui",
-    "export": "Hamisha"
+    "export": "Hamisha",
+    "tableOfContents": "Orodha ya Maudhui"
   },
   "settings": {
     "language": "Lugha",

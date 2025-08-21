@@ -47,7 +47,8 @@
     "language": "Ururimi",
     "font": "Inyandiko",
     "includeToc": "Shyiramo urutonde rw'ibiri",
-    "export": "Kura"
+    "export": "Kura",
+    "tableOfContents": "Urupapuro rw'Ibiri"
   },
   "settings": {
     "language": "Ururimi",

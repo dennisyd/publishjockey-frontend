@@ -47,7 +47,8 @@
     "language": "Ede",
     "font": "Awọn iwe",
     "includeToc": "Fi akoonu akoonu kun",
-    "export": "Jade"
+    "export": "Jade",
+    "tableOfContents": "Akoonu"
   },
   "settings": {
     "language": "Ede",

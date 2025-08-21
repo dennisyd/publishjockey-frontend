@@ -47,7 +47,8 @@
     "language": "Valoda",
     "font": "Fonts",
     "includeToc": "Iekļaut satura rādītāju",
-    "export": "Eksportēt"
+    "export": "Eksportēt",
+    "tableOfContents": "Satura Rādītājs"
   },
   "settings": {
     "language": "Valoda",

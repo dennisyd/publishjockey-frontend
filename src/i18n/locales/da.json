@@ -47,7 +47,8 @@
     "language": "Sprog",
     "font": "Skrifttype",
     "includeToc": "Inkluder indholdsfortegnelse",
-    "export": "Eksporter"
+    "export": "Eksporter",
+    "tableOfContents": "Indholdsfortegnelse"
   },
   "settings": {
     "language": "Sprog",

@@ -47,7 +47,8 @@
     "language": "Jezik",
     "font": "Pisava",
     "includeToc": "Vključi kazalo",
-    "export": "Izvozi"
+    "export": "Izvozi",
+    "tableOfContents": "Kazalo"
   },
   "settings": {
     "language": "Jezik",

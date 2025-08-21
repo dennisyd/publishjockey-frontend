@@ -2476,6 +2476,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         loadingMessage={exportProgress}
         projectName={editedProjectName}
         estimatedPages={estimatedPages}
+        t={i18n.t}
       />
       {/* Import Modal */}
       <ImportModal

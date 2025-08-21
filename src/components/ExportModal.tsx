@@ -137,6 +137,7 @@ export interface ExportSettings {
   tocDepth?: number; // Add this line
   fontFamily?: string; // Add this line
   language?: string; // Language for export (auto-detected from i18n)
+  t?: (key: string, fallback?: string) => string; // Translation function
 }
 
 interface ExportModalProps {
@@ -148,6 +149,7 @@ interface ExportModalProps {
   projectName?: string;
   estimatedPages?: number; // Estimated total pages for current project
   exportError?: string | null;
+  t?: (key: string, fallback?: string) => string; // Translation function
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({
@@ -158,7 +160,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   loadingMessage = 'Processing export...',
   projectName = 'My Book'
   , estimatedPages,
-  exportError
+  exportError,
+  t
 }) => {
   const { currentUser } = useAuth();
   const { settings: userSettings } = useSettings();
@@ -364,7 +367,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
           console.log('Image validation passed, proceeding with export...');
           
           // Call parent onExport handler with settings
-          const exportSettings = { ...settings, tocDepth, fontFamily: settings.fontFamily };
+          const exportSettings = { 
+            ...settings, 
+            tocDepth, 
+            fontFamily: settings.fontFamily,
+            t: t || i18n.t // Use passed translation function or fallback to i18n.t
+          };
           if (settings.format === 'epub' && coverImageFilename) {
             exportSettings.coverImage = coverImageFilename;
           }

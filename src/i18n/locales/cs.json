@@ -47,7 +47,8 @@
     "language": "Jazyk",
     "font": "Font",
     "includeToc": "Zahrnout obsah",
-    "export": "Exportovat"
+    "export": "Exportovat",
+    "tableOfContents": "Obsah"
   },
   "settings": {
     "language": "Jazyk",

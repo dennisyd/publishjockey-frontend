@@ -47,7 +47,8 @@
     "language": "Nyelv",
     "font": "Betűtípus",
     "includeToc": "Tartalomjegyzék belefoglalása",
-    "export": "Exportálás"
+    "export": "Exportálás",
+    "tableOfContents": "Tartalomjegyzék"
   },
   "settings": {
     "language": "Nyelv",

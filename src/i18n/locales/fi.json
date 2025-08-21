@@ -47,7 +47,8 @@
     "language": "Kieli",
     "font": "Fontti",
     "includeToc": "Sisällytä sisällysluettelo",
-    "export": "Vie"
+    "export": "Vie",
+    "tableOfContents": "Sisällysluettelo"
   },
   "settings": {
     "language": "Kieli",

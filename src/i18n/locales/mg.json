@@ -47,7 +47,8 @@
     "language": "Fiteny",
     "font": "Endri-tsoratra",
     "includeToc": "Ampidiro ny tabilao votoaty",
-    "export": "Avoahy"
+    "export": "Avoahy",
+    "tableOfContents": "Tabilao Votoaty"
   },
   "settings": {
     "language": "Fiteny",

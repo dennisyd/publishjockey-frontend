@@ -47,7 +47,8 @@
     "language": "Język",
     "font": "Czcionka",
     "includeToc": "Dołącz spis treści",
-    "export": "Eksportuj"
+    "export": "Eksportuj",
+    "tableOfContents": "Spis Treści"
   },
   "settings": {
     "language": "Język",

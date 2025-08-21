@@ -47,7 +47,8 @@
     "language": "Språk",
     "font": "Teckensnitt",
     "includeToc": "Inkludera innehållsförteckning",
-    "export": "Exportera"
+    "export": "Exportera",
+    "tableOfContents": "Innehållsförteckning"
   },
   "settings": {
     "language": "Språk",

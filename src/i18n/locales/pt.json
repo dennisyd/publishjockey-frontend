@@ -47,7 +47,8 @@
     "language": "Idioma",
     "font": "Fonte",
     "includeToc": "Incluir sumário",
-    "export": "Exportar"
+    "export": "Exportar",
+    "tableOfContents": "Sumário"
   },
   "settings": {
     "language": "Idioma",

@@ -47,7 +47,8 @@
     "language": "Ulimi",
     "font": "Ifonti",
     "includeToc": "Faka uhlu lokuqukethwe",
-    "export": "Khipha"
+    "export": "Khipha",
+    "tableOfContents": "Uhlu Lokuqukethwe"
   },
   "settings": {
     "language": "Ulimi",

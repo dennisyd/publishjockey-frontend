@@ -47,7 +47,8 @@
     "language": "Keel",
     "font": "Font",
     "includeToc": "Lisa sisukord",
-    "export": "Ekspordi"
+    "export": "Ekspordi",
+    "tableOfContents": "Sisukord"
   },
   "settings": {
     "language": "Keel",

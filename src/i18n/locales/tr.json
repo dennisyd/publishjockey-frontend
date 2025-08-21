@@ -47,7 +47,8 @@
     "language": "Dil",
     "font": "Yazı Tipi",
     "includeToc": "İçindekiler Tablosunu Dahil Et",
-    "export": "Dışa Aktar"
+    "export": "Dışa Aktar",
+    "tableOfContents": "İçindekiler"
   },
   "settings": {
     "language": "Dil",

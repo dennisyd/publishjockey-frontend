@@ -47,7 +47,8 @@
     "language": "Tungumál",
     "font": "Letur",
     "includeToc": "Hafa efnisyfirlit",
-    "export": "Flytja út"
+    "export": "Flytja út",
+    "tableOfContents": "Efnisyfirlit"
   },
   "settings": {
     "language": "Tungumál",

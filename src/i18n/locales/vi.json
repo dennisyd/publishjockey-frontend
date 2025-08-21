@@ -47,7 +47,8 @@
     "language": "Ngôn ngữ",
     "font": "Font chữ",
     "includeToc": "Bao gồm mục lục",
-    "export": "Xuất"
+    "export": "Xuất",
+    "tableOfContents": "Mục Lục"
   },
   "settings": {
     "language": "Ngôn ngữ",

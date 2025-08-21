@@ -37,7 +37,8 @@
     "help": "Help",
     "about": "About",
     "privacy": "Privacy Policy",
-    "terms": "Terms of Service"
+    "terms": "Terms of Service",
+    "confirm": "Confirm"
   },
   "navigation": {
     "dashboard": "Dashboard",
@@ -142,7 +143,12 @@
     "recentProjects": "Recent Projects",
     "quickActions": "Quick Actions",
     "createProject": "Create New Project",
-    "importDocument": "Import Document"
+    "importDocument": "Import Document",
+    "welcome": "Welcome",
+    "createNewBook": "Create New Book",
+    "recentProjects": "Recent Projects",
+    "noProjects": "You have no projects",
+    "startWriting": "Start Writing"
   },
   "project": {
     "create": "Create New Project",
@@ -216,7 +222,17 @@
     },
     "processing": "Processing export...",
     "success": "Export completed successfully!",
-    "error": "Export failed. Please try again."
+    "error": "Export failed. Please try again.",
+    "exportBook": "Export Book",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Language",
+    "font": "Font",
+    "includeToc": "Include Table of Contents",
+    "export": "Export",
+    "tableOfContents": "Table of Contents"
   },
   "images": {
     "upload": "Upload Image",
@@ -311,5 +327,21 @@
     "passwordMatch": "Passwords must match",
     "fileSize": "File size must be less than {{size}}MB",
     "fileType": "Please select a valid file type"
+  },
+  "bookStructure": {
+    "frontMatter": "Front Matter",
+    "mainMatter": "Main Matter",
+    "backMatter": "Back Matter",
+    "chapter": "Chapter",
+    "section": "Section",
+    "title": "Title",
+    "content": "Content"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "account": "Account",
+    "saveSettings": "Save Settings"
   }
 }

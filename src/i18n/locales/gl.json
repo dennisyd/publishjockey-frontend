@@ -47,7 +47,8 @@
     "language": "Idioma",
     "font": "Fonte",
     "includeToc": "Incluír índice",
-    "export": "Exportar"
+    "export": "Exportar",
+    "tableOfContents": "Índice"
   },
   "settings": {
     "language": "Idioma",

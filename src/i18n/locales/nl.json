@@ -47,7 +47,8 @@
     "language": "Taal",
     "font": "Lettertype",
     "includeToc": "Inhoudsopgave opnemen",
-    "export": "Exporteren"
+    "export": "Exporteren",
+    "tableOfContents": "Inhoudsopgave"
   },
   "settings": {
     "language": "Taal",

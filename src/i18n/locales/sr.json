@@ -47,7 +47,8 @@
     "language": "Језик",
     "font": "Фонт",
     "includeToc": "Укључи садржај",
-    "export": "Извези"
+    "export": "Извези",
+    "tableOfContents": "Садржај"
   },
   "settings": {
     "language": "Језик",

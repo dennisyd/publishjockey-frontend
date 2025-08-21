@@ -87,7 +87,7 @@ export class DocumentAssemblyService {
     
     // Replace TOC with generated TOC
     if (settings.includeToc) {
-      const toc = this.generateTableOfContents(workingSections, settings);
+      const toc = this.generateTableOfContents(workingSections, settings, settings.t);
       assembledDocument = assembledDocument.replace('{{TOC}}', toc);
     }
     
@@ -157,11 +157,13 @@ export class DocumentAssemblyService {
    */
   private static generateTableOfContents(
     sections: DocumentSection[],
-    settings: ExportSettings
+    settings: ExportSettings,
+    t?: (key: string, fallback?: string) => string
   ): string {
     // TOC depth is now always 2 (h1 and h2)
     const levelFilter = 2;
-    let tocHtml = '<h1>Table of Contents</h1>\n<nav class="toc">\n<ul>\n';
+    const tocTitle = t ? t('export.tableOfContents', 'Table of Contents') : 'Table of Contents';
+    let tocHtml = `<h1>${tocTitle}</h1>\n<nav class="toc">\n<ul>\n`;
     
     sections.forEach((section, index) => {
       // Only include sections up to the specified heading level
