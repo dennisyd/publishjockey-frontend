@@ -325,9 +325,45 @@ const EditUserDialog = ({
                 label="Subscription"
                 onChange={(e) => setSubscription(e.target.value)}
               >
+                {/* Free Plan */}
                 <MenuItem value="free">Free</MenuItem>
-                <MenuItem value="basic">Basic</MenuItem>
-                <MenuItem value="premium">Premium</MenuItem>
+                
+                {/* Standard Plans */}
+                <MenuItem value="single">Single Book</MenuItem>
+                <MenuItem value="single_promo">Single Book (Promo)</MenuItem>
+                <MenuItem value="bundle5">5 Book Pack</MenuItem>
+                <MenuItem value="bundle5_promo">5 Book Pack (Promo)</MenuItem>
+                <MenuItem value="bundle10">10 Book Pack</MenuItem>
+                <MenuItem value="bundle10_promo">10 Book Pack (Promo)</MenuItem>
+                <MenuItem value="bundle20">20 Book Pack</MenuItem>
+                <MenuItem value="bundle20_promo">20 Book Pack (Promo)</MenuItem>
+                
+                {/* Premium Plans */}
+                <MenuItem value="poweruser">Power User</MenuItem>
+                <MenuItem value="poweruser_promo">Power User (Promo)</MenuItem>
+                <MenuItem value="agency">Agency</MenuItem>
+                <MenuItem value="agency_promo">Agency (Promo)</MenuItem>
+                
+                {/* Ebook Plans */}
+                <MenuItem value="eSingle">Ebook Single</MenuItem>
+                <MenuItem value="eSingle_promo">Ebook Single (Promo)</MenuItem>
+                <MenuItem value="ebundle5_promo">Ebook 5 Pack (Promo)</MenuItem>
+                <MenuItem value="ebundle10_promo">Ebook 10 Pack (Promo)</MenuItem>
+                <MenuItem value="ebundle20_promo">Ebook 20 Pack (Promo)</MenuItem>
+                <MenuItem value="epoweruser_promo">Ebook Power User (Promo)</MenuItem>
+                <MenuItem value="eagency_promo">Ebook Agency (Promo)</MenuItem>
+                
+                {/* Full Service Plans */}
+                <MenuItem value="fullService_promo">Full Service (Promo)</MenuItem>
+                <MenuItem value="fullServicePlus_promo">Full Service Plus (Promo)</MenuItem>
+                
+                {/* Add-ons */}
+                <MenuItem value="additional">Additional Book</MenuItem>
+                <MenuItem value="images_addon_100">Image Upgrade (+100)</MenuItem>
+                
+                {/* Legacy/Other */}
+                <MenuItem value="beta">Beta</MenuItem>
+                <MenuItem value="custom">Custom</MenuItem>
               </Select>
             </FormControl>
           </Grid>

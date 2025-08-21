@@ -39,7 +39,7 @@ export default function Login() {
       if (err.response) {
         // Server responded with an error
         if (err.response.status === 401) {
-          setError('Invalid credentials. Please check your email and password.');
+          setError('Invalid email or password. Please check your credentials and try again.');
         } else if (err.response.data && err.response.data.message) {
           setError(err.response.data.message);
         } else {
