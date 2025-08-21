@@ -54,8 +54,26 @@ const Login: React.FC = () => {
       
       console.log('Login successful - redirecting to dashboard');
       navigate('/dashboard');
-    } catch (err) {
+    } catch (err: any) {
       console.error('Login failed:', err);
+      
+      // Provide more specific error messages based on the error
+      if (err.response) {
+        // Server responded with an error
+        if (err.response.status === 401) {
+          setFormError('Invalid email or password. Please check your credentials and try again.');
+        } else if (err.response.data && err.response.data.message) {
+          setFormError(err.response.data.message);
+        } else {
+          setFormError(`Server error (${err.response.status}): Please try again later.`);
+        }
+      } else if (err.request) {
+        // No response received
+        setFormError('Cannot connect to the server. Please check your internet connection and try again.');
+      } else {
+        // Something else went wrong
+        setFormError(err.message || 'Failed to sign in. Please try again.');
+      }
     }
   };
 

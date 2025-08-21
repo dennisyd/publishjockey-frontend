@@ -339,11 +339,13 @@ const TickerTape = () => {
     { text: "🖼️ Native image and table support—no formatting headaches." },
     { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
     { text: launchOfferActive 
-        ? "🚀 LAUNCH OFFER: $31/$49 single, $125 (10 books), $199 (20 books) — 3-year validity." 
-        : "💰 Pricing: $46/$93 single, $199 (10 books), $299 (20 books) — 3-year validity." 
+        ? "🚀 LAUNCH OFFER: Ebooks from $31, Full Books from $63, Full Service from $449 — 3-year validity!" 
+        : "💰 Pricing: Ebooks from $46, Full Books from $93, Full Service from $499 — 3-year validity!" 
     },
     { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
-    { text: "🌍 Multi-lingual support for 100+ languages including Arabic, French, Russian & more!" },
+    { text: "📖 Ebook plans: 50-page limit for shorter works. Full Books: unlimited pages for complete manuscripts!" },
+    { text: "🎨 Full Service: Complete package with 3 custom cover designs + optional KDP setup!" },
+    { text: "🌍 Multi-lingual support for 100+ languages including Spanish, French, German, Russian & more!" },
     { text: "⚠️ Verify native language quality before purchasing—test exports thoroughly!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
