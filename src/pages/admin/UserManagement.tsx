@@ -100,13 +100,6 @@ const UserBooksDialog = ({
     errors: string[];
   } | null>(null);
 
-  // Load user books when dialog opens
-  useEffect(() => {
-    if (open && user) {
-      loadUserBooks();
-    }
-  }, [open, user, loadUserBooks]);
-
   const loadUserBooks = useCallback(async () => {
     if (!user) return;
     
@@ -122,6 +115,15 @@ const UserBooksDialog = ({
       setLoading(false);
     }
   }, [user]);
+
+
+
+  // Load user books when dialog opens
+  useEffect(() => {
+    if (open && user) {
+      loadUserBooks();
+    }
+  }, [open, user, loadUserBooks]);
 
   const handleDeleteBook = async (bookId: string, bookTitle: string) => {
     if (!user || !window.confirm(`Are you sure you want to delete "${bookTitle}"? This action cannot be undone.`)) {
