@@ -722,15 +722,47 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Alert>
                 )}
 
-                                 {/* Font Family - Only show for Latin-based languages */}
+                                 {/* Font Family - Language-specific filtering */}
                  {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                     <FormControl fullWidth sx={{ mb: 2 }}>
                       <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                                                 {fontOptions.filter(font => 
-                           ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value)
-                         ).map(font => (
+                        {fontOptions.filter(font => {
+                          const language = settings.language || 'en';
+                          
+                          // Tamil - only show Tamil fonts
+                          if (language === 'ta') {
+                            return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+                          }
+                          
+                          // Russian - only show Cyrillic fonts
+                          if (language === 'ru') {
+                            return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+                          }
+                          
+                          // Hindi - only show Devanagari fonts
+                          if (language === 'hi') {
+                            return ['Noto Sans Devanagari'].includes(font.value);
+                          }
+                          
+                          // Arabic - only show Arabic fonts
+                          if (language === 'ar') {
+                            return ['Noto Sans Arabic'].includes(font.value);
+                          }
+                          
+                          // Hebrew/Yiddish - only show Hebrew fonts
+                          if (language === 'he' || language === 'yi') {
+                            return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
+                          }
+                          
+                          // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
+                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                            return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'].includes(font.value);
+                          }
+                          
+                          return false;
+                        }).map(font => (
                           <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
                         ))}
                       </Select>
@@ -739,10 +771,24 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 )}
 
                                  <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                   {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') 
-                     ? '💡 Choose your preferred font for Latin-based languages and Tamil.'
-                     : '💡 The optimal font for your selected language is automatically chosen for best rendering.'
-                   }
+                   {(() => {
+                     const language = settings.language || 'en';
+                     if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                       return '💡 Choose your preferred font for Latin-based languages.';
+                     } else if (language === 'ru') {
+                       return '💡 Choose your preferred Cyrillic font for Russian.';
+                     } else if (language === 'ta') {
+                       return '💡 Choose your preferred Tamil font.';
+                     } else if (language === 'hi') {
+                       return '💡 Choose your preferred Devanagari font for Hindi.';
+                     } else if (language === 'ar') {
+                       return '💡 Choose your preferred Arabic font.';
+                     } else if (language === 'he' || language === 'yi') {
+                       return '💡 Choose your preferred Hebrew font.';
+                     } else {
+                       return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
+                     }
+                   })()}
                  </Typography>
               </>
             )}
