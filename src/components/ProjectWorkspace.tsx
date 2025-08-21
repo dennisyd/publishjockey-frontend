@@ -47,7 +47,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { useLocalizedBookStructure, getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
+import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -295,31 +295,54 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           // Ensure front matter has Title Page and Copyright in the correct positions
           let structureToUse = JSON.parse(JSON.stringify(projectData.structure));
           
-          // Validate front matter structure - ensure Title Page and Copyright are first two entries
+          // Localize the structure based on current language
+          const currentLang = i18n.language || 'en';
+          const localizedStructure = getLocalizedBookStructure(currentLang);
+          
+          // Map English default names to localized names
+          const nameMapping = {
+            'Title': localizedStructure.front[0],
+            'Title Page': localizedStructure.front[1],
+            'Copyright': localizedStructure.front[2],
+            'Dedication': localizedStructure.front[3],
+            'Acknowledgments': localizedStructure.front[4],
+            'Foreword': localizedStructure.front[5],
+            'Introduction': localizedStructure.front[6],
+            'Chapter 1': localizedStructure.main[0],
+            'Chapter 2': localizedStructure.main[1],
+            'Chapter 3': localizedStructure.main[2],
+            'About the Author': localizedStructure.back[0],
+            'Appendix': localizedStructure.back[1],
+            'References': localizedStructure.back[2],
+            'Bibliography': localizedStructure.back[3],
+            'Index': localizedStructure.back[4],
+            'Glossary': localizedStructure.back[5]
+          };
+          
+          // Localize the structure while preserving user customizations
+          const localizeStructure = (sections: string[]) => {
+            return sections.map(section => {
+              // If it's a default English name, localize it
+              if (nameMapping[section as keyof typeof nameMapping]) {
+                return nameMapping[section as keyof typeof nameMapping];
+              }
+              // If it's a user customization, keep it as is
+              return section;
+            });
+          };
+          
+          // Localize each section
           if (structureToUse.front) {
-            // Remove Title Page and Copyright if they exist elsewhere in the array
-            const titlePageIndex = structureToUse.front.findIndex(s => s === 'Title Page');
-            const copyrightIndex = structureToUse.front.findIndex(s => s === 'Copyright');
-            
-            // Create a clean front matter array without Title Page and Copyright
-            const cleanFront = structureToUse.front.filter(
-              s => s !== 'Title Page' && s !== 'Copyright'
-            );
-            
-            // Reconstruct the front matter with Title Page and Copyright at the beginning
-            structureToUse.front = ['Title Page', 'Copyright', ...cleanFront];
-            
-            // Log the correction if we made changes
-            if (titlePageIndex > 0 || (copyrightIndex > 0 && copyrightIndex !== 1)) {
-              console.log('Fixed front matter order to ensure Title Page and Copyright are at the beginning');
-              setNotification({
-                open: true,
-                message: 'Book structure was adjusted to ensure proper front matter arrangement',
-                severity: 'info'
-              });
-            }
+            structureToUse.front = localizeStructure(structureToUse.front);
+          }
+          if (structureToUse.main) {
+            structureToUse.main = localizeStructure(structureToUse.main);
+          }
+          if (structureToUse.back) {
+            structureToUse.back = localizeStructure(structureToUse.back);
           }
           
+          console.log('Localized structure:', JSON.stringify(structureToUse, null, 2));
           setStructure(structureToUse);
         } else {
           console.log('No structure found in project data, using default');
