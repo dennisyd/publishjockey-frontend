@@ -167,6 +167,53 @@ export const deleteUser = async (userId: string): Promise<SuccessResponse> => {
   return response.data as SuccessResponse;
 };
 
+// New functions for book management
+export const getUserBooks = async (userId: string): Promise<{
+  success: boolean;
+  books: Array<{
+    _id: string;
+    title: string;
+    createdAt: string;
+    updatedAt: string;
+  }>;
+  user: {
+    id: string;
+    name: string;
+    email: string;
+  };
+}> => {
+  const response = await http.get(`/admin/users/${userId}/books`);
+  return response.data;
+};
+
+export const deleteBook = async (userId: string, bookId: string): Promise<{
+  success: boolean;
+  message: string;
+  deletionReport: {
+    bookDeleted: boolean;
+    imagesDeleted: number;
+    errors: string[];
+  };
+}> => {
+  const response = await http.delete(`/admin/users/${userId}/books/${bookId}`);
+  return response.data;
+};
+
+// Enhanced delete user function with deletion report
+export const deleteUserWithReport = async (userId: string): Promise<{
+  success: boolean;
+  message: string;
+  deletionReport: {
+    booksDeleted: number;
+    imagesDeleted: number;
+    userDeleted: boolean;
+    errors: string[];
+  };
+}> => {
+  const response = await http.delete(`/admin/users/${userId}`);
+  return response.data;
+};
+
 export const sendNotification = async (userId: string, subject: string, message: string, sendEmail: boolean = false): Promise<SuccessResponse> => {
   const response = await http.post(`/admin/users/${userId}/notify`, { subject, message, sendEmail });
   return response.data as SuccessResponse;

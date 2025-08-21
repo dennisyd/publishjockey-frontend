@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -43,7 +43,9 @@ import {
   AdminPanelSettings as AdminPanelSettingsIcon,
   Search as SearchIcon,
     Refresh as RefreshIcon,
-    Gavel as GavelIcon
+    Gavel as GavelIcon,
+    Close as CloseIcon,
+    Book as BookIcon
 } from '@mui/icons-material';
 import { listTitleChanges, TitleChangeItem } from '../../services/adminService';
 
@@ -71,6 +73,186 @@ const formatDateTime = (date: Date | string): string => {
     hour: '2-digit',
     minute: '2-digit'
   });
+};
+
+// User Books Dialog Component
+const UserBooksDialog = ({ 
+  open, 
+  user, 
+  onClose 
+}: { 
+  open: boolean;
+  user: AdminUser | null;
+  onClose: () => void;
+}) => {
+  const [books, setBooks] = useState<Array<{
+    _id: string;
+    title: string;
+    createdAt: string;
+    updatedAt: string;
+  }>>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+  const [deletingBook, setDeletingBook] = useState<string | null>(null);
+  const [deletionReport, setDeletionReport] = useState<{
+    bookDeleted: boolean;
+    imagesDeleted: number;
+    errors: string[];
+  } | null>(null);
+
+  // Load user books when dialog opens
+  useEffect(() => {
+    if (open && user) {
+      loadUserBooks();
+    }
+  }, [open, user, loadUserBooks]);
+
+  const loadUserBooks = useCallback(async () => {
+    if (!user) return;
+    
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await adminService.getUserBooks(user.id);
+      setBooks(response.books);
+    } catch (err: any) {
+      console.error('Error loading user books:', err);
+      setError(err.response?.data?.message || 'Failed to load user books');
+    } finally {
+      setLoading(false);
+    }
+  }, [user]);
+
+  const handleDeleteBook = async (bookId: string, bookTitle: string) => {
+    if (!user || !window.confirm(`Are you sure you want to delete "${bookTitle}"? This action cannot be undone.`)) {
+      return;
+    }
+
+    setDeletingBook(bookId);
+    try {
+      const response = await adminService.deleteBook(user.id, bookId);
+      setDeletionReport(response.deletionReport);
+      
+      // Reload books list
+      await loadUserBooks();
+      
+      // Show success message
+      setTimeout(() => {
+        setDeletionReport(null);
+      }, 5000);
+    } catch (err: any) {
+      console.error('Error deleting book:', err);
+      setError(err.response?.data?.message || 'Failed to delete book');
+    } finally {
+      setDeletingBook(null);
+    }
+  };
+
+  if (!user) return null;
+
+  return (
+    <Dialog open={open} onClose={onClose} maxWidth="md" fullWidth>
+      <DialogTitle>
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+          <Box display="flex" alignItems="center">
+            <PersonIcon sx={{ mr: 1 }} />
+            <Typography variant="h6">
+              Books by {user.name}
+            </Typography>
+          </Box>
+          <IconButton onClick={onClose}>
+            <CloseIcon />
+          </IconButton>
+        </Box>
+      </DialogTitle>
+      <DialogContent>
+        {loading ? (
+          <Box display="flex" justifyContent="center" p={3}>
+            <CircularProgress />
+          </Box>
+        ) : error ? (
+          <Alert severity="error" sx={{ mb: 2 }}>{error}</Alert>
+        ) : (
+          <>
+            {deletionReport && (
+              <Alert 
+                severity={deletionReport.errors.length > 0 ? "warning" : "success"} 
+                sx={{ mb: 2 }}
+              >
+                <Typography variant="subtitle2" gutterBottom>
+                  Deletion Report:
+                </Typography>
+                <Typography variant="body2">
+                  • Book deleted: {deletionReport.bookDeleted ? 'Yes' : 'No'}
+                </Typography>
+                <Typography variant="body2">
+                  • Images deleted: {deletionReport.imagesDeleted}
+                </Typography>
+                {deletionReport.errors.length > 0 && (
+                  <Typography variant="body2" color="error">
+                    • Errors: {deletionReport.errors.join(', ')}
+                  </Typography>
+                )}
+              </Alert>
+            )}
+            
+            {books.length === 0 ? (
+              <Box textAlign="center" p={3}>
+                <Typography variant="body1" color="text.secondary">
+                  No books found for this user.
+                </Typography>
+              </Box>
+            ) : (
+              <TableContainer component={Paper} variant="outlined">
+                <Table>
+                  <TableHead>
+                    <TableRow>
+                      <TableCell>Title</TableCell>
+                      <TableCell>Created</TableCell>
+                      <TableCell>Last Updated</TableCell>
+                      <TableCell align="right">Actions</TableCell>
+                    </TableRow>
+                  </TableHead>
+                  <TableBody>
+                    {books.map((book) => (
+                      <TableRow key={book._id}>
+                        <TableCell>
+                          <Typography variant="body1" fontWeight={500}>
+                            {book.title || 'Untitled Book'}
+                          </Typography>
+                        </TableCell>
+                        <TableCell>{formatDate(book.createdAt)}</TableCell>
+                        <TableCell>{formatDate(book.updatedAt)}</TableCell>
+                        <TableCell align="right">
+                          <Tooltip title="Delete Book">
+                            <IconButton
+                              onClick={() => handleDeleteBook(book._id, book.title)}
+                              disabled={deletingBook === book._id}
+                              color="error"
+                              size="small"
+                            >
+                              {deletingBook === book._id ? (
+                                <CircularProgress size={20} />
+                              ) : (
+                                <DeleteIcon />
+                              )}
+                            </IconButton>
+                          </Tooltip>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
+                </Table>
+              </TableContainer>
+            )}
+          </>
+        )}
+      </DialogContent>
+      <DialogActions>
+        <Button onClick={onClose}>Close</Button>
+      </DialogActions>
+    </Dialog>
+  );
 };
 
 // User Details Dialog Content
@@ -585,6 +767,7 @@ const UserManagement: React.FC = () => {
   const [userTitleDialogOpen, setUserTitleDialogOpen] = useState(false);
   const [userTitleItems, setUserTitleItems] = useState<TitleChangeItem[]>([]);
   const [bulkActionDialogOpen, setBulkActionDialogOpen] = useState(false);
+  const [userBooksDialogOpen, setUserBooksDialogOpen] = useState(false);
   
   // Success and error messages
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -787,13 +970,21 @@ const UserManagement: React.FC = () => {
     try {
       setLoading(true);
       
-      await adminService.deleteUser(userId);
+      const response = await adminService.deleteUserWithReport(userId);
       
       // Close dialog and reload users
       setDeleteConfirmDialogOpen(false);
       await loadUsers();
       
-      setSuccessMessage('User deleted successfully');
+      // Show detailed deletion report
+      const report = response.deletionReport;
+      const successMessage = `User deleted successfully. Deletion Report: ${report.booksDeleted} books, ${report.imagesDeleted} images deleted.`;
+      
+      if (report.errors.length > 0) {
+        setError(`User deletion completed with errors: ${report.errors.join(', ')}`);
+      } else {
+        setSuccessMessage(successMessage);
+      }
     } catch (err: any) {
       console.error('Error deleting user:', err);
       setError(err.response?.data?.message || 'Failed to delete user');
@@ -1062,6 +1253,14 @@ const UserManagement: React.FC = () => {
                           <EditIcon />
                         </IconButton>
                       </Tooltip>
+                      <Tooltip title="View Books">
+                        <IconButton onClick={() => {
+                          setCurrentUser(user);
+                          setUserBooksDialogOpen(true);
+                        }}>
+                          <BookIcon />
+                        </IconButton>
+                      </Tooltip>
                       <Tooltip title="Reset Password">
                         <IconButton 
                           onClick={() => {
@@ -1229,7 +1428,29 @@ const UserManagement: React.FC = () => {
         <DialogTitle>Delete User Account</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are you sure you want to delete this user account? This action cannot be undone.
+            <Typography variant="body1" gutterBottom>
+              Are you sure you want to delete <strong>{currentUser?.name}</strong> ({currentUser?.email})?
+            </Typography>
+            <Typography variant="body2" color="error" sx={{ mt: 2 }}>
+              This action will permanently delete:
+            </Typography>
+            <Box component="ul" sx={{ mt: 1, pl: 2 }}>
+              <Typography component="li" variant="body2">
+                The user account and all associated data
+              </Typography>
+              <Typography component="li" variant="body2">
+                All books/projects created by this user
+              </Typography>
+              <Typography component="li" variant="body2">
+                All images uploaded by this user (from Cloudinary)
+              </Typography>
+              <Typography component="li" variant="body2">
+                All user preferences and settings
+              </Typography>
+            </Box>
+            <Typography variant="body2" color="error" sx={{ mt: 2, fontWeight: 'bold' }}>
+              This action cannot be undone!
+            </Typography>
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -1238,8 +1459,9 @@ const UserManagement: React.FC = () => {
             variant="contained" 
             color="error" 
             onClick={() => currentUser && handleDeleteUser(currentUser.id)}
+            disabled={loading}
           >
-            Delete Account
+            {loading ? <CircularProgress size={20} /> : 'Delete User & All Data'}
           </Button>
         </DialogActions>
       </Dialog>
@@ -1295,6 +1517,13 @@ const UserManagement: React.FC = () => {
           <Button onClick={() => setUserTitleDialogOpen(false)}>Close</Button>
         </DialogActions>
       </Dialog>
+
+      {/* User Books Dialog */}
+      <UserBooksDialog
+        open={userBooksDialogOpen}
+        user={currentUser}
+        onClose={() => setUserBooksDialogOpen(false)}
+      />
     </Box>
   );
 };
