@@ -126,12 +126,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   }, [projectId]);
   
   // Get localized book structure and section names
-  const localizedStructure = useLocalizedBookStructure();
   const { i18n } = useTranslation();
   const sectionNames = getLocalizedSectionNames(i18n.language);
   
   // Structure state - use localized structure as default
-  const [structure, setStructure] = useState(localizedStructure);
+  const [structure, setStructure] = useState(() => {
+    // Initialize with the current language's structure
+    return getLocalizedBookStructure(i18n.language || 'en');
+  });
   
   // Update structure when language changes (but preserve user customizations)
   useEffect(() => {
@@ -145,8 +147,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         prevStructure.back.length !== newLocalizedStructure.back.length;
       
       if (!hasUserCustomizations) {
+        console.log('Updating structure for language:', i18n.language, 'New structure:', newLocalizedStructure);
         return newLocalizedStructure;
       }
+      console.log('Preserving user customizations for language change:', i18n.language);
       return prevStructure;
     });
   }, [i18n.language]);
