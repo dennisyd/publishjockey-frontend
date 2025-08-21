@@ -17,7 +17,6 @@ import ChevronDownIcon from '@mui/icons-material/ExpandMore';
 import MenuIcon from '@mui/icons-material/Menu';
 import SplitscreenIcon from '@mui/icons-material/Splitscreen';
 import defaultAvatar from '../assets/default-avatar.png';
-import LanguageSwitcher from './LanguageSwitcher';
 
 const Navigation: React.FC = () => {
   const { currentUser, logout } = useAuth();
@@ -114,7 +113,6 @@ const Navigation: React.FC = () => {
                 <Button color="inherit" component={Link} to="/contact">
                   Contact
                 </Button>
-                <LanguageSwitcher variant="compact" sx={{ ml: 2 }} />
                 <div className="relative ml-4">
                   <IconButton
                     onClick={handleUserMenuOpen}
@@ -196,7 +194,6 @@ const Navigation: React.FC = () => {
                 <Button color="inherit" component={Link} to="/contact">
                   Contact
                 </Button>
-                <LanguageSwitcher variant="compact" sx={{ ml: 2 }} />
                 <Button color="inherit" component={Link} to="/login">
                   Login
                 </Button>
@@ -215,7 +212,6 @@ const Navigation: React.FC = () => {
 
           {/* Mobile Navigation */}
           <Box sx={{ display: { xs: 'flex', md: 'none' }, alignItems: 'center' }}>
-            <LanguageSwitcher variant="compact" sx={{ mr: 1 }} />
             {currentUser && (
               <button
                 className="flex items-center gap-2 px-2 py-1 rounded-full border border-gray-200 hover:bg-gray-100 transition focus:outline-none"
