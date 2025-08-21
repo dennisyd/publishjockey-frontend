@@ -1,6 +1,7 @@
 import { http } from './http';
 
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:3001';
+// Use relative URLs since http instance already has baseURL configured
+const API_BASE = '';
 
 // Types
 export interface AdminUser {
@@ -116,59 +117,59 @@ export const getUsers = async (
   sortField = 'createdAt', 
   sortOrder = 'desc'
 ): Promise<PaginatedUsers> => {
-  const response = await http.get(`${API_URL}/api/admin/users`, {
+  const response = await http.get(`${API_BASE}/api/admin/users`, {
     params: { page, limit, search, role, status, sortField, sortOrder }
   });
   return response.data as PaginatedUsers;
 };
 
 export const getUserDetails = async (userId: string): Promise<UserDetailsResponse> => {
-  const response = await http.get(`${API_URL}/api/admin/users/${userId}`);
+  const response = await http.get(`${API_BASE}/api/admin/users/${userId}`);
   return response.data as UserDetailsResponse;
 };
 
 export const updateUserInfo = async (userId: string, userData: Partial<AdminUser>): Promise<UpdateUserResponse> => {
-  const response = await http.put(`${API_URL}/api/admin/users/${userId}`, userData);
+  const response = await http.put(`${API_BASE}/api/admin/users/${userId}`, userData);
   return response.data as UpdateUserResponse;
 };
 
 export const resetUserPassword = async (userId: string): Promise<SuccessResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/reset-password`, {});
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/reset-password`, {});
   return response.data as SuccessResponse;
 };
 
 export const impersonateUser = async (userId: string): Promise<ImpersonateResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/impersonate`, {});
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/impersonate`, {});
   return response.data as ImpersonateResponse;
 };
 
 export const exportUserData = async (userId: string): Promise<UserDataExportResponse> => {
-  const response = await http.get(`${API_URL}/api/admin/users/${userId}/export`);
+  const response = await http.get(`${API_BASE}/api/admin/users/${userId}/export`);
   return response.data as UserDataExportResponse;
 };
 
 export const suspendUser = async (userId: string, reason?: string): Promise<SuccessResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/suspend`, { reason });
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/suspend`, { reason });
   return response.data as SuccessResponse;
 };
 
 export const unsuspendUser = async (userId: string): Promise<SuccessResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/unsuspend`, {});
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/unsuspend`, {});
   return response.data as SuccessResponse;
 };
 
 export const changeUserRole = async (userId: string, role: string): Promise<SuccessResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/change-role`, { role });
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/change-role`, { role });
   return response.data as SuccessResponse;
 };
 
 export const deleteUser = async (userId: string): Promise<SuccessResponse> => {
-  const response = await http.delete(`${API_URL}/api/admin/users/${userId}`);
+  const response = await http.delete(`${API_BASE}/api/admin/users/${userId}`);
   return response.data as SuccessResponse;
 };
 
 export const sendNotification = async (userId: string, subject: string, message: string, sendEmail: boolean = false): Promise<SuccessResponse> => {
-  const response = await http.post(`${API_URL}/api/admin/users/${userId}/notify`, { subject, message, sendEmail });
+  const response = await http.post(`${API_BASE}/api/admin/users/${userId}/notify`, { subject, message, sendEmail });
   return response.data as SuccessResponse;
 };
 
@@ -178,7 +179,7 @@ export const bulkUserAction = async (userIds: string[], action: string, reason?:
   if (reason) payload.reason = reason;
   if (role) payload.role = role;
   
-  const response = await http.post(`${API_URL}/api/admin/users/bulk-action`, payload);
+  const response = await http.post(`${API_BASE}/api/admin/users/bulk-action`, payload);
   return response.data as BulkActionResponse;
 };
 
@@ -199,7 +200,7 @@ export const getAuditLogs = async (
   if (startDate) params.startDate = startDate.toISOString();
   if (endDate) params.endDate = endDate.toISOString();
   
-  const response = await http.get(`${API_URL}/api/admin/audit-logs`, {
+  const response = await http.get(`${API_BASE}/api/admin/audit-logs`, {
     params
   });
   return response.data as PaginatedAuditLogs;
@@ -207,7 +208,7 @@ export const getAuditLogs = async (
 
 // Dashboard statistics
 export const getDashboardStats = async (): Promise<DashboardStatsResponse> => {
-  const response = await http.get(`${API_URL}/api/admin/dashboard-stats`);
+  const response = await http.get(`${API_BASE}/api/admin/dashboard-stats`);
   return response.data as DashboardStatsResponse;
 }; 
 
@@ -225,16 +226,16 @@ export interface TitleChangeItem {
 }
 
 export const listTitleChanges = async (params: { status?: string; userId?: string; projectId?: string; from?: string; to?: string } = {}) => {
-  const res = await http.get(`${API_URL}/api/admin/title-changes`, { params });
+  const res = await http.get(`${API_BASE}/api/admin/title-changes`, { params });
   return res.data as { success: boolean; items: TitleChangeItem[] };
 };
 
 export const approveTitleChange = async (id: string) => {
-  const res = await http.post(`${API_URL}/api/admin/title-changes/${id}/approve`, {});
+  const res = await http.post(`${API_BASE}/api/admin/title-changes/${id}/approve`, {});
   return res.data as { success: boolean };
 };
 
 export const denyTitleChange = async (id: string, reason?: string) => {
-  const res = await http.post(`${API_URL}/api/admin/title-changes/${id}/deny`, { reason });
+  const res = await http.post(`${API_BASE}/api/admin/title-changes/${id}/deny`, { reason });
   return res.data as { success: boolean };
 };
