@@ -45,7 +45,9 @@ import { http } from '../services/http';
 import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
+import { useLocalizedBookStructure, getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -123,19 +125,31 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     };
   }, [projectId]);
   
-  // Structure state
-  const [structure, setStructure] = useState({
-    front: [
-      "Title Page",
-      "Copyright",
-      "Disclaimer",
-      "Acknowledgments",
-      "Foreword",
-      "Introduction"
-    ],
-    main: ["Chapter 1", "Chapter 2", "Chapter 3"],
-    back: ["Appendix", "References"]
-  });
+  // Get localized book structure and section names
+  const localizedStructure = useLocalizedBookStructure();
+  const { i18n } = useTranslation();
+  const sectionNames = getLocalizedSectionNames(i18n.language);
+  
+  // Structure state - use localized structure as default
+  const [structure, setStructure] = useState(localizedStructure);
+  
+  // Update structure when language changes (but preserve user customizations)
+  useEffect(() => {
+    const newLocalizedStructure = getLocalizedBookStructure(i18n.language);
+    setStructure(prevStructure => {
+      // Only update if the structure hasn't been customized by the user
+      // This preserves user-added chapters while updating default ones
+      const hasUserCustomizations = 
+        prevStructure.front.length !== newLocalizedStructure.front.length ||
+        prevStructure.main.length !== newLocalizedStructure.main.length ||
+        prevStructure.back.length !== newLocalizedStructure.back.length;
+      
+      if (!hasUserCustomizations) {
+        return newLocalizedStructure;
+      }
+      return prevStructure;
+    });
+  }, [i18n.language]);
   
   const [selected, setSelected] = useState<{ area: keyof typeof structure; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });
@@ -1952,7 +1966,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 }}
               >
                 <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>
-                  {area.charAt(0).toUpperCase() + area.slice(1)} Matter
+                  {area === 'front' ? sectionNames.frontMatter : 
+                   area === 'main' ? sectionNames.mainMatter : 
+                   sectionNames.backMatter}
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <IconButton

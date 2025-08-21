@@ -98,6 +98,7 @@ const languageOptions = [
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
   { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
+  { value: 'ro', label: '🇷🇴 Română', description: 'Romanian' },
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
   { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' },
   { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },

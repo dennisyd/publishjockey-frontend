@@ -13,17 +13,18 @@ import { Language as LanguageIcon } from '@mui/icons-material';
 const LanguageSwitcher = ({ variant = 'select', sx = {} }) => {
   const { i18n } = useTranslation();
 
-  const languages = [
+    const languages = [
     { code: 'en', name: 'English', flag: '🇺🇸' },
     { code: 'es', name: 'Español', flag: '🇪🇸' },
     { code: 'de', name: 'Deutsch', flag: '🇩🇪' },
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
     { code: 'it', name: 'Italiano', flag: '🇮🇹' },
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
+    { code: 'ro', name: 'Română', flag: '🇷🇴' },
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
     { code: 'he', name: 'עברית', flag: '🇮🇱' },
     { code: 'yi', name: 'יידיש', flag: '🇮🇱' },
-  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' }
+    { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' }
   ];
 
   const handleLanguageChange = (event) => {

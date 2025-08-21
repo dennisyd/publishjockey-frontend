@@ -336,6 +336,7 @@ const Settings: React.FC = () => {
                   <MenuItem value="de">🇩🇪 Deutsch</MenuItem>
                   <MenuItem value="it">🇮🇹 Italiano</MenuItem>
                   <MenuItem value="ru">🇷🇺 Русский</MenuItem>
+                  <MenuItem value="ro">🇷🇴 Română</MenuItem>
                   <MenuItem value="ar">🇸🇦 العربية</MenuItem>
                   <MenuItem value="he">🇮🇱 עברית</MenuItem>
                   <MenuItem value="yi">🇮🇱 יידיש</MenuItem>

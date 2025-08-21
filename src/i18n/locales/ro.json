@@ -1,0 +1,184 @@
+{
+  "common": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "add": "Adaugă",
+    "close": "Închide",
+    "loading": "Se încarcă...",
+    "error": "Eroare",
+    "success": "Succes",
+    "warning": "Avertisment",
+    "info": "Informații"
+  },
+  "navigation": {
+    "home": "Acasă",
+    "dashboard": "Panou de control",
+    "admin": "Administrare",
+    "settings": "Setări",
+    "logout": "Deconectare",
+    "profile": "Profil"
+  },
+  "book": {
+    "structure": {
+      "frontMatter": "Materiale preliminare",
+      "mainMatter": "Materiale principale",
+      "backMatter": "Materiale finale",
+      "title": "Titlu",
+      "titlePage": "Pagina de titlu",
+      "copyright": "Drepturi de autor",
+      "dedication": "Dedicație",
+      "acknowledgments": "Mulțumiri",
+      "foreword": "Cuvânt înainte",
+      "introduction": "Introducere",
+      "chapter": "Capitol",
+      "aboutAuthor": "Despre autor",
+      "appendix": "Anexă",
+      "references": "Referințe",
+      "bibliography": "Bibliografie",
+      "index": "Index",
+      "glossary": "Glosar"
+    },
+    "actions": {
+      "newBook": "Carte nouă",
+      "export": "Exportă",
+      "import": "Importă",
+      "save": "Salvează",
+      "preview": "Previzualizare"
+    }
+  },
+  "export": {
+    "title": "Exportă cartea",
+    "format": "Format",
+    "language": "Limbă",
+    "font": "Font",
+    "settings": "Setări de export",
+    "processing": "Se procesează exportul..."
+  },
+  "settings": {
+    "title": "Setări",
+    "language": "Limbă",
+    "documentLanguage": "Limba documentului",
+    "interfaceLanguage": "Limba interfeței",
+    "font": "Font",
+    "theme": "Temă",
+    "autoSave": "Salvare automată"
+  },
+  "auth": {
+    "login": {
+      "title": "Bun venit înapoi",
+      "subtitle": "Conectează-te la contul tău",
+      "email": "Adresa de email",
+      "password": "Parola",
+      "rememberMe": "Ține-mă minte",
+      "forgotPassword": "Ai uitat parola?",
+      "noAccount": "Nu ai cont?",
+      "signUp": "Înscrie-te",
+      "error": "Email sau parolă incorectă"
+    },
+    "register": {
+      "title": "Creează cont",
+      "subtitle": "Alătură-te miilor de autori",
+      "name": "Nume complet",
+      "email": "Adresa de email",
+      "password": "Parola",
+      "confirmPassword": "Confirmă parola",
+      "agreeTerms": "Sunt de acord cu Termenii și condițiile și Politica de confidențialitate",
+      "haveAccount": "Ai deja cont?",
+      "signIn": "Conectează-te",
+      "error": "Înregistrarea a eșuat"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Gratuit",
+        "description": "Încearcă înainte de a cumpăra cu primele 12 pagini. Perfect pentru testarea platformei.",
+        "features": [
+          "1 proiect de carte",
+          "Export limitat la primele 12 pagini",
+          "Formatare asistată de IA",
+          "Filigrană pe rezultat",
+          "Împărțirea documentului Word pe secțiuni H1",
+          "2 imagini incluse"
+        ]
+      },
+      "single": {
+        "name": "Carte unică",
+        "description": "Achiziție unică (valabilitate 3 ani)",
+        "features": [
+          "1 proiect de carte",
+          "Export complet al cărții",
+          "Formatare asistată de IA",
+          "Rezultat fără filigrană",
+          "Împărțirea documentului Word pe secțiuni H1",
+          "10 imagini incluse"
+        ]
+      },
+      "bundle5": {
+        "name": "Pachet 5 cărți",
+        "description": "Valoare excelentă pentru mai multe cărți (valabilitate 3 ani)",
+        "features": [
+          "5 proiecte de cărți",
+          "Export complet al cărții",
+          "Formatare asistată de IA",
+          "Rezultat fără filigrană",
+          "Împărțirea documentului Word pe secțiuni H1",
+          "50 imagini incluse"
+        ]
+      }
+    },
+    "categories": {
+      "free": "Gratuit",
+      "standard": "Standard",
+      "premium": "Premium",
+      "ebook": "E-book",
+      "ebookPremium": "E-book Premium",
+      "fullService": "Serviciu complet",
+      "addons": "Suplimente"
+    },
+    "formats": {
+      "any": "Orice",
+      "print": "Tipărit",
+      "ebook": "E-book",
+      "printEbook": "Tipărit + E-book"
+    },
+    "actions": {
+      "select": "Selectează",
+      "details": "Detalii",
+      "hide": "Ascunde"
+    }
+  },
+  "dashboard": {
+    "welcome": "Bun venit",
+    "recentProjects": "Proiecte recente",
+    "createNew": "Creează proiect nou",
+    "stats": {
+      "totalBooks": "Total cărți",
+      "publishedBooks": "Cărți publicate",
+      "draftBooks": "Cărți în ciornă"
+    }
+  },
+  "admin": {
+    "dashboard": "Panou de administrare",
+    "users": "Gestionarea utilizatorilor",
+    "testimonials": "Gestionarea recenziilor",
+    "stats": "Statistici",
+    "audit": "Jurnal de audit",
+    "actions": {
+      "approve": "Aprobă",
+      "reject": "Respinge",
+      "suspend": "Suspendă",
+      "activate": "Activează",
+      "delete": "Șterge"
+    }
+  },
+  "errors": {
+    "general": "A apărut o eroare. Te rugăm să încerci din nou.",
+    "network": "Eroare de rețea. Verifică conexiunea la internet.",
+    "unauthorized": "Nu ai autorizația necesară pentru această acțiune.",
+    "notFound": "Resursa solicitată nu a fost găsită.",
+    "validation": "Date invalide. Verifică informațiile introduse."
+  }
+}
