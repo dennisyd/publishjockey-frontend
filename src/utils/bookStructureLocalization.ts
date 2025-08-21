@@ -144,6 +144,58 @@ const localizedStructures = {
     ],
     main: ["அத்தியாயம் 1", "அத்தியாயம் 2", "அத்தியாயம் 3"],
     back: ["எழுத்தாளர் பற்றி", "இணைப்பு", "குறிப்புகள்", "நூற்பட்டியல்", "அட்டவணை", "சொற்களஞ்சியம்"]
+  },
+  af: {
+    front: [
+      "Titel",
+      "Titelblad",
+      "Kopiereg",
+      "Opdrag",
+      "Erkenning",
+      "Voorwoord",
+      "Inleiding"
+    ],
+    main: ["Hoofstuk 1", "Hoofstuk 2", "Hoofstuk 3"],
+    back: ["Oor die Skrywer", "Aanhangsel", "Verwysings", "Bibliografie", "Indeks", "Woordelys"]
+  },
+  sq: {
+    front: [
+      "Titulli",
+      "Faqja e Titullit",
+      "Të Drejtat e Autorit",
+      "Dedikimi",
+      "Falënderimet",
+      "Fjala e Parë",
+      "Hyrja"
+    ],
+    main: ["Kapitulli 1", "Kapitulli 2", "Kapitulli 3"],
+    back: ["Rreth Autorit", "Shtojca", "Referencat", "Bibliografia", "Indeksi", "Fjalori"]
+  },
+  bs: {
+    front: [
+      "Naslov",
+      "Naslovna stranica",
+      "Autorska prava",
+      "Posveta",
+      "Zahvale",
+      "Predgovor",
+      "Uvod"
+    ],
+    main: ["Poglavlje 1", "Poglavlje 2", "Poglavlje 3"],
+    back: ["O autoru", "Dodatak", "Reference", "Bibliografija", "Indeks", "Rječnik"]
+  },
+  ca: {
+    front: [
+      "Títol",
+      "Pàgina de títol",
+      "Drets d'autor",
+      "Dedicatòria",
+      "Agraïments",
+      "Pròleg",
+      "Introducció"
+    ],
+    main: ["Capítol 1", "Capítol 2", "Capítol 3"],
+    back: ["Sobre l'autor", "Apèndix", "Referències", "Bibliografia", "Índex", "Glossari"]
   }
 };
 
@@ -177,7 +229,11 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     ar: "الفصل",
     he: "פרק",
     yi: "קאַפּיטל",
-    ta: "அத்தியாயம்"
+    ta: "அத்தியாயம்",
+    af: "Hoofstuk",
+    sq: "Kapitulli",
+    bs: "Poglavlje",
+    ca: "Capítol"
   };
   
   const chapterName = chapterNames[language as keyof typeof chapterNames] || chapterNames.en;
@@ -241,6 +297,26 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       frontMatter: "முன்னுரைப் பொருட்கள்",
       mainMatter: "முதன்மைப் பொருட்கள்",
       backMatter: "இறுதிப் பொருட்கள்"
+    },
+    af: {
+      frontMatter: "Voorafgaande Materiaal",
+      mainMatter: "Hoofmateriaal",
+      backMatter: "Agtermateriaal"
+    },
+    sq: {
+      frontMatter: "Materiali Para",
+      mainMatter: "Materiali Kryesor",
+      backMatter: "Materiali Pas"
+    },
+    bs: {
+      frontMatter: "Prednji materijal",
+      mainMatter: "Glavni materijal",
+      backMatter: "Zadnji materijal"
+    },
+    ca: {
+      frontMatter: "Material preliminar",
+      mainMatter: "Material principal",
+      backMatter: "Material posterior"
     }
   };
   

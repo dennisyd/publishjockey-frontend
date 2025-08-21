@@ -1,0 +1,164 @@
+{
+  "common": {
+    "save": "Desa",
+    "cancel": "Cancel·la",
+    "delete": "Elimina",
+    "edit": "Edita",
+    "add": "Afegeix",
+    "close": "Tanca",
+    "loading": "Carregant...",
+    "error": "Error",
+    "success": "Èxit",
+    "warning": "Advertència",
+    "info": "Informació"
+  },
+  "navigation": {
+    "home": "Inici",
+    "dashboard": "Tauler de control",
+    "admin": "Admin",
+    "settings": "Configuració",
+    "logout": "Tanca sessió",
+    "profile": "Perfil"
+  },
+  "book": {
+    "structure": {
+      "frontMatter": "Material preliminar",
+      "mainMatter": "Material principal",
+      "backMatter": "Material posterior",
+      "title": "Títol",
+      "titlePage": "Pàgina de títol",
+      "copyright": "Drets d'autor",
+      "dedication": "Dedicatòria",
+      "acknowledgments": "Agraïments",
+      "foreword": "Pròleg",
+      "introduction": "Introducció",
+      "chapter": "Capítol",
+      "aboutAuthor": "Sobre l'autor",
+      "appendix": "Apèndix",
+      "references": "Referències",
+      "bibliography": "Bibliografia",
+      "index": "Índex",
+      "glossary": "Glossari"
+    },
+    "actions": {
+      "newBook": "Nou llibre",
+      "export": "Exporta",
+      "import": "Importa",
+      "save": "Desa",
+      "preview": "Vista prèvia"
+    }
+  },
+  "export": {
+    "title": "Exporta el llibre",
+    "format": "Format",
+    "language": "Idioma",
+    "font": "Font",
+    "settings": "Configuració d'exportació",
+    "processing": "Processant exportació..."
+  },
+  "settings": {
+    "title": "Configuració",
+    "language": "Idioma",
+    "documentLanguage": "Idioma del document",
+    "interfaceLanguage": "Idioma de la interfície",
+    "font": "Font",
+    "theme": "Tema",
+    "autoSave": "Desat automàtic"
+  },
+  "auth": {
+    "login": {
+      "title": "Benvingut de nou",
+      "subtitle": "Inicia sessió al teu compte",
+      "email": "Adreça de correu electrònic",
+      "password": "Contrasenya",
+      "rememberMe": "Recorda'm",
+      "forgotPassword": "Has oblidat la contrasenya?",
+      "noAccount": "No tens compte?",
+      "signUp": "Registra't",
+      "error": "Correu electrònic o contrasenya incorrectes"
+    },
+    "register": {
+      "title": "Crea compte",
+      "subtitle": "Uneix-te a milers d'escriptors",
+      "name": "Nom complet",
+      "email": "Adreça de correu electrònic",
+      "password": "Contrasenya",
+      "confirmPassword": "Confirma la contrasenya",
+      "agreeTerms": "Accepto els Termes i condicions i la Política de privadesa",
+      "haveAccount": "Ja tens compte?",
+      "signIn": "Inicia sessió",
+      "error": "El registre ha fallat"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Gratuït",
+        "description": "Prova abans de comprar amb les primeres 12 pàgines. Perfecte per provar la plataforma.",
+        "features": [
+          "1 projecte de llibre",
+          "Exportació limitada a les primeres 12 pàgines",
+          "Formatació assistida per IA",
+          "Marca d'aigua al resultat",
+          "Document Word dividit segons seccions H1",
+          "2 imatges incloses"
+        ]
+      },
+      "single": {
+        "name": "Llibre únic",
+        "description": "Compra única (vàlida 3 anys)",
+        "features": [
+          "1 projecte de llibre",
+          "Exportació completa del llibre",
+          "Formatació assistida per IA",
+          "Resultat sense marca d'aigua",
+          "Document Word dividit segons seccions H1",
+          "10 imatges incloses"
+        ]
+      },
+      "bundle5": {
+        "name": "Paquet 5 llibres",
+        "description": "Excel·lent valor per múltiples llibres (vàlida 3 anys)",
+        "features": [
+          "5 projectes de llibres",
+          "Exportació completa del llibre",
+          "Formatació assistida per IA",
+          "Resultat sense marca d'aigua",
+          "Document Word dividit segons seccions H1",
+          "50 imatges incloses"
+        ]
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Benvingut",
+    "recentProjects": "Projectes recents",
+    "createNew": "Crea nou projecte",
+    "stats": {
+      "totalBooks": "Total de llibres",
+      "publishedBooks": "Llibres publicats",
+      "draftBooks": "Llibres en esborrany"
+    }
+  },
+  "admin": {
+    "dashboard": "Tauler d'administració",
+    "users": "Gestió d'usuaris",
+    "testimonials": "Gestió de testimoniatges",
+    "stats": "Estadístiques",
+    "audit": "Registre d'auditoria",
+    "actions": {
+      "approve": "Aprova",
+      "reject": "Rebutja",
+      "suspend": "Suspèn",
+      "activate": "Activa",
+      "delete": "Elimina"
+    }
+  },
+  "errors": {
+    "general": "S'ha produït un error. Si us plau, torna-ho a provar.",
+    "network": "Error de xarxa. Comprova la teva connexió a internet.",
+    "unauthorized": "No tens l'autorització necessària per a aquesta acció.",
+    "notFound": "No s'ha trobat el recurs sol·licitat.",
+    "validation": "Dades no vàlides. Comprova la informació introduïda."
+  }
+}

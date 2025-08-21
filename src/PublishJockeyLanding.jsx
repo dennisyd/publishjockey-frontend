@@ -346,7 +346,7 @@ const TickerTape = () => {
     { text: "📖 Ebook plans: 50-page limit for shorter works. Full Books: unlimited pages for complete manuscripts!" },
     { text: "🎨 Full Service: Complete package with 3 custom cover designs + optional KDP setup!" },
     { text: "🌍 Multi-lingual support for 100+ languages including Spanish, French, German, Russian & more!" },
-    { text: "⚠️ Verify native language quality before purchasing—test exports thoroughly!" },
+    { text: "⚠️ Verify native language quality before purchasing—test export with free plan!" },
     { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
     { text: "📘 Your manuscript isn't stored—only Markdown files while your account is active." },
     { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
@@ -3521,6 +3521,11 @@ const FAQ = () => {
           id: "language-switching",
           question: "How do I change the interface language?",
           answer: "You can change the interface language in two ways:<br><br><strong>From the Navigation Bar:</strong> Look for the language selector in the top navigation bar. Click on it to see all available languages and select your preferred language.<br><br><strong>From Settings:</strong> Go to your account Settings page and find the 'Language & Font Settings' section. Select your preferred interface language from the dropdown menu.<br><br>The language change takes effect immediately and will be remembered for future visits. Note that changing the interface language does not affect the language of your document content."
+        },
+        {
+          id: "book-structure-localization",
+          question: "How does language switching affect my book's chapter structure?",
+          answer: "Here's how language switching works with your book's chapter structure:<br><br><strong>New Projects:</strong> When you create a new book, the default chapter names (like 'Chapter 1', 'Title Page', etc.) will automatically appear in your selected interface language.<br><br><strong>Existing Projects:</strong> For existing books, the chapter structure is loaded based on the language you had selected when you first accessed the project. If you want the default chapter names to appear in a different language, you should:<br><br>1. <strong>Select your preferred language first</strong> (from the navigation bar or Settings)<br>2. <strong>Then load or create your project</strong><br><br><strong>Language Switching After Loading:</strong> Changing the interface language after a project is loaded will not automatically update existing chapter names. This is by design to preserve any custom chapter names you may have added.<br><br><strong>Custom Chapters:</strong> Any chapters you've added or renamed yourself will always remain unchanged, regardless of language switching. Only the default system chapter names are affected by language selection."
         }
       ]
     },

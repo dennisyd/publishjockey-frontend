@@ -15,6 +15,10 @@ import ar from './locales/ar.json';
 import he from './locales/he.json';
 import yi from './locales/yi.json';
 import ta from './locales/ta.json';
+import af from './locales/af.json';
+import sq from './locales/sq.json';
+import bs from './locales/bs.json';
+import ca from './locales/ca.json';
 
 const resources = {
   en: { translation: en },
@@ -27,7 +31,11 @@ const resources = {
   ar: { translation: ar },
   he: { translation: he },
   yi: { translation: yi },
-  ta: { translation: ta }
+  ta: { translation: ta },
+  af: { translation: af },
+  sq: { translation: sq },
+  bs: { translation: bs },
+  ca: { translation: ca }
 };
 
 i18n

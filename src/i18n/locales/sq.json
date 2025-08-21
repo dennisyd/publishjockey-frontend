@@ -1,0 +1,164 @@
+{
+  "common": {
+    "save": "Ruaj",
+    "cancel": "Anulo",
+    "delete": "Fshi",
+    "edit": "Redakto",
+    "add": "Shto",
+    "close": "Mbyll",
+    "loading": "Duke ngarkuar...",
+    "error": "Gabim",
+    "success": "Sukses",
+    "warning": "Paralajmërim",
+    "info": "Informacion"
+  },
+  "navigation": {
+    "home": "Kryesore",
+    "dashboard": "Paneli",
+    "admin": "Admin",
+    "settings": "Cilësimet",
+    "logout": "Dil",
+    "profile": "Profili"
+  },
+  "book": {
+    "structure": {
+      "frontMatter": "Materiali Para",
+      "mainMatter": "Materiali Kryesor",
+      "backMatter": "Materiali Pas",
+      "title": "Titulli",
+      "titlePage": "Faqja e Titullit",
+      "copyright": "Të Drejtat e Autorit",
+      "dedication": "Dedikimi",
+      "acknowledgments": "Falënderimet",
+      "foreword": "Fjala e Parë",
+      "introduction": "Hyrja",
+      "chapter": "Kapitulli",
+      "aboutAuthor": "Rreth Autorit",
+      "appendix": "Shtojca",
+      "references": "Referencat",
+      "bibliography": "Bibliografia",
+      "index": "Indeksi",
+      "glossary": "Fjalori"
+    },
+    "actions": {
+      "newBook": "Libër i ri",
+      "export": "Eksporto",
+      "import": "Importo",
+      "save": "Ruaj",
+      "preview": "Parapamje"
+    }
+  },
+  "export": {
+    "title": "Eksporto librin",
+    "format": "Formati",
+    "language": "Gjuha",
+    "font": "Shkronjat",
+    "settings": "Cilësimet e eksportit",
+    "processing": "Duke përpunuar eksportin..."
+  },
+  "settings": {
+    "title": "Cilësimet",
+    "language": "Gjuha",
+    "documentLanguage": "Gjuha e dokumentit",
+    "interfaceLanguage": "Gjuha e ndërfaqes",
+    "font": "Shkronjat",
+    "theme": "Tema",
+    "autoSave": "Ruajtje automatike"
+  },
+  "auth": {
+    "login": {
+      "title": "Mirë se u ktheve",
+      "subtitle": "Hyr në llogarinë tënde",
+      "email": "Adresa e emailit",
+      "password": "Fjalëkalimi",
+      "rememberMe": "Më mbaj mend",
+      "forgotPassword": "Keni harruar fjalëkalimin?",
+      "noAccount": "Nuk keni llogari?",
+      "signUp": "Regjistrohu",
+      "error": "Email ose fjalëkalim i gabuar"
+    },
+    "register": {
+      "title": "Krijo llogari",
+      "subtitle": "Bashkohu me mijëra shkrimtarë",
+      "name": "Emri i plotë",
+      "email": "Adresa e emailit",
+      "password": "Fjalëkalimi",
+      "confirmPassword": "Konfirmo fjalëkalimin",
+      "agreeTerms": "Pajtohem me Kushtet dhe Rregullat dhe Politikën e Privatësisë",
+      "haveAccount": "Keni tashmë një llogari?",
+      "signIn": "Hyr",
+      "error": "Regjistrimi dështoi"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Falas",
+        "description": "Provo para se të blerësh me 12 faqet e para. Perfekt për testimin e platformës.",
+        "features": [
+          "1 projekt libri",
+          "Eksport i kufizuar në 12 faqet e para",
+          "Formatim i asistuar nga AI",
+          "Filigran në rezultat",
+          "Dokumenti Word i ndarë sipas seksioneve H1",
+          "2 imazhe të përfshira"
+        ]
+      },
+      "single": {
+        "name": "Libër i vetëm",
+        "description": "Blerje një herë (e vlefshme për 3 vjet)",
+        "features": [
+          "1 projekt libri",
+          "Eksport i plotë i librit",
+          "Formatim i asistuar nga AI",
+          "Rezultat pa filigran",
+          "Dokumenti Word i ndarë sipas seksioneve H1",
+          "10 imazhe të përfshira"
+        ]
+      },
+      "bundle5": {
+        "name": "Paketa 5 libra",
+        "description": "Vlerë e shkëlqyeshme për libra të shumëfishtë (e vlefshme për 3 vjet)",
+        "features": [
+          "5 projekte libri",
+          "Eksport i plotë i librit",
+          "Formatim i asistuar nga AI",
+          "Rezultat pa filigran",
+          "Dokumenti Word i ndarë sipas seksioneve H1",
+          "50 imazhe të përfshira"
+        ]
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Mirë se vini",
+    "recentProjects": "Projektet e fundit",
+    "createNew": "Krijo projekt të ri",
+    "stats": {
+      "totalBooks": "Totali i librave",
+      "publishedBooks": "Librat e botuar",
+      "draftBooks": "Librat në draft"
+    }
+  },
+  "admin": {
+    "dashboard": "Paneli i administratorit",
+    "users": "Menaxhimi i përdoruesve",
+    "testimonials": "Menaxhimi i dëshmive",
+    "stats": "Statistikat",
+    "audit": "Ditari i auditimit",
+    "actions": {
+      "approve": "Mirato",
+      "reject": "Refuzo",
+      "suspend": "Pezullo",
+      "activate": "Aktivizo",
+      "delete": "Fshi"
+    }
+  },
+  "errors": {
+    "general": "Ndodhi një gabim. Ju lutemi provoni përsëri.",
+    "network": "Gabim rrjeti. Kontrolloni lidhjen tuaj të internetit.",
+    "unauthorized": "Ju nuk keni autorizimin e nevojshëm për këtë veprim.",
+    "notFound": "Burimi i kërkuar nuk u gjet.",
+    "validation": "Të dhëna të pavlefshme. Kontrolloni informacionin e dhënë."
+  }
+}

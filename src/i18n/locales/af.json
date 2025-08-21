@@ -1,0 +1,164 @@
+{
+  "common": {
+    "save": "Stoor",
+    "cancel": "Kanselleer",
+    "delete": "Verwyder",
+    "edit": "Redigeer",
+    "add": "Voeg by",
+    "close": "Sluit",
+    "loading": "Laai...",
+    "error": "Fout",
+    "success": "Sukses",
+    "warning": "Waarskuwing",
+    "info": "Inligting"
+  },
+  "navigation": {
+    "home": "Tuis",
+    "dashboard": "Dashboard",
+    "admin": "Admin",
+    "settings": "Instellings",
+    "logout": "Teken uit",
+    "profile": "Profiel"
+  },
+  "book": {
+    "structure": {
+      "frontMatter": "Voorafgaande Materiaal",
+      "mainMatter": "Hoofmateriaal",
+      "backMatter": "Agtermateriaal",
+      "title": "Titel",
+      "titlePage": "Titelblad",
+      "copyright": "Kopiereg",
+      "dedication": "Opdrag",
+      "acknowledgments": "Erkenning",
+      "foreword": "Voorwoord",
+      "introduction": "Inleiding",
+      "chapter": "Hoofstuk",
+      "aboutAuthor": "Oor die Skrywer",
+      "appendix": "Aanhangsel",
+      "references": "Verwysings",
+      "bibliography": "Bibliografie",
+      "index": "Indeks",
+      "glossary": "Woordelys"
+    },
+    "actions": {
+      "newBook": "Nuwe boek",
+      "export": "Eksporteer",
+      "import": "Importeer",
+      "save": "Stoor",
+      "preview": "Voorskou"
+    }
+  },
+  "export": {
+    "title": "Eksporteer boek",
+    "format": "Formaat",
+    "language": "Taal",
+    "font": "Font",
+    "settings": "Eksportinstellings",
+    "processing": "Verwerk eksport..."
+  },
+  "settings": {
+    "title": "Instellings",
+    "language": "Taal",
+    "documentLanguage": "Dokumenttaal",
+    "interfaceLanguage": "Koppelvlaktaal",
+    "font": "Font",
+    "theme": "Tema",
+    "autoSave": "Outomatiese stoor"
+  },
+  "auth": {
+    "login": {
+      "title": "Welkom terug",
+      "subtitle": "Teken in op jou rekening",
+      "email": "E-posadres",
+      "password": "Wagwoord",
+      "rememberMe": "Onthou my",
+      "forgotPassword": "Wagwoord vergeet?",
+      "noAccount": "Het jy nie 'n rekening nie?",
+      "signUp": "Teken aan",
+      "error": "Verkeerde e-pos of wagwoord"
+    },
+    "register": {
+      "title": "Skep rekening",
+      "subtitle": "Sluit aan by duisende skrywers",
+      "name": "Volle naam",
+      "email": "E-posadres",
+      "password": "Wagwoord",
+      "confirmPassword": "Bevestig wagwoord",
+      "agreeTerms": "Ek stem in tot die Terme en Voorwaardes en Privaatheidsbeleid",
+      "haveAccount": "Het jy reeds 'n rekening?",
+      "signIn": "Teken in",
+      "error": "Registrasie het misluk"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Gratis",
+        "description": "Probeer voor jy koop met die eerste 12 bladsye. Perfek vir die toetsing van die platform.",
+        "features": [
+          "1 boekprojek",
+          "Eksport beperk tot eerste 12 bladsye",
+          "AI-aangedrewe formatering",
+          "Watermerk op resultaat",
+          "Word-dokument opgedeel volgens H1-afdelings",
+          "2 beelde ingesluit"
+        ]
+      },
+      "single": {
+        "name": "Enkele boek",
+        "description": "Eenmalige aankoop (geldig vir 3 jaar)",
+        "features": [
+          "1 boekprojek",
+          "Volledige boekeksport",
+          "AI-aangedrewe formatering",
+          "Resultaat sonder watermerk",
+          "Word-dokument opgedeel volgens H1-afdelings",
+          "10 beelde ingesluit"
+        ]
+      },
+      "bundle5": {
+        "name": "5-boek pakket",
+        "description": "Uitstekende waarde vir verskeie boeke (geldig vir 3 jaar)",
+        "features": [
+          "5 boekprojekte",
+          "Volledige boekeksport",
+          "AI-aangedrewe formatering",
+          "Resultaat sonder watermerk",
+          "Word-dokument opgedeel volgens H1-afdelings",
+          "50 beelde ingesluit"
+        ]
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Welkom",
+    "recentProjects": "Onlangse projekte",
+    "createNew": "Skep nuwe projek",
+    "stats": {
+      "totalBooks": "Totale boeke",
+      "publishedBooks": "Gepubliseerde boeke",
+      "draftBooks": "Konsepboeke"
+    }
+  },
+  "admin": {
+    "dashboard": "Admin dashboard",
+    "users": "Gebruikersbestuur",
+    "testimonials": "Getuienisbestuur",
+    "stats": "Statistieke",
+    "audit": "Ouditjoernaal",
+    "actions": {
+      "approve": "Keur goed",
+      "reject": "Verwerp",
+      "suspend": "Skors",
+      "activate": "Aktiveer",
+      "delete": "Verwyder"
+    }
+  },
+  "errors": {
+    "general": "Daar het 'n fout voorgekom. Probeer asseblief weer.",
+    "network": "Netwerkfout. Kontroleer jou internetverbinding.",
+    "unauthorized": "Jy het nie die nodige magtiging vir hierdie aksie nie.",
+    "notFound": "Die aangevraagde hulpbron is nie gevind nie.",
+    "validation": "Ongeldige data. Kontroleer die ingevoerde inligting."
+  }
+}

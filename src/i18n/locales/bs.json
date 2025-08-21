@@ -1,0 +1,164 @@
+{
+  "common": {
+    "save": "Sačuvaj",
+    "cancel": "Otkaži",
+    "delete": "Obriši",
+    "edit": "Uredi",
+    "add": "Dodaj",
+    "close": "Zatvori",
+    "loading": "Učitavanje...",
+    "error": "Greška",
+    "success": "Uspjeh",
+    "warning": "Upozorenje",
+    "info": "Informacije"
+  },
+  "navigation": {
+    "home": "Početna",
+    "dashboard": "Kontrolna ploča",
+    "admin": "Admin",
+    "settings": "Postavke",
+    "logout": "Odjavi se",
+    "profile": "Profil"
+  },
+  "book": {
+    "structure": {
+      "frontMatter": "Prednji materijal",
+      "mainMatter": "Glavni materijal",
+      "backMatter": "Zadnji materijal",
+      "title": "Naslov",
+      "titlePage": "Naslovna stranica",
+      "copyright": "Autorska prava",
+      "dedication": "Posveta",
+      "acknowledgments": "Zahvale",
+      "foreword": "Predgovor",
+      "introduction": "Uvod",
+      "chapter": "Poglavlje",
+      "aboutAuthor": "O autoru",
+      "appendix": "Dodatak",
+      "references": "Reference",
+      "bibliography": "Bibliografija",
+      "index": "Indeks",
+      "glossary": "Rječnik"
+    },
+    "actions": {
+      "newBook": "Nova knjiga",
+      "export": "Izvoz",
+      "import": "Uvoz",
+      "save": "Sačuvaj",
+      "preview": "Pregled"
+    }
+  },
+  "export": {
+    "title": "Izvezi knjigu",
+    "format": "Format",
+    "language": "Jezik",
+    "font": "Font",
+    "settings": "Postavke izvoza",
+    "processing": "Obrada izvoza..."
+  },
+  "settings": {
+    "title": "Postavke",
+    "language": "Jezik",
+    "documentLanguage": "Jezik dokumenta",
+    "interfaceLanguage": "Jezik sučelja",
+    "font": "Font",
+    "theme": "Tema",
+    "autoSave": "Automatsko spremanje"
+  },
+  "auth": {
+    "login": {
+      "title": "Dobrodošli nazad",
+      "subtitle": "Prijavite se na svoj račun",
+      "email": "Email adresa",
+      "password": "Lozinka",
+      "rememberMe": "Zapamti me",
+      "forgotPassword": "Zaboravili ste lozinku?",
+      "noAccount": "Nemate račun?",
+      "signUp": "Registrirajte se",
+      "error": "Pogrešan email ili lozinka"
+    },
+    "register": {
+      "title": "Kreiraj račun",
+      "subtitle": "Pridružite se tisućama pisaca",
+      "name": "Puno ime",
+      "email": "Email adresa",
+      "password": "Lozinka",
+      "confirmPassword": "Potvrdi lozinku",
+      "agreeTerms": "Slažem se s Uvjetima korištenja i Politikom privatnosti",
+      "haveAccount": "Već imate račun?",
+      "signIn": "Prijavite se",
+      "error": "Registracija nije uspjela"
+    }
+  },
+  "pricing": {
+    "plans": {
+      "free": {
+        "name": "Besplatno",
+        "description": "Isprobajte prije kupnje s prvih 12 stranica. Savršeno za testiranje platforme.",
+        "features": [
+          "1 projekt knjige",
+          "Izvoz ograničen na prvih 12 stranica",
+          "AI-pomognuto formatiranje",
+          "Vodeni žig na rezultatu",
+          "Word dokument podijeljen prema H1 sekcijama",
+          "2 slike uključene"
+        ]
+      },
+      "single": {
+        "name": "Pojedinačna knjiga",
+        "description": "Jednokratna kupnja (vrijedi 3 godine)",
+        "features": [
+          "1 projekt knjige",
+          "Potpuni izvoz knjige",
+          "AI-pomognuto formatiranje",
+          "Rezultat bez vodenog žiga",
+          "Word dokument podijeljen prema H1 sekcijama",
+          "10 slika uključeno"
+        ]
+      },
+      "bundle5": {
+        "name": "Paket 5 knjiga",
+        "description": "Izvrsna vrijednost za više knjiga (vrijedi 3 godine)",
+        "features": [
+          "5 projekata knjiga",
+          "Potpuni izvoz knjige",
+          "AI-pomognuto formatiranje",
+          "Rezultat bez vodenog žiga",
+          "Word dokument podijeljen prema H1 sekcijama",
+          "50 slika uključeno"
+        ]
+      }
+    }
+  },
+  "dashboard": {
+    "welcome": "Dobrodošli",
+    "recentProjects": "Nedavni projekti",
+    "createNew": "Kreiraj novi projekt",
+    "stats": {
+      "totalBooks": "Ukupno knjiga",
+      "publishedBooks": "Objavljene knjige",
+      "draftBooks": "Knjige u nacrtu"
+    }
+  },
+  "admin": {
+    "dashboard": "Admin kontrolna ploča",
+    "users": "Upravljanje korisnicima",
+    "testimonials": "Upravljanje svjedočanstvima",
+    "stats": "Statistike",
+    "audit": "Revizijski dnevnik",
+    "actions": {
+      "approve": "Odobri",
+      "reject": "Odbaci",
+      "suspend": "Suspendiraj",
+      "activate": "Aktiviraj",
+      "delete": "Obriši"
+    }
+  },
+  "errors": {
+    "general": "Došlo je do greške. Molimo pokušajte ponovo.",
+    "network": "Greška mreže. Provjerite svoju internetsku vezu.",
+    "unauthorized": "Nemate potrebnu dozvolu za ovu akciju.",
+    "notFound": "Traženi resurs nije pronađen.",
+    "validation": "Nevažeći podaci. Provjerite unesene informacije."
+  }
+}

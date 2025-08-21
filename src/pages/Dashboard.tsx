@@ -3,6 +3,7 @@ import { ENV } from '../config/env';
 import { useNavigate } from 'react-router-dom';
 import { http } from '../services/http';
 import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
 import { 
   Box, 
   Typography, 
@@ -15,12 +16,17 @@ import {
   DialogActions,
   TextField,
   Paper,
-  Alert
+  Alert,
+  Chip,
+  ClickAwayListener
 } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import LanguageIcon from '@mui/icons-material/Language';
 import FairUseNotice from '../components/FairUseNotice';
 import ImageUsageDisplay from '../components/ImageUsageDisplay';
 import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
+import SearchableLanguageSelector from '../components/SearchableLanguageSelector';
+import { getLanguageByCode } from '../config/languages';
 
 // Error boundary component to catch runtime errors
 interface ErrorBoundaryProps {
@@ -93,10 +99,12 @@ const Dashboard: React.FC = () => {
   const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
   const [subscriptionLoading, setSubscriptionLoading] = useState(false);
   const [showImagePurchaseModal, setShowImagePurchaseModal] = useState(false);
+  const [showLanguageSelector, setShowLanguageSelector] = useState(false);
 
   const navigate = useNavigate();
   const [error, setError] = useState<string | null>(null);
   const { currentUser } = useAuth();
+  const { i18n } = useTranslation();
 
   useEffect(() => {
     // Fetch projects
@@ -297,6 +305,18 @@ const Dashboard: React.FC = () => {
       console.error('Error opening project:', error);
     }
   };
+
+  // Handle language change
+  const handleLanguageChange = (languageCode: string) => {
+    i18n.changeLanguage(languageCode);
+    setShowLanguageSelector(false);
+  };
+
+  const handleClickAway = () => {
+    setShowLanguageSelector(false);
+  };
+
+  const currentLanguage = getLanguageByCode(i18n.language);
   
   // Generate a random pastel color for book covers
   const generateBookColor = (seed: string) => {
@@ -317,28 +337,71 @@ const Dashboard: React.FC = () => {
     <ErrorBoundary>
       <Box sx={{ p: { xs: 2, md: 4 } }}>
         {/* Page header */}
-        <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-          <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>My Books</Typography>
-          <Button 
-            variant="contained" 
-            color="primary" 
-            startIcon={<AddIcon />}
-            onClick={() => setNewProjectDialogOpen(true)}
-            disabled={booksRemaining !== null && booksRemaining <= 0}
-            sx={{ 
-              borderRadius: 2,
-              px: 3,
-              py: 1,
-              fontWeight: 600,
-              boxShadow: 'none',
-              '&:hover': { 
-                boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)' 
-              }
-            }}
-          >
-            NEW BOOK
-          </Button>
-        </Box>
+        <ClickAwayListener onClickAway={handleClickAway}>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
+            <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>My Books</Typography>
+            <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+              {/* Language Selector */}
+              <Box sx={{ position: 'relative' }}>
+                <Button
+                  variant="outlined"
+                  startIcon={<LanguageIcon />}
+                  onClick={() => setShowLanguageSelector(!showLanguageSelector)}
+                  sx={{
+                    borderRadius: 2,
+                    px: 2,
+                    py: 1,
+                    borderColor: 'divider',
+                    color: 'text.primary',
+                    '&:hover': {
+                      borderColor: 'primary.main',
+                      backgroundColor: 'rgba(25, 118, 210, 0.04)'
+                    }
+                  }}
+                >
+                  {currentLanguage?.flag} {currentLanguage?.name}
+                </Button>
+                
+                {showLanguageSelector && (
+                  <Box sx={{ 
+                    position: 'absolute', 
+                    top: '100%', 
+                    right: 0, 
+                    mt: 1, 
+                    zIndex: 1300,
+                    minWidth: 300
+                  }}>
+                    <SearchableLanguageSelector
+                      onLanguageChange={handleLanguageChange}
+                      currentLanguage={i18n.language}
+                      placeholder="Search 50+ languages..."
+                    />
+                  </Box>
+                )}
+              </Box>
+              
+              <Button 
+                variant="contained" 
+                color="primary" 
+                startIcon={<AddIcon />}
+                onClick={() => setNewProjectDialogOpen(true)}
+                disabled={booksRemaining !== null && booksRemaining <= 0}
+                sx={{ 
+                  borderRadius: 2,
+                  px: 3,
+                  py: 1,
+                  fontWeight: 600,
+                  boxShadow: 'none',
+                  '&:hover': { 
+                    boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)' 
+                  }
+                }}
+              >
+                NEW BOOK
+              </Button>
+            </Box>
+          </Box>
+        </ClickAwayListener>
         
         {/* Fair Use Notice - only show for 'author' subscription type */}
         {subscriptionType && subscriptionType.toLowerCase() === 'author' && (
