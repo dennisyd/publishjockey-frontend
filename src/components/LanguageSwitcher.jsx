@@ -22,7 +22,8 @@ const LanguageSwitcher = ({ variant = 'select', sx = {} }) => {
     { code: 'ru', name: 'Русский', flag: '🇷🇺' },
     { code: 'ar', name: 'العربية', flag: '🇸🇦' },
     { code: 'he', name: 'עברית', flag: '🇮🇱' },
-    { code: 'yi', name: 'יידיש', flag: '🇮🇱' }
+    { code: 'yi', name: 'יידיש', flag: '🇮🇱' },
+  { code: 'ta', name: 'தமிழ்', flag: '🇮🇳' }
   ];
 
   const handleLanguageChange = (event) => {

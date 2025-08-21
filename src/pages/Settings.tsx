@@ -77,6 +77,11 @@ const Settings: React.FC = () => {
       { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Recommended)', description: 'Hebrew script' },
       { value: 'Noto Serif Hebrew', label: 'Noto Serif Hebrew', description: 'Hebrew serif font' },
       { value: 'Noto Rashi Hebrew', label: 'Noto Rashi Hebrew', description: 'Hebrew Rashi script' }
+    ],
+    // Tamil
+    tamil: [
+      { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Recommended)', description: 'Tamil script' },
+      { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil', description: 'Tamil serif font' }
     ]
   };
 
@@ -90,7 +95,8 @@ const Settings: React.FC = () => {
     ar: 'arabic',
     ru: 'russian',
     he: 'hebrew',
-    yi: 'hebrew' // Yiddish uses Hebrew script
+    yi: 'hebrew', // Yiddish uses Hebrew script
+    ta: 'tamil'
   };
 
   // Get recommended fonts for current language

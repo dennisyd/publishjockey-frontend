@@ -13,6 +13,7 @@ import ru from './locales/ru.json';
 import ar from './locales/ar.json';
 import he from './locales/he.json';
 import yi from './locales/yi.json';
+import ta from './locales/ta.json';
 
 const resources = {
   en: { translation: en },
@@ -23,7 +24,8 @@ const resources = {
   ru: { translation: ru },
   ar: { translation: ar },
   he: { translation: he },
-  yi: { translation: yi }
+  yi: { translation: yi },
+  ta: { translation: ta }
 };
 
 i18n

@@ -76,6 +76,10 @@ const serverFonts = [
   // Hindi fonts (Devanagari script)
   { value: 'Noto Sans Devanagari', label: 'Noto Sans Devanagari (Hindi)' },
   
+  // Tamil fonts
+  { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Tamil)' },
+  { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil (Tamil)' },
+  
   // Cyrillic fonts (for Russian)
   { value: 'Times New Roman Cyrillic', label: 'Times New Roman (Cyrillic)' },
   { value: 'Liberation Serif Cyrillic', label: 'Liberation Serif (Cyrillic)' },
@@ -94,7 +98,8 @@ const languageOptions = [
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
   { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' },
   { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },
-  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' }
+  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' },
+  { value: 'ta', label: '🇮🇳 தமிழ்', description: 'Tamil' }
 ];
 
 
@@ -459,9 +464,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
       // Languages that need special fonts
       'ar': 'Noto Sans Arabic', // Arabic
       'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
-      'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
-      'he': 'Noto Sans Hebrew', // Hebrew
-      'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
+             'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
+       'ta': 'Noto Sans Tamil', // Tamil
+       'he': 'Noto Sans Hebrew', // Hebrew
+       'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
       
       // All Latin-based languages use the same default font
       'latin': 'Liberation Serif'
@@ -716,15 +722,15 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Alert>
                 )}
 
-                {/* Font Family - Only show for Latin-based languages */}
-                {['en', 'es', 'fr', 'de', 'it', 'id', 'ru'].includes(settings.language || 'en') && (
+                                 {/* Font Family - Only show for Latin-based languages */}
+                 {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
                   <>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                     <FormControl fullWidth sx={{ mb: 2 }}>
                       <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
-                        {fontOptions.filter(font => 
-                          ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'].includes(font.value)
-                        ).map(font => (
+                                                 {fontOptions.filter(font => 
+                           ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value)
+                         ).map(font => (
                           <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
                         ))}
                       </Select>
@@ -732,12 +738,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </>
                 )}
 
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  {['en', 'es', 'fr', 'de', 'it', 'id', 'ru'].includes(settings.language || 'en') 
-                    ? '💡 Choose your preferred font for Latin-based languages.'
-                    : '💡 The optimal font for your selected language is automatically chosen for best rendering.'
-                  }
-                </Typography>
+                                 <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                   {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') 
+                     ? '💡 Choose your preferred font for Latin-based languages and Tamil.'
+                     : '💡 The optimal font for your selected language is automatically chosen for best rendering.'
+                   }
+                 </Typography>
               </>
             )}
 
