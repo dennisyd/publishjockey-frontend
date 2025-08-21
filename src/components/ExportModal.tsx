@@ -64,6 +64,9 @@ const serverFonts = [
   { value: 'DejaVu Serif', label: 'DejaVu Serif' },
   { value: 'Liberation Sans', label: 'Liberation Sans' },
   { value: 'DejaVu Sans', label: 'DejaVu Sans' },
+  // Professional book fonts
+  { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' },
+  { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)' },
   
   // Arabic fonts
   { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
@@ -756,10 +759,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
                             return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
                           }
                           
-                          // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
-                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                            return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans'].includes(font.value);
-                          }
+                                                     // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
+                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                             return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'].includes(font.value);
+                           }
                           
                           return false;
                         }).map(font => (

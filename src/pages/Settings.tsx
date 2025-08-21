@@ -58,6 +58,8 @@ const Settings: React.FC = () => {
     // Latin-based languages (English, Spanish, French, German, Italian)
     latin: [
       { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Linux equivalent of Times New Roman' },
+      { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)', description: 'High-quality academic and book typography' },
+      { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)', description: 'Professional publishing font, similar to Times New Roman' },
       { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Unicode support' },
       { value: 'Liberation Sans', label: 'Liberation Sans', description: 'Linux equivalent of Arial' },
       { value: 'DejaVu Sans', label: 'DejaVu Sans', description: 'Clean sans-serif font' }
