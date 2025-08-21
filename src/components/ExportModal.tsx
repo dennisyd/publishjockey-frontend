@@ -196,8 +196,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
     htmlStylesheet: 'default',
     // Force title page to be first
     forceTitleFirst: true,
-    // Language and font settings from user settings
-    language: userSettings.documentLanguage || i18n.language || 'en',
+    // Language and font settings - use current interface language as default
+    language: i18n.language || userSettings.documentLanguage || 'en',
     fontFamily: userSettings.exportFontFamily || 'Liberation Serif',
     tocDepth: 1
   });
@@ -237,6 +237,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
     if (isOpen) fetchUsage();
     return () => { cancelled = true; };
   }, [isOpen]);
+
+  // Update language when modal opens to match current interface language
+  useEffect(() => {
+    if (isOpen) {
+      setSettings(prev => ({
+        ...prev,
+        language: i18n.language || userSettings.documentLanguage || 'en'
+      }));
+    }
+  }, [isOpen, i18n.language, userSettings.documentLanguage]);
 
 
   // Get book sizes based on binding type
