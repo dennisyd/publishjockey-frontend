@@ -92,7 +92,12 @@ http.interceptors.response.use(
       return Promise.reject(error);
     }
     
-    if (error.response?.status === 401 && !originalRequest._retry) {
+    // Don't attempt token refresh for login-related endpoints or if no refresh token exists
+    const isLoginEndpoint = originalRequest.url?.includes('/auth/login') || 
+                           originalRequest.url?.includes('/auth/register') ||
+                           originalRequest.url?.includes('/auth/forgot-password');
+    
+    if (error.response?.status === 401 && !originalRequest._retry && !isLoginEndpoint) {
       originalRequest._retry = true;
       
       try {
