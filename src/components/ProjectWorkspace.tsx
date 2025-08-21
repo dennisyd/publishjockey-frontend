@@ -136,6 +136,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   });
   
   // Update structure when language changes (but preserve user customizations)
+  // Temporarily disabled to prevent conflicts with fetchProject localization
+  /*
   useEffect(() => {
     const newLocalizedStructure = getLocalizedBookStructure(i18n.language);
     setStructure(prevStructure => {
@@ -154,6 +156,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       return prevStructure;
     });
   }, [i18n.language]);
+  */
   
   const [selected, setSelected] = useState<{ area: keyof typeof structure; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });
@@ -331,15 +334,27 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             });
           };
           
-          // Localize each section
+          // Remove duplicates that might occur from the mapping
+          const removeDuplicates = (sections: string[]) => {
+            const seen = new Set();
+            return sections.filter(section => {
+              if (seen.has(section)) {
+                return false; // Remove duplicate
+              }
+              seen.add(section);
+              return true;
+            });
+          };
+          
+          // Localize each section and remove duplicates
           if (structureToUse.front) {
-            structureToUse.front = localizeStructure(structureToUse.front);
+            structureToUse.front = removeDuplicates(localizeStructure(structureToUse.front));
           }
           if (structureToUse.main) {
-            structureToUse.main = localizeStructure(structureToUse.main);
+            structureToUse.main = removeDuplicates(localizeStructure(structureToUse.main));
           }
           if (structureToUse.back) {
-            structureToUse.back = localizeStructure(structureToUse.back);
+            structureToUse.back = removeDuplicates(localizeStructure(structureToUse.back));
           }
           
           console.log('Localized structure:', JSON.stringify(structureToUse, null, 2));
