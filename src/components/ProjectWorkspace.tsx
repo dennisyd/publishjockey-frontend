@@ -367,67 +367,55 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           const currentLang = i18n.language || 'en';
           const englishToLocalized = createEnglishToLocalizedMapping(currentLang);
           
-          // Localize the structure while preserving user customizations
-          const localizeStructure = (sections: string[]) => {
-            return sections.map(section => {
-              // If it's a default English name, localize it
-              if (englishToLocalized[section]) {
-                return englishToLocalized[section];
-              }
-              // If it's a user customization, keep it as is
-              return section;
-            });
-          };
-
-          // Smart deduplication that handles all variations and keeps only the localized version
-          const smartDeduplicate = (sections: string[]) => {
+          // Smart deduplication that maintains proper localized order
+          const smartDeduplicate = (sections: string[], area: 'front' | 'main' | 'back') => {
             const seen = new Set();
             const result = [];
+            const localizedStructure = getLocalizedBookStructure(currentLang);
             
-            for (const section of sections) {
-              // Check if this section has a localized equivalent
-              const localizedVersion = englishToLocalized[section];
+            // First, add all localized sections in their proper order
+            localizedStructure[area].forEach(localizedSection => {
+              // Check if any English version of this section exists in the input
+              const hasEnglishVersion = sections.some(section => 
+                englishToLocalized[section] === localizedSection
+              );
               
-              if (localizedVersion) {
-                // This is an English section that should be localized
-                if (!seen.has(localizedVersion)) {
-                  result.push(localizedVersion);
-                  seen.add(localizedVersion);
-                }
-                // Skip the English version since we have the localized one
-              } else {
-                // This is either already localized or a custom section
-                if (!seen.has(section)) {
-                  result.push(section);
-                  seen.add(section);
+              // Check if the localized version itself exists in the input
+              const hasLocalizedVersion = sections.includes(localizedSection);
+              
+              if (hasEnglishVersion || hasLocalizedVersion) {
+                if (!seen.has(localizedSection)) {
+                  result.push(localizedSection);
+                  seen.add(localizedSection);
                 }
               }
-            }
+            });
+            
+            // Then add any custom sections that aren't in the localized structure
+            sections.forEach(section => {
+              const localizedVersion = englishToLocalized[section];
+              
+              // If this section doesn't have a localized equivalent and isn't already added
+              if (!localizedVersion && !seen.has(section)) {
+                result.push(section);
+                seen.add(section);
+              }
+            });
             
             return result;
           };
           
-          // Remove duplicates that might occur from the mapping
-          const removeDuplicates = (sections: string[]) => {
-            const seen = new Set();
-            return sections.filter(section => {
-              if (seen.has(section)) {
-                return false; // Remove duplicate
-              }
-              seen.add(section);
-              return true;
-            });
-          };
+
           
           // Apply smart deduplication to each section
           if (structureToUse.front) {
-            structureToUse.front = smartDeduplicate(structureToUse.front);
+            structureToUse.front = smartDeduplicate(structureToUse.front, 'front');
           }
           if (structureToUse.main) {
-            structureToUse.main = removeDuplicates(localizeStructure(structureToUse.main));
+            structureToUse.main = smartDeduplicate(structureToUse.main, 'main');
           }
           if (structureToUse.back) {
-            structureToUse.back = removeDuplicates(localizeStructure(structureToUse.back));
+            structureToUse.back = smartDeduplicate(structureToUse.back, 'back');
           }
           
           console.log('🔍 SETTING STRUCTURE FROM BACKEND:', {
