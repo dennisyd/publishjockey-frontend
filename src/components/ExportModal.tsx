@@ -163,6 +163,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   exportError,
   t
 }) => {
+  console.log('ExportModal component rendered, isOpen:', isOpen);
   const { currentUser } = useAuth();
   const { settings: userSettings } = useSettings();
   const { i18n } = useTranslation();
@@ -200,10 +201,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
     htmlStylesheet: 'default',
     // Force title page to be first
     forceTitleFirst: true,
-    // Language and font settings - use current interface language from Dashboard as default
-    language: i18n.language || 'en',
-    fontFamily: 'Latin Modern Roman', // Force default font
-    tocDepth: 1
+         // Language and font settings - use current interface language from Dashboard as default
+     language: i18n.language || 'en',
+     fontFamily: 'Liberation Serif', // Force default font
+     tocDepth: 1
   });
 
   // State for cover image (EPUB only)
@@ -242,16 +243,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
     return () => { cancelled = true; };
   }, [isOpen]);
 
-  // Update language and font when modal opens to match current interface language from Dashboard
-  useEffect(() => {
-    if (isOpen) {
-      setSettings(prev => ({
-        ...prev,
-        language: i18n.language || 'en',
-        fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman'
-      }));
-    }
-  }, [isOpen, i18n.language, userSettings.documentLanguage, userSettings.exportFontFamily]);
+     // Update language and font when modal opens to match current interface language from Dashboard
+   useEffect(() => {
+     if (isOpen) {
+       setSettings(prev => ({
+         ...prev,
+         language: i18n.language || 'en',
+         fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
+       }));
+     }
+   }, [isOpen, i18n.language, userSettings.documentLanguage, userSettings.exportFontFamily]);
 
 
   // Get book sizes based on binding type
@@ -472,14 +473,14 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
-  // Update settings when user settings change - now syncs with Dashboard language
-  useEffect(() => {
-    setSettings(prev => ({
-      ...prev,
-      language: i18n.language || 'en',
-      fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman'
-    }));
-  }, [i18n.language, userSettings.exportFontFamily]);
+     // Update settings when user settings change - now syncs with Dashboard language
+   useEffect(() => {
+     setSettings(prev => ({
+       ...prev,
+       language: i18n.language || 'en',
+       fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
+     }));
+   }, [i18n.language, userSettings.exportFontFamily]);
 
   // Get recommended font for a given language
   const getRecommendedFont = (language: string): string => {
@@ -492,15 +493,15 @@ const ExportModal: React.FC<ExportModalProps> = ({
        'he': 'Noto Sans Hebrew', // Hebrew
        'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
       
-      // All Latin-based languages use the same default font
-      'latin': 'Latin Modern Roman'
+      // All Latin-based languages prefer Liberation Serif, fallback to Latin Modern Roman
+      'latin': 'Liberation Serif'
     };
     
     // Map Latin-based languages to 'latin' category
     const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
     const category = latinLanguages.includes(language) ? 'latin' : language;
     
-    return languageFontMap[category] || 'Latin Modern Roman';
+    return languageFontMap[category] || 'Liberation Serif';
   };
 
   // Handle language change and auto-select appropriate font
@@ -817,10 +818,19 @@ const ExportModal: React.FC<ExportModalProps> = ({
                           
                           console.log(`Available fonts for ${language}:`, filteredFonts.map(f => f.value));
                           
-                                                     // Always ensure Latin Modern Roman is available as a fallback
-                           const finalFonts = filteredFonts.length > 0 ? filteredFonts : [
-                             { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' }
-                           ];
+                                                     // Always ensure Liberation Serif is available as a fallback for Latin languages
+                           let finalFonts = filteredFonts;
+                           if (filteredFonts.length === 0) {
+                             finalFonts = [{ value: 'Liberation Serif', label: 'Liberation Serif' }];
+                           } else {
+                             // Ensure Liberation Serif is always in the list for Latin languages
+                             if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                               const hasLiberation = finalFonts.some(f => f.value === 'Liberation Serif');
+                               if (!hasLiberation) {
+                                 finalFonts.unshift({ value: 'Liberation Serif', label: 'Liberation Serif' });
+                               }
+                             }
+                           }
                            
                            console.log(`Final fonts for ${language}:`, finalFonts.map(f => f.value));
                            
