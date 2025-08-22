@@ -1,60 +1,62 @@
 {
-  "common": {
-    "save": "Salvar",
-    "cancel": "Cancelar",
-    "delete": "Excluir",
-    "edit": "Editar",
-    "add": "Adicionar",
-    "close": "Fechar",
-    "loading": "Carregando...",
-    "error": "Erro",
-    "success": "Sucesso",
-    "confirm": "Confirmar",
-    "back": "Voltar",
-    "next": "Próximo",
-    "previous": "Anterior"
-  },
-  "navigation": {
-    "dashboard": "Painel",
-    "projects": "Projetos",
-    "settings": "Configurações",
-    "logout": "Sair",
-    "login": "Entrar",
-    "register": "Registrar"
-  },
-  "dashboard": {
-    "welcome": "Bem-vindo",
-    "createNewBook": "Criar novo livro",
-    "recentProjects": "Projetos recentes",
-    "noProjects": "Você não tem projetos",
-    "startWriting": "Comece a escrever"
-  },
-  "bookStructure": {
-    "frontMatter": "Prefácio",
-    "mainMatter": "Parte principal",
-    "backMatter": "Posfácio",
-    "chapter": "Capítulo",
-    "section": "Seção",
-    "title": "Título",
-    "content": "Conteúdo"
-  },
-  "export": {
-    "exportBook": "Exportar livro",
-    "format": "Formato",
-    "pdf": "PDF",
-    "epub": "EPUB",
-    "docx": "Word",
-    "language": "Idioma",
-    "font": "Fonte",
-    "includeToc": "Incluir sumário",
-    "export": "Exportar",
-    "tableOfContents": "Sumário"
-  },
-  "settings": {
-    "language": "Idioma",
-    "theme": "Tema",
-    "notifications": "Notificações",
-    "account": "Conta",
-    "saveSettings": "Salvar configurações"
+  "translation": {
+    "common": {
+      "save": "Salvar",
+      "cancel": "Cancelar",
+      "delete": "Excluir",
+      "edit": "Editar",
+      "add": "Adicionar",
+      "close": "Fechar",
+      "loading": "Carregando...",
+      "error": "Erro",
+      "success": "Sucesso",
+      "confirm": "Confirmar",
+      "back": "Voltar",
+      "next": "Próximo",
+      "previous": "Anterior"
+    },
+    "navigation": {
+      "dashboard": "Painel",
+      "projects": "Projetos",
+      "settings": "Configurações",
+      "logout": "Sair",
+      "login": "Entrar",
+      "register": "Registrar"
+    },
+    "dashboard": {
+      "welcome": "Bem-vindo",
+      "createNewBook": "Criar novo livro",
+      "recentProjects": "Projetos recentes",
+      "noProjects": "Você não tem projetos",
+      "startWriting": "Comece a escrever"
+    },
+    "bookStructure": {
+      "frontMatter": "Prefácio",
+      "mainMatter": "Parte principal",
+      "backMatter": "Posfácio",
+      "chapter": "Capítulo",
+      "section": "Seção",
+      "title": "Título",
+      "content": "Conteúdo"
+    },
+    "export": {
+      "exportBook": "Exportar livro",
+      "format": "Formato",
+      "pdf": "PDF",
+      "epub": "EPUB",
+      "docx": "Word",
+      "language": "Idioma",
+      "font": "Fonte",
+      "includeToc": "Incluir sumário",
+      "export": "Exportar",
+      "tableOfContents": "Sumário"
+    },
+    "settings": {
+      "language": "Idioma",
+      "theme": "Tema",
+      "notifications": "Notificações",
+      "account": "Conta",
+      "saveSettings": "Salvar configurações"
+    }
   }
 }

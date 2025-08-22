@@ -106,32 +106,7 @@ const localizedStructures = {
     main: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث"],
     back: ["عن المؤلف", "ملحق", "مراجع", "مصادر", "فهرس", "قاموس"]
   },
-  he: {
-    front: [
-      "כותרת",
-      "דף כותרת",
-      "זכויות יוצרים",
-      "הקדשה",
-      "תודות",
-      "הקדמה",
-      "מבוא"
-    ],
-    main: ["פרק 1", "פרק 2", "פרק 3"],
-    back: ["על המחבר", "נספח", "הפניות", "ביבליוגרפיה", "מפתח", "מילון מונחים"]
-  },
-  yi: {
-    front: [
-      "טיטל",
-      "טיטל זייט",
-      "אויטאר רעכט",
-      "דעדיקאַציע",
-      "דאַנקבאַרקייט",
-      "פֿאָרוואָרט",
-      "הקדמה"
-    ],
-    main: ["קאַפּיטל 1", "קאַפּיטל 2", "קאַפּיטל 3"],
-    back: ["וועגן דעם מחבר", "צוגאַב", "רעפֿערענצן", "ביבליאָגראַפֿיע", "אינדעקס", "גלאָסאַר"]
-  },
+
   ta: {
     front: [
       "தலைப்பு",
@@ -144,58 +119,6 @@ const localizedStructures = {
     ],
     main: ["அத்தியாயம் 1", "அத்தியாயம் 2", "அத்தியாயம் 3"],
     back: ["எழுத்தாளர் பற்றி", "இணைப்பு", "குறிப்புகள்", "நூற்பட்டியல்", "அட்டவணை", "சொற்களஞ்சியம்"]
-  },
-  af: {
-    front: [
-      "Titel",
-      "Titelblad",
-      "Kopiereg",
-      "Opdrag",
-      "Erkenning",
-      "Voorwoord",
-      "Inleiding"
-    ],
-    main: ["Hoofstuk 1", "Hoofstuk 2", "Hoofstuk 3"],
-    back: ["Oor die Skrywer", "Aanhangsel", "Verwysings", "Bibliografie", "Indeks", "Woordelys"]
-  },
-  sq: {
-    front: [
-      "Titulli",
-      "Faqja e Titullit",
-      "Të Drejtat e Autorit",
-      "Dedikimi",
-      "Falënderimet",
-      "Fjala e Parë",
-      "Hyrja"
-    ],
-    main: ["Kapitulli 1", "Kapitulli 2", "Kapitulli 3"],
-    back: ["Rreth Autorit", "Shtojca", "Referencat", "Bibliografia", "Indeksi", "Fjalori"]
-  },
-  bs: {
-    front: [
-      "Naslov",
-      "Naslovna stranica",
-      "Autorska prava",
-      "Posveta",
-      "Zahvale",
-      "Predgovor",
-      "Uvod"
-    ],
-    main: ["Poglavlje 1", "Poglavlje 2", "Poglavlje 3"],
-    back: ["O autoru", "Dodatak", "Reference", "Bibliografija", "Indeks", "Rječnik"]
-  },
-  ca: {
-    front: [
-      "Títol",
-      "Pàgina de títol",
-      "Drets d'autor",
-      "Dedicatòria",
-      "Agraïments",
-      "Pròleg",
-      "Introducció"
-    ],
-    main: ["Capítol 1", "Capítol 2", "Capítol 3"],
-    back: ["Sobre l'autor", "Apèndix", "Referències", "Bibliografia", "Índex", "Glossari"]
   }
 };
 
@@ -227,13 +150,7 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     ru: "Глава",
     ro: "Capitol",
     ar: "الفصل",
-    he: "פרק",
-    yi: "קאַפּיטל",
-    ta: "அத்தியாயம்",
-    af: "Hoofstuk",
-    sq: "Kapitulli",
-    bs: "Poglavlje",
-    ca: "Capítol"
+    ta: "அத்தியாயம்"
   };
   
   const chapterName = chapterNames[language as keyof typeof chapterNames] || chapterNames.en;
@@ -283,40 +200,10 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       mainMatter: "المواد الرئيسية",
       backMatter: "المواد الختامية"
     },
-    he: {
-      frontMatter: "חומר מקדים",
-      mainMatter: "חומר עיקרי",
-      backMatter: "חומר סופי"
-    },
-    yi: {
-      frontMatter: "פֿאָרוואָרד מאַטעריאַל",
-      mainMatter: "הויפּט מאַטעריאַל",
-      backMatter: "סוף מאַטעריאַל"
-    },
     ta: {
       frontMatter: "முன்னுரைப் பொருட்கள்",
       mainMatter: "முதன்மைப் பொருட்கள்",
       backMatter: "இறுதிப் பொருட்கள்"
-    },
-    af: {
-      frontMatter: "Voorafgaande Materiaal",
-      mainMatter: "Hoofmateriaal",
-      backMatter: "Agtermateriaal"
-    },
-    sq: {
-      frontMatter: "Materiali Para",
-      mainMatter: "Materiali Kryesor",
-      backMatter: "Materiali Pas"
-    },
-    bs: {
-      frontMatter: "Prednji materijal",
-      mainMatter: "Glavni materijal",
-      backMatter: "Zadnji materijal"
-    },
-    ca: {
-      frontMatter: "Material preliminar",
-      mainMatter: "Material principal",
-      backMatter: "Material posterior"
     }
   };
   

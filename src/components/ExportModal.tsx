@@ -137,7 +137,7 @@ export interface ExportSettings {
   tocDepth?: number; // Add this line
   fontFamily?: string; // Add this line
   language?: string; // Language for export (auto-detected from i18n)
-  t?: (key: string, fallback?: string) => string; // Translation function
+  t?: any; // Translation function - using any to accommodate i18n.t signature
 }
 
 interface ExportModalProps {
@@ -149,7 +149,7 @@ interface ExportModalProps {
   projectName?: string;
   estimatedPages?: number; // Estimated total pages for current project
   exportError?: string | null;
-  t?: (key: string, fallback?: string) => string; // Translation function
+  t?: any; // Translation function - using any to accommodate i18n.t signature
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({
