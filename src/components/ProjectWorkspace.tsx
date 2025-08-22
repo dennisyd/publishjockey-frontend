@@ -317,13 +317,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           
           // Map English default names to localized names
           const nameMapping = {
-            'Title': localizedStructure.front[0],
-            'Title Page': localizedStructure.front[1],
-            'Copyright': localizedStructure.front[2],
-            'Dedication': localizedStructure.front[3],
-            'Acknowledgments': localizedStructure.front[4],
-            'Foreword': localizedStructure.front[5],
-            'Introduction': localizedStructure.front[6],
+            'Title Page': localizedStructure.front[0],
+            'Copyright': localizedStructure.front[1],
+            'Dedication': localizedStructure.front[2],
+            'Acknowledgments': localizedStructure.front[3],
+            'Foreword': localizedStructure.front[4],
+            'Introduction': localizedStructure.front[5],
             'Chapter 1': localizedStructure.main[0],
             'Chapter 2': localizedStructure.main[1],
             'Chapter 3': localizedStructure.main[2],
@@ -346,6 +345,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               return section;
             });
           };
+
+          // Filter out any "Title" entries (we only want "Title Page")
+          const filterTitleEntries = (sections: string[]) => {
+            return sections.filter(section => section !== 'Title');
+          };
           
           // Remove duplicates that might occur from the mapping
           const removeDuplicates = (sections: string[]) => {
@@ -359,9 +363,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             });
           };
           
-          // Localize each section and remove duplicates
+          // Localize each section, filter out "Title" entries, and remove duplicates
           if (structureToUse.front) {
-            structureToUse.front = removeDuplicates(localizeStructure(structureToUse.front));
+            structureToUse.front = removeDuplicates(localizeStructure(filterTitleEntries(structureToUse.front)));
           }
           if (structureToUse.main) {
             structureToUse.main = removeDuplicates(localizeStructure(structureToUse.main));
@@ -454,6 +458,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // 2. Adding structureLoaded state to prevent rendering empty structure
   // 3. Adding validation checks for structure integrity
   // 4. Adding loading state for structure rendering
+  // 5. Fixed duplicate "Title" entries by removing "Title" mapping and filtering out "Title" entries
 
   // Load user subscription for deterrent banner
   useEffect(() => {
