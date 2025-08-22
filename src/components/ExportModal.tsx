@@ -202,7 +202,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     forceTitleFirst: true,
     // Language and font settings - use current interface language from Dashboard as default
     language: i18n.language || 'en',
-    fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman',
+    fontFamily: 'Latin Modern Roman', // Force default font
     tocDepth: 1
   });
 
@@ -520,6 +520,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
       const currentFont = settings.fontFamily;
       const recommendedFont = getRecommendedFont(settings.language);
       
+      console.log(`Modal opened - Language: ${settings.language}, Current font: ${currentFont}, Recommended font: ${recommendedFont}`);
+      
       // If no font is set or the current font is not appropriate for the language, set the recommended font
       if (!currentFont || currentFont === '') {
         console.log(`Setting default font for language ${settings.language}: ${recommendedFont}`);
@@ -736,20 +738,21 @@ const ExportModal: React.FC<ExportModalProps> = ({
                  {(
                   <>
                                          <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                     <FormControl fullWidth sx={{ mb: 2 }}>
-                       <Select 
-                         value={settings.fontFamily || ''} 
-                         onChange={e => {
-                           console.log(`Font changed to: ${e.target.value}`);
-                           setSettings({ ...settings, fontFamily: e.target.value });
-                         }}
-                         displayEmpty
-                       >
-                        {(() => {
-                          const language = settings.language || 'en';
-                          console.log(`Filtering fonts for language: ${language}, format: ${settings.format}`);
-                          
-                          const filteredFonts = fontOptions.filter(font => {
+                                          <FormControl fullWidth sx={{ mb: 2 }}>
+                        <Select 
+                          value={settings.fontFamily || ''} 
+                          onChange={e => {
+                            console.log(`Font changed to: ${e.target.value}`);
+                            setSettings({ ...settings, fontFamily: e.target.value });
+                          }}
+                          displayEmpty
+                        >
+                                                 {(() => {
+                           const language = settings.language || 'en';
+                           console.log(`Filtering fonts for language: ${language}, format: ${settings.format}`);
+                           console.log(`All available fonts:`, fontOptions.map(f => f.value));
+                           
+                           const filteredFonts = fontOptions.filter(font => {
                           
                           // For EPUB, only show fonts that work well across e-readers
                           if (settings.format === 'epub') {
@@ -776,11 +779,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
                             return false;
                           }
                           
-                          // For PDF and other formats, show all appropriate fonts
-                          // Latin-based languages (English, Spanish, French, German, Italian, Indonesian) - show all Latin fonts
-                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                            return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'].includes(font.value);
-                          }
+                                                     // For PDF and other formats, show all appropriate fonts
+                           // Latin-based languages (English, Spanish, French, German, Italian, Indonesian) - show all Latin fonts
+                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                             const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
+                             console.log(`Checking if ${font.value} is in latinFonts:`, latinFonts.includes(font.value));
+                             return latinFonts.includes(font.value);
+                           }
                           
                           // Tamil - only show Tamil fonts
                           if (language === 'ta') {
@@ -812,17 +817,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
                           
                           console.log(`Available fonts for ${language}:`, filteredFonts.map(f => f.value));
                           
-                          // If no fonts are found, add the default font
-                          if (filteredFonts.length === 0) {
-                            console.log(`No fonts found for ${language}, adding default font`);
-                            return [
-                              <MenuItem key="default" value="Latin Modern Roman">Latin Modern Roman (Default)</MenuItem>
-                            ];
-                          }
-                          
-                          return filteredFonts.map(font => (
-                            <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                          ));
+                                                     // Always ensure Latin Modern Roman is available as a fallback
+                           const finalFonts = filteredFonts.length > 0 ? filteredFonts : [
+                             { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' }
+                           ];
+                           
+                           console.log(`Final fonts for ${language}:`, finalFonts.map(f => f.value));
+                           
+                           return finalFonts.map(font => (
+                             <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                           ));
                                                  })()}
                        </Select>
                     </FormControl>
