@@ -506,12 +506,30 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Handle language change and auto-select appropriate font
   const handleLanguageChange = (language: string) => {
     const recommendedFont = getRecommendedFont(language);
+    console.log(`Language changed to ${language}, setting font to ${recommendedFont}`);
     setSettings(prev => ({
       ...prev,
       language,
       fontFamily: recommendedFont
     }));
   };
+
+  // Ensure font family is always set to a valid default when modal opens
+  useEffect(() => {
+    if (isOpen && settings.language) {
+      const currentFont = settings.fontFamily;
+      const recommendedFont = getRecommendedFont(settings.language);
+      
+      // If no font is set or the current font is not appropriate for the language, set the recommended font
+      if (!currentFont || currentFont === '') {
+        console.log(`Setting default font for language ${settings.language}: ${recommendedFont}`);
+        setSettings(prev => ({
+          ...prev,
+          fontFamily: recommendedFont
+        }));
+      }
+    }
+  }, [isOpen, settings.language, settings.fontFamily]);
 
   return (
     <Dialog
@@ -717,9 +735,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 {/* Font Family - Language-specific filtering */}
                 {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
                   <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                      <Select value={settings.fontFamily} onChange={e => setSettings({ ...settings, fontFamily: e.target.value })}>
+                                         <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                     <FormControl fullWidth sx={{ mb: 2 }}>
+                       <Select 
+                         value={settings.fontFamily || ''} 
+                         onChange={e => {
+                           console.log(`Font changed to: ${e.target.value}`);
+                           setSettings({ ...settings, fontFamily: e.target.value });
+                         }}
+                         displayEmpty
+                       >
                         {fontOptions.filter(font => {
                           const language = settings.language || 'en';
                           
@@ -780,10 +805,79 @@ const ExportModal: React.FC<ExportModalProps> = ({
                           }
                           
                           return false;
-                        }).map(font => (
-                          <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                        ))}
-                      </Select>
+                                                 }).map(font => (
+                           <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                         ))}
+                         {/* Fallback option if no fonts are available */}
+                         {(() => {
+                           const availableFonts = fontOptions.filter(font => {
+                             const language = settings.language || 'en';
+                             
+                             // For EPUB, only show fonts that work well across e-readers
+                             if (settings.format === 'epub') {
+                               // EPUB-compatible fonts for Latin-based languages
+                               if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                                 return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
+                               }
+                               // For other languages, keep their specific fonts
+                               if (language === 'ta') {
+                                 return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+                               }
+                               if (language === 'ru') {
+                                 return ['Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+                               }
+                               if (language === 'hi') {
+                                 return ['Noto Sans Devanagari'].includes(font.value);
+                               }
+                               if (language === 'ar') {
+                                 return ['Noto Sans Arabic'].includes(font.value);
+                               }
+                               if (language === 'he' || language === 'yi') {
+                                 return ['Noto Sans Hebrew', 'Noto Serif Hebrew'].includes(font.value);
+                               }
+                               return false;
+                             }
+                             
+                             // For PDF and other formats, show all appropriate fonts
+                             // Tamil - only show Tamil fonts
+                             if (language === 'ta') {
+                               return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+                             }
+                             
+                             // Russian - only show Cyrillic fonts
+                             if (language === 'ru') {
+                               return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+                             }
+                             
+                             // Hindi - only show Devanagari fonts
+                             if (language === 'hi') {
+                               return ['Noto Sans Devanagari'].includes(font.value);
+                             }
+                             
+                             // Arabic - only show Arabic fonts
+                             if (language === 'ar') {
+                               return ['Noto Sans Arabic'].includes(font.value);
+                             }
+                             
+                             // Hebrew/Yiddish - only show Hebrew fonts
+                             if (language === 'he' || language === 'yi') {
+                               return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
+                             }
+                             
+                             // Latin-based languages (English, Spanish, French, German, Italian, Indonesian)
+                             if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                               return ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'].includes(font.value);
+                             }
+                             
+                             return false;
+                           });
+                           
+                           if (availableFonts.length === 0) {
+                             return <MenuItem key="fallback" value="Latin Modern Roman">Latin Modern Roman (Default)</MenuItem>;
+                           }
+                           return null;
+                         })()}
+                       </Select>
                     </FormControl>
                     <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
                       {(() => {
