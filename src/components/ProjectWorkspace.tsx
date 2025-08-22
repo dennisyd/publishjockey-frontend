@@ -299,7 +299,18 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             contentKeys: Object.keys(projectData.content),
             contentPreview: JSON.stringify(projectData.content).substring(0, 300)
           });
-          setContent(projectData.content);
+          
+          // Filter out any "Title" content keys (we only want "Title Page")
+          const filteredContent = { ...projectData.content };
+          Object.keys(filteredContent).forEach(key => {
+            const parts = key.split(':');
+            if (parts.length === 2 && parts[1] === 'Title') {
+              console.log(`Removing "Title" content key: ${key}`);
+              delete filteredContent[key];
+            }
+          });
+          
+          setContent(filteredContent);
         } else {
           console.log('No content found in project data');
         }
@@ -410,7 +421,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               const sectionName = parts[1];
               
               // Check if this section exists in the structure for its area
-              if (updatedStructure[area] && !updatedStructure[area].includes(sectionName)) {
+              // Skip "Title" entries as we only want "Title Page"
+              if (updatedStructure[area] && !updatedStructure[area].includes(sectionName) && sectionName !== 'Title') {
                 console.log(`Adding missing section to structure: ${area}:${sectionName}`);
                 updatedStructure[area] = [...updatedStructure[area], sectionName];
                 structureUpdated = true;
@@ -459,6 +471,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // 3. Adding validation checks for structure integrity
   // 4. Adding loading state for structure rendering
   // 5. Fixed duplicate "Title" entries by removing "Title" mapping and filtering out "Title" entries
+  // 6. Added filtering to prevent "Title" entries from being added via content synchronization
+  // 7. Added filtering to remove "Title" content keys when loading from backend
 
   // Load user subscription for deterrent banner
   useEffect(() => {
