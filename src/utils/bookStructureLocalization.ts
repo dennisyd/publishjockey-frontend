@@ -4,7 +4,6 @@ import { useTranslation } from 'react-i18next';
 const localizedStructures = {
   en: {
     front: [
-      "Title",
       "Title Page",
       "Copyright",
       "Dedication",
@@ -17,7 +16,6 @@ const localizedStructures = {
   },
   es: {
     front: [
-      "Título",
       "Página de título",
       "Derechos de autor",
       "Dedicatoria",
@@ -30,7 +28,6 @@ const localizedStructures = {
   },
   fr: {
     front: [
-      "Titre",
       "Page de titre",
       "Droits d'auteur",
       "Dédicace",
@@ -43,7 +40,6 @@ const localizedStructures = {
   },
   de: {
     front: [
-      "Titel",
       "Titelseite",
       "Urheberrecht",
       "Widmung",
@@ -56,7 +52,6 @@ const localizedStructures = {
   },
   it: {
     front: [
-      "Titolo",
       "Pagina del titolo",
       "Diritti d'autore",
       "Dedica",
@@ -69,7 +64,6 @@ const localizedStructures = {
   },
   ru: {
     front: [
-      "Название",
       "Титульная страница",
       "Авторские права",
       "Посвящение",
@@ -82,7 +76,6 @@ const localizedStructures = {
   },
   ro: {
     front: [
-      "Titlu",
       "Pagina de titlu",
       "Drepturi de autor",
       "Dedicație",
@@ -95,12 +88,10 @@ const localizedStructures = {
   },
   ar: {
     front: [
-      "العنوان",
       "صفحة العنوان",
       "حقوق النشر",
       "إهداء",
       "شكر وتقدير",
-      "مقدمة",
       "مقدمة"
     ],
     main: ["الفصل الأول", "الفصل الثاني", "الفصل الثالث"],
@@ -109,7 +100,6 @@ const localizedStructures = {
 
   ta: {
     front: [
-      "தலைப்பு",
       "தலைப்பு பக்கம்",
       "பதிப்புரிமை",
       "அர்ப்பணிப்பு",

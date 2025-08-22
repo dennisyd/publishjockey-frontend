@@ -132,7 +132,19 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
     // Initialize with the current language's structure
-    return getLocalizedBookStructure(i18n.language || 'en');
+    const initialStructure = getLocalizedBookStructure(i18n.language || 'en');
+    console.log('🔍 INITIAL STRUCTURE SET:', {
+      language: i18n.language || 'en',
+      structure: initialStructure
+    });
+    // Ensure structure is valid
+    if (!initialStructure || !initialStructure.front || !initialStructure.main || !initialStructure.back) {
+      console.warn('🔍 INVALID INITIAL STRUCTURE, USING FALLBACK');
+      return getLocalizedBookStructure('en');
+    }
+    // Mark structure as loaded since we have a valid initial structure
+    setTimeout(() => setStructureLoaded(true), 0);
+    return initialStructure;
   });
   
   // Update structure when language changes (but preserve user customizations)
@@ -224,6 +236,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // State for project title
   const [loadingProject, setLoadingProject] = useState(true);
+  const [structureLoaded, setStructureLoaded] = useState(false);
 
   
   // Get auth token from context
@@ -357,10 +370,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             structureToUse.back = removeDuplicates(localizeStructure(structureToUse.back));
           }
           
-          console.log('Localized structure:', JSON.stringify(structureToUse, null, 2));
-          setStructure(structureToUse);
+          console.log('🔍 SETTING STRUCTURE FROM BACKEND:', {
+            language: currentLang,
+            structure: structureToUse
+          });
+          // Ensure structure is valid before setting
+          if (structureToUse && structureToUse.front && structureToUse.main && structureToUse.back) {
+            setStructure(structureToUse);
+            setStructureLoaded(true);
+          } else {
+            console.warn('🔍 INVALID STRUCTURE FROM BACKEND, KEEPING CURRENT:', structureToUse);
+            setStructureLoaded(true);
+          }
         } else {
-          console.log('No structure found in project data, using default');
+          console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
+            currentStructure: structure
+          });
+          setStructureLoaded(true);
         }
         
         // Synchronize structure with content - add any chapters in content that don't exist in structure
@@ -409,7 +435,25 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       currentUser: !!currentUser
     });
     if (projectId && token) fetchProject();
-  }, [projectId, token, currentUser]);
+  }, [projectId, token, currentUser, i18n.language]);
+
+  // Debug structure changes
+  useEffect(() => {
+    console.log('🔍 STRUCTURE STATE CHANGED:', {
+      structure,
+      sections: {
+        front: structure.front?.length || 0,
+        main: structure.main?.length || 0,
+        back: structure.back?.length || 0
+      }
+    });
+  }, [structure]);
+
+  // Yancy Dennis - Fixed missing categories on first load by:
+  // 1. Adding i18n.language to fetchProject useEffect dependencies
+  // 2. Adding structureLoaded state to prevent rendering empty structure
+  // 3. Adding validation checks for structure integrity
+  // 4. Adding loading state for structure rendering
 
   // Load user subscription for deterrent banner
   useEffect(() => {
@@ -2033,7 +2077,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               {/* Area Content */}
               <Collapse in={expanded[area as keyof typeof expanded]}>
                 <List disablePadding>
-                  {structure[area as keyof typeof structure].map((section, sectionIdx) => (
+                  {!structureLoaded ? (
+                    <ListItem>
+                      <CircularProgress size={20} sx={{ mr: 2 }} />
+                      <ListItemText primary="Loading sections..." />
+                    </ListItem>
+                  ) : structure[area as keyof typeof structure]?.map((section, sectionIdx) => (
                     <ListItem
                       key={`${area}-${sectionIdx}`}
                       button
@@ -2087,7 +2136,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                         )}
                       </Box>
                     </ListItem>
-                  ))}
+                  )) || []}
                 </List>
               </Collapse>
             </React.Fragment>
@@ -2108,7 +2157,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }}>
           {/* Left side - Section title */}
           <Typography variant="h6" sx={{ fontWeight: 'medium' }}>
-            {selected ? structure[selected.area][selected.idx] : "No section selected"}
+            {selected && structureLoaded && structure[selected.area]?.[selected.idx] ? structure[selected.area][selected.idx] : "No section selected"}
           </Typography>
 
           {/* Right side - View mode and action buttons */}
