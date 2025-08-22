@@ -129,36 +129,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const { i18n } = useTranslation();
   const sectionNames = getLocalizedSectionNames(i18n.language);
   
-  // Helper function to create English-to-localized mapping
-  const createEnglishToLocalizedMapping = (language: string) => {
-    const localizedStructure = getLocalizedBookStructure(language);
-    return {
-      // Front matter mappings
-      'Title': localizedStructure.front[0], // Map "Title" to "Title Page" equivalent
-      'Title Page': localizedStructure.front[0],
-      'Copyright': localizedStructure.front[1],
-      'Dedication': localizedStructure.front[2],
-      'Acknowledgments': localizedStructure.front[3],
-      'Acknowledgement': localizedStructure.front[3], // Handle singular form
-      'Foreword': localizedStructure.front[4],
-      'Introduction': localizedStructure.front[5],
-      'Intro': localizedStructure.front[5], // Handle abbreviation
-      
-      // Main matter mappings
-      'Chapter 1': localizedStructure.main[0],
-      'Chapter 2': localizedStructure.main[1],
-      'Chapter 3': localizedStructure.main[2],
-      
-      // Back matter mappings
-      'About the Author': localizedStructure.back[0],
-      'About Author': localizedStructure.back[0], // Handle variation
-      'Appendix': localizedStructure.back[1],
-      'References': localizedStructure.back[2],
-      'Bibliography': localizedStructure.back[3],
-      'Index': localizedStructure.back[4],
-      'Glossary': localizedStructure.back[5]
-    };
-  };
+  // Approach 2: No system-generated content after book creation
+  // This function is no longer needed as we don't modify structure after loading
   
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
@@ -331,27 +303,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             contentPreview: JSON.stringify(projectData.content).substring(0, 300)
           });
           
-          // Smart content filtering that handles all English variations
-          const filteredContent = { ...projectData.content };
-          const englishToLocalized = createEnglishToLocalizedMapping(i18n.language || 'en');
-          Object.keys(filteredContent).forEach(key => {
-            const parts = key.split(':');
-            if (parts.length === 2) {
-              const sectionName = parts[1];
-              const localizedVersion = englishToLocalized[sectionName];
-              
-              // If this is an English section that has a localized equivalent, check if we already have the localized version
-              if (localizedVersion && localizedVersion !== sectionName) {
-                const localizedKey = `${parts[0]}:${localizedVersion}`;
-                if (filteredContent[localizedKey]) {
-                  console.log(`Removing English "${sectionName}" content key as localized "${localizedVersion}" exists: ${key}`);
-                  delete filteredContent[key];
-                }
-              }
-            }
-          });
-          
-          setContent(filteredContent);
+          // Approach 2: Use content exactly as stored in backend - no filtering
+          setContent(projectData.content);
         } else {
           console.log('No content found in project data');
         }
@@ -360,68 +313,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
-          // Ensure front matter has Title Page and Copyright in the correct positions
-          let structureToUse = JSON.parse(JSON.stringify(projectData.structure));
+          // Approach 2: Use structure exactly as stored in backend - no modifications
+          const structureToUse = JSON.parse(JSON.stringify(projectData.structure));
           
-          // Localize the structure based on current language
-          const currentLang = i18n.language || 'en';
-          const englishToLocalized = createEnglishToLocalizedMapping(currentLang);
-          
-          // Smart deduplication that maintains proper localized order
-          const smartDeduplicate = (sections: string[], area: 'front' | 'main' | 'back') => {
-            const seen = new Set();
-            const result = [];
-            const localizedStructure = getLocalizedBookStructure(currentLang);
-            
-            // First, add all localized sections in their proper order
-            localizedStructure[area].forEach(localizedSection => {
-              // Check if any English version of this section exists in the input
-              const hasEnglishVersion = sections.some(section => 
-                englishToLocalized[section] === localizedSection
-              );
-              
-              // Check if the localized version itself exists in the input
-              const hasLocalizedVersion = sections.includes(localizedSection);
-              
-              if (hasEnglishVersion || hasLocalizedVersion) {
-                if (!seen.has(localizedSection)) {
-                  result.push(localizedSection);
-                  seen.add(localizedSection);
-                }
-              }
-            });
-            
-            // Then add any custom sections that aren't in the localized structure
-            sections.forEach(section => {
-              const localizedVersion = englishToLocalized[section];
-              
-              // If this section doesn't have a localized equivalent and isn't already added
-              if (!localizedVersion && !seen.has(section)) {
-                result.push(section);
-                seen.add(section);
-              }
-            });
-            
-            return result;
-          };
-          
-
-          
-          // Apply smart deduplication to each section
-          if (structureToUse.front) {
-            structureToUse.front = smartDeduplicate(structureToUse.front, 'front');
-          }
-          if (structureToUse.main) {
-            structureToUse.main = smartDeduplicate(structureToUse.main, 'main');
-          }
-          if (structureToUse.back) {
-            structureToUse.back = smartDeduplicate(structureToUse.back, 'back');
-          }
-          
-          console.log('🔍 SETTING STRUCTURE FROM BACKEND:', {
-            language: currentLang,
+          console.log('🔍 SETTING STRUCTURE FROM BACKEND (Approach 2):', {
             structure: structureToUse
           });
+          
           // Ensure structure is valid before setting
           if (structureToUse && structureToUse.front && structureToUse.main && structureToUse.back) {
             setStructure(structureToUse);
@@ -437,46 +335,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           setStructureLoaded(true);
         }
         
-        // Synchronize structure with content - add any chapters in content that don't exist in structure
-        if (projectData.content) {
-          // Create a temporary structure to work with
-          let updatedStructure = projectData.structure ? { ...projectData.structure } : { ...structure };
-          let structureUpdated = false;
-          
-          // Get all content keys in the format "area:sectionName"
-          const contentKeys = Object.keys(projectData.content);
-          
-          // Check each content key to see if it exists in structure
-          contentKeys.forEach(key => {
-            const parts = key.split(':');
-            if (parts.length === 2) {
-              const area = parts[0] as keyof typeof structure;
-              const sectionName = parts[1];
-              
-              // Check if this section exists in the structure for its area
-              // Use smart logic to avoid adding English versions when localized versions exist
-              const englishToLocalized = createEnglishToLocalizedMapping(i18n.language || 'en');
-              const localizedVersion = englishToLocalized[sectionName];
-              const existingSection = updatedStructure[area]?.find(section => 
-                section === sectionName || section === localizedVersion
-              );
-              
-              if (updatedStructure[area] && !existingSection) {
-                console.log(`Adding missing section to structure: ${area}:${sectionName}`);
-                updatedStructure[area] = [...updatedStructure[area], sectionName];
-                structureUpdated = true;
-              } else if (existingSection && existingSection !== sectionName) {
-                console.log(`Skipping "${sectionName}" as "${existingSection}" already exists`);
-              }
-            }
-          });
-          
-          // Update structure state if changes were made
-          if (structureUpdated) {
-            console.log('Updated structure to include all content sections:', updatedStructure);
-            setStructure(updatedStructure);
-          }
-        }
+        // Approach 2: No system-generated content after book creation
+        // The structure loaded from the backend is the final structure
+        // Users must manually add any new sections they want
       } catch (err) {
         console.error('Project fetch error:', err);
 
