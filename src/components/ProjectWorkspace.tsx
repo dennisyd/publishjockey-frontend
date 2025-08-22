@@ -129,6 +129,37 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const { i18n } = useTranslation();
   const sectionNames = getLocalizedSectionNames(i18n.language);
   
+  // Helper function to create English-to-localized mapping
+  const createEnglishToLocalizedMapping = (language: string) => {
+    const localizedStructure = getLocalizedBookStructure(language);
+    return {
+      // Front matter mappings
+      'Title': localizedStructure.front[0], // Map "Title" to "Title Page" equivalent
+      'Title Page': localizedStructure.front[0],
+      'Copyright': localizedStructure.front[1],
+      'Dedication': localizedStructure.front[2],
+      'Acknowledgments': localizedStructure.front[3],
+      'Acknowledgement': localizedStructure.front[3], // Handle singular form
+      'Foreword': localizedStructure.front[4],
+      'Introduction': localizedStructure.front[5],
+      'Intro': localizedStructure.front[5], // Handle abbreviation
+      
+      // Main matter mappings
+      'Chapter 1': localizedStructure.main[0],
+      'Chapter 2': localizedStructure.main[1],
+      'Chapter 3': localizedStructure.main[2],
+      
+      // Back matter mappings
+      'About the Author': localizedStructure.back[0],
+      'About Author': localizedStructure.back[0], // Handle variation
+      'Appendix': localizedStructure.back[1],
+      'References': localizedStructure.back[2],
+      'Bibliography': localizedStructure.back[3],
+      'Index': localizedStructure.back[4],
+      'Glossary': localizedStructure.back[5]
+    };
+  };
+  
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
     // Initialize with the current language's structure
@@ -300,13 +331,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             contentPreview: JSON.stringify(projectData.content).substring(0, 300)
           });
           
-          // Filter out any "Title" content keys (we only want "Title Page")
+          // Smart content filtering that handles all English variations
           const filteredContent = { ...projectData.content };
+          const englishToLocalized = createEnglishToLocalizedMapping(i18n.language || 'en');
           Object.keys(filteredContent).forEach(key => {
             const parts = key.split(':');
-            if (parts.length === 2 && parts[1] === 'Title') {
-              console.log(`Removing "Title" content key: ${key}`);
-              delete filteredContent[key];
+            if (parts.length === 2) {
+              const sectionName = parts[1];
+              const localizedVersion = englishToLocalized[sectionName];
+              
+              // If this is an English section that has a localized equivalent, check if we already have the localized version
+              if (localizedVersion && localizedVersion !== sectionName) {
+                const localizedKey = `${parts[0]}:${localizedVersion}`;
+                if (filteredContent[localizedKey]) {
+                  console.log(`Removing English "${sectionName}" content key as localized "${localizedVersion}" exists: ${key}`);
+                  delete filteredContent[key];
+                }
+              }
             }
           });
           
@@ -324,42 +365,46 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           
           // Localize the structure based on current language
           const currentLang = i18n.language || 'en';
-          const localizedStructure = getLocalizedBookStructure(currentLang);
-          
-          // Map English default names to localized names
-          const nameMapping = {
-            'Title Page': localizedStructure.front[0],
-            'Copyright': localizedStructure.front[1],
-            'Dedication': localizedStructure.front[2],
-            'Acknowledgments': localizedStructure.front[3],
-            'Foreword': localizedStructure.front[4],
-            'Introduction': localizedStructure.front[5],
-            'Chapter 1': localizedStructure.main[0],
-            'Chapter 2': localizedStructure.main[1],
-            'Chapter 3': localizedStructure.main[2],
-            'About the Author': localizedStructure.back[0],
-            'Appendix': localizedStructure.back[1],
-            'References': localizedStructure.back[2],
-            'Bibliography': localizedStructure.back[3],
-            'Index': localizedStructure.back[4],
-            'Glossary': localizedStructure.back[5]
-          };
+          const englishToLocalized = createEnglishToLocalizedMapping(currentLang);
           
           // Localize the structure while preserving user customizations
           const localizeStructure = (sections: string[]) => {
             return sections.map(section => {
               // If it's a default English name, localize it
-              if (nameMapping[section as keyof typeof nameMapping]) {
-                return nameMapping[section as keyof typeof nameMapping];
+              if (englishToLocalized[section]) {
+                return englishToLocalized[section];
               }
               // If it's a user customization, keep it as is
               return section;
             });
           };
 
-          // Filter out any "Title" entries (we only want "Title Page")
-          const filterTitleEntries = (sections: string[]) => {
-            return sections.filter(section => section !== 'Title');
+          // Smart deduplication that handles all variations and keeps only the localized version
+          const smartDeduplicate = (sections: string[]) => {
+            const seen = new Set();
+            const result = [];
+            
+            for (const section of sections) {
+              // Check if this section has a localized equivalent
+              const localizedVersion = englishToLocalized[section];
+              
+              if (localizedVersion) {
+                // This is an English section that should be localized
+                if (!seen.has(localizedVersion)) {
+                  result.push(localizedVersion);
+                  seen.add(localizedVersion);
+                }
+                // Skip the English version since we have the localized one
+              } else {
+                // This is either already localized or a custom section
+                if (!seen.has(section)) {
+                  result.push(section);
+                  seen.add(section);
+                }
+              }
+            }
+            
+            return result;
           };
           
           // Remove duplicates that might occur from the mapping
@@ -374,9 +419,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             });
           };
           
-          // Localize each section, filter out "Title" entries, and remove duplicates
+          // Apply smart deduplication to each section
           if (structureToUse.front) {
-            structureToUse.front = removeDuplicates(localizeStructure(filterTitleEntries(structureToUse.front)));
+            structureToUse.front = smartDeduplicate(structureToUse.front);
           }
           if (structureToUse.main) {
             structureToUse.main = removeDuplicates(localizeStructure(structureToUse.main));
@@ -421,11 +466,19 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               const sectionName = parts[1];
               
               // Check if this section exists in the structure for its area
-              // Skip "Title" entries as we only want "Title Page"
-              if (updatedStructure[area] && !updatedStructure[area].includes(sectionName) && sectionName !== 'Title') {
+              // Use smart logic to avoid adding English versions when localized versions exist
+              const englishToLocalized = createEnglishToLocalizedMapping(i18n.language || 'en');
+              const localizedVersion = englishToLocalized[sectionName];
+              const existingSection = updatedStructure[area]?.find(section => 
+                section === sectionName || section === localizedVersion
+              );
+              
+              if (updatedStructure[area] && !existingSection) {
                 console.log(`Adding missing section to structure: ${area}:${sectionName}`);
                 updatedStructure[area] = [...updatedStructure[area], sectionName];
                 structureUpdated = true;
+              } else if (existingSection && existingSection !== sectionName) {
+                console.log(`Skipping "${sectionName}" as "${existingSection}" already exists`);
               }
             }
           });
@@ -465,14 +518,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     });
   }, [structure]);
 
-  // Yancy Dennis - Fixed missing categories on first load by:
+  // Yancy Dennis - Fixed missing categories and duplicate entries with comprehensive solution:
   // 1. Adding i18n.language to fetchProject useEffect dependencies
   // 2. Adding structureLoaded state to prevent rendering empty structure
   // 3. Adding validation checks for structure integrity
   // 4. Adding loading state for structure rendering
-  // 5. Fixed duplicate "Title" entries by removing "Title" mapping and filtering out "Title" entries
-  // 6. Added filtering to prevent "Title" entries from being added via content synchronization
-  // 7. Added filtering to remove "Title" content keys when loading from backend
+  // 5. Implemented smart deduplication system that handles all English-to-localized mappings
+  // 6. Comprehensive mapping of all possible English variations to localized equivalents
+  // 7. Smart content synchronization that prevents English duplicates when localized versions exist
+  // 8. Intelligent content filtering that maintains only the appropriate localized versions
 
   // Load user subscription for deterrent banner
   useEffect(() => {
