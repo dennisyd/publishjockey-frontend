@@ -231,7 +231,8 @@ const Dashboard: React.FC = () => {
              console.log('Creating project with title:', newProjectName.trim());
 
        const response = await http.post(`${ENV.API_URL}/projects`, {
-         title: newProjectName.trim()
+         title: newProjectName.trim(),
+         language: i18n.language || 'en'
        });
        
        const data = response.data;
