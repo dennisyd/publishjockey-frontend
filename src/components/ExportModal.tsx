@@ -732,8 +732,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Select>
                 </FormControl>
 
-                {/* Font Family - Language-specific filtering */}
-                {['en', 'es', 'fr', 'de', 'it', 'id', 'ru', 'ta'].includes(settings.language || 'en') && (
+                                 {/* Font Family - Show for all languages */}
+                 {(
                   <>
                                          <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
                      <FormControl fullWidth sx={{ mb: 2 }}>
@@ -884,49 +884,49 @@ const ExportModal: React.FC<ExportModalProps> = ({
                         const language = settings.language || 'en';
                         const format = settings.format;
                         
-                        if (format === 'epub') {
-                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                            return '💡 Choose your preferred EPUB-compatible font for Latin-based languages.';
-                          } else if (language === 'ru') {
-                            return '💡 Choose your preferred Cyrillic font for Russian (EPUB-compatible).';
-                          } else if (language === 'ta') {
-                            return '💡 Choose your preferred Tamil font (EPUB-compatible).';
-                          } else if (language === 'hi') {
-                            return '💡 Choose your preferred Devanagari font for Hindi (EPUB-compatible).';
-                          } else if (language === 'ar') {
-                            return '💡 Choose your preferred Arabic font (EPUB-compatible).';
-                          } else if (language === 'he' || language === 'yi') {
-                            return '💡 Choose your preferred Hebrew font (EPUB-compatible).';
-                          }
-                        } else if (format === 'pdf') {
-                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                            return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts).';
-                          } else if (language === 'ru') {
-                            return '💡 Choose your preferred Cyrillic font for Russian.';
-                          } else if (language === 'ta') {
-                            return '💡 Choose your preferred Tamil font.';
-                          } else if (language === 'hi') {
-                            return '💡 Choose your preferred Devanagari font for Hindi.';
-                          } else if (language === 'ar') {
-                            return '💡 Choose your preferred Arabic font.';
-                          } else if (language === 'he' || language === 'yi') {
-                            return '💡 Choose your preferred Hebrew font.';
-                          }
-                        } else {
-                          if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                            return '💡 Choose your preferred font for Latin-based languages.';
-                          } else if (language === 'ru') {
-                            return '💡 Choose your preferred Cyrillic font for Russian.';
-                          } else if (language === 'ta') {
-                            return '💡 Choose your preferred Tamil font.';
-                          } else if (language === 'hi') {
-                            return '💡 Choose your preferred Devanagari font for Hindi.';
-                          } else if (language === 'ar') {
-                            return '💡 Choose your preferred Arabic font.';
-                          } else if (language === 'he' || language === 'yi') {
-                            return '💡 Choose your preferred Hebrew font.';
-                          }
-                        }
+                                                 if (format === 'epub') {
+                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                             return '💡 Choose your preferred EPUB-compatible font for Latin-based languages. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ru') {
+                             return '💡 Choose your preferred Cyrillic font for Russian (EPUB-compatible). Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ta') {
+                             return '💡 Choose your preferred Tamil font (EPUB-compatible). Keep the selected font or choose your preferred font.';
+                           } else if (language === 'hi') {
+                             return '💡 Choose your preferred Devanagari font for Hindi (EPUB-compatible). Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ar') {
+                             return '💡 Choose your preferred Arabic font (EPUB-compatible). Keep the selected font or choose your preferred font.';
+                           } else if (language === 'he' || language === 'yi') {
+                             return '💡 Choose your preferred Hebrew font (EPUB-compatible). Keep the selected font or choose your preferred font.';
+                           }
+                         } else if (format === 'pdf') {
+                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                             return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ru') {
+                             return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ta') {
+                             return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'hi') {
+                             return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ar') {
+                             return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'he' || language === 'yi') {
+                             return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
+                           }
+                                                  } else {
+                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                             return '💡 Choose your preferred font for Latin-based languages. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ru') {
+                             return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ta') {
+                             return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'hi') {
+                             return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'ar') {
+                             return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
+                           } else if (language === 'he' || language === 'yi') {
+                             return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
+                           }
+                         }
                         
                         return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
                       })()}
