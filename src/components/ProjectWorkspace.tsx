@@ -648,7 +648,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Standardize handleAdd function to work equally for all matter sections
   const handleAdd = (area: keyof typeof structure) => {
     // Create a dialog to get the section name
-    const newSectionName = prompt(`Add a new section to ${area} matter`, area === 'main' ? 'Chapter' : 'Section');
+    const newSectionName = prompt(`Add a new section to ${area} matter`, '');
     
     if (newSectionName && newSectionName.trim() !== '') {
       // Add the section to the structure
@@ -656,11 +656,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       updatedStructure[area] = [...updatedStructure[area], newSectionName.trim()];
       setStructure(updatedStructure);
       
-      // Create default content for the new section
+      // Create empty content for the new section - no system-generated text
       const contentKey = `${area}:${newSectionName.trim()}`;
-      const defaultContent = area === 'main' 
-        ? `# ${newSectionName.trim()}\n\n*Insert your content here...*`
-        : `# ${newSectionName.trim()}\n\n*Insert your content here...*`;
+      const defaultContent = ''; // Empty content - user decides what to write
       
       // Update local content state
       const updatedContent = { 

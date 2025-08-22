@@ -29,7 +29,7 @@ const defaultSettings: EditorSettings = {
   darkMode: false,
   // Default language and font settings
   documentLanguage: 'en',
-  exportFontFamily: 'Liberation Serif'
+  exportFontFamily: 'Latin Modern Roman'
 };
 
 const SettingsContext = createContext<SettingsContextType | undefined>(undefined);

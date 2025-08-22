@@ -202,7 +202,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     forceTitleFirst: true,
     // Language and font settings - use current interface language from Dashboard as default
     language: i18n.language || 'en',
-    fontFamily: userSettings.exportFontFamily || 'Liberation Serif',
+    fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman',
     tocDepth: 1
   });
 
@@ -242,15 +242,16 @@ const ExportModal: React.FC<ExportModalProps> = ({
     return () => { cancelled = true; };
   }, [isOpen]);
 
-  // Update language when modal opens to match current interface language from Dashboard
+  // Update language and font when modal opens to match current interface language from Dashboard
   useEffect(() => {
     if (isOpen) {
       setSettings(prev => ({
         ...prev,
-        language: i18n.language || 'en'
+        language: i18n.language || 'en',
+        fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman'
       }));
     }
-  }, [isOpen, i18n.language, userSettings.documentLanguage]);
+  }, [isOpen, i18n.language, userSettings.documentLanguage, userSettings.exportFontFamily]);
 
 
   // Get book sizes based on binding type
@@ -476,7 +477,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     setSettings(prev => ({
       ...prev,
       language: i18n.language || 'en',
-      fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
+      fontFamily: userSettings.exportFontFamily || 'Latin Modern Roman'
     }));
   }, [i18n.language, userSettings.exportFontFamily]);
 
@@ -492,14 +493,14 @@ const ExportModal: React.FC<ExportModalProps> = ({
        'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
       
       // All Latin-based languages use the same default font
-      'latin': 'Liberation Serif'
+      'latin': 'Latin Modern Roman'
     };
     
     // Map Latin-based languages to 'latin' category
     const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
     const category = latinLanguages.includes(language) ? 'latin' : language;
     
-    return languageFontMap[category] || 'Liberation Serif';
+    return languageFontMap[category] || 'Latin Modern Roman';
   };
 
   // Handle language change and auto-select appropriate font

@@ -50,7 +50,7 @@ const Settings: React.FC = () => {
   const [autoSave, setAutoSave] = useState(settings.autoSave);
   const [autosaveInterval, setAutosaveInterval] = useState(settings.autosaveInterval);
   const [defaultExportFormat, setDefaultExportFormat] = useState(settings.defaultExportFormat);
-  const [selectedFont, setSelectedFont] = useState(settings.exportFontFamily || 'Liberation Serif');
+  const [selectedFont, setSelectedFont] = useState(settings.exportFontFamily || 'Latin Modern Roman');
   const [selectedLanguage, setSelectedLanguage] = useState(settings.documentLanguage || 'en');
 
   // Font options organized by language
