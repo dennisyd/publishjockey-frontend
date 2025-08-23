@@ -516,23 +516,21 @@ const ExportModal: React.FC<ExportModalProps> = ({
   };
 
   // Ensure font family is always set to a valid default when modal opens
-  useEffect(() => {
-    if (isOpen && settings.language) {
-      const currentFont = settings.fontFamily;
-      const recommendedFont = getRecommendedFont(settings.language);
-      
-      console.log(`Modal opened - Language: ${settings.language}, Current font: ${currentFont}, Recommended font: ${recommendedFont}`);
-      
-      // If no font is set or the current font is not appropriate for the language, set the recommended font
-      if (!currentFont || currentFont === '') {
-        console.log(`Setting default font for language ${settings.language}: ${recommendedFont}`);
-        setSettings(prev => ({
-          ...prev,
-          fontFamily: recommendedFont
-        }));
-      }
-    }
-  }, [isOpen, settings.language, settings.fontFamily]);
+     useEffect(() => {
+     if (isOpen && settings.language) {
+       const currentFont = settings.fontFamily;
+       const recommendedFont = getRecommendedFont(settings.language);
+       
+       console.log(`Modal opened - Language: ${settings.language}, Current font: "${currentFont}", Recommended font: "${recommendedFont}"`);
+       
+       // Always set the recommended font when modal opens to ensure we have a default
+       console.log(`Setting font for language ${settings.language}: ${recommendedFont}`);
+       setSettings(prev => ({
+         ...prev,
+         fontFamily: recommendedFont
+       }));
+     }
+   }, [isOpen, settings.language]);
 
   return (
     <Dialog
@@ -747,6 +745,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
                             setSettings({ ...settings, fontFamily: e.target.value });
                           }}
                           displayEmpty
+                          renderValue={(selected) => {
+                            console.log(`Select renderValue called with: "${selected}"`);
+                            return selected || 'Select a font...';
+                          }}
                         >
                                                  {(() => {
                            const language = settings.language || 'en';
