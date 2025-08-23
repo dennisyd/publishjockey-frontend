@@ -24,7 +24,7 @@ import {
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
-import axios from 'axios';
+import { http } from '../../services/http';
 
 const TestimonialApproval = () => {
   const [testimonials, setTestimonials] = useState([]);
@@ -41,11 +41,7 @@ const TestimonialApproval = () => {
     const loadTestimonials = async () => {
       setLoading(true);
       try {
-      const { ENV } = await import('../../config/env');
-      const token = localStorage.getItem('token');
-                const response = await axios.get(`${ENV.API_URL}/testimonials`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-      });
+      const response = await http.get('/testimonials');
         // Transform the data to match our UI needs
         const transformedTestimonials = response.data.map(testimonial => ({
           id: testimonial._id,
@@ -94,11 +90,7 @@ const TestimonialApproval = () => {
   
   const handleEditSave = async () => {
     try {
-      const { ENV } = await import('../../config/env');
-      const token = localStorage.getItem('token');
-      await axios.patch(`${ENV.API_URL}/testimonials/${currentTestimonial.id}`, editedTestimonial, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-      });
+      await http.patch(`/testimonials/${currentTestimonial.id}`, editedTestimonial);
       
       // Update local state
       setTestimonials(prev => 
@@ -132,11 +124,7 @@ const TestimonialApproval = () => {
   
   const handleDelete = async () => {
     try {
-      const { ENV } = await import('../../config/env');
-      const token = localStorage.getItem('token');
-      await axios.delete(`${ENV.API_URL}/testimonials/${currentTestimonial.id}`, {
-        headers: token ? { Authorization: `Bearer ${token}` } : undefined
-      });
+      await http.delete(`/testimonials/${currentTestimonial.id}`);
       
       // Update local state
       setTestimonials(prev => prev.filter(item => item.id !== currentTestimonial.id));
@@ -159,12 +147,8 @@ const TestimonialApproval = () => {
   
   const handleStatusChange = async (testimonial, newStatus) => {
     try {
-      const { ENV } = await import('../../config/env');
-      const token = localStorage.getItem('token');
       if (newStatus === 'approved') {
-        await axios.patch(`${ENV.API_URL}/testimonials/${testimonial.id}/approve`, {}, {
-          headers: token ? { Authorization: `Bearer ${token}` } : undefined
-        });
+        await http.patch(`/testimonials/${testimonial.id}/approve`, {});
       }
       
       // Update local state
