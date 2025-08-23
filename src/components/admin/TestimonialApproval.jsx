@@ -43,7 +43,7 @@ const TestimonialApproval = () => {
       try {
       const { ENV } = await import('../../config/env');
       const token = localStorage.getItem('token');
-      const response = await axios.get(`${ENV.API_URL}/testimonials`, {
+                const response = await axios.get(`${ENV.API_URL}/testimonials/admin`, {
         headers: token ? { Authorization: `Bearer ${token}` } : undefined
       });
         // Transform the data to match our UI needs
