@@ -163,7 +163,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   exportError,
   t
 }) => {
-  console.log('ExportModal component rendered, isOpen:', isOpen);
+  console.log('ExportModal component rendered, isOpen:', isOpen, 'props:', { isOpen, isLoading, projectName });
   const { currentUser } = useAuth();
   const { settings: userSettings } = useSettings();
   const { i18n } = useTranslation();
@@ -221,6 +221,29 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
+  
+  // Get recommended font for a given language
+  const getRecommendedFont = (language: string): string => {
+    const languageFontMap: { [key: string]: string } = {
+      // Languages that need special fonts
+      'ar': 'Noto Sans Arabic', // Arabic
+      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
+             'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
+       'ta': 'Noto Sans Tamil', // Tamil
+       'he': 'Noto Sans Hebrew', // Hebrew
+       'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
+      
+      // All Latin-based languages prefer Liberation Serif, fallback to Latin Modern Roman
+      'latin': 'Liberation Serif'
+    };
+    
+    // Map Latin-based languages to 'latin' category
+    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
+    const category = latinLanguages.includes(language) ? 'latin' : language;
+    
+    return languageFontMap[category] || 'Liberation Serif';
+  };
+
   // Fetch image usage stats when modal opens (for free plan clarity)
   useEffect(() => {
     let cancelled = false;
@@ -243,16 +266,25 @@ const ExportModal: React.FC<ExportModalProps> = ({
     return () => { cancelled = true; };
   }, [isOpen]);
 
-     // Update language and font when modal opens to match current interface language from Dashboard
+     // Single initialization effect - runs only when modal opens
    useEffect(() => {
      if (isOpen) {
+       const language = i18n.language || 'en';
+       const recommendedFont = getRecommendedFont(language);
+       const userFont = userSettings.exportFontFamily;
+       
+       // Use user's saved font if it exists, otherwise use recommended font
+       const initialFont = userFont || recommendedFont;
+       
+       console.log(`Initializing ExportModal - Language: ${language}, User font: ${userFont}, Recommended: ${recommendedFont}, Final: ${initialFont}`);
+       
        setSettings(prev => ({
          ...prev,
-         language: i18n.language || 'en',
-         fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
+         language: language,
+         fontFamily: initialFont
        }));
      }
-   }, [isOpen, i18n.language, userSettings.documentLanguage, userSettings.exportFontFamily]);
+   }, [isOpen]); // Only depend on isOpen to avoid race conditions
 
 
   // Get book sizes based on binding type
@@ -473,37 +505,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
-     // Update settings when user settings change - now syncs with Dashboard language
-   useEffect(() => {
-     setSettings(prev => ({
-       ...prev,
-       language: i18n.language || 'en',
-       fontFamily: userSettings.exportFontFamily || 'Liberation Serif'
-     }));
-   }, [i18n.language, userSettings.exportFontFamily]);
-
-  // Get recommended font for a given language
-  const getRecommendedFont = (language: string): string => {
-    const languageFontMap: { [key: string]: string } = {
-      // Languages that need special fonts
-      'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
-             'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
-       'ta': 'Noto Sans Tamil', // Tamil
-       'he': 'Noto Sans Hebrew', // Hebrew
-       'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
-      
-      // All Latin-based languages prefer Liberation Serif, fallback to Latin Modern Roman
-      'latin': 'Liberation Serif'
-    };
-    
-    // Map Latin-based languages to 'latin' category
-    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
-    const category = latinLanguages.includes(language) ? 'latin' : language;
-    
-    return languageFontMap[category] || 'Liberation Serif';
-  };
-
   // Handle language change and auto-select appropriate font
   const handleLanguageChange = (language: string) => {
     const recommendedFont = getRecommendedFont(language);
@@ -515,23 +516,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }));
   };
 
-  // Ensure font family is always set to a valid default when modal opens
-     useEffect(() => {
-     if (isOpen && settings.language) {
-       const currentFont = settings.fontFamily;
-       const recommendedFont = getRecommendedFont(settings.language);
-       
-       console.log(`Modal opened - Language: ${settings.language}, Current font: "${currentFont}", Recommended font: "${recommendedFont}"`);
-       
-       // Always set the recommended font when modal opens to ensure we have a default
-       console.log(`Setting font for language ${settings.language}: ${recommendedFont}`);
-       setSettings(prev => ({
-         ...prev,
-         fontFamily: recommendedFont
-       }));
-     }
-   }, [isOpen, settings.language]);
 
+
+  console.log('ExportModal about to render JSX, isOpen:', isOpen);
   return (
     <Dialog
       open={isOpen}
