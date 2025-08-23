@@ -222,34 +222,130 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
   
-  // Get recommended font for a given language
-  const getRecommendedFont = (language: string): string => {
-    console.log(`getRecommendedFont called with language: "${language}"`);
+  // Get available fonts for a given language and format
+  const getAvailableFonts = (language: string, format: string) => {
+    console.log(`getAvailableFonts called with language: "${language}", format: "${format}"`);
     
+    const filteredFonts = fontOptions.filter(font => {
+      // For EPUB, only show fonts that work well across e-readers
+      if (format === 'epub') {
+        // EPUB-compatible fonts for Latin-based languages
+        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+          return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
+        }
+        // For other languages, keep their specific fonts
+        if (language === 'ta') {
+          return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+        }
+        if (language === 'ru') {
+          return ['Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+        }
+        if (language === 'hi') {
+          return ['Noto Sans Devanagari'].includes(font.value);
+        }
+        if (language === 'ar') {
+          return ['Noto Sans Arabic'].includes(font.value);
+        }
+        if (language === 'he' || language === 'yi') {
+          return ['Noto Sans Hebrew', 'Noto Serif Hebrew'].includes(font.value);
+        }
+        return false;
+      }
+      
+      // For PDF and other formats, show all appropriate fonts
+      // Latin-based languages (English, Spanish, French, German, Italian, Indonesian) - show all Latin fonts
+      if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+        const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
+        return latinFonts.includes(font.value);
+      }
+      
+      // Tamil - only show Tamil fonts
+      if (language === 'ta') {
+        return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
+      }
+      
+      // Russian - only show Cyrillic fonts
+      if (language === 'ru') {
+        return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+      }
+      
+      // Hindi - only show Devanagari fonts
+      if (language === 'hi') {
+        return ['Noto Sans Devanagari'].includes(font.value);
+      }
+      
+      // Arabic - only show Arabic fonts
+      if (language === 'ar') {
+        return ['Noto Sans Arabic'].includes(font.value);
+      }
+      
+      // Hebrew/Yiddish - only show Hebrew fonts
+      if (language === 'he' || language === 'yi') {
+        return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
+      }
+      
+      return false;
+    });
+    
+    // Always ensure Liberation Serif is available as a fallback for Latin languages
+    let finalFonts = filteredFonts;
+    if (filteredFonts.length === 0) {
+      finalFonts = [{ value: 'Liberation Serif', label: 'Liberation Serif' }];
+    } else {
+      // Ensure Liberation Serif is always in the list for Latin languages
+      if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+        const hasLiberation = finalFonts.some(f => f.value === 'Liberation Serif');
+        if (!hasLiberation) {
+          finalFonts.unshift({ value: 'Liberation Serif', label: 'Liberation Serif' });
+        }
+      }
+    }
+    
+    console.log(`Available fonts for ${language}:`, finalFonts.map(f => f.value));
+    return finalFonts;
+  };
+
+  // Get recommended font for a given language
+  const getRecommendedFont = (language: string, format: string = 'pdf'): string => {
+    console.log(`getRecommendedFont called with language: "${language}", format: "${format}"`);
+    
+    const availableFonts = getAvailableFonts(language, format);
+    
+    // Define preferred fonts for each language
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
       'ar': 'Noto Sans Arabic', // Arabic
       'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
-             'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
-       'ta': 'Noto Sans Tamil', // Tamil
-       'he': 'Noto Sans Hebrew', // Hebrew
-       'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
+      'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
+      'ta': 'Noto Sans Tamil', // Tamil
+      'he': 'Noto Sans Hebrew', // Hebrew
+      'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
       
-      // All Latin-based languages prefer Liberation Serif, fallback to Latin Modern Roman
+      // All Latin-based languages prefer Liberation Serif
       'latin': 'Liberation Serif'
     };
     
     // Map Latin-based languages to 'latin' category
-    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
+    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id'];
     const category = latinLanguages.includes(language) ? 'latin' : language;
     
     console.log(`Language: "${language}", Category: "${category}", Latin languages:`, latinLanguages);
     console.log(`Is ${language} in latinLanguages?`, latinLanguages.includes(language));
     
-    const result = languageFontMap[category] || 'Liberation Serif';
-    console.log(`getRecommendedFont result: "${result}"`);
+    const preferredFont = languageFontMap[category] || 'Liberation Serif';
     
-    return result;
+    // Check if the preferred font is available
+    const isPreferredFontAvailable = availableFonts.some(font => font.value === preferredFont);
+    
+    if (isPreferredFontAvailable) {
+      console.log(`Preferred font "${preferredFont}" is available`);
+      return preferredFont;
+    } else {
+      // Fall back to the first available font
+      const fallbackFont = availableFonts[0]?.value || 'Liberation Serif';
+      console.log(`Preferred font "${preferredFont}" not available, using fallback: "${fallbackFont}"`);
+      return fallbackFont;
+    }
   };
 
   // Fetch image usage stats when modal opens (for free plan clarity)
@@ -278,15 +374,20 @@ const ExportModal: React.FC<ExportModalProps> = ({
    useEffect(() => {
      if (isOpen) {
        const language = i18n.language || 'en';
-       console.log(`Initialization effect - i18n.language: "${i18n.language}", final language: "${language}"`);
+       const format = 'pdf'; // Default format for initialization
+       console.log(`Initialization effect - i18n.language: "${i18n.language}", final language: "${language}", format: "${format}"`);
        
-       const recommendedFont = getRecommendedFont(language);
+       const recommendedFont = getRecommendedFont(language, format);
        const userFont = userSettings.exportFontFamily;
        
-       // Use user's saved font if it exists, otherwise use recommended font
-       const initialFont = userFont || recommendedFont;
+       // Validate user's saved font against available fonts
+       const availableFonts = getAvailableFonts(language, format);
+       const isUserFontValid = userFont && availableFonts.some(font => font.value === userFont);
        
-       console.log(`Initializing ExportModal - Language: ${language}, User font: ${userFont}, Recommended: ${recommendedFont}, Final: ${initialFont}`);
+       // Use user's saved font if it's valid, otherwise use recommended font
+       const initialFont = isUserFontValid ? userFont : recommendedFont;
+       
+       console.log(`Initializing ExportModal - Language: ${language}, User font: ${userFont}, Is valid: ${isUserFontValid}, Recommended: ${recommendedFont}, Final: ${initialFont}`);
        
        setSettings(prev => ({
          ...prev,
@@ -517,8 +618,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   // Handle language change and auto-select appropriate font
   const handleLanguageChange = (language: string) => {
-    const recommendedFont = getRecommendedFont(language);
-    console.log(`Language changed to ${language}, setting font to ${recommendedFont}`);
+    const format = settings.format;
+    const recommendedFont = getRecommendedFont(language, format);
+    console.log(`Language changed to ${language}, format: ${format}, setting font to ${recommendedFont}`);
     setSettings(prev => ({
       ...prev,
       language,
@@ -746,97 +848,18 @@ const ExportModal: React.FC<ExportModalProps> = ({
                             console.log(`Select renderValue called with: "${selected}"`);
                             return selected || 'Select a font...';
                           }}
-                        >
-                                                 {(() => {
-                           const language = settings.language || 'en';
-                           console.log(`Filtering fonts for language: ${language}, format: ${settings.format}`);
-                           console.log(`All available fonts:`, fontOptions.map(f => f.value));
-                           
-                           const filteredFonts = fontOptions.filter(font => {
-                          
-                          // For EPUB, only show fonts that work well across e-readers
-                          if (settings.format === 'epub') {
-                            // EPUB-compatible fonts for Latin-based languages
-                            if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                              return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
-                            }
-                            // For other languages, keep their specific fonts
-                            if (language === 'ta') {
-                              return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
-                            }
-                            if (language === 'ru') {
-                              return ['Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
-                            }
-                            if (language === 'hi') {
-                              return ['Noto Sans Devanagari'].includes(font.value);
-                            }
-                            if (language === 'ar') {
-                              return ['Noto Sans Arabic'].includes(font.value);
-                            }
-                            if (language === 'he' || language === 'yi') {
-                              return ['Noto Sans Hebrew', 'Noto Serif Hebrew'].includes(font.value);
-                            }
-                            return false;
-                          }
-                          
-                                                     // For PDF and other formats, show all appropriate fonts
-                           // Latin-based languages (English, Spanish, French, German, Italian, Indonesian) - show all Latin fonts
-                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                             const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
-                             console.log(`Checking if ${font.value} is in latinFonts:`, latinFonts.includes(font.value));
-                             return latinFonts.includes(font.value);
-                           }
-                          
-                          // Tamil - only show Tamil fonts
-                          if (language === 'ta') {
-                            return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
-                          }
-                          
-                          // Russian - only show Cyrillic fonts
-                          if (language === 'ru') {
-                            return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
-                          }
-                          
-                          // Hindi - only show Devanagari fonts
-                          if (language === 'hi') {
-                            return ['Noto Sans Devanagari'].includes(font.value);
-                          }
-                          
-                          // Arabic - only show Arabic fonts
-                          if (language === 'ar') {
-                            return ['Noto Sans Arabic'].includes(font.value);
-                          }
-                          
-                          // Hebrew/Yiddish - only show Hebrew fonts
-                          if (language === 'he' || language === 'yi') {
-                            return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
-                          }
-                          
-                                                      return false;
-                          });
-                          
-                          console.log(`Available fonts for ${language}:`, filteredFonts.map(f => f.value));
-                          
-                                                     // Always ensure Liberation Serif is available as a fallback for Latin languages
-                           let finalFonts = filteredFonts;
-                           if (filteredFonts.length === 0) {
-                             finalFonts = [{ value: 'Liberation Serif', label: 'Liberation Serif' }];
-                           } else {
-                             // Ensure Liberation Serif is always in the list for Latin languages
-                             if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                               const hasLiberation = finalFonts.some(f => f.value === 'Liberation Serif');
-                               if (!hasLiberation) {
-                                 finalFonts.unshift({ value: 'Liberation Serif', label: 'Liberation Serif' });
-                               }
-                             }
-                           }
-                           
-                           console.log(`Final fonts for ${language}:`, finalFonts.map(f => f.value));
-                           
-                           return finalFonts.map(font => (
-                             <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                           ));
-                                                 })()}
+                                                 >
+                                                  {(() => {
+                            const language = settings.language || 'en';
+                            const format = settings.format;
+                            console.log(`Rendering font options for language: ${language}, format: ${format}`);
+                            
+                            const availableFonts = getAvailableFonts(language, format);
+                            
+                            return availableFonts.map(font => (
+                              <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                            ));
+                                                  })()}
                        </Select>
                     </FormControl>
                     <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
