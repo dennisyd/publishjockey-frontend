@@ -90,14 +90,7 @@ const TestimonialApproval = () => {
   
   const handleEditSave = async () => {
     try {
-      console.log('Attempting to update testimonial:', {
-        id: currentTestimonial.id,
-        data: editedTestimonial
-      });
-      
       await http.patch(`/testimonials/${currentTestimonial.id}`, editedTestimonial);
-      
-      console.log('Testimonial updated successfully');
       
       // Update local state
       setTestimonials(prev => 
@@ -116,12 +109,9 @@ const TestimonialApproval = () => {
       
       setEditDialogOpen(false);
     } catch (error) {
-      console.error('Error updating testimonial:', error);
-      console.error('Error response:', error.response?.data);
-      
       setSnackbar({
         open: true,
-        message: `Failed to update testimonial: ${error.response?.data?.error || error.message}`,
+        message: 'Failed to update testimonial',
         severity: 'error'
       });
     }

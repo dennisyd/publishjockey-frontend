@@ -43,11 +43,7 @@ http.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
     
     // Check if this UUID was already generated (should never happen)
     if (generatedUUIDs.has(nonce)) {
-      console.error('DUPLICATE UUID GENERATED ON FRONTEND - this should never happen!', {
-        nonce: nonce.substring(0, 8) + '...',
-        url: customConfig.url,
-        requestNumber: requestCounter
-      });
+      console.error('DUPLICATE UUID GENERATED ON FRONTEND - this should never happen!');
     } else {
       generatedUUIDs.add(nonce);
     }
@@ -61,8 +57,7 @@ http.interceptors.request.use(async (config: InternalAxiosRequestConfig) => {
     (customConfig.headers as any)['x-nonce'] = nonce;
     (customConfig.headers as any)['x-timestamp'] = timestamp;
     
-    // Debug logging with UUID verification
-    console.log('Request interceptor - Request #', requestCounter, 'URL:', customConfig.url, 'Nonce:', nonce.substring(0, 8) + '...', 'Timestamp:', timestamp, 'IsUUID:', isUUID, 'Length:', nonce.length, 'TotalGenerated:', generatedUUIDs.size);
+
     
     // Add CSRF token if available (but not for CSRF token endpoint)
     const csrfToken = getCsrfToken();
@@ -113,7 +108,7 @@ http.interceptors.response.use(
           // Set new auth token
           originalRequest.headers.Authorization = `Bearer ${newToken}`;
           
-          console.log('Retrying request with new token and fresh nonce');
+
           return http(originalRequest as any);
         }
       } catch (refreshError) {
