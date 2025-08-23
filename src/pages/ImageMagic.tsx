@@ -25,7 +25,9 @@ import ImageIcon from '@mui/icons-material/Image';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import ScheduleIcon from '@mui/icons-material/Schedule';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import LockIcon from '@mui/icons-material/Lock';
 import { exportHttp } from '../services/exportHttp';
+import { useAuth } from '../contexts/AuthContext';
 
 
 
@@ -114,6 +116,7 @@ const PreviewBox = styled(Box)(({ theme }) => ({
 
 // Main component
 const ImageMagic: React.FC = () => {
+  const { currentUser } = useAuth();
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
   const [isDragActive, setIsDragActive] = useState(false);
@@ -122,6 +125,9 @@ const ImageMagic: React.FC = () => {
   const [success, setSuccess] = useState<ImageMagicResponse | null>(null);
   const [bookSize, setBookSize] = useState<string>('auto');
   const [kdpSizes, setKdpSizes] = useState<KdpSize[]>([]);
+
+  // Check if user has free subscription
+  const isFreeUser = currentUser?.subscription === 'free';
 
   // Fetch KDP sizes on component mount
   useEffect(() => {
@@ -343,6 +349,61 @@ const ImageMagic: React.FC = () => {
     
     console.log('Form reset completed');
   };
+
+  // Show subscription restriction for free users
+  if (isFreeUser) {
+    return (
+      <Container maxWidth="md" sx={{ py: 4 }}>
+        <Paper 
+          elevation={3} 
+          sx={{ 
+            p: 4, 
+            textAlign: 'center',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            color: 'white'
+          }}
+        >
+          <LockIcon sx={{ fontSize: 64, mb: 2, opacity: 0.8 }} />
+          <Typography variant="h4" component="h1" gutterBottom sx={{ fontWeight: 700, mb: 2 }}>
+            ImageMagic Requires Registration
+          </Typography>
+          <Typography variant="h6" component="h2" gutterBottom sx={{ mb: 3, opacity: 0.9 }}>
+            Upgrade your account to access professional image upscaling
+          </Typography>
+          <Typography variant="body1" sx={{ mb: 4, opacity: 0.8, maxWidth: 600, mx: 'auto' }}>
+            ImageMagic is a premium feature that upscales your book cover images to Amazon KDP-compatible resolution (300 DPI). 
+            This resource-intensive feature is available to registered users with paid plans.
+          </Typography>
+          <Stack direction="row" spacing={2} justifyContent="center" flexWrap="wrap">
+            <Button 
+              variant="contained" 
+              size="large"
+              href="/pricing"
+              sx={{ 
+                bgcolor: 'white', 
+                color: 'primary.main',
+                '&:hover': { bgcolor: 'grey.100' }
+              }}
+            >
+              View Pricing Plans
+            </Button>
+            <Button 
+              variant="outlined" 
+              size="large"
+              href="/register"
+              sx={{ 
+                borderColor: 'white', 
+                color: 'white',
+                '&:hover': { borderColor: 'grey.300', bgcolor: 'rgba(255,255,255,0.1)' }
+              }}
+            >
+              Create Account
+            </Button>
+          </Stack>
+        </Paper>
+      </Container>
+    );
+  }
 
   return (
     <Container maxWidth="lg" sx={{ py: 4 }}>
