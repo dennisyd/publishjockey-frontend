@@ -219,12 +219,9 @@ const SearchableLanguageSelector = ({
             >
               <ClickAwayListener onClickAway={handleClickAway}>
                 <List dense sx={{ py: 0 }}>
-                  {/* Recent Languages */}
-                  {renderLanguageSection('Recent Languages', recentLanguages, recentLanguages.length > 0)}
-
-                  {/* Search Results */}
+                  {/* Search Results - Show first when searching */}
                   {searchQuery && filteredLanguages.length > 0 && (
-                    renderLanguageSection('Search Results', filteredLanguages, false)
+                    renderLanguageSection('Search Results', filteredLanguages, recentLanguages.length > 0)
                   )}
 
                   {/* No Results */}
@@ -235,6 +232,11 @@ const SearchableLanguageSelector = ({
                       </Typography>
                     </ListItem>
                   )}
+
+                  {/* Recent Languages - Show after search results or when no search */}
+                  {(!searchQuery || (searchQuery && filteredLanguages.length > 0)) && 
+                    renderLanguageSection('Recent Languages', recentLanguages, !searchQuery)
+                  }
 
                   {/* Popular Languages (when no search) */}
                   {!searchQuery && (
