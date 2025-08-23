@@ -224,6 +224,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   
   // Get recommended font for a given language
   const getRecommendedFont = (language: string): string => {
+    console.log(`getRecommendedFont called with language: "${language}"`);
+    
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
       'ar': 'Noto Sans Arabic', // Arabic
@@ -241,7 +243,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
     const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id']; // Added Indonesian
     const category = latinLanguages.includes(language) ? 'latin' : language;
     
-    return languageFontMap[category] || 'Liberation Serif';
+    console.log(`Language: "${language}", Category: "${category}", Latin languages:`, latinLanguages);
+    console.log(`Is ${language} in latinLanguages?`, latinLanguages.includes(language));
+    
+    const result = languageFontMap[category] || 'Liberation Serif';
+    console.log(`getRecommendedFont result: "${result}"`);
+    
+    return result;
   };
 
   // Fetch image usage stats when modal opens (for free plan clarity)
@@ -270,6 +278,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
    useEffect(() => {
      if (isOpen) {
        const language = i18n.language || 'en';
+       console.log(`Initialization effect - i18n.language: "${i18n.language}", final language: "${language}"`);
+       
        const recommendedFont = getRecommendedFont(language);
        const userFont = userSettings.exportFontFamily;
        
