@@ -97,13 +97,23 @@ const languageOptions = [
   { value: 'de', label: '🇩🇪 Deutsch', description: 'German' },
   { value: 'it', label: '🇮🇹 Italiano', description: 'Italian' },
   { value: 'id', label: '🇮🇩 Bahasa Indonesia', description: 'Indonesian' },
+  { value: 'is', label: '🇮🇸 Íslenska', description: 'Icelandic' },
+  { value: 'pt', label: '🇵🇹 Português', description: 'Portuguese' },
+  { value: 'hr', label: '🇭🇷 Hrvatski', description: 'Croatian' },
   { value: 'ru', label: '🇷🇺 Русский', description: 'Russian' },
   { value: 'ro', label: '🇷🇴 Română', description: 'Romanian' },
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
+  { value: 'bn', label: '🇧🇩 বাংলা', description: 'Bengali' },
+  { value: 'gu', label: '🇮🇳 ગુજરાતી', description: 'Gujarati' },
+  { value: 'ta', label: '🇮🇳 தமிழ்', description: 'Tamil' },
+  { value: 'te', label: '🇮🇳 తెలుగు', description: 'Telugu' },
+  { value: 'kn', label: '🇮🇳 ಕನ್ನಡ', description: 'Kannada' },
+  { value: 'ml', label: '🇮🇳 മലയാളം', description: 'Malayalam' },
+  { value: 'pa', label: '🇮🇳 ਪੰਜਾਬੀ', description: 'Punjabi' },
+  { value: 'or', label: '🇮🇳 ଓଡ଼ିଆ', description: 'Oriya' },
   { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' },
   { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },
-  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' },
-  { value: 'ta', label: '🇮🇳 தமிழ்', description: 'Tamil' }
+  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' }
 ];
 
 
