@@ -56,12 +56,12 @@ const windowsFonts = [
 ];
 
 const serverFonts = [
-  // Latin fonts (for English, Spanish, French, German, Italian, Indonesian)
-  { value: 'Liberation Serif', label: 'Liberation Serif' },
+  // Latin fonts (for English, Spanish, French, German, Italian, Indonesian, Russian)
+  { value: 'Liberation Serif', label: 'Liberation Serif (Latin/Cyrillic)' },
   { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
   { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
   { value: 'Linux Libertine', label: 'Linux Libertine' },
-  { value: 'DejaVu Serif', label: 'DejaVu Serif' },
+  { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin/Cyrillic)' },
   { value: 'Liberation Sans', label: 'Liberation Sans' },
   { value: 'DejaVu Sans', label: 'DejaVu Sans' },
   // Professional book fonts
@@ -83,11 +83,30 @@ const serverFonts = [
   { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Tamil)' },
   { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil (Tamil)' },
   
-  // Cyrillic fonts (for Russian) - confirmed available on server
-  { value: 'DejaVu Serif', label: 'DejaVu Serif (Cyrillic support)' },
-  { value: 'Liberation Serif', label: 'Liberation Serif (Cyrillic support)' },
-  { value: 'Tinos', label: 'Tinos (Times New Roman alternative, Cyrillic support)' },
-  { value: 'FreeSerif', label: 'FreeSerif (Cyrillic support)' }
+  // Additional Russian/Cyrillic fonts (confirmed available on server)
+  { value: 'Tinos', label: 'Tinos (Cyrillic support)' },
+  { value: 'FreeSerif', label: 'FreeSerif (Cyrillic support)' },
+  
+  // Bengali fonts
+  { value: 'Noto Sans Bengali', label: 'Noto Sans Bengali' },
+  
+  // Gujarati fonts
+  { value: 'Noto Sans Gujarati', label: 'Noto Sans Gujarati' },
+  
+  // Telugu fonts
+  { value: 'Noto Sans Telugu', label: 'Noto Sans Telugu' },
+  
+  // Kannada fonts
+  { value: 'Noto Sans Kannada', label: 'Noto Sans Kannada' },
+  
+  // Malayalam fonts
+  { value: 'Noto Sans Malayalam', label: 'Noto Sans Malayalam' },
+  
+  // Punjabi fonts
+  { value: 'Noto Sans Gurmukhi', label: 'Noto Sans Gurmukhi (Punjabi)' },
+  
+  // Oriya fonts
+  { value: 'Noto Sans Oriya', label: 'Noto Sans Oriya' }
 ];
 
 // Language options for document export
