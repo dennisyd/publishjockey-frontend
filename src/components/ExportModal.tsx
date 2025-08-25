@@ -83,10 +83,11 @@ const serverFonts = [
   { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Tamil)' },
   { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil (Tamil)' },
   
-  // Cyrillic fonts (for Russian)
-  { value: 'Times New Roman Cyrillic', label: 'Times New Roman (Cyrillic)' },
-  { value: 'Liberation Serif Cyrillic', label: 'Liberation Serif (Cyrillic)' },
-  { value: 'DejaVu Serif Cyrillic', label: 'DejaVu Serif (Cyrillic)' }
+  // Cyrillic fonts (for Russian) - confirmed available on server
+  { value: 'DejaVu Serif', label: 'DejaVu Serif (Cyrillic support)' },
+  { value: 'Liberation Serif', label: 'Liberation Serif (Cyrillic support)' },
+  { value: 'Tinos', label: 'Tinos (Times New Roman alternative, Cyrillic support)' },
+  { value: 'FreeSerif', label: 'FreeSerif (Cyrillic support)' }
 ];
 
 // Language options for document export
@@ -248,7 +249,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
           return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
         }
         if (language === 'ru') {
-          return ['Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+          return ['DejaVu Serif', 'Liberation Serif', 'Tinos', 'FreeSerif'].includes(font.value);
         }
         if (language === 'hi') {
           return ['Noto Sans Devanagari'].includes(font.value);
@@ -274,9 +275,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
         return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
       }
       
-      // Russian - only show Cyrillic fonts
+      // Russian - only show fonts with Cyrillic support
       if (language === 'ru') {
-        return ['Times New Roman Cyrillic', 'Liberation Serif Cyrillic', 'DejaVu Serif Cyrillic'].includes(font.value);
+        return ['DejaVu Serif', 'Liberation Serif', 'Tinos', 'FreeSerif'].includes(font.value);
       }
       
       // Hindi - only show Devanagari fonts
@@ -325,7 +326,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     const languageFontMap: { [key: string]: string } = {
       // Languages that need special fonts
       'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'Liberation Serif Cyrillic', // Russian (Cyrillic)
+      'ru': 'DejaVu Serif', // Russian (Cyrillic) - confirmed available on server
       'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
       'ta': 'Noto Sans Tamil', // Tamil
       'he': 'Noto Sans Hebrew', // Hebrew
