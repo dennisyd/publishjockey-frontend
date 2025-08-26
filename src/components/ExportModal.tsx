@@ -46,6 +46,7 @@ const hardcoverSizes = [
   { value: '6.14x9.21', label: '6.14" x 9.21" (15.6 x 23.39 cm)' },
   { value: '7x10', label: '7" x 10" (17.78 x 25.4 cm)' },
   { value: '8.25x11', label: '8.25" x 11" (20.96 x 27.94 cm)' },
+  { value: '8.5x11', label: '8.5" x 11" (21.59 x 27.94 cm)' },
 ];
 
 // Font options for different platforms
