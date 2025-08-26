@@ -19,15 +19,16 @@ const instructions: Record<string, React.ReactNode> = {
       </Typography>
       
       <Divider sx={{ my: 2 }} />
-      <Typography variant="subtitle2" gutterBottom>🌍 Language Support - 55+ Languages!</Typography>
+      <Typography variant="subtitle2" gutterBottom>🌍 Language Support - 55 Languages!</Typography>
       <Typography variant="body2" paragraph>
-        <strong>📊 PublishJockey supports 55+ languages</strong> covering over <strong>5.5 billion speakers worldwide</strong> - 
-        more than most global tech platforms!
+        <strong>📊 PublishJockey supports 55 languages</strong> covering over <strong>5.5 billion speakers worldwide</strong> - 
+        more than most global publishing platforms!
       </Typography>
       
       <Typography variant="body2" paragraph>
-        📚 <strong>European (19):</strong> English, Spanish, French, German, Italian, Portuguese, Russian, Polish, 
-        Dutch, Swedish, Norwegian, Danish, Finnish, Czech, Croatian, Romanian, Greek, Hungarian, Turkish, and more.
+        📚 <strong>European (28):</strong> English, Spanish, French, German, Italian, Portuguese, Russian, Polish, 
+        Dutch, Swedish, Norwegian, Danish, Finnish, Czech, Croatian, Romanian, Greek, Hungarian, Turkish, Estonian, 
+        Latvian, Lithuanian, Macedonian, Serbian, Slovak, Slovenian, Galician, Icelandic.
       </Typography>
       
       <Typography variant="body2" paragraph>
@@ -42,7 +43,7 @@ const instructions: Record<string, React.ReactNode> = {
       </Typography>
       
       <Typography variant="body2" paragraph>
-        🌏 <strong>Asian:</strong> Indonesian, Malaysian, Vietnamese, Filipino.
+        🌏 <strong>Asian (4):</strong> Indonesian, Malaysian, Vietnamese, Filipino.
       </Typography>
       
       <Typography variant="body2" paragraph>
@@ -52,7 +53,7 @@ const instructions: Record<string, React.ReactNode> = {
       </Typography>
       
       <Typography variant="body2" paragraph sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
-        Most book platforms support 1-5 languages. We support 55+ with native scripts! 🏆
+        Most book platforms support 1-5 languages. We support 55 languages with native scripts and complete localization! 🏆
       </Typography>
       
       <Divider sx={{ my: 2 }} />

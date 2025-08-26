@@ -4,15 +4,11 @@ import { MarkdownFormatter } from "./MarkdownFormatter"
 import { FormatAdapter } from "./FormatAdapter"
 import { ValidationService } from "./ValidationService"
 import tokenManager from "../utils/tokenManager"
+import { exportHttp } from "./exportHttp"
 
 import axios from "axios"
 
-// Define API URL for the export backend
-
-// Use production URL for export backend, or empty string for development proxy
-const API_URL = process.env.NODE_ENV === 'production' 
-  ? 'https://publishjockey-export.onrender.com'
-  : ''
+// Note: API URL is now handled by exportHttp service configuration
 
 interface Section {
   id: string
@@ -323,48 +319,24 @@ export class ExportService {
       }
 
       try {
-        console.log(`Making API call to ${API_URL}${endpoint}`)
-        const token = tokenManager.getAccessToken()
+        console.log(`Making API call to ${endpoint}`)
         
-        // Simple debug logs
-        console.log('🔍 TOKEN DEBUG - hasToken:', !!token);
-        console.log('🔍 TOKEN DEBUG - tokenLength:', token ? token.length : 0);
-        console.log('🔍 TOKEN DEBUG - isExpired:', tokenManager.isAccessTokenExpired());
-        console.log('🔍 TOKEN DEBUG - tokenPreview:', token ? `${token.substring(0, 20)}...` : 'null');
-        
-        const headers: Record<string, string> = {
-          "Content-Type": "application/json",
-          "Accept": "application/json"
-        };
-        
-        if (token && !tokenManager.isAccessTokenExpired()) {
-          headers["Authorization"] = `Bearer ${token}`;
-          console.log('🔍 AUTH HEADER SET:', `Bearer ${token.substring(0, 20)}...`);
-        } else {
-          console.log('🔍 AUTH HEADER NOT SET - Token missing or expired');
-        }
-        
-        const response = await fetch(`${API_URL}${endpoint}`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify(exportPayload),
-        })
+        const response = await exportHttp.post(endpoint, exportPayload)
 
-        if (!response.ok) {
-          const errorText = await response.text()
+        if (response.status !== 200) {
           console.error(
             `Export server returned error ${response.status}:`,
-            errorText,
+            response.data,
           )
           throw new Error(
-            `Export server returned error ${response.status}: ${errorText}`,
+            `Export server returned error ${response.status}: ${JSON.stringify(response.data)}`,
           )
         }
 
         console.log("Export server returned success response")
 
         // Check for the X-No-Download header
-        const noDownload = response.headers.get('x-no-download') === 'true';
+        const noDownload = response.headers['x-no-download'] === 'true';
 
         // If noDownload flag is set, do not create any URLs
         if (noDownload) {
@@ -375,16 +347,12 @@ export class ExportService {
 
 
         
-        // Read the response once as text
-        const responseText = await response.text();
-        console.log("Response received as text, attempting to parse as JSON");
+        // Get response data from axios
+        const responseData = response.data;
+        console.log("Response received from axios, data:", responseData);
         
-        // Handle the response data regardless of content type
-        try {
-          // Try to parse as JSON
-          const responseData = JSON.parse(responseText);
-          
-          console.log("Successfully parsed response data", responseData);
+        // Handle the response data
+        console.log("Successfully parsed response data", responseData);
           
           // Handle new file ID format (without base64)
           if (responseData.fileId && responseData.mimeType) {
@@ -485,14 +453,6 @@ export class ExportService {
             return "";
           }
         }
-
-        // If content type is not JSON or JSON parsing failed, handle as binary
-        console.log("Handling response as binary data")
-
-        // We can't read the response body again with response.blob() since we've already read it with response.text()
-        // Instead, log an error message and return an empty string
-        console.error("Error: Response body already consumed, cannot read as blob");
-        return "";
       } catch (error) {
         console.error("Error during API call to export backend:", error)
         throw new Error(
@@ -703,12 +663,9 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch(`${API_URL}/ping`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
+        const pingResponse = await exportHttp.get('/ping')
 
-        if (!pingResponse.ok) {
+        if (pingResponse.status !== 200) {
           throw new Error(
             `Server responded with status: ${pingResponse.status}`,
           )
@@ -747,24 +704,17 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch(`${API_URL}/export/pdf`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(exportPayload),
-      })
+      const response = await exportHttp.post('/export/pdf', exportPayload)
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Export backend error:", response.status, errorText)
+      if (response.status !== 200) {
+        console.error("Export backend error:", response.status, response.data)
         throw new Error(
-          `Export server returned error ${response.status}: ${errorText}`,
+          `Export server returned error ${response.status}: ${JSON.stringify(response.data)}`,
         )
       }
 
       // Parse the response which should contain the PDF as base64 data
-      const result = await response.json()
+      const result = response.data
 
       if (!result.dataUrl) {
         throw new Error("Export server did not return expected data format")
@@ -827,12 +777,9 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch(`${API_URL}/ping`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
+        const pingResponse = await exportHttp.get('/ping')
 
-        if (!pingResponse.ok) {
+        if (pingResponse.status !== 200) {
           throw new Error(
             `Server responded with status: ${pingResponse.status}`,
           )
@@ -867,24 +814,17 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch(`${API_URL}/export/epub`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(exportPayload),
-      })
+      const response = await exportHttp.post('/export/epub', exportPayload)
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Export backend error:", response.status, errorText)
+      if (response.status !== 200) {
+        console.error("Export backend error:", response.status, response.data)
         throw new Error(
-          `Export server returned error ${response.status}: ${errorText}`,
+          `Export server returned error ${response.status}: ${JSON.stringify(response.data)}`,
         )
       }
 
       // Parse the response which should contain the EPUB as base64 data
-      const result = await response.json()
+      const result = response.data
 
       if (!result.dataUrl) {
         throw new Error("Export server did not return expected data format")
@@ -925,12 +865,9 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch(`${API_URL}/ping`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
+        const pingResponse = await exportHttp.get('/ping')
 
-        if (!pingResponse.ok) {
+        if (pingResponse.status !== 200) {
           throw new Error(
             `Server responded with status: ${pingResponse.status}`,
           )
@@ -963,24 +900,17 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch(`${API_URL}/export/docx`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(exportPayload),
-      })
+      const response = await exportHttp.post('/export/docx', exportPayload)
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Export backend error:", response.status, errorText)
+      if (response.status !== 200) {
+        console.error("Export backend error:", response.status, response.data)
         throw new Error(
-          `Export server returned error ${response.status}: ${errorText}`,
+          `Export server returned error ${response.status}: ${JSON.stringify(response.data)}`,
         )
       }
 
       // Parse the response which should contain the DOCX as base64 data
-      const result = await response.json()
+      const result = response.data
 
       if (!result.dataUrl) {
         throw new Error("Export server did not return expected data format")
@@ -1021,12 +951,9 @@ export class ExportService {
 
       // First verify the export backend is accessible
       try {
-        const pingResponse = await fetch(`${API_URL}/ping`, {
-          method: "GET",
-          headers: { "Content-Type": "application/json" },
-        })
+        const pingResponse = await exportHttp.get('/ping')
 
-        if (!pingResponse.ok) {
+        if (pingResponse.status !== 200) {
           throw new Error(
             `Server responded with status: ${pingResponse.status}`,
           )
@@ -1061,24 +988,17 @@ export class ExportService {
       console.log("Sending export request to backend:", exportPayload)
 
       // Make the actual API call to the export backend
-      const response = await fetch(`${API_URL}/export/html`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(exportPayload),
-      })
+      const response = await exportHttp.post('/export/html', exportPayload)
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        console.error("Export backend error:", response.status, errorText)
+      if (response.status !== 200) {
+        console.error("Export backend error:", response.status, response.data)
         throw new Error(
-          `Export server returned error ${response.status}: ${errorText}`,
+          `Export server returned error ${response.status}: ${JSON.stringify(response.data)}`,
         )
       }
 
       // Parse the response which should contain the HTML as text or base64 data
-      const result = await response.json()
+      const result = response.data
 
       if (!result.dataUrl) {
         throw new Error("Export server did not return expected data format")
