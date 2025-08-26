@@ -110,6 +110,7 @@ const serverFonts = [
 ];
 
 // Language options for document export
+// Note: RTL languages (Arabic, Hebrew, Yiddish) temporarily disabled for launch
 const languageOptions = [
   { value: 'en', label: '🇺🇸 English', description: 'English' },
   { value: 'es', label: '🇪🇸 Español', description: 'Spanish' },
@@ -125,15 +126,14 @@ const languageOptions = [
   { value: 'hi', label: '🇮🇳 हिन्दी', description: 'Hindi' },
   { value: 'bn', label: '🇧🇩 বাংলা', description: 'Bengali' },
   { value: 'gu', label: '🇮🇳 ગુજરાતી', description: 'Gujarati' },
-  { value: 'ta', label: '🇮🇳 தமிழ்', description: 'Tamil' },
+  { value: 'ta', label: '🇮🇳 தமিழ்', description: 'Tamil' },
   { value: 'te', label: '🇮🇳 తెలుగు', description: 'Telugu' },
   { value: 'kn', label: '🇮🇳 ಕನ್ನಡ', description: 'Kannada' },
   { value: 'ml', label: '🇮🇳 മലയാളം', description: 'Malayalam' },
   { value: 'pa', label: '🇮🇳 ਪੰਜਾਬੀ', description: 'Punjabi' },
-  { value: 'or', label: '🇮🇳 ଓଡ଼ିଆ', description: 'Oriya' },
-  { value: 'ar', label: '🇸🇦 العربية', description: 'Arabic' },
-  { value: 'he', label: '🇮🇱 עברית', description: 'Hebrew' },
-  { value: 'yi', label: '🇮🇱 יידיש', description: 'Yiddish' }
+  { value: 'or', label: '🇮🇳 ଓଡ଼ିଆ', description: 'Oriya' }
+  // RTL languages (Arabic, Hebrew, Yiddish) coming soon!
+  // CJK languages (Chinese, Japanese, Korean) coming soon!
 ];
 
 

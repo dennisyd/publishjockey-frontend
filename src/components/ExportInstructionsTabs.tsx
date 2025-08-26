@@ -17,12 +17,32 @@ const instructions: Record<string, React.ReactNode> = {
         • Margins and bleed can be customized for print requirements.<br />
         • Ensure all sections are complete before exporting.
       </Typography>
-      {/* Add to the FAQ/help section for PDF export: */}
-      {/*
-      Q: Can I create full-bleed images or backgrounds (images that extend to the edge of the page)?
-
-      A: PublishJockey does not support full-bleed (edge-to-edge) images or backgrounds in exported PDFs. This feature is typically required for professional photo books, art books, or children's books with images that run to the very edge of the printed page. Achieving true bleed requires specialized print layout tools and careful setup, which is beyond the scope of this export tool. If your project requires full-bleed images, we recommend using a professional desktop publishing application (such as Adobe InDesign or Affinity Publisher) and working directly with your print provider's specifications.
-      */}
+      
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="subtitle2" gutterBottom>🌍 Language Support</Typography>
+      <Typography variant="body2" paragraph>
+        <strong>Currently Supported:</strong> English, Spanish, French, German, Italian, Portuguese, Russian, 
+        Croatian, Romanian, Icelandic, Indonesian, and all major Indic languages (Hindi, Tamil, Bengali, 
+        Gujarati, Telugu, Kannada, Malayalam, Punjabi, Oriya).
+      </Typography>
+      
+      <Typography variant="body2" paragraph>
+        <strong>Coming Soon:</strong><br />
+        • RTL Languages: Arabic (العربية), Hebrew (עברית), Yiddish (יידיש)<br />
+        • CJK Languages: Chinese (中文), Japanese (日本語), Korean (한국어)
+      </Typography>
+      
+      <Typography variant="body2" paragraph sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+        We're working hard to bring you the most comprehensive multilingual publishing platform available!
+      </Typography>
+      
+      <Divider sx={{ my: 2 }} />
+      <Typography variant="subtitle2" gutterBottom>Full-Bleed Images</Typography>
+      <Typography variant="body2" paragraph>
+        PublishJockey does not currently support full-bleed (edge-to-edge) images or backgrounds. 
+        For professional projects requiring full-bleed layouts, consider using specialized tools 
+        like Adobe InDesign or working directly with your print provider.
+      </Typography>
     </Box>
   ),
   epub: (
