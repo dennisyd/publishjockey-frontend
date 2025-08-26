@@ -826,15 +826,19 @@ const ExportModal: React.FC<ExportModalProps> = ({
               </Box>
             )}
 
-            {/* Book Size */}
-            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
-            <FormControl fullWidth sx={{ mb: 2 }}>
-              <Select value={settings.bookSize} onChange={handleBookSizeChange}>
-                {getBookSizes().map(size => (
-                  <MenuItem key={size.value} value={size.value}>{size.label}</MenuItem>
-                ))}
-              </Select>
-            </FormControl>
+            {/* Book Size (PDF only) */}
+            {settings.format === 'pdf' && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select value={settings.bookSize} onChange={handleBookSizeChange}>
+                    {getBookSizes().map(size => (
+                      <MenuItem key={size.value} value={size.value}>{size.label}</MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+              </>
+            )}
 
             {/* Binding (PDF only) */}
             {settings.format === 'pdf' && (
