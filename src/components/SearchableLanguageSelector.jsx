@@ -241,7 +241,7 @@ const SearchableLanguageSelector = ({
                   {/* Popular Languages (when no search) */}
                   {!searchQuery && (
                     renderLanguageSection('Popular Languages', 
-                      languages.filter(lang => ['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'ar'].includes(lang.code)),
+                      languages.filter(lang => ['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'hi', 'bn'].includes(lang.code)),
                       false
                     )
                   )}
