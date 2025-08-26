@@ -699,12 +699,18 @@ export const useLocalizedBookStructure = () => {
 
 // Function to get localized book structure (for use outside of React components)
 export const getLocalizedBookStructure = (language: string = 'en') => {
-  const structure = localizedStructures[language as keyof typeof localizedStructures] || localizedStructures.en;
+  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
+  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
+  console.log('[BOOK STRUCTURE] Input language:', language, 'Normalized:', normalizedLanguage);
+  
+  const structure = localizedStructures[normalizedLanguage as keyof typeof localizedStructures] || localizedStructures.en;
   return structure;
 };
 
 // Function to get localized chapter name
 export const getLocalizedChapterName = (chapterNumber: number, language: string = 'en') => {
+  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
+  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
   const chapterNames = {
     en: "Chapter",
     es: "Capítulo",
@@ -767,12 +773,16 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     zu: "Isahluko"
   };
   
-  const chapterName = chapterNames[language as keyof typeof chapterNames] || chapterNames.en;
+  const chapterName = chapterNames[normalizedLanguage as keyof typeof chapterNames] || chapterNames.en;
   return `${chapterName} ${chapterNumber}`;
 };
 
 // Function to get localized section names
 export const getLocalizedSectionNames = (language: string = 'en') => {
+  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
+  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
+  console.log('[SECTION NAMES] Input language:', language, 'Normalized:', normalizedLanguage);
+  
   const sectionNames = {
     en: {
       frontMatter: "Front Matter",
@@ -1059,5 +1069,9 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
     }
   };
   
-  return sectionNames[language as keyof typeof sectionNames] || sectionNames.en;
+  console.log('[SECTION NAMES] Available languages:', Object.keys(sectionNames));
+  console.log('[SECTION NAMES] Looking for:', normalizedLanguage);
+  console.log('[SECTION NAMES] Found:', sectionNames[normalizedLanguage as keyof typeof sectionNames] ? 'Yes' : 'No');
+  
+  return sectionNames[normalizedLanguage as keyof typeof sectionNames] || sectionNames.en;
 };
