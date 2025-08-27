@@ -1,6 +1,3 @@
-import { useTranslation } from 'react-i18next';
-
-// Default book structure in different languages
 const localizedStructures = {
   en: {
     front: [
@@ -392,18 +389,6 @@ const localizedStructures = {
     main: ["1. Fejezet", "2. Fejezet", "3. Fejezet"],
     back: ["A Szerzőről", "Függelék", "Hivatkozások", "Bibliográfia", "Tárgymutató", "Szótár"]
   },
-  is: {
-    front: [
-      "Titilsíða",
-      "Höfundarréttur",
-      "Tileinkunn",
-      "Þakkarorð",
-      "Formáli",
-      "Inngangur"
-    ],
-    main: ["Kafli 1", "Kafli 2", "Kafli 3"],
-    back: ["Um Höfundinn", "Viðauki", "Tilvísanir", "Heimildaskrá", "Atriðisorðaskrá", "Orðalisti"]
-  },
   lv: {
     front: [
       "Titullapas",
@@ -699,398 +684,104 @@ const localizedStructures = {
   }
 };
 
-// Hook to get localized book structure
-export const useLocalizedBookStructure = () => {
-  const { i18n } = useTranslation();
-  const currentLang = i18n.language || 'en';
-  
-  // Get structure for current language, fallback to English
-  const structure = localizedStructures[currentLang as keyof typeof localizedStructures] || localizedStructures.en;
-  
-  return structure;
-};
+// ------------------------------------------------------------------
+// Helpers and Exports (single declarations with inline debug logs)
+// ------------------------------------------------------------------
 
-// Function to get localized book structure (for use outside of React components)
-export const getLocalizedBookStructure = (language: string = 'en') => {
-  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
-  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
+/** Normalize language code like "pt-BR" -> "pt" */
+export function normalizeLang(language?: string): string {
+  if (!language || typeof language !== "string") return "en";
+  const normalized = language.split("-")[0].toLowerCase();
+  console.log('[NORMALIZE] Input language:', language, 'Normalized:', normalized);
+  return normalized;
+}
+
+/** Languages written RTL */
+const RTL_LANGS = new Set(["ar", "fa", "ur", "he", "yi"]);
+export function isRTL(language?: string): boolean {
+  const normalized = normalizeLang(language);
+  const rtl = RTL_LANGS.has(normalized);
+  console.log('[RTL CHECK] Input language:', language, 'Normalized:', normalized, 'Is RTL?', rtl);
+  return rtl;
+}
+
+/**
+ * Get localized book structure for a given language.
+ * Returns {front, main, back}.
+ */
+export function getLocalizedBookStructure(language?: string) {
+  const normalizedLanguage = normalizeLang(language);
   console.log('[BOOK STRUCTURE] Input language:', language, 'Normalized:', normalizedLanguage);
-  console.log('[BOOK STRUCTURE] Is Portuguese?', normalizedLanguage === 'pt');
-  
-  const structure = localizedStructures[normalizedLanguage as keyof typeof localizedStructures] || localizedStructures.en;
+  const structure = (localizedStructures as any)[normalizedLanguage] || (localizedStructures as any)["en"];
+  console.log('[BOOK STRUCTURE] Returning structure for:', normalizedLanguage, structure);
   return structure;
-};
+}
 
-// Function to get localized chapter name
-export const getLocalizedChapterName = (chapterNumber: number, language: string = 'en') => {
-  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
-  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
-  const chapterNames = {
-    en: "Chapter",
-    es: "Capítulo",
-    fr: "Chapitre",
-    de: "Kapitel",
-    it: "Capitolo",
-    ru: "Глава",
-    hr: "Poglavlje",
-    is: "Kafli",
-    ig: "Isi",
-    ro: "Capitol",
-    ar: "الفصل",
-    ta: "அத்தியாயம்",
-    hi: "अध्याय",
-    bn: "অধ্যায়",
-    gu: "પ્રકરણ",
-    te: "అధ్యాయం",
-    kn: "ಅಧ್ಯಾಯ",
-    ml: "അധ്യായം",
-    pa: "ਅਧਿਆਇ",
-    or: "ଅଧ୍ୟାୟ",
-    pt: "Capítulo",
-    nl: "Hoofdstuk",
-    pl: "Rozdział",
-    cs: "Kapitola",
-    sv: "Kapitel",
-    da: "Kapitel",
-    no: "Kapittel",
-    // Additional European Languages
-    et: "Peatükk", 
-    fi: "Luku",
-    gl: "Capítulo",
-    el: "Κεφάλαιο",
-    hu: "Fejezet",
-    lv: "nodaļa",
-    lt: "skyrius",
-    mk: "Поглавје",
-    sr: "Poglavlje",
-    sk: "Kapitola",
-    sl: "Poglavje",
-    tr: "Bölüm",
-    // Asian Languages
-    id: "Bab",
-    ms: "Bab",
-    vi: "Chương",
-    tl: "Kabanata",
-    // African Languages
-    ha: "Babi",
-    ki: "Gĩthemba",
-    rw: "Igice",
-    rn: "Umutwe",
-    lg: "Essuula",
-    mg: "Toko",
-    sn: "Chitsauko",
-    st: "Khaolo",
-    sw: "Sura",
-    tn: "Kgaolo",
-    xh: "Isahluko",
-    yo: "Orí",
-    zu: "Isahluko"
-  };
-  
-  const chapterName = chapterNames[normalizedLanguage as keyof typeof chapterNames] || chapterNames.en;
-  return `${chapterName} ${chapterNumber}`;
-};
-
-// Function to get localized section names
-export const getLocalizedSectionNames = (language: string = 'en') => {
-  // Normalize language code (handle cases like 'bn-BD' -> 'bn')
-  const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
+/**
+ * Get all unique section labels (flattened front+main+back) for a language.
+ */
+export function getLocalizedSectionNames(language?: string): string[] {
+  const normalizedLanguage = normalizeLang(language);
   console.log('[SECTION NAMES] Input language:', language, 'Normalized:', normalizedLanguage);
-  console.log('[SECTION NAMES] Is Portuguese?', normalizedLanguage === 'pt');
-  
-  const sectionNames = {
-    en: {
-      frontMatter: "Front Matter",
-      mainMatter: "Main Matter", 
-      backMatter: "Back Matter"
-    },
-    es: {
-      frontMatter: "Materiales preliminares",
-      mainMatter: "Materiales principales",
-      backMatter: "Materiales finales"
-    },
-    fr: {
-      frontMatter: "Matériaux préliminaires",
-      mainMatter: "Matériaux principaux", 
-      backMatter: "Matériaux finaux"
-    },
-    de: {
-      frontMatter: "Vormaterial",
-      mainMatter: "Hauptmaterial",
-      backMatter: "Nachmaterial"
-    },
-    it: {
-      frontMatter: "Materiali preliminari",
-      mainMatter: "Materiali principali",
-      backMatter: "Materiali finali"
-    },
-    ru: {
-      frontMatter: "Предварительные материалы",
-      mainMatter: "Основные материалы",
-      backMatter: "Заключительные материалы"
-    },
-    hr: {
-      frontMatter: "Uvodni Materijal",
-      mainMatter: "Glavni Materijal",
-      backMatter: "Završni Materijal"
-    },
-    is: {
-      frontMatter: "Forefni",
-      mainMatter: "Aðalefni",
-      backMatter: "Viðaukefni"
-    },
-    ig: {
-      frontMatter: "Ihe Mbido",
-      mainMatter: "Isi Ihe",
-      backMatter: "Ihe Njedebe"
-    },
-    ro: {
-      frontMatter: "Materiale preliminare",
-      mainMatter: "Materiale principale",
-      backMatter: "Materiale finale"
-    },
-    ar: {
-      frontMatter: "المواد التمهيدية",
-      mainMatter: "المواد الرئيسية",
-      backMatter: "المواد الختامية"
-    },
-    ta: {
-      frontMatter: "முன்னுரைப் பொருட்கள்",
-      mainMatter: "முதன்மைப் பொருட்கள்",
-      backMatter: "இறுதிப் பொருட்கள்"
-    },
-    hi: {
-      frontMatter: "प्रारंभिक सामग्री",
-      mainMatter: "मुख्य सामग्री",
-      backMatter: "समापन सामग्री"
-    },
-    bn: {
-      frontMatter: "প্রাথমিক বিষয়",
-      mainMatter: "মূল বিষয়",
-      backMatter: "সমাপনী বিষয়"
-    },
-    gu: {
-      frontMatter: "પ્રારંભિક સામગ્રી",
-      mainMatter: "મુખ્ય સામગ્રી",
-      backMatter: "અંતિમ સામગ્રી"
-    },
-    te: {
-      frontMatter: "ప్రాథమిక విషయాలు",
-      mainMatter: "ప్రధాన విషయాలు",
-      backMatter: "ముగింపు విషయాలు"
-    },
-    kn: {
-      frontMatter: "ಪ್ರಾಥಮಿಕ ವಿಷಯಗಳು",
-      mainMatter: "ಮುಖ್ಯ ವಿಷಯಗಳು",
-      backMatter: "ಅಂತಿಮ ವಿಷಯಗಳು"
-    },
-    ml: {
-      frontMatter: "പ്രാഥമിക വിഷയങ്ങൾ",
-      mainMatter: "പ്രധാന വിഷയങ്ങൾ",
-      backMatter: "അവസാന വിഷയങ്ങൾ"
-    },
-    pa: {
-      frontMatter: "ਸ਼ੁਰੂਆਤੀ ਸਮੱਗਰੀ",
-      mainMatter: "ਮੁਖ ਸਮੱਗਰੀ",
-      backMatter: "ਅੰਤਮ ਸਮੱਗਰੀ"
-    },
-    or: {
-      frontMatter: "ପ୍ରାଥମିକ ବିଷୟ",
-      mainMatter: "ମୁଖ୍ୟ ବିଷୟ",
-      backMatter: "ଅନ୍ତିମ ବିଷୟ"
-    },
-    pt: {
-      frontMatter: "Matéria Preliminar",
-      mainMatter: "Matéria Principal",
-      backMatter: "Matéria Final"
-    },
-    nl: {
-      frontMatter: "Voormateriaal",
-      mainMatter: "Hoofdmateriaal",
-      backMatter: "Achtermatter"
-    },
-    pl: {
-      frontMatter: "Materiały Wstępne",
-      mainMatter: "Materiały Główne",
-      backMatter: "Materiały Końcowe"
-    },
-    cs: {
-      frontMatter: "Úvodní Materiál",
-      mainMatter: "Hlavní Materiál",
-      backMatter: "Závěrečný Materiál"
-    },
-    sv: {
-      frontMatter: "Förmaterial",
-      mainMatter: "Huvudmaterial",
-      backMatter: "Eftermaterial"
-    },
-    da: {
-      frontMatter: "Formateriale",
-      mainMatter: "Hovedmateriale",
-      backMatter: "Eftermateriale"
-    },
-    no: {
-      frontMatter: "Formateriale",
-      mainMatter: "Hovedmateriale",
-      backMatter: "Ettermateriale"
-    },
-    // Additional European Languages
-    et: {
-      frontMatter: "Eelmaterjal",
-      mainMatter: "Põhimaterjal",
-      backMatter: "Järelmaterjal"
-    },
-    fi: {
-      frontMatter: "Esiaineisto",
-      mainMatter: "Pääaineisto",
-      backMatter: "Loppuaineisto"
-    },
-    gl: {
-      frontMatter: "Material Preliminar",
-      mainMatter: "Material Principal",
-      backMatter: "Material Final"
-    },
-    el: {
-      frontMatter: "Προκαταρκτικό Υλικό",
-      mainMatter: "Κύριο Υλικό",
-      backMatter: "Τελικό Υλικό"
-    },
-    hu: {
-      frontMatter: "Előanyag",
-      mainMatter: "Főanyag",
-      backMatter: "Utóanyag"
-    },
-    lv: {
-      frontMatter: "Priekšmateriāls",
-      mainMatter: "Galvenais Materiāls",
-      backMatter: "Noslēguma Materiāls"
-    },
-    lt: {
-      frontMatter: "Pradinis Medžiaga",
-      mainMatter: "Pagrindinė Medžiaga",
-      backMatter: "Baigiamoji Medžiaga"
-    },
-    mk: {
-      frontMatter: "Воведен Материјал",
-      mainMatter: "Главен Материјал",
-      backMatter: "Завршен Материјал"
-    },
-    sr: {
-      frontMatter: "Uvodni Materijal",
-      mainMatter: "Glavni Materijal",
-      backMatter: "Završni Materijal"
-    },
-    sk: {
-      frontMatter: "Úvodný Materiál",
-      mainMatter: "Hlavný Materiál",
-      backMatter: "Záverečný Materiál"
-    },
-    sl: {
-      frontMatter: "Uvodni Material",
-      mainMatter: "Glavni Material",
-      backMatter: "Zaključni Material"
-    },
-    tr: {
-      frontMatter: "Ön Materyal",
-      mainMatter: "Ana Materyal",
-      backMatter: "Son Materyal"
-    },
-    // Asian Languages
-    id: {
-      frontMatter: "Materi Depan",
-      mainMatter: "Materi Utama",
-      backMatter: "Materi Belakang"
-    },
-    ms: {
-      frontMatter: "Bahan Hadapan",
-      mainMatter: "Bahan Utama",
-      backMatter: "Bahan Belakang"
-    },
-    vi: {
-      frontMatter: "Phần Đầu",
-      mainMatter: "Phần Chính",
-      backMatter: "Phần Cuối"
-    },
-    tl: {
-      frontMatter: "Unang Bahagi",
-      mainMatter: "Pangunahing Bahagi",
-      backMatter: "Huling Bahagi"
-    },
-    // African Languages
-    ha: {
-      frontMatter: "Kayan Farko",
-      mainMatter: "Babban Kayan",
-      backMatter: "Kayan Karshe"
-    },
-    ki: {
-      frontMatter: "Indo cia Mbere",
-      mainMatter: "Indo Nene",
-      backMatter: "Indo cia Kũrĩkĩrĩria"
-    },
-    rw: {
-      frontMatter: "Ibintu bya Mbere",
-      mainMatter: "Ibintu by'Ingenzi",
-      backMatter: "Ibintu bya Nyuma"
-    },
-    rn: {
-      frontMatter: "Ibintu vya Mbere",
-      mainMatter: "Ibintu vy'Ingenzi",
-      backMatter: "Ibintu vya Nyuma"
-    },
-    lg: {
-      frontMatter: "Ebintu eby'omu Maaso",
-      mainMatter: "Ebintu Ebikulu",
-      backMatter: "Ebintu eby'omu Makubo"
-    },
-    mg: {
-      frontMatter: "Fitaovana Voalohany",
-      mainMatter: "Fitaovana Lehibe",
-      backMatter: "Fitaovana Farany"
-    },
-    sn: {
-      frontMatter: "Zvinhu Zvekutanga",
-      mainMatter: "Zvinhu Zvikuru",
-      backMatter: "Zvinhu Zvekupedzisira"
-    },
-    st: {
-      frontMatter: "Lintho tsa Pele",
-      mainMatter: "Lintho tse Kholo",
-      backMatter: "Lintho tsa Qetello"
-    },
-    sw: {
-      frontMatter: "Mambo ya Awali",
-      mainMatter: "Mambo Makuu",
-      backMatter: "Mambo ya Mwisho"
-    },
-    tn: {
-      frontMatter: "Dilo tsa Pele",
-      mainMatter: "Dilo tse Dikgolo",
-      backMatter: "Dilo tsa Bofelo"
-    },
-    xh: {
-      frontMatter: "Izinto Zokuqala",
-      mainMatter: "Izinto Eziphambili",
-      backMatter: "Izinto Zokugqibela"
-    },
-    yo: {
-      frontMatter: "Àwọn Nǹkan Àkọ́kọ́",
-      mainMatter: "Àwọn Nǹkan Pàtàkì",
-      backMatter: "Àwọn Nǹkan Ìparí"
-    },
-    zu: {
-      frontMatter: "Izinto Zokuqala",
-      mainMatter: "Izinto Eziyinhloko",
-      backMatter: "Izinto Zokugcina"
-    }
-  };
-  
-  console.log('[SECTION NAMES] Available languages:', Object.keys(sectionNames));
-  console.log('[SECTION NAMES] Looking for:', normalizedLanguage);
-  console.log('[SECTION NAMES] Found:', sectionNames[normalizedLanguage as keyof typeof sectionNames] ? 'Yes' : 'No');
-  
-  if (normalizedLanguage === 'pt') {
-    console.log('[SECTION NAMES] Portuguese data:', sectionNames.pt);
+  const structure = getLocalizedBookStructure(normalizedLanguage);
+  const names = [...(structure.front || []), ...(structure.main || []), ...(structure.back || [])];
+  console.log('[SECTION NAMES] Returning', names.length, 'names');
+  return names;
+}
+
+/**
+ * Generate a localized chapter title for a given index and language.
+ */
+export function getLocalizedChapterName(
+  index: number,
+  language?: string,
+  options?: { style?: "number" | "roman-upper" | "roman-lower"; prefixOverride?: string; zeroPad?: number }
+): string {
+  // sanitize index
+  const safeIndex = Number.isFinite(index) ? Math.max(1, Math.floor(index)) : 1;
+
+  // Normalize language code
+  const normalizedLanguage = normalizeLang(language);
+  console.log('[CHAPTER NAME] Input:', index, 'Language:', language, 'Normalized:', normalizedLanguage);
+
+  const structure = getLocalizedBookStructure(normalizedLanguage);
+  let defaultPrefix = "Chapter";
+  if (structure?.main?.length) {
+    const first = structure.main[0];
+    // capture leading letters/marks/spaces across scripts
+    const match = first.match(/^[\p{L}\p{M}\s]+/u);
+    if (match) defaultPrefix = match[0].trim();
   }
-  
-  return sectionNames[normalizedLanguage as keyof typeof sectionNames] || sectionNames.en;
-};
+  const prefix = options?.prefixOverride || defaultPrefix;
+  const style = options?.style || "number";
+  const zeroPad = Math.max(0, options?.zeroPad || 0);
+
+  const toRoman = (num: number): string => {
+    const map: Array<[number, string]> = [
+      [1000, "M"], [900, "CM"], [500, "D"], [400, "CD"],
+      [100, "C"], [90, "XC"], [50, "L"], [40, "XL"],
+      [10, "X"], [9, "IX"], [5, "V"], [4, "IV"], [1, "I"],
+    ];
+    let n = Math.max(1, Math.floor(num));
+    let out = "";
+    for (const [v, s] of map) {
+      while (n >= v) { out += s; n -= v; }
+    }
+    return out;
+  };
+
+  const pad = (num: number, width: number) =>
+    width > 0 ? String(num).padStart(width, "0") : String(num);
+
+  let numeral: string;
+  if (style === "roman-upper" || style === "roman-lower") {
+    const r = toRoman(safeIndex);
+    numeral = style === "roman-lower" ? r.toLowerCase() : r;
+  } else {
+    numeral = pad(safeIndex, zeroPad);
+  }
+
+  const result = `${prefix} ${numeral}`;
+  console.log('[CHAPTER NAME] Result:', result);
+  return result;
+}

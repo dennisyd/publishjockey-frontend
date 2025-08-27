@@ -11,22 +11,12 @@ import { getLocalizedSectionNames, getLocalizedBookStructure, getLocalizedChapte
 import axios from "axios"
 
 // ============== Types ==============
-type MatterType = "front" | "main" | "back"
-
 interface Section {
   id: string
   title: string
   content: string
   level: number
-  matter?: MatterType
-}
-
-interface SectionWithMatter {
-  id: string
-  title: string
-  content: string
-  level?: number
-  matter: MatterType
+  matter?: "front" | "main" | "back"
 }
 
 interface Project {
@@ -49,7 +39,7 @@ function getCurrentLanguage(): string {
   return browserLang.split("-")[0]
 }
 
-function ensureMatter(id: string): MatterType {
+function ensureMatter(id: string): "front" | "main" | "back" {
   if (id.startsWith("front:")) return "front"
   if (id.startsWith("main:")) return "main"
   if (id.startsWith("back:")) return "back"
@@ -101,35 +91,24 @@ export class ExportService {
     }
 
     // ---------- Normalize sections with matter ----------
-    const sectionsWithMatter: SectionWithMatter[] = project.sections.map((s) => ({
+    const sectionsWithMatter: Section[] = project.sections.map((s) => ({
       ...s,
       matter: ensureMatter(s.id),
-      level: s.level || 0, // Ensure level is always defined
     }))
 
     // ---------- Centralized chapter formatting ----------
     const formattedSections = MarkdownFormatter.formatSectionsForExport(
-      sectionsWithMatter.map(s => ({
-        id: s.id,
-        title: s.title,
-        content: s.content,
-        matter: s.matter,
-        level: s.level
-      })),
+      sectionsWithMatter as Array<{ id: string; title: string; content: string; matter: string; level?: number }>,
       {
         useChapterPrefix: settings.useChapterPrefix !== false,
         chapterLabelFormat: settings.chapterLabelFormat || "number",
       },
     )
 
-    // Ensure all properties are properly typed and preserve level from original sections
-    const sectionsWithLevel = formattedSections.map((s, index) => ({
-      id: s.id,
-      title: s.title,
-      content: s.content,
-      matter: s.matter as MatterType,
-      level: (s as any).level ?? sectionsWithMatter[index]?.level ?? 0,
-      isTitlePage: s.id === "front:Title Page" || s.title?.toLowerCase() === "title page"
+    // Ensure level property exists (default to 0)
+    const sectionsWithLevel = formattedSections.map((s) => ({
+      ...s,
+      level: (s as any).level || 0,
     }))
 
     // ---------- Validate before export ----------
@@ -138,7 +117,7 @@ export class ExportService {
         id: s.id,
         title: s.title,
         content: s.content,
-        matter: s.matter,
+        matter: s.matter || "main",
       })),
     )
 
@@ -169,7 +148,7 @@ export class ExportService {
 
     const payload = {
       sections: adaptedSections.map((s) => {
-        const matter: MatterType = s.matter === "front" || s.matter === "main" || s.matter === "back" ? s.matter : "main"
+        const matter = s.matter === "front" || s.matter === "main" || s.matter === "back" ? s.matter : "main"
         let content = s.content || ""
         if (forPdf) content = ExportService.sanitizeAmpersandInMarkdownHeadings(content)
 
@@ -180,7 +159,9 @@ export class ExportService {
           title: sanitizedTitle,
           content,
           matter,
-          isTitlePage: s.isTitlePage || false,
+          isTitlePage:
+            s.id === "front:Title Page" ||
+            s.title?.toLowerCase() === "title page",
         }
       }),
       exportOptions: {
@@ -298,7 +279,7 @@ export class ExportService {
 
   // ---------- Validation ----------
   private static validateSectionsBeforeExport(
-    sections: Array<{ id: string; title: string; content: string; matter: MatterType }>,
+    sections: Array<{ id: string; title: string; content: string; matter: string }>,
   ): void {
     let criticalError = false
     const validationMessages: string[] = []
@@ -323,14 +304,7 @@ export class ExportService {
   }
 
   // ---------- Title page detection ----------
-  private static findTitlePageSection(sections: Array<{
-    id: string;
-    title: string;
-    content: string;
-    matter: MatterType;
-    level: number;
-    isTitlePage?: boolean;
-  }>): { id: string; title: string; content: string; matter: MatterType } | null {
+  private static findTitlePageSection(sections: Section[]): Section | null {
     if (!Array.isArray(sections) || sections.length === 0) return null
 
     const frontTitle = sections.find(
@@ -378,7 +352,7 @@ export class ExportService {
     content: Record<string, string>,
     token?: string,
   ): Promise<any> {
-    const authToken = token || tokenManager.getAccessToken?.() || localStorage.getItem("token")
+    const authToken = token || tokenManager.getToken?.() || localStorage.getItem("token")
     if (!authToken) {
       console.error("No auth token provided or found")
       return { error: "No auth token" }

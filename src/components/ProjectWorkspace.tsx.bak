@@ -1,6 +1,4 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react'; // Yancy Dennis
-// Narrow area keys to string to avoid symbol-to-string issues in template literals
-
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import {
   Box,
@@ -59,7 +57,6 @@ import { ExportService } from '../services/ExportService';
 import { realImageService } from '../services/realImageService';
 import { FormatAdapter } from '../services/FormatAdapter';
 import { TEMPLATES } from '../constants/FormatConstants';
-type Area = 'front' | 'main' | 'back';
 
 // Simple project workspace component
 interface ProjectWorkspaceProps {
@@ -146,11 +143,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Portuguese debugging code removed
   }
   
-  const sectionNames = {
-  frontMatter: i18n.t('frontMatter', 'Front Matter'),
-  mainMatter:  i18n.t('mainMatter',  'Main Matter'),
-  backMatter:  i18n.t('backMatter',  'Back Matter'),
-};
+  const sectionNames = getLocalizedSectionNames(documentLanguage);
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
@@ -193,9 +186,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     });
   }, [documentLanguage]);
   
-  const [selected, setSelected] = useState<{ area: Area; idx: number } | null>(null);
+  const [selected, setSelected] = useState<{ area: keyof typeof structure; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });
-  const [editing, setEditing] = useState<{ area: Area; idx: number } | null>(null);
+  const [editing, setEditing] = useState<{ area: keyof typeof structure; idx: number } | null>(null);
   const [editValue, setEditValue] = useState('');
   const [editingProjectName, setEditingProjectName] = useState(false);
   const [editedProjectName, setEditedProjectName] = useState('');
@@ -527,9 +520,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   }, [projectAuthor]); // Only run when author changes
   
   // Standardize handleAdd function to work equally for all matter sections
-  const handleAdd = (area: Area) => {
+  const handleAdd = (area: keyof typeof structure) => {
     // Create a dialog to get the section name
-    const newSectionName = prompt(`Add a new section to ${area} matter`, '');
+    const newSectionName = prompt(`Add a new section to ${String(area)} matter`, '');
     
     if (newSectionName && newSectionName.trim() !== '') {
       // Add the section to the structure
@@ -538,7 +531,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       setStructure(updatedStructure);
       
       // Create empty content for the new section - no system-generated text
-      const contentKey = `${area}:${newSectionName.trim()}`;
+      const contentKey = `${String(area)}:${newSectionName.trim()}`;
       const defaultContent = ''; // Empty content - user decides what to write
       
       // Update local content state
@@ -591,7 +584,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Delete section
-  const handleDelete = (area: Area, idx: number) => {
+  const handleDelete = (area: keyof typeof structure, idx: number) => {
     const sectionName = structure[area][idx];
     
     // Prevent deletion of Title Page and Copyright in front matter
@@ -628,13 +621,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Start renaming
-  const handleEdit = (area: Area, idx: number) => {
+  const handleEdit = (area: keyof typeof structure, idx: number) => {
     setEditing({ area, idx });
     setEditValue(structure[area][idx]);
   };
 
   // Save rename
-  const handleEditSave = (area: Area, idx: number) => {
+  const handleEditSave = (area: keyof typeof structure, idx: number) => {
     const oldName = structure[area][idx];
     const updated = [...structure[area]];
     updated[idx] = editValue.trim() || updated[idx];
@@ -650,7 +643,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Handle expanding/collapsing sections
-  const handleExpand = (area: Area) => {
+  const handleExpand = (area: keyof typeof structure) => {
     // Toggle the expanded state of the specific area
     setExpanded(prev => ({
       ...prev,
@@ -659,7 +652,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   };
 
   // Markdown editor handlers
-  const handleContentChange = (area: Area, section: string, value: string) => {
+  const handleContentChange = (area: keyof typeof structure, section: string, value: string) => {
     // Log more detailed information for debugging
     console.log(`Content changed for ${area}:${section}`, {
       contentLength: value.length,
@@ -862,7 +855,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
       // Build sections in order based on structure
       ['front', 'main', 'back'].forEach(area => {
-        structure[area as Area].forEach(sectionName => {
+        structure[area as keyof typeof structure].forEach(sectionName => {
           const key = `${area}:${sectionName}`;
           if (content[key] && content[key].trim() !== '') {
             project.sections.push({
@@ -978,7 +971,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const orderedSectionMap: Record<string, { area: string, name: string, order: number }> = {};
     
     ['front', 'main', 'back'].forEach(area => {
-      structure[area as Area].forEach((sectionName, idx) => {
+      structure[area as keyof typeof structure].forEach((sectionName, idx) => {
         // Calculate a global order number to preserve sequence across all areas
         const orderBase = area === 'front' ? 0 : 
                          area === 'main' ? 1000 : 2000;
@@ -1268,7 +1261,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           const parts = firstKey.split(':');
           
           if (parts.length === 2) {
-            const area = parts[0] as Area;
+            const area = parts[0] as keyof typeof structure;
             const sectionName = parts[1];
             
             // Make sure the area exists in the structure before accessing
@@ -1882,7 +1875,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       // Check if there are any sections in structure not in content
       console.log('Structure check:');
       ['front', 'main', 'back'].forEach(area => {
-        structure[area as Area].forEach(sectionName => {
+        structure[area as keyof typeof structure].forEach(sectionName => {
           const key = `${area}:${sectionName}`;
           if (!(key in content)) {
             console.warn(`⚠️ MISSING CONTENT: ${key}`);
@@ -1999,14 +1992,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <IconButton
                     size="small"
-                    onClick={() => handleAdd(area as Area)}
+                    onClick={() => handleAdd(area as keyof typeof structure)}
                     aria-label={`Add section to ${area} matter`}
                   >
                     <AddIcon fontSize="small" />
                   </IconButton>
                   <IconButton
                     size="small"
-                    onClick={() => handleExpand(area as Area)}
+                    onClick={() => handleExpand(area as keyof typeof structure)}
                     aria-label={`Expand ${area} matter`}
                   >
                     {expanded[area as keyof typeof expanded] ? <ExpandLessIcon fontSize="small" /> : <ExpandMoreIcon fontSize="small" />}
@@ -2022,12 +2015,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                       <CircularProgress size={20} sx={{ mr: 2 }} />
                       <ListItemText primary="Loading sections..." />
                     </ListItem>
-                  ) : structure[area as Area]?.map((section, sectionIdx) => (
+                  ) : structure[area as keyof typeof structure]?.map((section, sectionIdx) => (
                     <ListItem
                       key={`${area}-${sectionIdx}`}
                       button
                       selected={selected ? selected.area === area && selected.idx === sectionIdx : false}
-                      onClick={() => setSelected({ area: area as Area, idx: sectionIdx })}
+                      onClick={() => setSelected({ area: area as keyof typeof structure, idx: sectionIdx })}
                       sx={{ 
                         pl: 4, 
                         borderLeft: selected && selected.area === area && selected.idx === sectionIdx ? '3px solid #4fd1c5' : 'none',
@@ -2050,12 +2043,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                         }}
                       >
                         {/* Show Edit and Delete buttons for all sections now */}
-                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEdit(area as Area, sectionIdx); }}>
+                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEdit(area as keyof typeof structure, sectionIdx); }}>
                           <EditIcon fontSize="small" />
                         </IconButton>
                         {/* Hide delete button for Title Page and Copyright */}
                         {!(area === 'front' && (section === 'Title Page' || section === 'Copyright')) && (
-                          <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleDelete(area as Area, sectionIdx); }}>
+                          <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleDelete(area as keyof typeof structure, sectionIdx); }}>
                             <DeleteIcon fontSize="small" />
                           </IconButton>
                         )}
