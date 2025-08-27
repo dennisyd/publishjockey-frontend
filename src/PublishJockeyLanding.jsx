@@ -509,7 +509,7 @@ const LandingHeader = ({ openTerms }) => {
                     <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/#how-it-works'; }}>
                       How it Works
                     </MenuItem>
-                    <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/#pricing'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/pricing'; }}>
                       Pricing
                     </MenuItem>
                   </Menu>
@@ -565,7 +565,7 @@ const LandingHeader = ({ openTerms }) => {
                     How it Works
                   </Button>
                   <Button 
-                    href="/#pricing"
+                    href="/pricing"
                     sx={{ 
                       color: 'text.primary',
                       textTransform: 'none',

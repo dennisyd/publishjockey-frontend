@@ -1058,7 +1058,7 @@ const BlogPost = () => {
                     <Typography component={RouterLink} to="/#features" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
                       Features
                     </Typography>
-                    <Typography component={RouterLink} to="/#pricing" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
+                    <Typography component={RouterLink} to="/pricing" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
                       Pricing
                     </Typography>
                   </Box>

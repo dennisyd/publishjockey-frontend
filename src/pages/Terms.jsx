@@ -22,6 +22,11 @@ const Terms = () => (
           You retain all rights to the content you create or upload. However, by using the platform, you grant PublishJockey the right to process, display, and temporarily store your content for the sole purpose of providing the publishing service.
         </Typography>
 
+        <Typography variant="h4" sx={{ mt: 4, mb: 1 }}>Content Responsibility</Typography>
+        <Typography variant="body1" paragraph>
+          You are solely responsible for the content you create, upload, or export with PublishJockey. PublishJockey does not verify originality or accuracy of any content. You acknowledge that you have the necessary rights to all content you upload and that your use of the platform complies with applicable laws and regulations.
+        </Typography>
+
         <Typography variant="h4" sx={{ mt: 4, mb: 1 }}>Fair Use Policy</Typography>
         <Typography variant="body1" paragraph>
           The platform is designed to support a fair number of manuscript creations and exports per user, particularly for individual authors or small publishers. Users on free or basic plans are expected to operate within reasonable publishing limits.
