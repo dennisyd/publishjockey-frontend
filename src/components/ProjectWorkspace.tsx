@@ -367,7 +367,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       currentUser: !!currentUser
     });
     if (projectId && token) fetchProject();
-  }, [projectId, token, currentUser, i18n.language]);
+  }, [projectId, token, currentUser]);
 
   // Debug structure changes
   useEffect(() => {
