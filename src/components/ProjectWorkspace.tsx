@@ -133,8 +133,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const { i18n } = useTranslation();
   const { settings } = useSettings();
   
-  // Use document language for sidebar translations, not UI language
-  const documentLanguage = settings.documentLanguage || 'en';
+  // Use UI language for sidebar translations - simplified approach to avoid conflicts
+  // Yancy Dennis - Portuguese localization fix: Use UI language instead of separate documentLanguage
+  const documentLanguage = i18n.language || 'en';
   
   // DEBUG: Log the language being used for sidebar
   console.log('🔍 [SIDEBAR DEBUG] i18n.language (UI):', i18n.language);
@@ -143,12 +144,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // SPECIFIC DEBUG for Portuguese
   if (documentLanguage === 'pt') {
-    // Portuguese debugging code removed
+    console.log('🔍 [PORTUGUESE DEBUG] Portuguese detected! Should show Portuguese section names.');
+  } else {
+    console.log('🔍 [PORTUGUESE DEBUG] Portuguese NOT detected. Current language:', documentLanguage);
+    console.log('🔍 [PORTUGUESE DEBUG] To fix: Change language in Dashboard language selector');
   }
   
   // Get section names for sidebar headers - use simple English labels for now
   // Yancy Dennis - Portuguese localization fix: Individual section names now display in Portuguese
   // Programs to push: frontend, export-backend
+  // NOTE: Now using UI language (i18n.language) instead of separate documentLanguage setting
+  // This eliminates conflicts between Dashboard and Settings language selectors
   const sectionNames = {
     frontMatter: 'Front Matter',
     mainMatter: 'Main Matter',
