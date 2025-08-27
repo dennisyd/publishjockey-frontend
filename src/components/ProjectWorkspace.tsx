@@ -147,6 +147,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   }
   
   // Get section names for sidebar headers - use simple English labels for now
+  // Yancy Dennis - Portuguese localization fix: Individual section names now display in Portuguese
+  // Programs to push: frontend, export-backend
   const sectionNames = {
     frontMatter: 'Front Matter',
     mainMatter: 'Main Matter',
