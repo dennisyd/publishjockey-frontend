@@ -183,21 +183,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Update structure when document language changes
   useEffect(() => {
     const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
-    setStructure(prevStructure => {
-      // Only update if the structure hasn't been customized by the user
-      // This preserves user-added chapters while updating default ones
-      const hasUserCustomizations = 
-        prevStructure.front.length !== newLocalizedStructure.front.length ||
-        prevStructure.main.length !== newLocalizedStructure.main.length ||
-        prevStructure.back.length !== newLocalizedStructure.back.length;
-      
-      if (!hasUserCustomizations) {
-        console.log('🔍 Updating structure for document language:', documentLanguage, 'New structure:', newLocalizedStructure);
-        return newLocalizedStructure;
-      }
-      console.log('🔍 Preserving user customizations for language change:', documentLanguage);
-      return prevStructure;
-    });
+    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', documentLanguage, 'New structure:', newLocalizedStructure);
+    setStructure(newLocalizedStructure);
   }, [documentLanguage]);
   
   const [selected, setSelected] = useState<{ area: Area; idx: number } | null>(null);
