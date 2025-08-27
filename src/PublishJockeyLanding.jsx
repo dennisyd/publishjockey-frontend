@@ -608,28 +608,38 @@ const LandingHeader = ({ openTerms }) => {
               >
                 Testimonials
               </Button>
-              <Button 
-                href="/about"
-                sx={{ 
-                  color: 'text.primary',
-                  textTransform: 'none',
-                  fontWeight: 600
-                }}
-              >
-                About
-              </Button>
-              {currentUser && (
-                <Button 
-                  href="/submit-testimonial"
-                  sx={{ 
-                    color: 'text.primary',
-                    textTransform: 'none',
-                    fontWeight: 600
-                  }}
-                >
-                  Share Your Story
-                </Button>
-              )}
+                                <Button 
+                    href="/about"
+                    sx={{ 
+                      color: 'text.primary',
+                      textTransform: 'none',
+                      fontWeight: 600
+                    }}
+                  >
+                    About
+                  </Button>
+                  <Button 
+                    href="/affiliate-agreement"
+                    sx={{ 
+                      color: 'text.primary',
+                      textTransform: 'none',
+                      fontWeight: 600
+                    }}
+                  >
+                    Affiliate Program
+                  </Button>
+                  {currentUser && (
+                    <Button 
+                      href="/submit-testimonial"
+                      sx={{ 
+                        color: 'text.primary',
+                        textTransform: 'none',
+                        fontWeight: 600
+                      }}
+                    >
+                      Share Your Story
+                    </Button>
+                  )}
             </Box>
 
             {/* Auth Buttons */}

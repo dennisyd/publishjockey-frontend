@@ -98,7 +98,7 @@ const AdminAffiliateDashboard = () => {
   const [dateFilter, setDateFilter] = useState('30');
 
   useEffect(() => {
-    if (!currentUser || !currentUser.isAdmin) {
+    if (!currentUser || currentUser.role !== 'admin') {
       navigate('/dashboard');
       return;
     }

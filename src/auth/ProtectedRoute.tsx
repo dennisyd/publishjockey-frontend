@@ -14,9 +14,10 @@ interface NavItem {
 interface ProtectedRouteProps {
   element: React.ReactElement;
   navItems: NavItem[];
+  requiredRole?: string;
 }
 
-export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
+export function ProtectedRoute({ element, navItems, requiredRole }: ProtectedRouteProps) {
   const { currentUser, loading } = useAuth();
   const location = useLocation();
   const navigate = useNavigate();
@@ -30,6 +31,9 @@ export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
 
   // Only render content if authenticated
   const shouldRenderContent = !!currentUser;
+  
+  // Check if user has required role (if specified)
+  const hasRequiredRole = !requiredRole || (currentUser?.role === requiredRole);
 
   // Check if the current path matches the nav item path
   const isActive = (path: string) => {
@@ -55,6 +59,11 @@ export function ProtectedRoute({ element, navItems }: ProtectedRouteProps) {
   if (!shouldRenderContent) {
     console.log("ProtectedRoute - Not authenticated, redirecting to login");
     return <Navigate to="/login" state={{ from: location }} replace />;
+  }
+  
+  if (!hasRequiredRole) {
+    console.log("ProtectedRoute - Insufficient permissions, redirecting to dashboard");
+    return <Navigate to="/dashboard" replace />;
   }
 
   console.log("ProtectedRoute - Rendering with sidebar");

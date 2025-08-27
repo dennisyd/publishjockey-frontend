@@ -115,7 +115,7 @@ function App() {
                   <Routes>
                     {/* Public routes */}
                     <Route path="/submit-testimonial" element={<SubmitTestimonial />} />
-                    <Route path="/admin" element={<PrivateRoute requiredRole="admin"><AdminDashboard /></PrivateRoute>} />
+                    <Route path="/admin" element={<ProtectedRoute requiredRole="admin" element={<AdminDashboard />} navItems={navItems} />} />
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/forgot-password" element={<ForgotPassword />} />
