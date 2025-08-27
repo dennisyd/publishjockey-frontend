@@ -185,7 +185,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
     console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', documentLanguage, 'New structure:', newLocalizedStructure);
     setStructure(newLocalizedStructure);
-  }, [documentLanguage]);
+  }, [documentLanguage]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
   
   const [selected, setSelected] = useState<{ area: Area; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });
