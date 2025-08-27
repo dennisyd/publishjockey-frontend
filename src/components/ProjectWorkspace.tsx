@@ -49,7 +49,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
+import { getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';

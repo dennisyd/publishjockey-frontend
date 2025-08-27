@@ -1,114 +1,51 @@
-import React, { useState } from 'react'; // Yancy Dennis - Language Support Disclaimer
+import React, { useState } from 'react';
 import { 
-  Box, 
+  Container, 
   Typography, 
   Paper, 
+  Box, 
+  TextField, 
+  Button, 
   Divider, 
-  FormControl, 
-  FormControlLabel, 
-  Switch, 
-  Select, 
-  MenuItem, 
-  InputLabel,
-  Button,
-  TextField,
-  Alert,
+  Alert, 
   Stack,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   SelectChangeEvent,
-  Container
+  Switch,
+  FormControlLabel
 } from '@mui/material';
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';
 import SaveIcon from '@mui/icons-material/Save';
-import LanguageIcon from '@mui/icons-material/Language';
-import FontDownloadIcon from '@mui/icons-material/FontDownload';
 import axios from 'axios';
 import { ENV } from '../config/env';
-import LanguageSwitcher from '../components/LanguageSwitcher';
-import { useTranslation } from 'react-i18next';
 
 interface ProfileUpdateResponse {
   success: boolean;
-  message?: string;
+  message: string;
   user?: {
-    id: string;
     name: string;
     email: string;
-    role: string;
   };
 }
 
 const Settings: React.FC = () => {
   const { currentUser } = useAuth();
   const { settings, updateSettings, saveSettings } = useSettings();
-  const { i18n } = useTranslation();
   
   const [name, setName] = useState(currentUser?.name || '');
-  const [successMessage, setSuccessMessage] = useState('');
-  const [errorMessage, setErrorMessage] = useState('');
-  const [darkMode, setDarkMode] = useState(settings.darkMode);
   const [editorFontSize, setEditorFontSize] = useState(settings.fontSize);
   const [editorTheme, setEditorTheme] = useState(settings.theme);
   const [autoSave, setAutoSave] = useState(settings.autoSave);
   const [autosaveInterval, setAutosaveInterval] = useState(settings.autosaveInterval);
   const [defaultExportFormat, setDefaultExportFormat] = useState(settings.defaultExportFormat);
-  const [selectedFont, setSelectedFont] = useState(settings.exportFontFamily || 'Latin Modern Roman');
+  const [darkMode, setDarkMode] = useState(settings.darkMode);
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
-  // Font options organized by language
-  const fontOptions = {
-    // Latin-based languages (English, Spanish, French, German, Italian)
-    latin: [
-      { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Linux equivalent of Times New Roman' },
-      { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)', description: 'High-quality academic and book typography' },
-      { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)', description: 'Professional publishing font, similar to Times New Roman' },
-      { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Unicode support' },
-      { value: 'Liberation Sans', label: 'Liberation Sans', description: 'Linux equivalent of Arial' },
-      { value: 'DejaVu Sans', label: 'DejaVu Sans', description: 'Clean sans-serif font' }
-    ],
-
-    // Arabic
-    arabic: [
-      { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Recommended)', description: 'Arabic script' }
-    ],
-    // Russian
-    russian: [
-      { value: 'Liberation Serif', label: 'Liberation Serif (Recommended)', description: 'Good Cyrillic support' },
-      { value: 'DejaVu Serif', label: 'DejaVu Serif', description: 'Excellent Cyrillic support' }
-    ],
-    // Hebrew
-    hebrew: [
-      { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Recommended)', description: 'Hebrew script' },
-      { value: 'Noto Serif Hebrew', label: 'Noto Serif Hebrew', description: 'Hebrew serif font' },
-      { value: 'Noto Rashi Hebrew', label: 'Noto Rashi Hebrew', description: 'Hebrew Rashi script' }
-    ],
-    // Tamil
-    tamil: [
-      { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Recommended)', description: 'Tamil script' },
-      { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil', description: 'Tamil serif font' }
-    ]
-  };
-
-  // Language to font category mapping
-  const languageFontMap = {
-    en: 'latin',
-    es: 'latin',
-    fr: 'latin',
-    de: 'latin',
-    it: 'latin',
-    ar: 'arabic',
-    ru: 'russian',
-    he: 'hebrew',
-    yi: 'hebrew', // Yiddish uses Hebrew script
-    ta: 'tamil'
-  };
-
-  // Get recommended fonts for current language
-  const getRecommendedFonts = (languageCode: string) => {
-    if (!languageCode) return fontOptions.latin;
-    const fontCategory = languageFontMap[languageCode as keyof typeof languageFontMap] || 'latin';
-    return fontOptions[fontCategory as keyof typeof fontOptions] || fontOptions.latin;
-  };
-  
   const handleUpdateProfile = async () => {
     try {
       const token = localStorage.getItem('token');
@@ -161,12 +98,6 @@ const Settings: React.FC = () => {
     const newInterval = event.target.value as string;
     setAutosaveInterval(newInterval);
     updateSettings({ autosaveInterval: newInterval });
-  };
-
-  const handleFontChange = (event: SelectChangeEvent) => {
-    const newFont = event.target.value as string;
-    setSelectedFont(newFont);
-    updateSettings({ exportFontFamily: newFont });
   };
 
   const handleDarkModeChange = (checked: boolean) => {
@@ -287,64 +218,6 @@ const Settings: React.FC = () => {
           </Paper>
         </Box>
         
-        {/* Language & Font Settings */}
-        <Box>
-          <Paper sx={{ p: 3, borderRadius: 2, height: '100%' }}>
-            <Typography variant="h6" gutterBottom>
-              <LanguageIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-              Language & Font Settings
-            </Typography>
-            <Divider sx={{ mb: 3 }} />
-            
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Interface Language
-              </Typography>
-              <LanguageSwitcher variant="select" sx={{ mb: 2 }} />
-              <Typography variant="caption" color="text.secondary">
-                This language will be used for both the interface and document content.
-              </Typography>
-            </Box>
-            
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                <FontDownloadIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 16 }} />
-                Recommended Font for {i18n.language?.toUpperCase() || 'EN'}
-              </Typography>
-              <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel id="font-family-label">Font Family</InputLabel>
-                <Select
-                  labelId="font-family-label"
-                  id="font-family-select"
-                  value={selectedFont}
-                  label="Font Family"
-                  onChange={handleFontChange}
-                  size="small"
-                >
-                  {getRecommendedFonts(i18n.language).map((font) => (
-                    <MenuItem key={font.value} value={font.value}>
-                      <Box>
-                        <Typography variant="body2" fontWeight={font.value.includes('Recommended') ? 600 : 400}>
-                          {font.label}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {font.description}
-                        </Typography>
-                      </Box>
-                    </MenuItem>
-                  ))}
-                </Select>
-              </FormControl>
-              
-              <Box sx={{ mt: 2 }}>
-                <Typography variant="caption" color="text.secondary">
-                  This font will be used for document exports in {i18n.language?.toUpperCase() || 'EN'}
-                </Typography>
-              </Box>
-            </Box>
-          </Paper>
-        </Box>
-        
         {/* Editor Settings */}
         <Box>
           <Paper sx={{ p: 3, borderRadius: 2, height: '100%' }}>
@@ -369,115 +242,94 @@ const Settings: React.FC = () => {
                   <MenuItem value="20">20px</MenuItem>
                 </Select>
               </FormControl>
-              
+            </Box>
+            
+            <Box sx={{ mb: 3 }}>
               <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel id="theme-label">Editor Theme</InputLabel>
+                <InputLabel id="theme-label">Theme</InputLabel>
                 <Select
                   labelId="theme-label"
                   id="theme-select"
                   value={editorTheme}
-                  label="Editor Theme"
+                  label="Theme"
                   onChange={handleThemeChange}
                   size="small"
                 >
                   <MenuItem value="light">Light</MenuItem>
                   <MenuItem value="dark">Dark</MenuItem>
-                  <MenuItem value="sepia">Sepia</MenuItem>
                 </Select>
               </FormControl>
-              
-              <FormControlLabel 
+            </Box>
+            
+            <Box sx={{ mb: 3 }}>
+              <FormControl fullWidth sx={{ mb: 2 }}>
+                <InputLabel id="export-format-label">Default Export Format</InputLabel>
+                <Select
+                  labelId="export-format-label"
+                  id="export-format-select"
+                  value={defaultExportFormat}
+                  label="Default Export Format"
+                  onChange={handleExportFormatChange}
+                  size="small"
+                >
+                  <MenuItem value="pdf">PDF</MenuItem>
+                  <MenuItem value="epub">EPUB</MenuItem>
+                  <MenuItem value="html">HTML</MenuItem>
+                  <MenuItem value="docx">DOCX</MenuItem>
+                </Select>
+              </FormControl>
+            </Box>
+            
+            <Box sx={{ mb: 3 }}>
+              <FormControlLabel
                 control={
-                  <Switch 
-                    checked={darkMode} 
-                    onChange={(e) => handleDarkModeChange(e.target.checked)} 
+                  <Switch
+                    checked={autoSave}
+                    onChange={(e) => handleAutoSaveChange(e.target.checked)}
                   />
-                } 
-                label="Dark Mode (App Theme)" 
-                sx={{ mb: 2 }}
+                }
+                label="Auto Save"
               />
-              
-              <FormControlLabel 
-                control={
-                  <Switch 
-                    checked={autoSave} 
-                    onChange={(e) => handleAutoSaveChange(e.target.checked)} 
-                  />
-                } 
-                label="Auto Save" 
-                sx={{ mb: 2, display: 'block' }}
-              />
-              
               {autoSave && (
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <InputLabel id="autosave-label">Autosave Interval</InputLabel>
+                <FormControl fullWidth sx={{ mt: 2 }}>
+                  <InputLabel id="autosave-interval-label">Auto Save Interval</InputLabel>
                   <Select
-                    labelId="autosave-label"
-                    id="autosave-select"
+                    labelId="autosave-interval-label"
+                    id="autosave-interval-select"
                     value={autosaveInterval}
-                    label="Autosave Interval"
+                    label="Auto Save Interval"
                     onChange={handleAutosaveIntervalChange}
                     size="small"
                   >
-                    <MenuItem value="1">Every 1 minute</MenuItem>
-                    <MenuItem value="5">Every 5 minutes</MenuItem>
-                    <MenuItem value="10">Every 10 minutes</MenuItem>
-                    <MenuItem value="15">Every 15 minutes</MenuItem>
-                    <MenuItem value="30">Every 30 minutes</MenuItem>
+                    <MenuItem value="1">1 minute</MenuItem>
+                    <MenuItem value="5">5 minutes</MenuItem>
+                    <MenuItem value="10">10 minutes</MenuItem>
+                    <MenuItem value="30">30 minutes</MenuItem>
                   </Select>
                 </FormControl>
               )}
             </Box>
-          </Paper>
-        </Box>
-        
-        {/* Export Settings */}
-        <Box sx={{ gridColumn: { xs: 'auto', md: 'span 2' } }}>
-          <Paper sx={{ p: 3, borderRadius: 2 }}>
-            <Typography variant="h6" gutterBottom>Export Settings</Typography>
-            <Divider sx={{ mb: 3 }} />
             
-            <Box sx={{ 
-              display: 'grid',
-              gridTemplateColumns: { xs: '1fr', md: 'repeat(2, 1fr)' },
-              gap: 3
-            }}>
-              <Box>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <InputLabel id="export-format-label">Default Export Format</InputLabel>
-                  <Select
-                    labelId="export-format-label"
-                    id="export-format-select"
-                    value={defaultExportFormat}
-                    label="Default Export Format"
-                    onChange={handleExportFormatChange}
-                    size="small"
-                  >
-                    <MenuItem value="pdf">PDF</MenuItem>
-                    <MenuItem value="docx">DOCX</MenuItem>
-                    <MenuItem value="epub">EPUB</MenuItem>
-                  </Select>
-                </FormControl>
-              </Box>
-              
-              <Box>
-                <FormControlLabel 
-                  control={<Switch defaultChecked />} 
-                  label="Include Table of Contents" 
-                />
-              </Box>
+            <Box sx={{ mb: 3 }}>
+              <FormControlLabel
+                control={
+                  <Switch
+                    checked={darkMode}
+                    onChange={(e) => handleDarkModeChange(e.target.checked)}
+                  />
+                }
+                label="Dark Mode"
+              />
             </Box>
             
-            <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end' }}>
-              <Button 
-                variant="contained" 
-                color="primary" 
-                sx={{ borderRadius: '8px' }}
-                onClick={handleSaveSettings}
-              >
-                Save Settings
-              </Button>
-            </Box>
+            <Button 
+              variant="contained" 
+              onClick={handleSaveSettings}
+              fullWidth
+              sx={{ borderRadius: '8px' }}
+            >
+              Save Settings
+            </Button>
           </Paper>
         </Box>
       </Box>
