@@ -730,6 +730,79 @@ export function getLocalizedSectionNames(language?: string): string[] {
 }
 
 /**
+ * Get section names as an object with frontMatter, mainMatter, and backMatter properties.
+ * This is used by the ProjectWorkspace component for sidebar display.
+ */
+export function getLocalizedSectionNamesObject(language?: string): {
+  frontMatter: string;
+  mainMatter: string;
+  backMatter: string;
+} {
+  const normalizedLanguage = normalizeLang(language);
+  console.log('[SECTION NAMES OBJECT] Input language:', language, 'Normalized:', normalizedLanguage);
+  
+  // Default English labels
+  const defaultLabels = {
+    frontMatter: 'Front Matter',
+    mainMatter: 'Main Matter', 
+    backMatter: 'Back Matter'
+  };
+  
+  // Language-specific labels
+  const localizedLabels: Record<string, { frontMatter: string; mainMatter: string; backMatter: string }> = {
+    pt: {
+      frontMatter: 'Matéria Preliminar',
+      mainMatter: 'Matéria Principal',
+      backMatter: 'Matéria Final'
+    },
+    es: {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    fr: {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    de: {
+      frontMatter: 'Vorspann',
+      mainMatter: 'Hauptteil',
+      backMatter: 'Nachspann'
+    },
+    it: {
+      frontMatter: 'Materia Preliminare',
+      mainMatter: 'Materia Principale',
+      backMatter: 'Materia Finale'
+    },
+    ru: {
+      frontMatter: 'Предварительная часть',
+      mainMatter: 'Основная часть',
+      backMatter: 'Заключительная часть'
+    },
+    ar: {
+      frontMatter: 'المادة التمهيدية',
+      mainMatter: 'المادة الرئيسية',
+      backMatter: 'المادة الختامية'
+    },
+    hi: {
+      frontMatter: 'प्रारंभिक सामग्री',
+      mainMatter: 'मुख्य सामग्री',
+      backMatter: 'अंतिम सामग्री'
+    },
+    ta: {
+      frontMatter: 'முன்னுரைப் பகுதி',
+      mainMatter: 'முதன்மைப் பகுதி',
+      backMatter: 'இறுதிப் பகுதி'
+    }
+  };
+  
+  const result = localizedLabels[normalizedLanguage] || defaultLabels;
+  console.log('[SECTION NAMES OBJECT] Returning labels for:', normalizedLanguage, result);
+  return result;
+}
+
+/**
  * Generate a localized chapter title for a given index and language.
  */
 export function getLocalizedChapterName(

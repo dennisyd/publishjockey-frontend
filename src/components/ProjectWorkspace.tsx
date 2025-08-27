@@ -50,7 +50,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../contexts/SettingsContext';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
+import { getLocalizedSectionNames, getLocalizedBookStructure, getLocalizedSectionNamesObject } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -146,11 +146,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Portuguese debugging code removed
   }
   
-  const sectionNames = {
-  frontMatter: i18n.t('frontMatter', 'Front Matter'),
-  mainMatter:  i18n.t('mainMatter',  'Main Matter'),
-  backMatter:  i18n.t('backMatter',  'Back Matter'),
-};
+  const sectionNames = getLocalizedSectionNamesObject(documentLanguage);
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
