@@ -46,6 +46,7 @@ import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
+import { useSettings } from '../contexts/SettingsContext';
 import tokenManager from '../utils/tokenManager';
 import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
@@ -127,7 +128,28 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Get localized book structure and section names
   const { i18n } = useTranslation();
-  const sectionNames = getLocalizedSectionNames(i18n.language);
+  const { settings } = useSettings();
+  
+  // Use document language for sidebar translations, not UI language
+  const documentLanguage = settings.documentLanguage || 'en';
+  
+  // DEBUG: Log the language being used for sidebar
+  console.log('🔍 [SIDEBAR DEBUG] i18n.language (UI):', i18n.language);
+  console.log('🔍 [SIDEBAR DEBUG] documentLanguage (Document):', documentLanguage);
+  console.log('🔍 [SIDEBAR DEBUG] Using for sidebar:', documentLanguage);
+  
+  // SPECIFIC DEBUG for Portuguese
+  if (documentLanguage === 'pt') {
+    console.log('🇵🇹 [PORTUGUESE DEBUG] Testing Portuguese translations...');
+    const ptSectionNames = getLocalizedSectionNames('pt');
+    const ptStructure = getLocalizedBookStructure('pt');
+    const ptChapter = getLocalizedChapterName(1, 'pt');
+    console.log('🇵🇹 [PORTUGUESE DEBUG] Section names:', ptSectionNames);
+    console.log('🇵🇹 [PORTUGUESE DEBUG] Structure front[0]:', ptStructure.front[0]);
+    console.log('🇵🇹 [PORTUGUESE DEBUG] Chapter name:', ptChapter);
+  }
+  
+  const sectionNames = getLocalizedSectionNames(documentLanguage);
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
@@ -135,9 +157,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
     // Initialize with the current language's structure
-    const initialStructure = getLocalizedBookStructure(i18n.language || 'en');
+    const initialStructure = getLocalizedBookStructure(documentLanguage);
     console.log('🔍 INITIAL STRUCTURE SET:', {
-      language: i18n.language || 'en',
+      language: documentLanguage,
       structure: initialStructure
     });
     // Ensure structure is valid
@@ -150,11 +172,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     return initialStructure;
   });
   
-  // Update structure when language changes (but preserve user customizations)
-  // Temporarily disabled to prevent conflicts with fetchProject localization
-  /*
+  // Update structure when document language changes
   useEffect(() => {
-    const newLocalizedStructure = getLocalizedBookStructure(i18n.language);
+    const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
     setStructure(prevStructure => {
       // Only update if the structure hasn't been customized by the user
       // This preserves user-added chapters while updating default ones
@@ -164,14 +184,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         prevStructure.back.length !== newLocalizedStructure.back.length;
       
       if (!hasUserCustomizations) {
-        console.log('Updating structure for language:', i18n.language, 'New structure:', newLocalizedStructure);
+        console.log('🔍 Updating structure for document language:', documentLanguage, 'New structure:', newLocalizedStructure);
         return newLocalizedStructure;
       }
-      console.log('Preserving user customizations for language change:', i18n.language);
+      console.log('🔍 Preserving user customizations for language change:', documentLanguage);
       return prevStructure;
     });
-  }, [i18n.language]);
-  */
+  }, [documentLanguage]);
   
   const [selected, setSelected] = useState<{ area: keyof typeof structure; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });

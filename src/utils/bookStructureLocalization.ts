@@ -38,6 +38,18 @@ const localizedStructures = {
     main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
     back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
   },
+  pt: {
+    front: [
+      "Página de Título",
+      "Direitos Autorais",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
   de: {
     front: [
       "Titelseite",
@@ -73,6 +85,42 @@ const localizedStructures = {
     ],
     main: ["Глава 1", "Глава 2", "Глава 3"],
     back: ["Об авторе", "Приложение", "Ссылки", "Библиография", "Указатель", "Глоссарий"]
+  },
+  hr: {
+    front: [
+      "Naslovna Stranica",
+      "Autorska Prava",
+      "Posveta",
+      "Zahvale",
+      "Predgovor",
+      "Uvod"
+    ],
+    main: ["Poglavlje 1", "Poglavlje 2", "Poglavlje 3"],
+    back: ["O Autoru", "Dodatak", "Reference", "Bibliografija", "Indeks", "Rječnik"]
+  },
+  is: {
+    front: [
+      "Titilsíða",
+      "Höfundarréttur",
+      "Tileinkunn",
+      "Þakkarorð",
+      "Formáli",
+      "Inngangur"
+    ],
+    main: ["Kafli 1", "Kafli 2", "Kafli 3"],
+    back: ["Um Höfundinn", "Viðauki", "Tilvísanir", "Heimildaskrá", "Efnisskrá", "Orðalisti"]
+  },
+  ig: {
+    front: [
+      "Ihu Akwukwo",
+      "Ikike Nke Onye Odee",
+      "Nraranye",
+      "Ekele",
+      "Okwu Mmalite",
+      "Mmalite"
+    ],
+    main: ["Isi 1", "Isi 2", "Isi 3"],
+    back: ["Banyere onye odee", "Mgbakwunye", "Ntụaka", "Akwụkwọ ndetu", "Ndeksi", "Nkọwa okwu"]
   },
   ro: {
     front: [
@@ -210,18 +258,6 @@ const localizedStructures = {
   },
 
   // Additional Major Languages
-  pt: {
-    front: [
-      "Página de Título",
-      "Direitos Autorais",
-      "Dedicatória",
-      "Agradecimentos",
-      "Prefácio",
-      "Introdução"
-    ],
-    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
-    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
-  },
   nl: {
     front: [
       "Titelpagina",
@@ -295,19 +331,7 @@ const localizedStructures = {
     back: ["Om Forfatteren", "Appendiks", "Referanser", "Bibliografi", "Indeks", "Ordliste"]
   },
 
-  // Additional European Languages  
-  hr: {
-    front: [
-      "Naslovna Stranica",
-      "Autorska Prava",
-      "Posveta",
-      "Zahvale",
-      "Predgovor",
-      "Uvod"
-    ],
-    main: ["Poglavlje 1", "Poglavlje 2", "Poglavlje 3"],
-    back: ["O Autoru", "Dodatak", "Reference", "Bibliografija", "Indeks", "Rječnik"]
-  },
+  // Additional European Languages
   et: {
     front: [
       "Tiitelleht",
@@ -718,6 +742,9 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     de: "Kapitel",
     it: "Capitolo",
     ru: "Глава",
+    hr: "Poglavlje",
+    is: "Kafli",
+    ig: "Isi",
     ro: "Capitol",
     ar: "الفصل",
     ta: "அத்தியாயம்",
@@ -737,13 +764,11 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     da: "Kapitel",
     no: "Kapittel",
     // Additional European Languages
-    hr: "Poglavlje",
     et: "Peatükk", 
     fi: "Luku",
     gl: "Capítulo",
     el: "Κεφάλαιο",
     hu: "Fejezet",
-    is: "Kafli",
     lv: "nodaļa",
     lt: "skyrius",
     mk: "Поглавје",
@@ -758,7 +783,6 @@ export const getLocalizedChapterName = (chapterNumber: number, language: string 
     tl: "Kabanata",
     // African Languages
     ha: "Babi",
-    ig: "Isi",
     ki: "Gĩthemba",
     rw: "Igice",
     rn: "Umutwe",
@@ -813,6 +837,21 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       frontMatter: "Предварительные материалы",
       mainMatter: "Основные материалы",
       backMatter: "Заключительные материалы"
+    },
+    hr: {
+      frontMatter: "Uvodni Materijal",
+      mainMatter: "Glavni Materijal",
+      backMatter: "Završni Materijal"
+    },
+    is: {
+      frontMatter: "Forefni",
+      mainMatter: "Aðalefni",
+      backMatter: "Viðaukefni"
+    },
+    ig: {
+      frontMatter: "Ihe Mbido",
+      mainMatter: "Isi Ihe",
+      backMatter: "Ihe Njedebe"
     },
     ro: {
       frontMatter: "Materiale preliminare",
@@ -905,11 +944,6 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       backMatter: "Ettermateriale"
     },
     // Additional European Languages
-    hr: {
-      frontMatter: "Uvodni Materijal",
-      mainMatter: "Glavni Materijal",
-      backMatter: "Završni Materijal"
-    },
     et: {
       frontMatter: "Eelmaterjal",
       mainMatter: "Põhimaterjal",
@@ -934,11 +968,6 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       frontMatter: "Előanyag",
       mainMatter: "Főanyag",
       backMatter: "Utóanyag"
-    },
-    is: {
-      frontMatter: "Forefni",
-      mainMatter: "Aðalefni",
-      backMatter: "Viðaukefni"
     },
     lv: {
       frontMatter: "Priekšmateriāls",
@@ -1001,11 +1030,6 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
       frontMatter: "Kayan Farko",
       mainMatter: "Babban Kayan",
       backMatter: "Kayan Karshe"
-    },
-    ig: {
-      frontMatter: "Ihe Mbido",
-      mainMatter: "Isi Ihe",
-      backMatter: "Ihe Njedebe"
     },
     ki: {
       frontMatter: "Indo cia Mbere",
