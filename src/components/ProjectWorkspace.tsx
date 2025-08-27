@@ -327,21 +327,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
-          // Approach 2: Use structure exactly as stored in backend - no modifications
-          const structureToUse = JSON.parse(JSON.stringify(projectData.structure));
-          
-          console.log('🔍 SETTING STRUCTURE FROM BACKEND (Approach 2):', {
-            structure: structureToUse
+          // Yancy Dennis - Portuguese localization fix: Don't override localized structure with backend data
+          // The backend structure is likely in English, but we want to keep the localized structure
+          console.log('🔍 KEEPING LOCALIZED STRUCTURE (not overriding with backend):', {
+            currentLocalizedStructure: structure,
+            backendStructure: projectData.structure
           });
           
-          // Ensure structure is valid before setting
-          if (structureToUse && structureToUse.front && structureToUse.main && structureToUse.back) {
-            setStructure(structureToUse);
-            setStructureLoaded(true);
-          } else {
-            console.warn('🔍 INVALID STRUCTURE FROM BACKEND, KEEPING CURRENT:', structureToUse);
-            setStructureLoaded(true);
-          }
+          // Just mark as loaded without changing the structure
+          setStructureLoaded(true);
         } else {
           console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
             currentStructure: structure
