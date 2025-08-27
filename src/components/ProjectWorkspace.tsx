@@ -50,7 +50,7 @@ import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import { useSettings } from '../contexts/SettingsContext';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedSectionNames, getLocalizedBookStructure, getLocalizedSectionNamesObject } from '../utils/bookStructureLocalization';
+import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -146,7 +146,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Portuguese debugging code removed
   }
   
-  const sectionNames = getLocalizedSectionNamesObject(documentLanguage);
+  // Get section names for sidebar headers - use simple English labels for now
+  const sectionNames = {
+    frontMatter: 'Front Matter',
+    mainMatter: 'Main Matter',
+    backMatter: 'Back Matter'
+  };
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
