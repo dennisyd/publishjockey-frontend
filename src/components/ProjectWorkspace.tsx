@@ -48,7 +48,6 @@ import { ENV } from '../config/env';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { useSettings } from '../contexts/SettingsContext';
 import tokenManager from '../utils/tokenManager';
 import { getLocalizedSectionNames, getLocalizedBookStructure } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
@@ -131,7 +130,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Get localized book structure and section names
   const { i18n } = useTranslation();
-  const { settings } = useSettings();
   
   // Use UI language for sidebar translations - simplified approach to avoid conflicts
   // Yancy Dennis - Portuguese localization fix: Use UI language instead of separate documentLanguage

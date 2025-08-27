@@ -25,6 +25,7 @@ import FontDownloadIcon from '@mui/icons-material/FontDownload';
 import axios from 'axios';
 import { ENV } from '../config/env';
 import LanguageSwitcher from '../components/LanguageSwitcher';
+import { useTranslation } from 'react-i18next';
 
 interface ProfileUpdateResponse {
   success: boolean;
@@ -40,6 +41,7 @@ interface ProfileUpdateResponse {
 const Settings: React.FC = () => {
   const { currentUser } = useAuth();
   const { settings, updateSettings, saveSettings } = useSettings();
+  const { i18n } = useTranslation();
   
   const [name, setName] = useState(currentUser?.name || '');
   const [successMessage, setSuccessMessage] = useState('');
@@ -51,7 +53,6 @@ const Settings: React.FC = () => {
   const [autosaveInterval, setAutosaveInterval] = useState(settings.autosaveInterval);
   const [defaultExportFormat, setDefaultExportFormat] = useState(settings.defaultExportFormat);
   const [selectedFont, setSelectedFont] = useState(settings.exportFontFamily || 'Latin Modern Roman');
-  const [selectedLanguage, setSelectedLanguage] = useState(settings.documentLanguage || 'en');
 
   // Font options organized by language
   const fontOptions = {
@@ -166,20 +167,6 @@ const Settings: React.FC = () => {
     const newFont = event.target.value as string;
     setSelectedFont(newFont);
     updateSettings({ exportFontFamily: newFont });
-  };
-
-  const handleLanguageChange = (event: SelectChangeEvent) => {
-    const newLanguage = event.target.value as string;
-    setSelectedLanguage(newLanguage);
-    updateSettings({ documentLanguage: newLanguage });
-    
-    // Auto-select recommended font for the language
-    const recommendedFonts = getRecommendedFonts(newLanguage);
-    if (recommendedFonts.length > 0) {
-      const recommendedFont = recommendedFonts[0].value;
-      setSelectedFont(recommendedFont);
-      updateSettings({ exportFontFamily: recommendedFont });
-    }
   };
 
   const handleDarkModeChange = (checked: boolean) => {
@@ -314,65 +301,15 @@ const Settings: React.FC = () => {
                 Interface Language
               </Typography>
               <LanguageSwitcher variant="select" sx={{ mb: 2 }} />
-            </Box>
-            
-            <Box sx={{ mb: 3 }}>
-              <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-                Document Language
+              <Typography variant="caption" color="text.secondary">
+                This language will be used for both the interface and document content.
               </Typography>
-              <FormControl fullWidth sx={{ mb: 2 }}>
-                <InputLabel id="document-language-label">Document Language</InputLabel>
-                <Select
-                  labelId="document-language-label"
-                  id="document-language-select"
-                  value={selectedLanguage}
-                  label="Document Language"
-                  onChange={handleLanguageChange}
-                  size="small"
-                >
-                  <MenuItem value="en">🇺🇸 English</MenuItem>
-                  <MenuItem value="es">🇪🇸 Español</MenuItem>
-                  <MenuItem value="fr">🇫🇷 Français</MenuItem>
-                  <MenuItem value="de">🇩🇪 Deutsch</MenuItem>
-                  <MenuItem value="it">🇮🇹 Italiano</MenuItem>
-                  <MenuItem value="id">🇮🇩 Bahasa Indonesia</MenuItem>
-                  <MenuItem value="is">🇮🇸 Íslenska</MenuItem>
-                  <MenuItem value="pt">🇵🇹 Português</MenuItem>
-                  <MenuItem value="hr">🇭🇷 Hrvatski</MenuItem>
-                  <MenuItem value="ru">🇷🇺 Русский</MenuItem>
-                  <MenuItem value="ro">🇷🇴 Română</MenuItem>
-                  <MenuItem value="hi">🇮🇳 हिन्दी</MenuItem>
-                  <MenuItem value="bn">🇧🇩 বাংলা</MenuItem>
-                  <MenuItem value="gu">🇮🇳 ગુજરાતી</MenuItem>
-                  <MenuItem value="ta">🇮🇳 தமிழ்</MenuItem>
-                  <MenuItem value="te">🇮🇳 తెలుగు</MenuItem>
-                  <MenuItem value="kn">🇮🇳 ಕನ್ನಡ</MenuItem>
-                  <MenuItem value="ml">🇮🇳 മലയാളം</MenuItem>
-                  <MenuItem value="pa">🇮🇳 ਪੰਜਾਬੀ</MenuItem>
-                  <MenuItem value="or">🇮🇳 ଓଡ଼ିଆ</MenuItem>
-                  <MenuItem value="ar">🇸🇦 العربية</MenuItem>
-                  <MenuItem value="he">🇮🇱 עברית</MenuItem>
-                  <MenuItem value="yi">🇮🇱 יידיש</MenuItem>
-                </Select>
-              </FormControl>
-
-              {/* RTL Language Warning */}
-              {['ar', 'he', 'yi'].includes(selectedLanguage) && (
-                <Alert severity="info" sx={{ mb: 2 }}>
-                  <Typography variant="body2" color="text.primary">
-                    <strong>RTL Language Notice:</strong> For best results with {selectedLanguage === 'ar' ? 'Arabic' : selectedLanguage === 'he' ? 'Hebrew' : 'Yiddish'}, use pure language content only.
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-                    Mixed content (English text, URLs, email addresses) may not display correctly. Consider using only {selectedLanguage === 'ar' ? 'Arabic' : selectedLanguage === 'he' ? 'Hebrew' : 'Yiddish'} text for optimal formatting.
-                  </Typography>
-                </Alert>
-              )}
             </Box>
             
             <Box sx={{ mb: 3 }}>
               <Typography variant="subtitle2" color="text.secondary" gutterBottom>
                 <FontDownloadIcon sx={{ mr: 1, verticalAlign: 'middle', fontSize: 16 }} />
-                Recommended Font for {selectedLanguage?.toUpperCase() || 'EN'}
+                Recommended Font for {i18n.language?.toUpperCase() || 'EN'}
               </Typography>
               <FormControl fullWidth sx={{ mb: 2 }}>
                 <InputLabel id="font-family-label">Font Family</InputLabel>
@@ -384,7 +321,7 @@ const Settings: React.FC = () => {
                   onChange={handleFontChange}
                   size="small"
                 >
-                  {getRecommendedFonts(selectedLanguage).map((font) => (
+                  {getRecommendedFonts(i18n.language).map((font) => (
                     <MenuItem key={font.value} value={font.value}>
                       <Box>
                         <Typography variant="body2" fontWeight={font.value.includes('Recommended') ? 600 : 400}>
@@ -401,7 +338,7 @@ const Settings: React.FC = () => {
               
               <Box sx={{ mt: 2 }}>
                 <Typography variant="caption" color="text.secondary">
-                  This font will be used for document exports in {selectedLanguage?.toUpperCase() || 'EN'}
+                  This font will be used for document exports in {i18n.language?.toUpperCase() || 'EN'}
                 </Typography>
               </Box>
             </Box>
