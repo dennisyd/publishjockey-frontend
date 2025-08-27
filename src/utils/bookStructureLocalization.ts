@@ -117,7 +117,7 @@ const localizedStructures = {
       "Nraranye",
       "Ekele",
       "Okwu Mmalite",
-      "Mmalite"
+      "Okwu Mmalite"
     ],
     main: ["Isi 1", "Isi 2", "Isi 3"],
     back: ["Banyere onye odee", "Mgbakwunye", "Ntụaka", "Akwụkwọ ndetu", "Ndeksi", "Nkọwa okwu"]
@@ -552,18 +552,7 @@ const localizedStructures = {
     main: ["Babi na 1", "Babi na 2", "Babi na 3"],
     back: ["Game da Marubuci", "Kari", "Nassoshi", "Littattafai", "Fihirisa", "Kamus"]
   },
-  ig: {
-    front: [
-      "Peeji Aha",
-      "Ikike Odide",
-      "Nraranye",
-      "Ekele",
-      "Okwu Mmalite",
-      "Mmeghe"
-    ],
-    main: ["Isi 1", "Isi 2", "Isi 3"],
-    back: ["Banyere Onye Edemede", "Mgbakwunye", "Ntụaka", "Akwụkwọ Ndetu", "Ndekọ", "Akụkọ Okwu"]
-  },
+
   ki: {
     front: [
       "Mũrango wa Rĩĩtwa",
@@ -726,6 +715,7 @@ export const getLocalizedBookStructure = (language: string = 'en') => {
   // Normalize language code (handle cases like 'bn-BD' -> 'bn')
   const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
   console.log('[BOOK STRUCTURE] Input language:', language, 'Normalized:', normalizedLanguage);
+  console.log('[BOOK STRUCTURE] Is Portuguese?', normalizedLanguage === 'pt');
   
   const structure = localizedStructures[normalizedLanguage as keyof typeof localizedStructures] || localizedStructures.en;
   return structure;
@@ -806,6 +796,7 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
   // Normalize language code (handle cases like 'bn-BD' -> 'bn')
   const normalizedLanguage = language ? language.split('-')[0].toLowerCase() : 'en';
   console.log('[SECTION NAMES] Input language:', language, 'Normalized:', normalizedLanguage);
+  console.log('[SECTION NAMES] Is Portuguese?', normalizedLanguage === 'pt');
   
   const sectionNames = {
     en: {
@@ -1096,6 +1087,10 @@ export const getLocalizedSectionNames = (language: string = 'en') => {
   console.log('[SECTION NAMES] Available languages:', Object.keys(sectionNames));
   console.log('[SECTION NAMES] Looking for:', normalizedLanguage);
   console.log('[SECTION NAMES] Found:', sectionNames[normalizedLanguage as keyof typeof sectionNames] ? 'Yes' : 'No');
+  
+  if (normalizedLanguage === 'pt') {
+    console.log('[SECTION NAMES] Portuguese data:', sectionNames.pt);
+  }
   
   return sectionNames[normalizedLanguage as keyof typeof sectionNames] || sectionNames.en;
 };
