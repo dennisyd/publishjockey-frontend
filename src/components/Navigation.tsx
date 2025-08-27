@@ -171,6 +171,9 @@ const Navigation: React.FC = () => {
                     <MenuItem onClick={() => { handleUserMenuClose(); navigate('/settings'); }}>
                       Settings
                     </MenuItem>
+                    <MenuItem onClick={() => { handleUserMenuClose(); navigate('/affiliate'); }}>
+                      Affiliate Program
+                    </MenuItem>
                     {currentUser?.subscription === 'free' && (
                       <MenuItem onClick={() => { handleUserMenuClose(); navigate('/pricing'); }} 
                         sx={{ color: 'primary.main', fontWeight: 500 }}>

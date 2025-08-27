@@ -27,6 +27,9 @@ import Features from './pages/Features';
 import HowItWorks from './pages/HowItWorks';
 import TestimonialsPage from './pages/TestimonialsPage';
 import PaymentSuccess from './pages/PaymentSuccess';
+import AffiliateDashboard from './pages/AffiliateDashboard';
+import AffiliateAgreement from './pages/AffiliateAgreement';
+import AdminAffiliateDashboard from './pages/AdminAffiliateDashboard';
 
 // Import auth components
 import Login from './auth/Login';
@@ -131,6 +134,7 @@ function App() {
                     <Route path="/features" element={<Features />} />
                     <Route path="/how-it-works" element={<HowItWorks />} />
                     <Route path="/testimonials" element={<TestimonialsPage />} />
+                    <Route path="/affiliate-agreement" element={<AffiliateAgreement />} />
                     <Route path="/payment-success" element={<ProtectedRoute element={<PaymentSuccess />} navItems={navItems} />} />
                     
                     {/* Protected routes with sidebar layout */}
@@ -143,6 +147,8 @@ function App() {
                     <Route path="/users/:userId/account" element={<ProtectedRoute element={<AccountSettings />} navItems={navItems} />} />
                     <Route path="/split-doctor" element={<ProtectedRoute element={<SplitDoctor />} navItems={navItems} />} />
                     <Route path="/image-magic" element={<ProtectedRoute element={<ImageMagic />} navItems={navItems} />} />
+                    <Route path="/affiliate" element={<ProtectedRoute element={<AffiliateDashboard />} navItems={navItems} />} />
+                    <Route path="/admin/affiliates" element={<ProtectedRoute requiredRole="admin" element={<AdminAffiliateDashboard />} navItems={navItems} />} />
                   </Routes>
                 </Box>
                 {/* Global Footer */}
