@@ -180,12 +180,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     return initialStructure;
   });
   
-  // Update structure when document language changes
-  useEffect(() => {
-    const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
-    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', documentLanguage, 'New structure:', newLocalizedStructure);
-    setStructure(newLocalizedStructure);
-  }, [documentLanguage]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
+
   
   const [selected, setSelected] = useState<{ area: Area; idx: number } | null>(null);
   const [expanded, setExpanded] = useState({ front: true, main: true, back: true });
@@ -255,6 +250,18 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [loadingProject, setLoadingProject] = useState(true);
   const [structureLoaded, setStructureLoaded] = useState(false);
 
+  // Update structure when document language changes - BUT ONLY if no database structure was loaded
+  useEffect(() => {
+    // DON'T override structure if we've already loaded one from the database
+    if (structureLoaded) {
+      console.log('🔍 [LANGUAGE CHANGE] Skipping structure update - database structure already loaded');
+      return;
+    }
+    
+    const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
+    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', documentLanguage, 'New structure:', newLocalizedStructure);
+    setStructure(newLocalizedStructure);
+  }, [documentLanguage, structureLoaded]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
   
   // Get auth token from context
   const { currentUser } = useAuth();
@@ -327,15 +334,46 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
-          // CRITICAL FIX: Actually use the backend structure - it contains all the user's custom sections
-          // The backend structure should take precedence as it contains the real book structure
-          console.log('🔍 USING BACKEND STRUCTURE (contains all custom sections):', {
-            currentLocalizedStructure: structure,
-            backendStructure: projectData.structure
-          });
+          // Check if the backend structure has more sections than the default template
+          const backendSectionCount = (projectData.structure.front?.length || 0) + 
+                                     (projectData.structure.main?.length || 0) + 
+                                     (projectData.structure.back?.length || 0);
+          const defaultSectionCount = (structure.front?.length || 0) + 
+                                     (structure.main?.length || 0) + 
+                                     (structure.back?.length || 0);
           
-          // Use the backend structure which contains all the custom sections like Part I, Part II, etc.
-          setStructure(projectData.structure);
+          if (backendSectionCount > defaultSectionCount || 
+              // Or if it has different section names (indicating custom sections)
+              JSON.stringify(projectData.structure) !== JSON.stringify(structure)) {
+            
+            console.log('🔍 USING BACKEND STRUCTURE (contains custom sections):', {
+              backendSectionCount,
+              defaultSectionCount,
+              backendStructure: projectData.structure
+            });
+            
+            // Use the backend structure which contains the custom sections
+            setStructure(projectData.structure);
+          } else {
+            console.log('🔍 BACKEND STRUCTURE APPEARS TO BE DEFAULT TEMPLATE, CHECKING CONTENT FOR CUSTOM SECTIONS');
+            
+            // Check if content has sections not in the default structure
+            const customSections = Object.keys(content).filter(key => {
+              const [area, sectionName] = key.split(':');
+              return !structure[area as Area]?.includes(sectionName);
+            });
+            
+            if (customSections.length > 0) {
+              console.log('🔍 FOUND CUSTOM SECTIONS IN CONTENT, ATTEMPTING TO RECONSTRUCT STRUCTURE:', customSections);
+              // Could attempt to reconstruct structure from content keys here
+              // For now, just use the backend structure
+              setStructure(projectData.structure);
+            } else {
+              console.log('🔍 NO CUSTOM SECTIONS FOUND, USING BACKEND STRUCTURE AS-IS');
+              setStructure(projectData.structure);
+            }
+          }
+          
           setStructureLoaded(true);
         } else {
           console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
