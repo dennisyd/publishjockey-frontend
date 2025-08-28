@@ -234,7 +234,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     forceTitleFirst: true,
          // Language and font settings - use current interface language from Dashboard as default
      language: i18n.language || 'en',
-     fontFamily: 'Liberation Serif', // Force default font
+           fontFamily: 'Liberation Serif', // Default font for server/Linux systems
      tocDepth: 1
   });
 
@@ -246,8 +246,18 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [tocDepth, setTocDepth] = useState<number>(1);
   const [showAdvanced, setShowAdvanced] = useState(false);
-  const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 'server';
+  // Platform detection - use same variable as backend for consistency
+  const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 
+                        (navigator.platform.includes('Win') ? 'windows' : 'server');
   const fontOptions = exportPlatform === 'windows' ? windowsFonts : serverFonts;
+  
+  // Debug platform detection
+  console.log('[FRONTEND PLATFORM DEBUG]', {
+    REACT_APP_EXPORT_PLATFORM: process.env.REACT_APP_EXPORT_PLATFORM,
+    navigator_platform: navigator.platform,
+    exportPlatform: exportPlatform,
+    fontOptions: fontOptions.map(f => f.value)
+  });
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
 
@@ -255,15 +265,34 @@ const ExportModal: React.FC<ExportModalProps> = ({
   
   // Get available fonts for a given language and format
   const getAvailableFonts = (language: string, format: string) => {
-    console.log(`getAvailableFonts called with language: "${language}", format: "${format}"`);
+    console.log(`getAvailableFonts called with language: "${language}", format: "${format}", platform: "${exportPlatform}"`);
     
+    // For English and Latin-based languages, respect platform detection
+    if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+      if (exportPlatform === 'windows') {
+        // For Windows, show Windows fonts for English/Latin languages
+        console.log(`[FONT] Windows platform detected for ${language}, showing Windows fonts`);
+        return windowsFonts;
+      } else {
+        // For server/Linux, show server fonts for English/Latin languages
+        console.log(`[FONT] Server platform detected for ${language}, showing server fonts`);
+        const filteredFonts = fontOptions.filter(font => {
+          // For EPUB, only show fonts that work well across e-readers
+          if (format === 'epub') {
+            return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
+          }
+          // For PDF and other formats, show all Latin fonts
+          const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
+          return latinFonts.includes(font.value);
+        });
+        return filteredFonts;
+      }
+    }
+    
+    // For other languages, use the existing filtering logic
     const filteredFonts = fontOptions.filter(font => {
       // For EPUB, only show fonts that work well across e-readers
       if (format === 'epub') {
-        // EPUB-compatible fonts for Latin-based languages
-        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-          return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
-        }
         // For other languages, keep their specific fonts
         if (language === 'ta') {
           return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
@@ -284,12 +313,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
       }
       
       // For PDF and other formats, show all appropriate fonts
-      // Latin-based languages (English, Spanish, French, German, Italian, Indonesian) - show all Latin fonts
-      if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-        const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
-        return latinFonts.includes(font.value);
-      }
-      
       // Tamil - only show Tamil fonts
       if (language === 'ta') {
         return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
