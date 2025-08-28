@@ -191,7 +191,7 @@ const AffiliateDashboard = () => {
       if (response.data.success) {
         // Track successful affiliate registration
         TrackingService.trackReferralRegistration(
-          currentUser._id,
+          currentUser.id,
           currentUser.email
         );
         

@@ -1,34 +1,44 @@
-import ReactGA from 'react-ga4';
-import ReactPixel from 'react-facebook-pixel';
-import mixpanel from 'mixpanel-browser';
-import Cookies from 'js-cookie';
-import queryString from 'query-string';
-
 class TrackingService {
   private isInitialized = false;
 
   /**
-   * Initialize all tracking services
+   * Initialize tracking service
    */
   initialize() {
     if (this.isInitialized) return;
 
-    // Initialize Google Analytics 4
-    if (process.env.REACT_APP_GA4_ID) {
-      ReactGA.initialize(process.env.REACT_APP_GA4_ID);
-    }
-
-    // Initialize Facebook Pixel
-    if (process.env.REACT_APP_FACEBOOK_PIXEL_ID) {
-      ReactPixel.init(process.env.REACT_APP_FACEBOOK_PIXEL_ID);
-    }
-
-    // Initialize Mixpanel
-    if (process.env.REACT_APP_MIXPANEL_TOKEN) {
-      mixpanel.init(process.env.REACT_APP_MIXPANEL_TOKEN);
-    }
-
     this.isInitialized = true;
+    console.log('📊 Tracking service initialized');
+  }
+
+  /**
+   * Set a cookie
+   */
+  private setCookie(name: string, value: string, days: number = 30) {
+    const expires = new Date();
+    expires.setTime(expires.getTime() + (days * 24 * 60 * 60 * 1000));
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/`;
+  }
+
+  /**
+   * Get a cookie value
+   */
+  private getCookie(name: string): string | null {
+    const nameEQ = name + "=";
+    const ca = document.cookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') c = c.substring(1, c.length);
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+    }
+    return null;
+  }
+
+  /**
+   * Remove a cookie
+   */
+  private removeCookie(name: string) {
+    document.cookie = `${name}=;expires=Thu, 01 Jan 1970 00:00:00 UTC;path=/;`;
   }
 
   /**
@@ -38,26 +48,10 @@ class TrackingService {
     this.initialize();
 
     // Store referral data in cookies
-    Cookies.set('referral_code', affiliateCode, { expires: 30 }); // 30 days
-    Cookies.set('referral_source', source, { expires: 30 });
+    this.setCookie('referral_code', affiliateCode, 30);
+    this.setCookie('referral_source', source, 30);
 
-    // Track in analytics
-    ReactGA.event({
-      category: 'Affiliate',
-      action: 'Referral Click',
-      label: affiliateCode,
-      value: 1
-    });
-
-    ReactPixel.track('ReferralClick', {
-      affiliate_code: affiliateCode,
-      source: source
-    });
-
-    mixpanel.track('Referral Click', {
-      affiliate_code: affiliateCode,
-      source: source
-    });
+    console.log('📊 Referral click tracked:', { affiliateCode, source });
   }
 
   /**
@@ -66,34 +60,20 @@ class TrackingService {
   trackReferralRegistration(userId: string, email: string) {
     this.initialize();
 
-    const referralCode = Cookies.get('referral_code');
-    const referralSource = Cookies.get('referral_source');
+    const referralCode = this.getCookie('referral_code');
+    const referralSource = this.getCookie('referral_source');
 
     if (referralCode) {
-      ReactGA.event({
-        category: 'Affiliate',
-        action: 'Referral Registration',
-        label: referralCode,
-        value: 1
-      });
-
-      ReactPixel.track('ReferralRegistration', {
-        affiliate_code: referralCode,
-        source: referralSource,
-        user_id: userId,
-        email: email
-      });
-
-      mixpanel.track('Referral Registration', {
-        affiliate_code: referralCode,
-        source: referralSource,
-        user_id: userId,
-        email: email
+      console.log('📊 Referral registration tracked:', { 
+        referralCode, 
+        referralSource, 
+        userId, 
+        email 
       });
 
       // Clear referral cookies after successful registration
-      Cookies.remove('referral_code');
-      Cookies.remove('referral_source');
+      this.removeCookie('referral_code');
+      this.removeCookie('referral_source');
     }
   }
 
@@ -103,27 +83,13 @@ class TrackingService {
   trackConversion(orderId: string, amount: number, currency: string = 'USD') {
     this.initialize();
 
-    const referralCode = Cookies.get('referral_code');
+    const referralCode = this.getCookie('referral_code');
 
-    ReactGA.event({
-      category: 'Affiliate',
-      action: 'Conversion',
-      label: referralCode || 'direct',
-      value: Math.round(amount * 100) // GA expects cents
-    });
-
-    ReactPixel.track('Purchase', {
-      value: amount,
-      currency: currency,
-      affiliate_code: referralCode,
-      order_id: orderId
-    });
-
-    mixpanel.track('Purchase', {
-      value: amount,
-      currency: currency,
-      affiliate_code: referralCode,
-      order_id: orderId
+    console.log('📊 Conversion tracked:', { 
+      orderId, 
+      amount, 
+      currency, 
+      referralCode: referralCode || 'direct' 
     });
   }
 
@@ -133,15 +99,7 @@ class TrackingService {
   trackAffiliateLinkGeneration(affiliateCode: string) {
     this.initialize();
 
-    ReactGA.event({
-      category: 'Affiliate',
-      action: 'Link Generated',
-      label: affiliateCode
-    });
-
-    mixpanel.track('Affiliate Link Generated', {
-      affiliate_code: affiliateCode
-    });
+    console.log('📊 Affiliate link generated:', { affiliateCode });
   }
 
   /**
@@ -150,17 +108,10 @@ class TrackingService {
   trackCommissionEarned(affiliateCode: string, amount: number, orderId: string) {
     this.initialize();
 
-    ReactGA.event({
-      category: 'Affiliate',
-      action: 'Commission Earned',
-      label: affiliateCode,
-      value: Math.round(amount * 100)
-    });
-
-    mixpanel.track('Commission Earned', {
-      affiliate_code: affiliateCode,
-      amount: amount,
-      order_id: orderId
+    console.log('📊 Commission earned tracked:', { 
+      affiliateCode, 
+      amount, 
+      orderId 
     });
   }
 
@@ -168,10 +119,10 @@ class TrackingService {
    * Get referral data from URL parameters
    */
   getReferralFromURL(): { code?: string; source?: string } {
-    const parsed = queryString.parse(window.location.search);
+    const urlParams = new URLSearchParams(window.location.search);
     return {
-      code: parsed.ref as string,
-      source: parsed.source as string
+      code: urlParams.get('ref') || undefined,
+      source: urlParams.get('source') || undefined
     };
   }
 
@@ -181,13 +132,7 @@ class TrackingService {
   setUserProperties(userId: string, email: string, properties: Record<string, any> = {}) {
     this.initialize();
 
-    // Set user ID for all tracking services
-    ReactGA.set({ userId });
-    mixpanel.identify(userId);
-    mixpanel.people.set({
-      $email: email,
-      ...properties
-    });
+    console.log('📊 User properties set:', { userId, email, properties });
   }
 
   /**
@@ -196,9 +141,7 @@ class TrackingService {
   trackPageView(page: string) {
     this.initialize();
 
-    ReactGA.send({ hitType: 'pageview', page });
-    ReactPixel.pageView();
-    mixpanel.track('Page View', { page });
+    console.log('📊 Page view tracked:', { page });
   }
 }
 
