@@ -1,5 +1,6 @@
-import React from 'react'; // Yancy Dennis
+import React, { useEffect } from 'react'; // Yancy Dennis
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import TrackingService from './services/TrackingService';
 import {
   CssBaseline, ThemeProvider, createTheme, Box
 } from '@mui/material';
@@ -89,6 +90,18 @@ function ProjectWorkspaceWrapper() {
 }
 
 function App() {
+  // Initialize tracking and handle referral clicks
+  useEffect(() => {
+    // Initialize tracking service
+    TrackingService.initialize();
+    
+    // Check for referral parameters in URL
+    const referralData = TrackingService.getReferralFromURL();
+    if (referralData.code) {
+      TrackingService.trackReferralClick(referralData.code, referralData.source || 'direct');
+    }
+  }, []);
+
   // Define navigation items
   const navItems = [
     { label: 'Dashboard', path: '/dashboard', icon: <DashboardIcon /> },

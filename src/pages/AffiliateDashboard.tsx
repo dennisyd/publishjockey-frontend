@@ -47,6 +47,7 @@ import {
 } from '@mui/icons-material';
 import { http } from '../services/http';
 import { ENV } from '../config/env';
+import TrackingService from '../services/TrackingService';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -188,6 +189,12 @@ const AffiliateDashboard = () => {
       const response = await http.post('/affiliates/register', registerForm);
       
       if (response.data.success) {
+        // Track successful affiliate registration
+        TrackingService.trackReferralRegistration(
+          currentUser._id,
+          currentUser.email
+        );
+        
         setRegisterDialogOpen(false);
         setAgreementAccepted(false); // Reset for next time
         await loadAffiliateData();
@@ -224,6 +231,10 @@ const AffiliateDashboard = () => {
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
+    // Track affiliate link copy
+    if (affiliateData?.affiliateCode) {
+      TrackingService.trackAffiliateLinkGeneration(affiliateData.affiliateCode);
+    }
   };
 
   const getTrackingLink = () => {

@@ -98,11 +98,21 @@ const AdminAffiliateDashboard = () => {
   const [dateFilter, setDateFilter] = useState('30');
 
   useEffect(() => {
-    if (!currentUser || currentUser.role !== 'admin') {
+    console.log('AdminAffiliateDashboard - currentUser:', currentUser);
+    
+    if (!currentUser) {
+      console.log('AdminAffiliateDashboard - No current user, redirecting to dashboard');
       navigate('/dashboard');
       return;
     }
     
+    if (currentUser.role !== 'admin') {
+      console.log('AdminAffiliateDashboard - User is not admin, redirecting to dashboard');
+      navigate('/dashboard');
+      return;
+    }
+    
+    console.log('AdminAffiliateDashboard - User is admin, loading data');
     loadAdminData();
   }, [currentUser, navigate]);
 
@@ -112,20 +122,41 @@ const AdminAffiliateDashboard = () => {
       setError(null);
       
       const [statsRes, affiliatesRes, commissionsRes, revenueRes] = await Promise.all([
-        http.get('/admin/affiliates/stats'),
-        http.get('/admin/affiliates'),
-        http.get('/admin/commissions'),
-        http.get('/admin/revenue')
+        http.get('/api/admin/affiliates/stats'),
+        http.get('/api/admin/affiliates'),
+        http.get('/api/admin/commissions'),
+        http.get('/api/admin/revenue')
       ]);
       
-      setStats(statsRes.data);
+      console.log('Admin data responses:', {
+        stats: statsRes.data,
+        affiliates: affiliatesRes.data,
+        commissions: commissionsRes.data,
+        revenue: revenueRes.data
+      });
+      
+      // Set default values if no data exists yet
+      setStats(statsRes.data.stats || {
+        totalAffiliates: 0,
+        activeAffiliates: 0,
+        totalRevenue: 0,
+        monthlyRevenue: 0,
+        totalCommissions: 0,
+        totalPaidOut: 0,
+        pendingPayouts: 0
+      });
       setAffiliates(affiliatesRes.data.affiliates || []);
       setCommissions(commissionsRes.data.commissions || []);
       setRevenue(revenueRes.data.revenue || []);
       
     } catch (error: any) {
       console.error('Error loading admin data:', error);
-      setError('Failed to load admin data. Please try again.');
+      console.error('Error details:', {
+        message: error.message,
+        response: error.response?.data,
+        status: error.response?.status
+      });
+      setError(`Failed to load admin data: ${error.response?.data?.message || error.message}`);
     } finally {
       setLoading(false);
     }
@@ -142,7 +173,7 @@ const AdminAffiliateDashboard = () => {
     try {
       setPayoutLoading(true);
       
-      const response = await http.post(`/admin/affiliates/${selectedAffiliate._id}/process-payout`);
+      const response = await http.post(`/api/admin/affiliates/${selectedAffiliate._id}/process-payout`);
       
       if (response.data.success) {
         setPayoutDialogOpen(false);
@@ -161,7 +192,7 @@ const AdminAffiliateDashboard = () => {
 
   const handleStatusChange = async (affiliateId: string, newStatus: string) => {
     try {
-      const response = await http.put(`/admin/affiliates/${affiliateId}/status`, {
+      const response = await http.put(`/api/admin/affiliates/${affiliateId}/status`, {
         status: newStatus
       });
       
@@ -171,6 +202,25 @@ const AdminAffiliateDashboard = () => {
     } catch (error: any) {
       console.error('Error updating affiliate status:', error);
       setError('Failed to update affiliate status');
+    }
+  };
+
+  const handleProcessMonthlyPayouts = async () => {
+    try {
+      setLoading(true);
+      const response = await http.post('/api/admin/process-monthly-payouts');
+      
+      if (response.data.success) {
+        await loadAdminData(); // Refresh data
+        setError(null);
+      } else {
+        setError(response.data.message || 'Monthly payout processing failed');
+      }
+    } catch (error: any) {
+      console.error('Error processing monthly payouts:', error);
+      setError('Monthly payout processing failed. Please try again.');
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -504,7 +554,8 @@ const AdminAffiliateDashboard = () => {
             <Button
               variant="contained"
               startIcon={<Payment />}
-              onClick={() => {/* Implement bulk payout processing */}}
+              onClick={handleProcessMonthlyPayouts}
+              disabled={loading}
             >
               Process Monthly Payouts
             </Button>
