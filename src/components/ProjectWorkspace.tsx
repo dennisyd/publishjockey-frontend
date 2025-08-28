@@ -327,14 +327,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
-          // Yancy Dennis - Portuguese localization fix: Don't override localized structure with backend data
-          // The backend structure is likely in English, but we want to keep the localized structure
-          console.log('🔍 KEEPING LOCALIZED STRUCTURE (not overriding with backend):', {
+          // CRITICAL FIX: Actually use the backend structure - it contains all the user's custom sections
+          // The backend structure should take precedence as it contains the real book structure
+          console.log('🔍 USING BACKEND STRUCTURE (contains all custom sections):', {
             currentLocalizedStructure: structure,
             backendStructure: projectData.structure
           });
           
-          // Just mark as loaded without changing the structure
+          // Use the backend structure which contains all the custom sections like Part I, Part II, etc.
+          setStructure(projectData.structure);
           setStructureLoaded(true);
         } else {
           console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
@@ -497,6 +498,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   useEffect(() => {
     setEditedProjectName(projectTitle && projectTitle.trim() ? projectTitle : 'Untitled');
   }, [projectTitle]);
+
+
   
   // Prefill Copyright page if not set or if author changes
   useEffect(() => {
