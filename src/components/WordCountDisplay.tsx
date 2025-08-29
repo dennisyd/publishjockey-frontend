@@ -87,8 +87,9 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
 
   const hasWordLimit = wordData.wordLimit !== null;
   const progress = hasWordLimit ? (wordData.wordCount / wordData.wordLimit!) * 100 : 0;
-  const isOverLimit = hasWordLimit && !wordData.isValid;
-  const isNearLimit = hasWordLimit && progress > 80 && progress <= 100;
+  const isOverLimit = hasWordLimit && wordData.wordCount > wordData.wordLimit!;
+  const isAtLimit = hasWordLimit && wordData.wordCount === wordData.wordLimit!;
+  const isNearLimit = hasWordLimit && progress > 80 && !isOverLimit && !isAtLimit;
 
   return (
     <Box>
@@ -126,11 +127,11 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
         <LinearProgress
           variant="determinate"
           value={Math.min(100, progress)}
-          color={isOverLimit ? "error" : isNearLimit ? "warning" : "primary"}
+          color={isOverLimit ? "error" : (isAtLimit || isNearLimit) ? "warning" : "primary"}
           sx={{ 
             height: compact ? 4 : 6, 
             borderRadius: 2,
-            mb: isOverLimit || (isNearLimit && onUpgradeClick) ? 1 : 0
+            mb: isOverLimit || isAtLimit || (isNearLimit && onUpgradeClick) ? 1 : 0
           }}
         />
       )}
@@ -153,7 +154,24 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
         </Box>
       )}
       
-      {hasWordLimit && isNearLimit && !isOverLimit && onUpgradeClick && (
+      {hasWordLimit && isAtLimit && (
+        <Box sx={{ mt: 0.5 }}>
+          <Typography variant="body2" color="warning.main">
+            Limit reached. Consider upgrading for unlimited words.
+          </Typography>
+          {onUpgradeClick && (
+            <Button 
+              size="small" 
+              onClick={onUpgradeClick}
+              sx={{ mt: 0.5, fontSize: '0.75rem' }}
+            >
+              Upgrade Plan
+            </Button>
+          )}
+        </Box>
+      )}
+      
+      {hasWordLimit && isNearLimit && onUpgradeClick && (
         <Box sx={{ mt: 0.5 }}>
           <Typography variant="body2" color="warning.main">
             Approaching word limit.
