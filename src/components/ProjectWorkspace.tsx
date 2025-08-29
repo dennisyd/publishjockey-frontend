@@ -530,8 +530,24 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             data: err.response.data
           });
           
+          // Check for word limit error
+          if (err.response.status === 400 && err.response?.data?.message?.includes('word limit')) {
+            const data = err.response.data;
+            let errorMessage;
+            if (data.data?.wordsOver) {
+              errorMessage = `⚠️ Content exceeds the 10,000-word limit by ${data.data.wordsOver.toLocaleString()} words. Autosave paused - please remove some content to continue.`;
+            } else {
+              errorMessage = `⚠️ Content exceeds the 10,000-word limit for ebook subscriptions. Autosave paused - please reduce your content.`;
+            }
+            
+            setNotification({
+              open: true,
+              message: errorMessage,
+              severity: 'error'
+            });
+          }
           // If token is expired (401) or invalid, show a notification
-          if (err.response.status === 401) {
+          else if (err.response.status === 401) {
             alert('Your session has expired. Please log in again to continue saving your work.');
           }
         } else if (err.request) {
@@ -2239,9 +2255,21 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     refreshWordCount();
                   }).catch(err => {
                     console.error('Manual save failed:', err);
+                    
+                    // Check if it's a word limit error
+                    let errorMessage = 'Failed to save changes. Please try again.';
+                    if (err.response?.status === 400 && err.response?.data?.message?.includes('word limit')) {
+                      const data = err.response.data;
+                      if (data.data?.wordsOver) {
+                        errorMessage = `Content exceeds the 10,000-word limit by ${data.data.wordsOver.toLocaleString()} words. Please remove some content to continue saving.`;
+                      } else {
+                        errorMessage = `Content exceeds the 10,000-word limit for ebook subscriptions. Please reduce your content to under 10,000 words.`;
+                      }
+                    }
+                    
                     setNotification({
                       open: true,
-                      message: 'Failed to save changes. Please try again.',
+                      message: errorMessage,
                       severity: 'error'
                     });
                   });
