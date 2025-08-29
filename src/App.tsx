@@ -30,6 +30,7 @@ import TestimonialsPage from './pages/TestimonialsPage';
 import PaymentSuccess from './pages/PaymentSuccess';
 import AffiliateDashboard from './pages/AffiliateDashboard';
 import AffiliateAgreement from './pages/AffiliateAgreement';
+import AffiliateSignup from './pages/AffiliateSignup';
 import AdminAffiliateDashboard from './pages/AdminAffiliateDashboard';
 
 // Import auth components
@@ -148,6 +149,7 @@ function App() {
                     <Route path="/how-it-works" element={<HowItWorks />} />
                     <Route path="/testimonials" element={<TestimonialsPage />} />
                     <Route path="/affiliate-agreement" element={<AffiliateAgreement />} />
+                    <Route path="/affiliate-signup" element={<AffiliateSignup />} />
                     <Route path="/payment-success" element={<ProtectedRoute element={<PaymentSuccess />} navItems={navItems} />} />
                     
                     {/* Protected routes with sidebar layout */}

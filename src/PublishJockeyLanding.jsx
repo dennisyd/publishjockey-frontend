@@ -619,7 +619,7 @@ const LandingHeader = ({ openTerms }) => {
                     About
                   </Button>
                                      <Button 
-                     href="/affiliate"
+                     href="/affiliate-signup"
                      sx={{ 
                        color: 'text.primary',
                        textTransform: 'none',

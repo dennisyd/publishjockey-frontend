@@ -133,20 +133,40 @@ const UserBooksDialog = ({
     setDeletingBook(bookId);
     setError(null); // Clear any previous errors
     try {
+      console.log('🔍 Attempting to delete book:', { bookId, bookTitle, userId: user.id });
       const response = await adminService.deleteBook(user.id, bookId);
-      console.log('Delete book response:', response); // Debug log
-      setDeletionReport(response.deletionReport);
+      console.log('✅ Delete book response:', response); // Debug log
       
-      // Reload books list
-      await loadUserBooks();
-      
-      // Show success message
-      setTimeout(() => {
-        setDeletionReport(null);
-      }, 5000);
+      if (response.success) {
+        setDeletionReport(response.deletionReport);
+        
+        // Reload books list
+        await loadUserBooks();
+        
+        // Show success message
+        setTimeout(() => {
+          setDeletionReport(null);
+        }, 5000);
+      } else {
+        // Backend returned success: false
+        setError(response.message || 'Failed to delete book');
+      }
     } catch (err: any) {
-      console.error('Error deleting book:', err);
-      setError(err.response?.data?.message || 'Failed to delete book');
+      console.error('❌ Error deleting book:', err);
+      console.log('Error details:', {
+        status: err.response?.status,
+        data: err.response?.data,
+        message: err.message
+      });
+      
+      // Check if it's a 500 error but book might have been deleted
+      if (err.response?.status === 500) {
+        // Reload books list to see if book was actually deleted
+        await loadUserBooks();
+        setError(`Book deletion encountered an error but may have succeeded. Error: ${err.response?.data?.message || err.message}`);
+      } else {
+        setError(err.response?.data?.message || 'Failed to delete book');
+      }
     } finally {
       setDeletingBook(null);
     }

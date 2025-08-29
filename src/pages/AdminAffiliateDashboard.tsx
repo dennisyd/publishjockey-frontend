@@ -122,10 +122,10 @@ const AdminAffiliateDashboard = () => {
       setError(null);
       
       const [statsRes, affiliatesRes, commissionsRes, revenueRes] = await Promise.all([
-        http.get('/api/admin/affiliates/stats'),
-        http.get('/api/admin/affiliates'),
-        http.get('/api/admin/commissions'),
-        http.get('/api/admin/revenue')
+        http.get('/admin/stats'),
+        http.get('/admin/affiliates'),
+        http.get('/admin/commissions'),
+        http.get('/admin/revenue')
       ]);
       
       console.log('Admin data responses:', {
@@ -156,7 +156,15 @@ const AdminAffiliateDashboard = () => {
         response: error.response?.data,
         status: error.response?.status
       });
-      setError(`Failed to load admin data: ${error.response?.data?.message || error.message}`);
+      
+      // Handle different error cases more gracefully
+      if (error.response?.status === 404) {
+        setError('Admin features are not available yet. Please contact support if you need access.');
+      } else if (error.response?.status === 403) {
+        setError('You do not have permission to access admin features.');
+      } else {
+        setError(`Failed to load admin data: ${error.response?.data?.message || error.message}`);
+      }
     } finally {
       setLoading(false);
     }
@@ -173,7 +181,7 @@ const AdminAffiliateDashboard = () => {
     try {
       setPayoutLoading(true);
       
-      const response = await http.post(`/api/admin/affiliates/${selectedAffiliate._id}/process-payout`);
+      const response = await http.post(`/admin/affiliates/${selectedAffiliate._id}/process-payout`);
       
       if (response.data.success) {
         setPayoutDialogOpen(false);
@@ -192,7 +200,7 @@ const AdminAffiliateDashboard = () => {
 
   const handleStatusChange = async (affiliateId: string, newStatus: string) => {
     try {
-      const response = await http.put(`/api/admin/affiliates/${affiliateId}/status`, {
+      const response = await http.put(`/admin/affiliates/${affiliateId}/status`, {
         status: newStatus
       });
       
