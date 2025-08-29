@@ -116,11 +116,7 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
             variant="body2" 
             color={isOverLimit ? "error.main" : isNearLimit ? "warning.main" : "text.secondary"}
           >
-            {isOverLimit ? (
-              `(${Math.abs(wordData.wordsRemaining).toLocaleString()} over limit)`
-            ) : (
-              `(${wordData.wordsRemaining.toLocaleString()} remaining)`
-            )}
+            ({Math.max(0, wordData.wordsRemaining).toLocaleString()} remaining)
           </Typography>
         )}
       </Box>
