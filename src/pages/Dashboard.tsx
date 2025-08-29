@@ -340,7 +340,9 @@ const Dashboard: React.FC = () => {
         {/* Page header */}
         <ClickAwayListener onClickAway={handleClickAway}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-            <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>My Books</Typography>
+            <Typography variant="h4" sx={{ fontWeight: 600, color: 'text.primary' }}>
+              {subscriptionType?.startsWith('e') ? 'My eBooks' : 'My Books'}
+            </Typography>
             <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
               {/* Language Selector */}
               <Box sx={{ position: 'relative' }}>
@@ -398,7 +400,7 @@ const Dashboard: React.FC = () => {
                   }
                 }}
               >
-                NEW BOOK
+                {subscriptionType?.startsWith('e') ? 'NEW EBOOK' : 'NEW BOOK'}
               </Button>
             </Box>
           </Box>
@@ -450,16 +452,16 @@ const Dashboard: React.FC = () => {
             }}
           >
             <Typography variant="h6" sx={{ fontWeight: 600, mb: 2, color: 'text.primary' }}>
-              Book Allowance
+              {subscriptionType?.startsWith('e') ? 'eBook Allowance' : 'Book Allowance'}
             </Typography>
             {subscriptionLoading ? (
               <Typography variant="body1" color="text.secondary">Loading subscription information...</Typography>
             ) : (
               <Typography variant="body1" sx={{ color: 'text.primary', lineHeight: 1.6 }}>
                 {booksRemaining !== null && booksAllowed !== null ? (
-                  <>You have <strong>{booksRemaining}</strong> out of <strong>{booksAllowed}</strong> books remaining</>
+                  <>You have <strong>{booksRemaining}</strong> out of <strong>{booksAllowed}</strong> {subscriptionType?.startsWith('e') ? 'eBooks' : 'books'} remaining</>
                 ) : (
-                  'Unable to fetch your book allowance'
+                  `Unable to fetch your ${subscriptionType?.startsWith('e') ? 'eBook' : 'book'} allowance`
                 )}
               </Typography>
             )}
@@ -526,13 +528,13 @@ const Dashboard: React.FC = () => {
             alignItems: 'center'
           }}>
             <Typography variant="h4" sx={{ mb: 2, fontWeight: 500 }}>
-              No books yet
+              {subscriptionType?.startsWith('e') ? 'No eBooks yet' : 'No books yet'}
             </Typography>
             <Typography variant="h6" sx={{ mb: 2, color: 'text.secondary' }}>
               Welcome to Publish Jockey!
             </Typography>
             <Typography variant="body1" sx={{ mb: 3, color: 'text.secondary' }}>
-              Create a new book to get started.
+              Create a new {subscriptionType?.startsWith('e') ? 'eBook' : 'book'} to get started.
             </Typography>
             <Typography variant="body1" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
               Happy writing!
