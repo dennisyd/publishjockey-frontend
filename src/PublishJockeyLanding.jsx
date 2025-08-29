@@ -3424,6 +3424,11 @@ const FAQ = () => {
           id: "panel7",
           question: "Can I try before I buy?",
           answer: "Yes! Our Free plan lets you try most of Publish Jockey's core features. You can create one book project and export with a watermark to see the quality of our system before upgrading to a paid plan."
+        },
+        {
+          id: "ebook-word-limit",
+          question: "Are there any content limits for ebook subscriptions?",
+          answer: "Yes, ebook subscription plans have a 10,000-word limit per book to ensure optimal quality and performance. This gives you approximately 40 pages of content—perfect for most ebooks! If you exceed this limit, the export will be disabled until you reduce your content. Print subscription plans have no word limits."
         }
       ]
     },

@@ -475,6 +475,8 @@ const Dashboard: React.FC = () => {
                 Upgrade Plan
               </Button>
             )}
+
+            
             {/* Show upgrade option for free users */}
             {subscriptionType === 'free' && booksRemaining !== null && booksRemaining > 0 && (
               <Box sx={{ mt: 2 }}>

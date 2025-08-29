@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef, useMemo } from 'react'; // Yancy De
 // Narrow area keys to string to avoid symbol-to-string issues in template literals
 
 import { sanitizeHtml } from '../utils/sanitizeHtml';
+import WordCountDisplay from './WordCountDisplay';
 import {
   Box,
   Typography,
@@ -231,6 +232,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [projectTitle, setProjectTitle] = useState(initialTitle);
   const [projectCreatedAt, setProjectCreatedAt] = useState<string | null>(null);
   const [userSubscription, setUserSubscription] = useState<string | null>(null);
+  const [userWordLimit, setUserWordLimit] = useState<number | null>(null);
+  const [isOverWordLimit, setIsOverWordLimit] = useState(false);
   const [projectSubtitle, setProjectSubtitle] = useState('');
   const [projectAuthor, setProjectAuthor] = useState('');
   
@@ -424,7 +427,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // 7. Smart content synchronization that prevents English duplicates when localized versions exist
   // 8. Intelligent content filtering that maintains only the appropriate localized versions
 
-  // Load user subscription for deterrent banner
+  // Load user subscription and word limit
   useEffect(() => {
     try {
       const storedUser = localStorage.getItem('user');
@@ -433,7 +436,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         setUserSubscription(u.subscription || null);
       }
     } catch {}
-  }, []);
+
+    // Fetch word limit from API
+    const fetchWordLimit = async () => {
+      try {
+        const response = await http.get(`${ENV.API_URL}/users/me/subscription`);
+        if (response.data.success) {
+          setUserWordLimit(response.data.wordLimit);
+        }
+      } catch (error) {
+        console.error('Error fetching word limit:', error);
+      }
+    };
+
+    if (token) {
+      fetchWordLimit();
+    }
+  }, [token]);
   
   // Autosave content to backend whenever it changes
   useEffect(() => {
@@ -2150,6 +2169,19 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 </ToggleButton>
               </ToggleButtonGroup>
             )}
+            
+            {/* Word Count Display for all users (informational), with limits for ebook users */}
+            <Box sx={{ mr: 2, minWidth: 150 }}>
+              <WordCountDisplay
+                projectId={projectId}
+                wordLimit={userWordLimit}
+                compact={true}
+                showForAllUsers={true}
+                onUpgradeClick={() => window.open('/pricing', '_blank')}
+                onWordLimitStatusChange={(isOverLimit) => setIsOverWordLimit(isOverLimit)}
+              />
+            </Box>
+            
             <Tooltip title="Import">
               <Button 
                 variant="text" 
@@ -2207,14 +2239,26 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 Save
               </Button>
             </Tooltip>
-            <Tooltip title="Export">
-              <Button 
-                variant="text" 
-                startIcon={<CloudDownloadIcon />}
-                onClick={() => setExportDialogOpen(true)}
-              >
-                Export
-              </Button>
+            <Tooltip title={
+              userSubscription?.startsWith('e') && isOverWordLimit 
+                ? "Export disabled: Ebook subscriptions limited to 10,000 words" 
+                : "Export"
+            }>
+              <span>
+                <Button 
+                  variant="text" 
+                  startIcon={<CloudDownloadIcon />}
+                  onClick={() => setExportDialogOpen(true)}
+                  disabled={userSubscription?.startsWith('e') && isOverWordLimit}
+                  sx={{
+                    ...(userSubscription?.startsWith('e') && isOverWordLimit && {
+                      color: 'text.disabled'
+                    })
+                  }}
+                >
+                  Export
+                </Button>
+              </span>
             </Tooltip>
           </Box>
         </Box>
@@ -2494,6 +2538,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         loadingMessage={exportProgress}
         projectName={editedProjectName}
         estimatedPages={estimatedPages}
+        projectId={projectId}
         t={i18n.t}
       />
       {/* Import Modal */}

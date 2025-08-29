@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'; 
 import { realImageService } from '../services/realImageService';
+import { http } from '../services/http';
 import {
   Dialog,
   DialogTitle,
@@ -181,6 +182,7 @@ interface ExportModalProps {
   estimatedPages?: number; // Estimated total pages for current project
   exportError?: string | null;
   t?: any; // Translation function - using any to accommodate i18n.t signature
+  projectId?: string; // Project ID for word count validation
 }
 
 const ExportModal: React.FC<ExportModalProps> = ({
@@ -192,7 +194,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   projectName = 'My Book'
   , estimatedPages,
   exportError,
-  t
+  t,
+  projectId
 }) => {
   console.log('ExportModal component rendered, isOpen:', isOpen, 'props:', { isOpen, isLoading, projectName });
   const { currentUser } = useAuth();
@@ -211,6 +214,11 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   const [imageUsage, setImageUsage] = useState<ImageUsageStats>(null);
   const [usageLoading, setUsageLoading] = useState<boolean>(false);
+  
+  // Word count tracking for ebook limits
+  const [wordCount, setWordCount] = useState<number>(0);
+  const [wordLimit, setWordLimit] = useState<number | null>(null);
+  const [isOverWordLimit, setIsOverWordLimit] = useState<boolean>(false);
 
   // State for export settings
   const [settings, setSettings] = useState<ExportSettings>({
@@ -563,7 +571,31 @@ const ExportModal: React.FC<ExportModalProps> = ({
             return; // Stop export
           }
           
-          console.log('Image validation passed, proceeding with export...');
+          console.log('Image validation passed, checking word limit...');
+          
+          // Check word limit for ebook subscriptions (all exports)
+          if (currentUser?.subscription?.startsWith('e') && projectId) {
+            try {
+              const wordCountResponse = await http.get(`/projects/${projectId}/wordcount`);
+              if (wordCountResponse.data.success) {
+                const wordData = wordCountResponse.data.data;
+                if (wordData.wordLimit && !wordData.isValid) {
+                  alert(
+                    `Export blocked: Your book contains ${wordData.wordCount.toLocaleString()} words, ` +
+                    `which exceeds the ${wordData.wordLimit.toLocaleString()}-word limit for ebook subscriptions.\n\n` +
+                    `Please reduce your content by ${(wordData.wordCount - wordData.wordLimit).toLocaleString()} words and try again.\n\n` +
+                    `Note: Regular book subscriptions have no word limits if you need to create longer content.`
+                  );
+                  return; // Stop export
+                }
+              }
+            } catch (error) {
+              console.error('Error checking word limit:', error);
+              // Allow export to continue if word limit check fails
+            }
+          }
+          
+          console.log('All validations passed, proceeding with export...');
           
           // Call parent onExport handler with settings
           const exportSettings = { 
