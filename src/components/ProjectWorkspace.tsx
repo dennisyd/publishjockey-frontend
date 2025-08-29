@@ -867,9 +867,31 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         });
         
         console.log('Successfully saved all content before export');
-      } catch (saveError) {
+      } catch (saveError: any) {
         console.error('Error saving content before export:', saveError);
-        if (!window.confirm('There was an error saving your content before export. Do you want to continue anyway?')) {
+        
+        // Check if it's a word limit error
+        let errorMessage = 'There was an error saving your content before export. Do you want to continue anyway?';
+        let allowContinue = true;
+        
+        if (saveError.response?.status === 400 && saveError.response?.data?.message?.includes('word limit')) {
+          const data = saveError.response.data;
+          if (data.data?.wordsOver) {
+            errorMessage = `Cannot export: Content exceeds the 10,000-word limit by ${data.data.wordsOver.toLocaleString()} words. Please reduce your content before exporting.`;
+          } else {
+            errorMessage = `Cannot export: Content exceeds the 10,000-word limit for ebook subscriptions. Please reduce your content before exporting.`;
+          }
+          allowContinue = false;
+        }
+        
+        if (allowContinue) {
+          if (!window.confirm(errorMessage)) {
+            setExportLoading(false);
+            return;
+          }
+        } else {
+          // For word limit errors, just show alert and stop
+          alert(errorMessage);
           setExportLoading(false);
           return;
         }

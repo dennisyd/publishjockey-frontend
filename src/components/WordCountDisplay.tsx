@@ -116,7 +116,11 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
             variant="body2" 
             color={isOverLimit ? "error.main" : isNearLimit ? "warning.main" : "text.secondary"}
           >
-            ({wordData.wordsRemaining.toLocaleString()} remaining)
+            {isOverLimit ? (
+              `(${Math.abs(wordData.wordsRemaining).toLocaleString()} over limit)`
+            ) : (
+              `(${wordData.wordsRemaining.toLocaleString()} remaining)`
+            )}
           </Typography>
         )}
       </Box>
@@ -137,9 +141,20 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
 
       {/* Warning messages - only for users with word limits */}
       {hasWordLimit && isOverLimit && (
-        <Typography variant="body2" color="error.main" sx={{ mt: 0.5 }}>
-          Content exceeds word limit. Please reduce content or upgrade your plan.
-        </Typography>
+        <Box sx={{ mt: 0.5 }}>
+          <Typography variant="body2" color="error.main">
+            Limit exceeded. Please reduce content or upgrade your plan.
+          </Typography>
+          {onUpgradeClick && (
+            <Button 
+              size="small" 
+              onClick={onUpgradeClick}
+              sx={{ mt: 0.5, fontSize: '0.75rem' }}
+            >
+              Upgrade Plan
+            </Button>
+          )}
+        </Box>
       )}
       
       {hasWordLimit && isNearLimit && !isOverLimit && onUpgradeClick && (
