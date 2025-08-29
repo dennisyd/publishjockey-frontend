@@ -234,6 +234,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [userSubscription, setUserSubscription] = useState<string | null>(null);
   const [userWordLimit, setUserWordLimit] = useState<number | null>(null);
   const [isOverWordLimit, setIsOverWordLimit] = useState(false);
+  const [wordCountRefreshTrigger, setWordCountRefreshTrigger] = useState(0);
   const [projectSubtitle, setProjectSubtitle] = useState('');
   const [projectAuthor, setProjectAuthor] = useState('');
   
@@ -453,6 +454,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       fetchWordLimit();
     }
   }, [token]);
+
+  // Helper function to refresh word count
+  const refreshWordCount = () => {
+    setWordCountRefreshTrigger(prev => prev + 1);
+  };
   
   // Autosave content to backend whenever it changes
   useEffect(() => {
@@ -511,6 +517,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         } else {
           console.warn('⚠️ Autosave response does not include content verification');
         }
+        
+        // Refresh word count after successful autosave
+        refreshWordCount();
       } catch (err: any) {
         console.error('Autosave failed:', err);
         
@@ -2179,6 +2188,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 showForAllUsers={true}
                 onUpgradeClick={() => window.open('/pricing', '_blank')}
                 onWordLimitStatusChange={(isOverLimit) => setIsOverWordLimit(isOverLimit)}
+                refreshTrigger={wordCountRefreshTrigger}
               />
             </Box>
             
@@ -2225,6 +2235,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                       message: 'All changes saved successfully!',
                       severity: 'success'
                     });
+                    // Refresh word count after manual save
+                    refreshWordCount();
                   }).catch(err => {
                     console.error('Manual save failed:', err);
                     setNotification({
@@ -2248,7 +2260,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 <Button 
                   variant="text" 
                   startIcon={<CloudDownloadIcon />}
-                  onClick={() => setExportDialogOpen(true)}
+                  onClick={() => {
+                    // Only refresh word count for ebook subscriptions (they have limits)
+                    if (userSubscription?.startsWith('e')) {
+                      refreshWordCount();
+                    }
+                    setExportDialogOpen(true);
+                  }}
                   disabled={userSubscription?.startsWith('e') && isOverWordLimit}
                   sx={{
                     ...(userSubscription?.startsWith('e') && isOverWordLimit && {

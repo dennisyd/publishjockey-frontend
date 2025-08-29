@@ -9,6 +9,7 @@ interface WordCountDisplayProps {
   onUpgradeClick?: () => void;
   showForAllUsers?: boolean; // New prop to show word count for all users
   onWordLimitStatusChange?: (isOverLimit: boolean) => void; // Callback when word limit status changes
+  refreshTrigger?: number; // Increment to trigger word count refresh
 }
 
 interface WordCountData {
@@ -24,7 +25,8 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
   compact = false,
   onUpgradeClick,
   showForAllUsers = false,
-  onWordLimitStatusChange
+  onWordLimitStatusChange,
+  refreshTrigger = 0
 }) => {
   const [wordData, setWordData] = useState<WordCountData | null>(null);
   const [loading, setLoading] = useState(false);
@@ -62,7 +64,7 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
     };
 
     fetchWordCount();
-  }, [projectId, wordLimit, showForAllUsers]);
+  }, [projectId, wordLimit, showForAllUsers, refreshTrigger]);
 
   // Don't show anything if no project, or if not showing for all users and no word limit
   if (!projectId || (!showForAllUsers && !wordLimit)) {
