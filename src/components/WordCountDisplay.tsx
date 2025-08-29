@@ -88,7 +88,7 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
   const hasWordLimit = wordData.wordLimit !== null;
   const progress = hasWordLimit ? (wordData.wordCount / wordData.wordLimit!) * 100 : 0;
   const isOverLimit = hasWordLimit && !wordData.isValid;
-  const isNearLimit = hasWordLimit && progress > 80;
+  const isNearLimit = hasWordLimit && progress > 80 && progress <= 100;
 
   return (
     <Box>
