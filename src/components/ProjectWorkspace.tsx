@@ -144,6 +144,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // SPECIFIC DEBUG for Portuguese
   if (documentLanguage === 'pt') {
     console.log('🔍 [PORTUGUESE DEBUG] Portuguese detected! Should show Portuguese section names.');
+    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure('pt'));
   } else {
     console.log('🔍 [PORTUGUESE DEBUG] Portuguese NOT detected. Current language:', documentLanguage);
     console.log('🔍 [PORTUGUESE DEBUG] To fix: Change language in Dashboard language selector');
@@ -176,8 +177,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       console.warn('🔍 INVALID INITIAL STRUCTURE, USING FALLBACK');
       return getLocalizedBookStructure('en');
     }
-    // Mark structure as loaded since we have a valid initial structure
-    setTimeout(() => setStructureLoaded(true), 0);
     return initialStructure;
   });
   
@@ -252,7 +251,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // State for project title
   const [loadingProject, setLoadingProject] = useState(true);
-  const [structureLoaded, setStructureLoaded] = useState(false);
+  const [structureLoaded, setStructureLoaded] = useState(true); // Start as true since we initialize with valid structure
 
   // Update structure when document language changes - BUT ONLY if no database structure was loaded
   useEffect(() => {
@@ -2117,7 +2116,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                       <CircularProgress size={20} sx={{ mr: 2 }} />
                       <ListItemText primary="Loading sections..." />
                     </ListItem>
-                  ) : structure[area as Area]?.map((section, sectionIdx) => (
+                  ) : (structure[area as Area] && Array.isArray(structure[area as Area])) ? structure[area as Area].map((section, sectionIdx) => (
                     <ListItem
                       key={`${area}-${sectionIdx}`}
                       button
@@ -2171,7 +2170,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                         )}
                       </Box>
                     </ListItem>
-                  )) || []}
+                  )) : []}
                 </List>
               </Collapse>
             </React.Fragment>
