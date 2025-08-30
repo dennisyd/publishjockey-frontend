@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; 
+import React, { useState, useEffect } from 'react'; // Yancy Dennis
 import { realImageService } from '../services/realImageService';
 import { http } from '../services/http';
 import {
