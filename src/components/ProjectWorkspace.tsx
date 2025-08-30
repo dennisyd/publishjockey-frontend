@@ -146,13 +146,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   console.log('🌐 [BROWSER DEBUG] navigator.languages:', navigator.languages);
   console.log('🌐 [BROWSER DEBUG] Detected browser languages:', navigator.languages?.join(', '));
   
-  // SPECIFIC DEBUG for Portuguese
-  if (documentLanguage === 'pt') {
-    console.log('🔍 [PORTUGUESE DEBUG] Portuguese detected! Should show Portuguese section names.');
-    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure('pt'));
-  } else {
-    console.log('🔍 [PORTUGUESE DEBUG] Portuguese NOT detected. Current language:', documentLanguage);
-    console.log('🔍 [PORTUGUESE DEBUG] To fix: Change language in Dashboard language selector');
+  // Debug for Portuguese variants
+  if (documentLanguage?.includes('pt')) {
+    console.log('🔍 [PORTUGUESE DEBUG] Portuguese variant detected:', documentLanguage);
+    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure(documentLanguage));
   }
   
   // Get section names for sidebar headers - use simple English labels for now
@@ -171,25 +168,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
-    // SPECIAL PORTUGUESE FIX - Force Portuguese structure for all variants
-    if (documentLanguage === 'pt' || documentLanguage === 'pt-BR' || documentLanguage === 'pt-PT' || documentLanguage?.includes('pt')) {
-      console.log('🇵🇹 [PORTUGUESE FIX] Forcing Portuguese structure for:', documentLanguage);
-      const portugueseStructure = {
-        front: [
-          "Página de Título",
-          "Direitos Autorais", 
-          "Dedicatória",
-          "Agradecimentos",
-          "Prefácio",
-          "Introdução"
-        ],
-        main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
-        back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
-      };
-      console.log('🇵🇹 [PORTUGUESE FIX] Using hardcoded Portuguese structure:', portugueseStructure);
-      return portugueseStructure;
-    }
-    
     // Initialize with the current language's structure
     const initialStructure = getLocalizedBookStructure(documentLanguage);
     console.log('🔍 INITIAL STRUCTURE SET:', {
@@ -282,26 +260,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // DON'T override structure if we've already loaded one from the database
     if (structureLoaded) {
       console.log('🔍 [LANGUAGE CHANGE] Skipping structure update - database structure already loaded');
-      return;
-    }
-    
-    // SPECIAL PORTUGUESE FIX - Force Portuguese structure in language change too for all variants
-    if (documentLanguage === 'pt' || documentLanguage === 'pt-BR' || documentLanguage === 'pt-PT' || documentLanguage?.includes('pt')) {
-      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Forcing Portuguese structure for:', documentLanguage);
-      const portugueseStructure = {
-        front: [
-          "Página de Título",
-          "Direitos Autorais", 
-          "Dedicatória",
-          "Agradecimentos",
-          "Prefácio",
-          "Introdução"
-        ],
-        main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
-        back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
-      };
-      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Setting hardcoded Portuguese structure');
-      setStructure(portugueseStructure);
       return;
     }
     

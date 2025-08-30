@@ -35,6 +35,30 @@ const localizedStructures = {
     main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
     back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
   },
+  ca: {
+    front: [
+      "Pàgina de títol",
+      "Drets d'autor",
+      "Dedicatòria",
+      "Agraïments",
+      "Prefaci",
+      "Introducció"
+    ],
+    main: ["Capítol 1", "Capítol 2", "Capítol 3"],
+    back: ["Sobre l'autor", "Apèndix", "Referències", "Bibliografia", "Índex", "Glossari"]
+  },
+  oc: {
+    front: [
+      "Pagina de títol",
+      "Dreches d'autor",
+      "Dedicatòria",
+      "Mercejaments",
+      "Prefàcia",
+      "Introduccion"
+    ],
+    main: ["Capítol 1", "Capítol 2", "Capítol 3"],
+    back: ["A prepaus de l'autor", "Apèndix", "Referéncias", "Bibliografia", "Indèx", "Glossari"]
+  },
     pt: {
     front: [
       "Página de Título",
@@ -720,12 +744,6 @@ export function normalizeLang(language?: string): string {
   const normalized = language.split("-")[0].toLowerCase();
   console.log('[NORMALIZE] Input language:', language, 'Normalized:', normalized);
   
-  // SPECIAL DEBUG FOR PORTUGUESE
-  if (normalized === 'pt' || language?.includes('pt')) {
-    console.log('🇵🇹 [PORTUGUESE NORMALIZE] Input:', language, 'Normalized:', normalized);
-    console.log('🇵🇹 [PORTUGUESE NORMALIZE] Should return "pt"');
-  }
-  
   return normalized;
 }
 
@@ -754,15 +772,6 @@ export function getLocalizedBookStructure(language?: string) {
   // Then try normalized version (e.g., pt-BR -> pt)
   const normalizedLanguage = normalizeLang(language);
   console.log('[BOOK STRUCTURE] Normalized:', normalizedLanguage);
-  
-  // SPECIAL DEBUG FOR PORTUGUESE VARIANTS
-  if (language?.includes('pt') || normalizedLanguage === 'pt') {
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Input language:', language);
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Normalized:', normalizedLanguage);
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Available keys:', Object.keys(localizedStructures));
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has exact match?', language && (language in localizedStructures));
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has normalized match?', normalizedLanguage in localizedStructures);
-  }
   
   const structure = (localizedStructures as any)[normalizedLanguage] || (localizedStructures as any)["en"];
   console.log('[BOOK STRUCTURE] Returning structure for:', normalizedLanguage, structure);
@@ -827,6 +836,16 @@ export function getLocalizedSectionNamesObject(language?: string): {
       frontMatter: 'Matière Préliminaire',
       mainMatter: 'Matière Principale',
       backMatter: 'Matière Finale'
+    },
+    ca: {
+      frontMatter: 'Matèria Preliminar',
+      mainMatter: 'Matèria Principal',
+      backMatter: 'Matèria Final'
+    },
+    oc: {
+      frontMatter: 'Matèria Preliminara',
+      mainMatter: 'Matèria Principala',
+      backMatter: 'Matèria Finala'
     },
     de: {
       frontMatter: 'Vorspann',

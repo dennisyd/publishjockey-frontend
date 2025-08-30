@@ -28,6 +28,8 @@ export const languages = [
   { code: 'fi', name: 'Finnish', nativeName: 'Suomi', flag: '🇫🇮', region: 'Europe' },
   { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', region: 'Europe' },
   { code: 'gl', name: 'Galician', nativeName: 'Galego', flag: '🇪🇸', region: 'Europe' },
+  { code: 'ca', name: 'Catalan', nativeName: 'Català', flag: '🏴󠁥󠁳󠁣󠁴󠁿', region: 'Europe' },
+  { code: 'oc', name: 'Occitan', nativeName: 'Occitan', flag: '🇫🇷', region: 'Europe' },
   { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', region: 'Europe' },
   { code: 'el', name: 'Greek', nativeName: 'Ελληνικά', flag: '🇬🇷', region: 'Europe' },
   { code: 'hu', name: 'Hungarian', nativeName: 'Magyar', flag: '🇭🇺', region: 'Europe' },
@@ -38,7 +40,8 @@ export const languages = [
   { code: 'mk', name: 'Macedonian', nativeName: 'Македонски', flag: '🇲🇰', region: 'Europe' },
   { code: 'no', name: 'Norwegian', nativeName: 'Norsk', flag: '🇳🇴', region: 'Europe' },
   { code: 'pl', name: 'Polish', nativeName: 'Polski', flag: '🇵🇱', region: 'Europe' },
-  { code: 'pt', name: 'Portuguese', nativeName: 'Português', flag: '🇵🇹', region: 'Europe' },
+  { code: 'pt-PT', name: 'Portuguese (Portugal)', nativeName: 'Português (Portugal)', flag: '🇵🇹', region: 'Europe' },
+  { code: 'pt-BR', name: 'Portuguese (Brazil)', nativeName: 'Português (Brasil)', flag: '🇧🇷', region: 'South America' },
   { code: 'ro', name: 'Romanian', nativeName: 'Română', flag: '🇷🇴', region: 'Europe' },
   { code: 'sr', name: 'Serbian', nativeName: 'Српски', flag: '🇷🇸', region: 'Europe' },
   { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: '🇸🇰', region: 'Europe' },
@@ -111,7 +114,7 @@ export const addRecentLanguage = (languageCode) => {
 export const languageGroups = [
   {
     name: 'Popular Languages',
-    languages: ['en', 'es', 'fr', 'de', 'it', 'pt', 'ru', 'ar', 'zh', 'ja']
+    languages: ['en', 'es', 'fr', 'de', 'it', 'pt-PT', 'pt-BR', 'ru', 'ar', 'zh', 'ja']
   },
   {
     name: 'European Languages',
@@ -124,6 +127,10 @@ export const languageGroups = [
   {
     name: 'Asian Languages',
     languages: languages.filter(lang => lang.region === 'Asia').map(lang => lang.code)
+  },
+  {
+    name: 'South American Languages',
+    languages: languages.filter(lang => lang.region === 'South America').map(lang => lang.code)
   }
 ];
 
