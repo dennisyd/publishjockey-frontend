@@ -38,7 +38,7 @@ const localizedStructures = {
   pt: {
     front: [
       "Página de Título",
-      "Direitos Autorais",
+      "Direitos Autorais", 
       "Dedicatória",
       "Agradecimentos",
       "Prefácio",
@@ -752,7 +752,7 @@ export function getLocalizedSectionNamesObject(language?: string): {
   const localizedLabels: Record<string, { frontMatter: string; mainMatter: string; backMatter: string }> = {
     pt: {
       frontMatter: 'Matéria Preliminar',
-      mainMatter: 'Matéria Principal',
+      mainMatter: 'Matéria Principal', 
       backMatter: 'Matéria Final'
     },
     es: {
