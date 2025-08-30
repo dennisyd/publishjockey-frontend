@@ -26,11 +26,20 @@ export const languages = [
   { code: 'en', name: 'English', nativeName: 'English', flag: '🇺🇸', region: 'Europe' },
   { code: 'et', name: 'Estonian', nativeName: 'Eesti', flag: '🇪🇪', region: 'Europe' },
   { code: 'fi', name: 'Finnish', nativeName: 'Suomi', flag: '🇫🇮', region: 'Europe' },
-  { code: 'fr', name: 'French', nativeName: 'Français', flag: '🇫🇷', region: 'Europe' },
+  { code: 'fr-FR', name: 'French (France)', nativeName: 'Français (France)', flag: '🇫🇷', region: 'Europe' },
+  { code: 'fr-CA', name: 'French (Canada)', nativeName: 'Français (Canada)', flag: '🇨🇦', region: 'North America' },
+  { code: 'fr-BE', name: 'French (Belgium)', nativeName: 'Français (Belgique)', flag: '🇧🇪', region: 'Europe' },
+  { code: 'fr-CH', name: 'French (Switzerland)', nativeName: 'Français (Suisse)', flag: '🇨🇭', region: 'Europe' },
+  { code: 'fr-SN', name: 'French (Senegal)', nativeName: 'Français (Sénégal)', flag: '🇸🇳', region: 'Africa' },
+  { code: 'fr-CI', name: 'French (Ivory Coast)', nativeName: 'Français (Côte d\'Ivoire)', flag: '🇨🇮', region: 'Africa' },
+  { code: 'fr-MA', name: 'French (Morocco)', nativeName: 'Français (Maroc)', flag: '🇲🇦', region: 'Africa' },
+  { code: 'fr-HT', name: 'French (Haiti)', nativeName: 'Français (Haïti)', flag: '🇭🇹', region: 'North America' },
   { code: 'gl', name: 'Galician', nativeName: 'Galego', flag: '🇪🇸', region: 'Europe' },
   { code: 'ca', name: 'Catalan', nativeName: 'Català', flag: '🏴󠁥󠁳󠁣󠁴󠁿', region: 'Europe' },
   { code: 'oc', name: 'Occitan', nativeName: 'Occitan', flag: '🇫🇷', region: 'Europe' },
-  { code: 'de', name: 'German', nativeName: 'Deutsch', flag: '🇩🇪', region: 'Europe' },
+  { code: 'de-DE', name: 'German (Germany)', nativeName: 'Deutsch (Deutschland)', flag: '🇩🇪', region: 'Europe' },
+  { code: 'de-AT', name: 'German (Austria)', nativeName: 'Deutsch (Österreich)', flag: '🇦🇹', region: 'Europe' },
+  { code: 'de-CH', name: 'German (Switzerland)', nativeName: 'Deutsch (Schweiz)', flag: '🇨🇭', region: 'Europe' },
   { code: 'el', name: 'Greek', nativeName: 'Ελληνικά', flag: '🇬🇷', region: 'Europe' },
   { code: 'hu', name: 'Hungarian', nativeName: 'Magyar', flag: '🇭🇺', region: 'Europe' },
   { code: 'is', name: 'Icelandic', nativeName: 'Íslenska', flag: '🇮🇸', region: 'Europe' },
@@ -46,7 +55,14 @@ export const languages = [
   { code: 'sr', name: 'Serbian', nativeName: 'Српски', flag: '🇷🇸', region: 'Europe' },
   { code: 'sk', name: 'Slovak', nativeName: 'Slovenčina', flag: '🇸🇰', region: 'Europe' },
   { code: 'sl', name: 'Slovenian', nativeName: 'Slovenščina', flag: '🇸🇮', region: 'Europe' },
-  { code: 'es', name: 'Spanish', nativeName: 'Español', flag: '🇪🇸', region: 'Europe' },
+  { code: 'es-ES', name: 'Spanish (Spain)', nativeName: 'Español (España)', flag: '🇪🇸', region: 'Europe' },
+  { code: 'es-MX', name: 'Spanish (Mexico)', nativeName: 'Español (México)', flag: '🇲🇽', region: 'North America' },
+  { code: 'es-AR', name: 'Spanish (Argentina)', nativeName: 'Español (Argentina)', flag: '🇦🇷', region: 'South America' },
+  { code: 'es-CO', name: 'Spanish (Colombia)', nativeName: 'Español (Colombia)', flag: '🇨🇴', region: 'South America' },
+  { code: 'es-CL', name: 'Spanish (Chile)', nativeName: 'Español (Chile)', flag: '🇨🇱', region: 'South America' },
+  { code: 'es-PE', name: 'Spanish (Peru)', nativeName: 'Español (Perú)', flag: '🇵🇪', region: 'South America' },
+  { code: 'es-VE', name: 'Spanish (Venezuela)', nativeName: 'Español (Venezuela)', flag: '🇻🇪', region: 'South America' },
+  { code: 'es-PR', name: 'Spanish (Puerto Rico)', nativeName: 'Español (Puerto Rico)', flag: '🇵🇷', region: 'North America' },
   { code: 'sv', name: 'Swedish', nativeName: 'Svenska', flag: '🇸🇪', region: 'Europe' },
   { code: 'tr', name: 'Turkish', nativeName: 'Türkçe', flag: '🇹🇷', region: 'Europe' },
 
@@ -114,7 +130,7 @@ export const addRecentLanguage = (languageCode) => {
 export const languageGroups = [
   {
     name: 'Popular Languages',
-    languages: ['en', 'es', 'fr', 'de', 'it', 'pt-PT', 'pt-BR', 'ru', 'ar', 'zh', 'ja']
+    languages: ['en', 'es-ES', 'es-MX', 'es-AR', 'es-CO', 'es-CL', 'fr-FR', 'fr-CA', 'fr-BE', 'de-DE', 'de-AT', 'de-CH', 'it', 'pt-PT', 'pt-BR', 'ru', 'ar', 'zh', 'ja']
   },
   {
     name: 'European Languages',
@@ -131,6 +147,14 @@ export const languageGroups = [
   {
     name: 'South American Languages',
     languages: languages.filter(lang => lang.region === 'South America').map(lang => lang.code)
+  },
+  {
+    name: 'North American Languages',
+    languages: languages.filter(lang => lang.region === 'North America').map(lang => lang.code)
+  },
+  {
+    name: 'African Languages',
+    languages: languages.filter(lang => lang.region === 'Africa').map(lang => lang.code)
   }
 ];
 

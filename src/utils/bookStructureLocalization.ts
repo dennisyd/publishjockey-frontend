@@ -23,7 +23,215 @@ const localizedStructures = {
     main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
     back: ["Sobre el autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
   },
+  // Spanish (Spain) - European Spanish
+  'es-ES': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre el autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Mexico) - Mexican Spanish
+  'es-MX': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Argentina) - Argentinian Spanish
+  'es-AR': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Colombia) - Colombian Spanish
+  'es-CO': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Chile) - Chilean Spanish
+  'es-CL': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Peru) - Peruvian Spanish
+  'es-PE': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Venezuela) - Venezuelan Spanish
+  'es-VE': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
+  // Spanish (Puerto Rico) - Puerto Rican Spanish
+  'es-PR': {
+    front: [
+      "Página de título",
+      "Derechos de autor",
+      "Dedicatoria",
+      "Agradecimientos",
+      "Prólogo",
+      "Introducción"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Acerca del autor", "Apéndice", "Referencias", "Bibliografía", "Índice", "Glosario"]
+  },
   fr: {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (France) - Metropolitan French
+  'fr-FR': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Canada) - Québécois French
+  'fr-CA': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Belgium) - Belgian French
+  'fr-BE': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Switzerland) - Swiss French
+  'fr-CH': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Senegal) - Senegalese French
+  'fr-SN': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Ivory Coast) - Ivorian French
+  'fr-CI': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Morocco) - Moroccan French
+  'fr-MA': {
+    front: [
+      "Page de titre",
+      "Droits d'auteur",
+      "Dédicace",
+      "Remerciements",
+      "Avant-propos",
+      "Introduction"
+    ],
+    main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
+    back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
+  },
+  // French (Haiti) - Haitian French
+  'fr-HT': {
     front: [
       "Page de titre",
       "Droits d'auteur",
@@ -98,6 +306,45 @@ const localizedStructures = {
     back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
   },
   de: {
+    front: [
+      "Titelseite",
+      "Urheberrecht",
+      "Widmung",
+      "Danksagungen",
+      "Vorwort",
+      "Einleitung"
+    ],
+    main: ["Kapitel 1", "Kapitel 2", "Kapitel 3"],
+    back: ["Über den Autor", "Anhang", "Referenzen", "Bibliographie", "Index", "Glossar"]
+  },
+  // German (Germany) - Standard German
+  'de-DE': {
+    front: [
+      "Titelseite",
+      "Urheberrecht",
+      "Widmung",
+      "Danksagungen",
+      "Vorwort",
+      "Einleitung"
+    ],
+    main: ["Kapitel 1", "Kapitel 2", "Kapitel 3"],
+    back: ["Über den Autor", "Anhang", "Referenzen", "Bibliographie", "Index", "Glossar"]
+  },
+  // German (Austria) - Austrian German
+  'de-AT': {
+    front: [
+      "Titelseite",
+      "Urheberrecht",
+      "Widmung",
+      "Danksagungen",
+      "Vorwort",
+      "Einleitung"
+    ],
+    main: ["Kapitel 1", "Kapitel 2", "Kapitel 3"],
+    back: ["Über den Autor", "Anhang", "Referenzen", "Bibliographie", "Index", "Glossar"]
+  },
+  // German (Switzerland) - Swiss German
+  'de-CH': {
     front: [
       "Titelseite",
       "Urheberrecht",
@@ -832,7 +1079,87 @@ export function getLocalizedSectionNamesObject(language?: string): {
       mainMatter: 'Materia Principal', 
       backMatter: 'Materia Final'
     },
+    'es-ES': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-MX': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-AR': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-CO': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-CL': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-PE': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-VE': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
+    'es-PR': {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal', 
+      backMatter: 'Materia Final'
+    },
     fr: {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-FR': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-CA': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-BE': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-CH': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-SN': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-CI': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-MA': {
+      frontMatter: 'Matière Préliminaire',
+      mainMatter: 'Matière Principale',
+      backMatter: 'Matière Finale'
+    },
+    'fr-HT': {
       frontMatter: 'Matière Préliminaire',
       mainMatter: 'Matière Principale',
       backMatter: 'Matière Finale'
@@ -848,6 +1175,21 @@ export function getLocalizedSectionNamesObject(language?: string): {
       backMatter: 'Matèria Finala'
     },
     de: {
+      frontMatter: 'Vorspann',
+      mainMatter: 'Hauptteil',
+      backMatter: 'Nachspann'
+    },
+    'de-DE': {
+      frontMatter: 'Vorspann',
+      mainMatter: 'Hauptteil',
+      backMatter: 'Nachspann'
+    },
+    'de-AT': {
+      frontMatter: 'Vorspann',
+      mainMatter: 'Hauptteil',
+      backMatter: 'Nachspann'
+    },
+    'de-CH': {
       frontMatter: 'Vorspann',
       mainMatter: 'Hauptteil',
       backMatter: 'Nachspann'
