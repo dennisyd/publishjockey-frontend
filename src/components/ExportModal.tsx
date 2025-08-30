@@ -61,68 +61,68 @@ const windowsFonts = [
 const fontRecommendations = {
   // English - Top 10 Book Fonts
   'en': [
-    { value: 'EB Garamond', label: 'EB Garamond (Recommended)' },
-    { value: 'Linux Libertine O', label: 'Linux Libertine O' },
+    { value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' },
     { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)' },
     { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' },
     { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
     { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
     { value: 'Liberation Serif', label: 'Liberation Serif (Latin/Cyrillic)' },
     { value: 'Noto Serif', label: 'Noto Serif' },
+    { value: 'Gentium Plus', label: 'Gentium Plus' },
     { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin/Cyrillic)' },
-    { value: 'Liberation Sans', label: 'Liberation Sans' }
+    { value: 'Charis SIL', label: 'Charis SIL' }
   ],
   
   // African Languages (Latin script)
-  'sw': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'ha': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'yo': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'zu': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'xh': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'ig': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'ki': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'lg': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'sn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'st': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'tn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'rw': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'rn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'mg': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'sw': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'ha': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'yo': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'zu': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'xh': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'ig': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'ki': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'lg': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'sn': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'st': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'tn': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'rw': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'rn': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'mg': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
   
   // European Languages (Latin script)
-  'fr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'de': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'es': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'it': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'pt': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'nl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'da': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'sv': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'no': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'fi': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'et': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'gl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'is': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'fr': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'de': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'es': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'it': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'pt': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'nl': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'da': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'sv': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'no': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'fi': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'et': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'gl': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'is': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
   
   // Greek
-  'el': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'GFS Artemisia', label: 'GFS Artemisia' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'el': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'GFS Artemisia', label: 'GFS Artemisia' }, { value: 'Noto Serif', label: 'Noto Serif' }],
   
   // Cyrillic Languages
-  'ru': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'mk': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'sr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'ru': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'DejaVu Serif', label: 'DejaVu Serif' }],
+  'mk': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'DejaVu Serif', label: 'DejaVu Serif' }],
+  'sr': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'DejaVu Serif', label: 'DejaVu Serif' }],
   
   // Central/Eastern European
-  'pl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'cs': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'sk': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'hr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'hu': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'ro': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'lt': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'lv': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'sl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
-  'tr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'pl': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'cs': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'sk': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'hr': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'hu': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'ro': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'lt': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'lv': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'sl': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
+  'tr': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Liberation Serif', label: 'Liberation Serif' }],
   
   // Indian Languages (Devanagari)
   'hi': [{ value: 'Noto Serif Devanagari', label: 'Noto Serif Devanagari (Recommended)' }, { value: 'Noto Sans Devanagari UI', label: 'Noto Sans Devanagari UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
@@ -152,10 +152,10 @@ const fontRecommendations = {
   'pa': [{ value: 'Noto Serif Gurmukhi', label: 'Noto Serif Gurmukhi (Recommended)' }, { value: 'Noto Sans Gurmukhi UI', label: 'Noto Sans Gurmukhi UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
   // Southeast Asian Languages
-  'vi': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
-  'id': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'ms': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
-  'tl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }]
+  'vi': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Gentium Plus', label: 'Gentium Plus' }],
+  'id': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'ms': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'tl': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }]
 };
 
 // Get font recommendations for a specific language
@@ -384,7 +384,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
     console.log(`getRecommendedFont called with language: "${language}", format: "${format}"`);
     
     const recommendedFonts = getFontRecommendations(language);
-    const topRecommendation = recommendedFonts[0]?.value || 'EB Garamond';
+    const topRecommendation = recommendedFonts[0]?.value || 'Linux Libertine O';
     
     console.log(`Top font recommendation for ${language}: "${topRecommendation}"`);
     return topRecommendation;
