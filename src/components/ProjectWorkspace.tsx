@@ -152,6 +152,16 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure(documentLanguage));
   }
   
+  // Debug for Catalan and Occitan
+  if (documentLanguage === 'ca') {
+    console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Catalan detected! Should show Catalan section names.');
+    console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Structure should contain:', getLocalizedBookStructure('ca'));
+  }
+  if (documentLanguage === 'oc') {
+    console.log('🇫🇷 [OCCITAN DEBUG] Occitan detected! Should show Occitan section names.');
+    console.log('🇫🇷 [OCCITAN DEBUG] Structure should contain:', getLocalizedBookStructure('oc'));
+  }
+  
   // Get section names for sidebar headers - use simple English labels for now
   // Yancy Dennis - Portuguese localization fix: Individual section names now display in Portuguese
   // Programs to push: frontend, export-backend
@@ -339,44 +349,33 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
+          // Get the current localized structure for comparison
+          const currentLocalizedStructure = getLocalizedBookStructure(documentLanguage);
+          
           // Check if the backend structure has more sections than the default template
           const backendSectionCount = (projectData.structure.front?.length || 0) + 
                                      (projectData.structure.main?.length || 0) + 
                                      (projectData.structure.back?.length || 0);
-          const defaultSectionCount = (structure.front?.length || 0) + 
-                                     (structure.main?.length || 0) + 
-                                     (structure.back?.length || 0);
+          const localizedSectionCount = (currentLocalizedStructure.front?.length || 0) + 
+                                       (currentLocalizedStructure.main?.length || 0) + 
+                                       (currentLocalizedStructure.back?.length || 0);
           
-          if (backendSectionCount > defaultSectionCount || 
-              // Or if it has different section names (indicating custom sections)
-              JSON.stringify(projectData.structure) !== JSON.stringify(structure)) {
+          // Only use backend structure if it has MORE sections than the localized template
+          // This preserves custom sections while allowing language switching
+          if (backendSectionCount > localizedSectionCount) {
             
             console.log('🔍 USING BACKEND STRUCTURE (contains custom sections):', {
               backendSectionCount,
-              defaultSectionCount,
+              localizedSectionCount,
               backendStructure: projectData.structure
             });
             
             // Use the backend structure which contains the custom sections
             setStructure(projectData.structure);
           } else {
-            console.log('🔍 BACKEND STRUCTURE APPEARS TO BE DEFAULT TEMPLATE, CHECKING CONTENT FOR CUSTOM SECTIONS');
-            
-            // Check if content has sections not in the default structure
-            const customSections = Object.keys(content).filter(key => {
-              const [area, sectionName] = key.split(':');
-              return !structure[area as Area]?.includes(sectionName);
-            });
-            
-            if (customSections.length > 0) {
-              console.log('🔍 FOUND CUSTOM SECTIONS IN CONTENT, ATTEMPTING TO RECONSTRUCT STRUCTURE:', customSections);
-              // Could attempt to reconstruct structure from content keys here
-              // For now, just use the backend structure
-              setStructure(projectData.structure);
-            } else {
-              console.log('🔍 NO CUSTOM SECTIONS FOUND, USING BACKEND STRUCTURE AS-IS');
-              setStructure(projectData.structure);
-            }
+            console.log('🔍 BACKEND STRUCTURE IS DEFAULT SIZE, USING LOCALIZED STRUCTURE FOR LANGUAGE:', documentLanguage);
+            console.log('🔍 LOCALIZED STRUCTURE:', currentLocalizedStructure);
+            // Keep the localized structure that was set during initialization
           }
           
           setStructureLoaded(true);
