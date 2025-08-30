@@ -57,59 +57,111 @@ const windowsFonts = [
   { value: 'Georgia', label: 'Georgia' },
 ];
 
-const serverFonts = [
-  // Latin fonts (for English, Spanish, French, German, Italian, Indonesian, Russian)
-  { value: 'Liberation Serif', label: 'Liberation Serif (Latin/Cyrillic)' },
-  { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
-  { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
-  { value: 'Linux Libertine', label: 'Linux Libertine' },
-  { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin/Cyrillic)' },
-  { value: 'Liberation Sans', label: 'Liberation Sans' },
-  { value: 'DejaVu Sans', label: 'DejaVu Sans' },
-  // Professional book fonts
-  { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' },
-  { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)' },
+// Language-specific font recommendations based on system analysis
+const fontRecommendations = {
+  // English - Top 10 Book Fonts
+  'en': [
+    { value: 'EB Garamond', label: 'EB Garamond (Recommended)' },
+    { value: 'Linux Libertine O', label: 'Linux Libertine O' },
+    { value: 'Nimbus Roman', label: 'Nimbus Roman (Book Quality)' },
+    { value: 'Latin Modern Roman', label: 'Latin Modern Roman (Professional)' },
+    { value: 'TeX Gyre Pagella', label: 'TeX Gyre Pagella' },
+    { value: 'TeX Gyre Termes', label: 'TeX Gyre Termes' },
+    { value: 'Liberation Serif', label: 'Liberation Serif (Latin/Cyrillic)' },
+    { value: 'Noto Serif', label: 'Noto Serif' },
+    { value: 'DejaVu Serif', label: 'DejaVu Serif (Latin/Cyrillic)' },
+    { value: 'Liberation Sans', label: 'Liberation Sans' }
+  ],
   
-  // Arabic fonts
-  { value: 'Noto Sans Arabic', label: 'Noto Sans Arabic (Arabic)' },
+  // African Languages (Latin script)
+  'sw': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'ha': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'yo': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'zu': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'xh': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'ig': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'ki': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'lg': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'sn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'st': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'tn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'rw': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'rn': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'mg': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
   
-  // Hebrew fonts
-  { value: 'Noto Sans Hebrew', label: 'Noto Sans Hebrew (Hebrew)' },
-  { value: 'Noto Serif Hebrew', label: 'Noto Serif Hebrew (Hebrew)' },
-  { value: 'Noto Rashi Hebrew', label: 'Noto Rashi Hebrew (Hebrew)' },
+  // European Languages (Latin script)
+  'fr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'de': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'es': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'it': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'pt': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'nl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'da': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'sv': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'no': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'fi': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'et': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'gl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'is': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
   
-  // Hindi fonts (Devanagari script)
-  { value: 'Noto Sans Devanagari', label: 'Noto Sans Devanagari (Hindi)' },
+  // Greek
+  'el': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'GFS Artemisia', label: 'GFS Artemisia' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
   
-  // Tamil fonts
-  { value: 'Noto Sans Tamil', label: 'Noto Sans Tamil (Tamil)' },
-  { value: 'Noto Serif Tamil', label: 'Noto Serif Tamil (Tamil)' },
+  // Cyrillic Languages
+  'ru': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'mk': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'sr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
   
-  // Additional Russian/Cyrillic fonts (confirmed available on server)
-  { value: 'Tinos', label: 'Tinos (Cyrillic support)' },
-  { value: 'FreeSerif', label: 'FreeSerif (Cyrillic support)' },
+  // Central/Eastern European
+  'pl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'cs': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'sk': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'hr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'hu': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'ro': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'lt': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'lv': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'sl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
+  'tr': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }, { value: 'Noto Serif', label: 'Noto Serif' }],
   
-  // Bengali fonts
-  { value: 'Noto Sans Bengali', label: 'Noto Sans Bengali' },
+  // Indian Languages (Devanagari)
+  'hi': [{ value: 'Noto Serif Devanagari', label: 'Noto Serif Devanagari (Recommended)' }, { value: 'Noto Sans Devanagari UI', label: 'Noto Sans Devanagari UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Gujarati fonts
-  { value: 'Noto Sans Gujarati', label: 'Noto Sans Gujarati' },
+  // Bengali
+  'bn': [{ value: 'Noto Serif Bengali', label: 'Noto Serif Bengali (Recommended)' }, { value: 'Noto Sans Bengali UI', label: 'Noto Sans Bengali UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Telugu fonts
-  { value: 'Noto Sans Telugu', label: 'Noto Sans Telugu' },
+  // Tamil
+  'ta': [{ value: 'Noto Serif Tamil', label: 'Noto Serif Tamil (Recommended)' }, { value: 'Noto Sans Tamil UI', label: 'Noto Sans Tamil UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Kannada fonts
-  { value: 'Noto Sans Kannada', label: 'Noto Sans Kannada' },
+  // Telugu
+  'te': [{ value: 'Noto Serif Telugu', label: 'Noto Serif Telugu (Recommended)' }, { value: 'Noto Sans Telugu UI', label: 'Noto Sans Telugu UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Malayalam fonts
-  { value: 'Noto Sans Malayalam', label: 'Noto Sans Malayalam' },
+  // Kannada
+  'kn': [{ value: 'Noto Serif Kannada', label: 'Noto Serif Kannada (Recommended)' }, { value: 'Noto Sans Kannada UI', label: 'Noto Sans Kannada UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Punjabi fonts
-  { value: 'Noto Sans Gurmukhi', label: 'Noto Sans Gurmukhi (Punjabi)' },
+  // Malayalam
+  'ml': [{ value: 'Noto Serif Malayalam', label: 'Noto Serif Malayalam (Recommended)' }, { value: 'Noto Sans Malayalam UI', label: 'Noto Sans Malayalam UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
   
-  // Oriya fonts
-  { value: 'Noto Sans Oriya', label: 'Noto Sans Oriya' }
-];
+  // Gujarati
+  'gu': [{ value: 'Noto Serif Gujarati', label: 'Noto Serif Gujarati (Recommended)' }, { value: 'Noto Sans Gujarati UI', label: 'Noto Sans Gujarati UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
+  
+  // Oriya
+  'or': [{ value: 'Noto Sans Oriya UI', label: 'Noto Sans Oriya UI (Recommended)' }, { value: 'Noto Sans Oriya', label: 'Noto Sans Oriya' }, { value: 'FreeSerif', label: 'FreeSerif' }],
+  
+  // Punjabi (Gurmukhi)
+  'pa': [{ value: 'Noto Serif Gurmukhi', label: 'Noto Serif Gurmukhi (Recommended)' }, { value: 'Noto Sans Gurmukhi UI', label: 'Noto Sans Gurmukhi UI' }, { value: 'FreeSerif', label: 'FreeSerif' }],
+  
+  // Southeast Asian Languages
+  'vi': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'id': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'ms': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }],
+  'tl': [{ value: 'EB Garamond', label: 'EB Garamond (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Charis SIL', label: 'Charis SIL' }]
+};
+
+// Get font recommendations for a specific language
+const getFontRecommendations = (languageCode: string) => {
+  return fontRecommendations[languageCode] || fontRecommendations['en']; // Default to English fonts
+};
 
 // Language options for document export
 // Note: RTL languages (Arabic, Hebrew, Yiddish) temporarily disabled for launch
@@ -299,7 +351,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // Platform detection - use same variable as backend for consistency
   const exportPlatform = process.env.REACT_APP_EXPORT_PLATFORM || 
                         (navigator.platform.includes('Win') ? 'windows' : 'server');
-  const fontOptions = exportPlatform === 'windows' ? windowsFonts : serverFonts;
+  // Legacy font options - now using language-specific recommendations
+  const fontOptions = exportPlatform === 'windows' ? windowsFonts : [];
   
   // Debug platform detection
   console.log('[FRONTEND PLATFORM DEBUG]', {
@@ -317,139 +370,24 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const getAvailableFonts = (language: string, format: string) => {
     console.log(`getAvailableFonts called with language: "${language}", format: "${format}", platform: "${exportPlatform}"`);
     
-    // For English and Latin-based languages, respect platform detection
-    if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-      if (exportPlatform === 'windows') {
-        // For Windows, show Windows fonts for English/Latin languages
-        console.log(`[FONT] Windows platform detected for ${language}, showing Windows fonts`);
-        return windowsFonts;
-      } else {
-        // For server/Linux, show server fonts for English/Latin languages
-        console.log(`[FONT] Server platform detected for ${language}, showing server fonts`);
-        const filteredFonts = fontOptions.filter(font => {
-          // For EPUB, only show fonts that work well across e-readers
-          if (format === 'epub') {
-            return ['Liberation Serif', 'Liberation Sans', 'DejaVu Serif', 'DejaVu Sans'].includes(font.value);
-          }
-          // For PDF and other formats, show all Latin fonts
-          const latinFonts = ['Liberation Serif', 'TeX Gyre Termes', 'TeX Gyre Pagella', 'Linux Libertine', 'DejaVu Serif', 'Liberation Sans', 'DejaVu Sans', 'Latin Modern Roman', 'Nimbus Roman'];
-          return latinFonts.includes(font.value);
-        });
-        return filteredFonts;
-      }
-    }
+    // Use language-specific font recommendations
+    const recommendedFonts = getFontRecommendations(language);
+    console.log(`[FONT] Using curated recommendations for ${language}:`, recommendedFonts.map(f => f.value));
     
-    // For other languages, use the existing filtering logic
-    const filteredFonts = fontOptions.filter(font => {
-      // For EPUB, only show fonts that work well across e-readers
-      if (format === 'epub') {
-        // For other languages, keep their specific fonts
-        if (language === 'ta') {
-          return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
-        }
-        if (language === 'ru') {
-          return ['DejaVu Serif', 'Liberation Serif', 'Tinos', 'FreeSerif'].includes(font.value);
-        }
-        if (language === 'hi') {
-          return ['Noto Sans Devanagari'].includes(font.value);
-        }
-        if (language === 'ar') {
-          return ['Noto Sans Arabic'].includes(font.value);
-        }
-        if (language === 'he' || language === 'yi') {
-          return ['Noto Sans Hebrew', 'Noto Serif Hebrew'].includes(font.value);
-        }
-        return false;
-      }
-      
-      // For PDF and other formats, show all appropriate fonts
-      // Tamil - only show Tamil fonts
-      if (language === 'ta') {
-        return ['Noto Sans Tamil', 'Noto Serif Tamil'].includes(font.value);
-      }
-      
-      // Russian - only show fonts with Cyrillic support
-      if (language === 'ru') {
-        return ['DejaVu Serif', 'Liberation Serif', 'Tinos', 'FreeSerif'].includes(font.value);
-      }
-      
-      // Hindi - only show Devanagari fonts
-      if (language === 'hi') {
-        return ['Noto Sans Devanagari'].includes(font.value);
-      }
-      
-      // Arabic - only show Arabic fonts
-      if (language === 'ar') {
-        return ['Noto Sans Arabic'].includes(font.value);
-      }
-      
-      // Hebrew/Yiddish - only show Hebrew fonts
-      if (language === 'he' || language === 'yi') {
-        return ['Noto Sans Hebrew', 'Noto Serif Hebrew', 'Noto Rashi Hebrew'].includes(font.value);
-      }
-      
-      return false;
-    });
-    
-    // Always ensure Liberation Serif is available as a fallback for Latin languages
-    let finalFonts = filteredFonts;
-    if (filteredFonts.length === 0) {
-      finalFonts = [{ value: 'Liberation Serif', label: 'Liberation Serif' }];
-    } else {
-      // Ensure Liberation Serif is always in the list for Latin languages
-      if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-        const hasLiberation = finalFonts.some(f => f.value === 'Liberation Serif');
-        if (!hasLiberation) {
-          finalFonts.unshift({ value: 'Liberation Serif', label: 'Liberation Serif' });
-        }
-      }
-    }
-    
-    console.log(`Available fonts for ${language}:`, finalFonts.map(f => f.value));
-    return finalFonts;
+    return recommendedFonts;
   };
+  
 
-  // Get recommended font for a given language
+
+  // Get recommended font for a given language (first recommendation)
   const getRecommendedFont = (language: string, format: string = 'pdf'): string => {
     console.log(`getRecommendedFont called with language: "${language}", format: "${format}"`);
     
-    const availableFonts = getAvailableFonts(language, format);
+    const recommendedFonts = getFontRecommendations(language);
+    const topRecommendation = recommendedFonts[0]?.value || 'EB Garamond';
     
-    // Define preferred fonts for each language
-    const languageFontMap: { [key: string]: string } = {
-      // Languages that need special fonts
-      'ar': 'Noto Sans Arabic', // Arabic
-      'ru': 'DejaVu Serif', // Russian (Cyrillic) - confirmed available on server
-      'hi': 'Noto Sans Devanagari', // Hindi (Devanagari script)
-      'ta': 'Noto Sans Tamil', // Tamil
-      'he': 'Noto Sans Hebrew', // Hebrew
-      'yi': 'Noto Sans Hebrew', // Yiddish (uses Hebrew script)
-      
-      // All Latin-based languages prefer Liberation Serif
-      'latin': 'Liberation Serif'
-    };
-    
-    // Map Latin-based languages to 'latin' category
-    const latinLanguages = ['en', 'es', 'fr', 'de', 'it', 'id'];
-    const category = latinLanguages.includes(language) ? 'latin' : language;
-    
-    console.log(`Language: "${language}", Category: "${category}", Latin languages:`, latinLanguages);
-    console.log(`Is ${language} in latinLanguages?`, latinLanguages.includes(language));
-    
-    const preferredFont = languageFontMap[category] || 'Liberation Serif';
-    
-    // Check if the preferred font is available
-    const isPreferredFontAvailable = availableFonts.some(font => font.value === preferredFont);
-    
-    if (isPreferredFontAvailable) {
-      console.log(`Preferred font "${preferredFont}" is available`);
-      return preferredFont;
-    } else {
-      // Fall back to the first available font
-      const fallbackFont = availableFonts[0]?.value || 'Liberation Serif';
-      console.log(`Preferred font "${preferredFont}" not available, using fallback: "${fallbackFont}"`);
-      return fallbackFont;
-    }
+    console.log(`Top font recommendation for ${language}: "${topRecommendation}"`);
+    return topRecommendation;
   };
 
   // Fetch image usage stats when modal opens (for free plan clarity)
