@@ -553,10 +553,15 @@ const EditUserDialog = ({
                 {/* Ebook Plans */}
                 <MenuItem value="eSingle">Ebook Single</MenuItem>
                 <MenuItem value="eSingle_promo">Ebook Single (Promo)</MenuItem>
+                <MenuItem value="ebundle5">Ebook 5 Pack</MenuItem>
                 <MenuItem value="ebundle5_promo">Ebook 5 Pack (Promo)</MenuItem>
+                <MenuItem value="ebundle10">Ebook 10 Pack</MenuItem>
                 <MenuItem value="ebundle10_promo">Ebook 10 Pack (Promo)</MenuItem>
+                <MenuItem value="ebundle20">Ebook 20 Pack</MenuItem>
                 <MenuItem value="ebundle20_promo">Ebook 20 Pack (Promo)</MenuItem>
+                <MenuItem value="epoweruser">Ebook Power User</MenuItem>
                 <MenuItem value="epoweruser_promo">Ebook Power User (Promo)</MenuItem>
+                <MenuItem value="eagency">Ebook Agency</MenuItem>
                 <MenuItem value="eagency_promo">Ebook Agency (Promo)</MenuItem>
                 
                 {/* Full Service Plans */}
