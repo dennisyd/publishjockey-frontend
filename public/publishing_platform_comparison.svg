@@ -1,0 +1,201 @@
+<svg viewBox="0 0 900 700" xmlns="http://www.w3.org/2000/svg">
+  <!-- Header -->
+  <rect x="0" y="0" width="900" height="60" fill="#4472C4" rx="8"/>
+  <text x="450" y="25" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="20" font-weight="bold">Publishing Platform Comparison</text>
+  <text x="450" y="45" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">Why PublishJockey Outperforms the Competition</text>
+  
+  <!-- Column Headers -->
+  <rect x="20" y="70" width="180" height="30" fill="#E8E8E8" stroke="#CCC"/>
+  <text x="110" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Feature / Pricing</text>
+  
+  <rect x="200" y="70" width="175" height="30" fill="#70AD47" stroke="#CCC"/>
+  <text x="287" y="90" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12" font-weight="bold">PublishJockey</text>
+  
+  <rect x="375" y="70" width="175" height="30" fill="#E8E8E8" stroke="#CCC"/>
+  <text x="462" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Atticus</text>
+  
+  <rect x="550" y="70" width="175" height="30" fill="#E8E8E8" stroke="#CCC"/>
+  <text x="637" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">Vellum</text>
+  
+  <rect x="725" y="70" width="175" height="30" fill="#E8E8E8" stroke="#CCC"/>
+  <text x="812" y="90" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" font-weight="bold">PressBooks</text>
+  
+  <!-- Row 1: All Formats -->
+  <rect x="20" y="100" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="120" font-family="Arial, sans-serif" font-size="11">All Formats (One Price)</text>
+  
+  <rect x="200" y="100" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="115" font-family="Arial, sans-serif" font-size="10">📄 Print PDF, EPUB,</text>
+  <text x="210" y="125" font-family="Arial, sans-serif" font-size="10">Word included</text>
+  
+  <rect x="375" y="100" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="385" y="115" font-family="Arial, sans-serif" font-size="10">Print + EPUB</text>
+  <text x="385" y="125" font-family="Arial, sans-serif" font-size="10">(No Word)</text>
+  
+  <rect x="550" y="100" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="560" y="115" font-family="Arial, sans-serif" font-size="10">Print + EPUB</text>
+  <text x="560" y="125" font-family="Arial, sans-serif" font-size="10">(No Word)</text>
+  
+  <rect x="725" y="100" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="735" y="115" font-family="Arial, sans-serif" font-size="10">Print + EPUB</text>
+  <text x="735" y="125" font-family="Arial, sans-serif" font-size="10">(No Word)</text>
+  
+  <!-- Row 2: Service Pricing -->
+  <rect x="20" y="130" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="150" font-family="Arial, sans-serif" font-size="11">Service Pricing</text>
+  
+  <rect x="200" y="130" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="145" font-family="Arial, sans-serif" font-size="10">$63 promo / $93 after</text>
+  <text x="210" y="155" font-family="Arial, sans-serif" font-size="10">(all formats)</text>
+  
+  <rect x="375" y="130" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="385" y="150" font-family="Arial, sans-serif" font-size="10" fill="red">$147 (Kickstart)</text>
+  
+  <rect x="550" y="130" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="560" y="150" font-family="Arial, sans-serif" font-size="10" fill="red">$349 (Kickstart)</text>
+  
+  <rect x="725" y="130" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="735" y="150" font-family="Arial, sans-serif" font-size="10" fill="red">$99 per book</text>
+  
+  <!-- Row 3: Publisher-Quality Typography -->
+  <rect x="20" y="160" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="175" font-family="Arial, sans-serif" font-size="11">Publisher-Quality</text>
+  <text x="30" y="185" font-family="Arial, sans-serif" font-size="11">Typography</text>
+  
+  <rect x="200" y="160" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="180" font-family="Arial, sans-serif" font-size="11">✅ Yes</text>
+  
+  <rect x="375" y="160" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="385" y="180" font-family="Arial, sans-serif" font-size="11">⚠️ Good</text>
+  
+  <rect x="550" y="160" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="560" y="175" font-family="Arial, sans-serif" font-size="10">⚠️ Good</text>
+  <text x="560" y="185" font-family="Arial, sans-serif" font-size="10">(Mac only)</text>
+  
+  <rect x="725" y="160" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="180" font-family="Arial, sans-serif" font-size="11">⚠️ Basic</text>
+  
+  <!-- Row 4: Language Support -->
+  <rect x="20" y="190" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="210" font-family="Arial, sans-serif" font-size="11">Language Support</text>
+  
+  <rect x="200" y="190" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="205" font-family="Arial, sans-serif" font-size="10">55+ Languages</text>
+  <text x="210" y="215" font-family="Arial, sans-serif" font-size="9">(inc. Tamil, Thai, Bengali, Afrikaans)</text>
+  
+  <rect x="375" y="190" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="385" y="210" font-family="Arial, sans-serif" font-size="10">English/Euro only</text>
+  
+  <rect x="550" y="190" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="560" y="210" font-family="Arial, sans-serif" font-size="10">English only</text>
+  
+  <rect x="725" y="190" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="210" font-family="Arial, sans-serif" font-size="10">Limited</text>
+  
+  <!-- Row 5: Built-in Writing Editor -->
+  <rect x="20" y="220" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="240" font-family="Arial, sans-serif" font-size="11">Built-in Writing Editor</text>
+  
+  <rect x="200" y="220" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="240" font-family="Arial, sans-serif" font-size="11">✅ Yes</text>
+  
+  <rect x="375" y="220" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="385" y="240" font-family="Arial, sans-serif" font-size="11">⚠️ Basic</text>
+  
+  <rect x="550" y="220" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="560" y="240" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="725" y="220" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="240" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <!-- Additional rows follow the same pattern... -->
+  <!-- Word/Google Import -->
+  <rect x="20" y="250" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="270" font-family="Arial, sans-serif" font-size="11">Word/Google Import</text>
+  
+  <rect x="200" y="250" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="270" font-family="Arial, sans-serif" font-size="11">✅ Yes</text>
+  
+  <rect x="375" y="250" width="175" height="30" fill="#FFE6CC" stroke="#CCC"/>
+  <text x="385" y="270" font-family="Arial, sans-serif" font-size="11">Limited</text>
+  
+  <rect x="550" y="250" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="560" y="270" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="725" y="250" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="270" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <!-- Tables (CSV Import) -->
+  <rect x="20" y="280" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="300" font-family="Arial, sans-serif" font-size="11">Tables (CSV Import)</text>
+  
+  <rect x="200" y="280" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="300" font-family="Arial, sans-serif" font-size="11">✅ Yes</text>
+  
+  <rect x="375" y="280" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="385" y="300" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="550" y="280" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="560" y="300" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="725" y="280" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="300" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <!-- Cover Generation -->
+  <rect x="20" y="310" width="180" height="30" fill="#F8F8F8" stroke="#CCC"/>
+  <text x="30" y="330" font-family="Arial, sans-serif" font-size="11">Cover Generation</text>
+  
+  <rect x="200" y="310" width="175" height="30" fill="#C6E0B4" stroke="#CCC"/>
+  <text x="210" y="330" font-family="Arial, sans-serif" font-size="11">✅ Included</text>
+  
+  <rect x="375" y="310" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="385" y="330" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="550" y="310" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="560" y="330" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <rect x="725" y="310" width="175" height="30" fill="#FFCCCC" stroke="#CCC"/>
+  <text x="735" y="330" font-family="Arial, sans-serif" font-size="11">❌ No</text>
+  
+  <!-- Unique Advantages Section -->
+  <rect x="20" y="380" width="860" height="30" fill="#E8E8E8" stroke="#CCC"/>
+  <text x="30" y="400" font-family="Arial, sans-serif" font-size="14" font-weight="bold">📚 PublishJockey's Unique Advantages</text>
+  
+  <!-- Advantage boxes -->
+  <rect x="20" y="420" width="200" height="120" fill="#C6E0B4" stroke="#70AD47" rx="5"/>
+  <text x="30" y="440" font-family="Arial, sans-serif" font-size="12" font-weight="bold">✅ 55+ Languages</text>
+  <text x="30" y="455" font-family="Arial, sans-serif" font-size="10">• Hindi, Tamil, Bengali support</text>
+  <text x="30" y="470" font-family="Arial, sans-serif" font-size="10">• African language support</text>
+  <text x="30" y="485" font-family="Arial, sans-serif" font-size="10">• European language support</text>
+  <text x="30" y="500" font-family="Arial, sans-serif" font-size="10">• RTL script support (coming)</text>
+  <text x="30" y="515" font-family="Arial, sans-serif" font-size="10">Competitors: 1-10 languages max</text>
+  
+  <rect x="235" y="420" width="200" height="120" fill="#FFF2CC" stroke="#BF9000" rx="5"/>
+  <text x="245" y="440" font-family="Arial, sans-serif" font-size="12" font-weight="bold">⚡ Lightning Speed</text>
+  <text x="245" y="455" font-family="Arial, sans-serif" font-size="10">• EPUB: 5 seconds</text>
+  <text x="245" y="470" font-family="Arial, sans-serif" font-size="10">• Word: 5 seconds</text>
+  <text x="245" y="485" font-family="Arial, sans-serif" font-size="10">• Print PDF: ~30 seconds</text>
+  <text x="245" y="500" font-family="Arial, sans-serif" font-size="10">• Instant preview mode</text>
+  <text x="245" y="515" font-family="Arial, sans-serif" font-size="10">Competitors: Minutes to days</text>
+  
+  <rect x="450" y="420" width="200" height="120" fill="#FFCCCC" stroke="#C5504B" rx="5"/>
+  <text x="460" y="440" font-family="Arial, sans-serif" font-size="12" font-weight="bold">💰 Unbeatable Value</text>
+  <text x="460" y="455" font-family="Arial, sans-serif" font-size="10">• $63 promo (all 3 formats!)</text>
+  <text x="460" y="470" font-family="Arial, sans-serif" font-size="10">• Word export included</text>
+  <text x="460" y="485" font-family="Arial, sans-serif" font-size="10">• Cover generation included</text>
+  <text x="460" y="500" font-family="Arial, sans-serif" font-size="10">• Free 12 page test</text>
+  <text x="460" y="515" font-family="Arial, sans-serif" font-size="10">at $147-$349 competitors</text>
+  
+  <rect x="665" y="420" width="200" height="120" fill="#D5E8D4" stroke="#82B366" rx="5"/>
+  <text x="675" y="440" font-family="Arial, sans-serif" font-size="12" font-weight="bold">🔧 Complete Toolkit</text>
+  <text x="675" y="455" font-family="Arial, sans-serif" font-size="10">• Built-in writing editor</text>
+  <text x="675" y="470" font-family="Arial, sans-serif" font-size="10">• CSV table import</text>
+  <text x="675" y="485" font-family="Arial, sans-serif" font-size="10">• Word import</text>
+  <text x="675" y="500" font-family="Arial, sans-serif" font-size="10">• OPF uploader</text>
+  <text x="675" y="515" font-family="Arial, sans-serif" font-size="10">Competitors lack most features</text>
+  
+  <!-- Footer -->
+  <rect x="0" y="560" width="900" height="50" fill="#4472C4" rx="8"/>
+  <text x="450" y="580" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="18" font-weight="bold">The Clear Winner</text>
+  <text x="450" y="595" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-size="12">PublishJockey: More Features • Better Price • Faster Speed</text>
+</svg>

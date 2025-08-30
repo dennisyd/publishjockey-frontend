@@ -3309,6 +3309,11 @@ const FAQ = () => {
           answer: "Publish Jockey gives you the simplicity of easy, distraction-free writing, with professional book formatting that matches the standards of major publishers like those on Amazon or in bookstores. Your manuscript is instantly turned into a polished, print-ready book—no complicated setup required."
         },
         {
+          id: "competitor-comparison",
+          question: "How does PublishJockey compare to other publishing platforms?",
+          answer: "We've created a detailed comparison showing how PublishJockey outperforms the competition in features, pricing, and speed:<br><br><div style='text-align: center; margin: 20px 0;'><img src='/publishing_platform_comparison.svg' alt='PublishJockey vs Competitors Comparison Table' style='max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);' /></div><br>Key advantages that set us apart:<br><br><ul style='padding-left: 20px;'><li><strong>55+ Languages:</strong> We support Hindi, Tamil, Bengali, African languages, and more—while competitors typically support only 1-10 languages.</li><li><strong>Unbeatable Value:</strong> All 3 formats (PDF, EPUB, Word) for $63 promo vs competitors charging $147-$349.</li><li><strong>Lightning Speed:</strong> EPUB and Word exports in 5 seconds, PDF in ~30 seconds vs competitors taking minutes to days.</li><li><strong>Complete Toolkit:</strong> Built-in editor, CSV table import, Word import, and cover generation—features competitors charge extra for or don't offer.</li><li><strong>Bookstore-Quality Formatting:</strong> Professional formatting technology that makes your book look like it belongs on the shelves at Barnes & Noble or any major bookstore.</li></ul>"
+        },
+        {
           id: "panel2",
           question: "Do I need to know any special formatting or coding?",
           answer: "Not at all! Just write your book using simple, familiar tools. Publish Jockey handles all the advanced typesetting and layout automatically, so your final book always looks clean, consistent, and professionally published."

@@ -1,0 +1,190 @@
+<svg viewBox="0 0 728 90" xmlns="http://www.w3.org/2000/svg">
+  <!-- Leaderboard Banner 728x90 -->
+  <defs>
+    <linearGradient id="leaderboardGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#3b82f6;stop-opacity:1" />
+    </linearGradient>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+      <feMerge> 
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <rect width="728" height="90" fill="url(#leaderboardGrad)" rx="8"/>
+  <rect x="2" y="2" width="724" height="86" fill="none" stroke="#60a5fa" stroke-width="1" rx="6"/>
+  
+  <!-- Logo with actual design -->
+  <circle cx="50" cy="45" r="25" fill="#ffffff" opacity="0.95"/>
+  <circle cx="50" cy="45" r="23" fill="none" stroke="#1e40af" stroke-width="2"/>
+  <!-- Jockey on horse icon simplified -->
+  <rect x="45" y="38" width="10" height="6" fill="#1e40af" rx="1"/>
+  <circle cx="47" cy="35" r="2" fill="#1e40af"/>
+  <path d="M 42 48 Q 50 44 58 48" fill="none" stroke="#1e40af" stroke-width="2"/>
+  <rect x="48" y="50" width="4" height="2" fill="#1e40af"/>
+  
+  <!-- Main text -->
+  <text x="90" y="28" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="18">PublishJockey</text>
+  <text x="90" y="50" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="14">Professional Publishing • 55 Languages • Lightning Fast Exports</text>
+  <text x="90" y="68" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="12">From $63 - Print, EPUB & Word All Included!</text>
+  
+  <!-- CTA Button -->
+  <rect x="580" y="25" width="130" height="40" fill="#fbbf24" rx="20" filter="url(#glow)"/>
+  <text x="645" y="40" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="12">START FREE</text>
+  <text x="645" y="53" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-size="10">TRIAL</text>
+</svg>
+
+<!-- Medium Rectangle Banner 300x250 -->
+<svg viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;">
+  <defs>
+    <linearGradient id="mediumGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="bookGlow" cx="50%" cy="30%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.3" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="300" height="250" fill="url(#mediumGrad)" rx="12"/>
+  <rect x="3" y="3" width="294" height="244" fill="none" stroke="#60a5fa" stroke-width="2" rx="10"/>
+  <ellipse cx="150" cy="75" rx="120" ry="40" fill="url(#bookGlow)"/>
+  
+  <!-- Logo with jockey design -->
+  <circle cx="150" cy="60" r="35" fill="#ffffff" opacity="0.95"/>
+  <circle cx="150" cy="60" r="32" fill="none" stroke="#1e40af" stroke-width="3"/>
+  <!-- Simplified jockey on horse -->
+  <rect x="142" y="50" width="16" height="10" fill="#1e40af" rx="2"/>
+  <circle cx="145" cy="45" r="3" fill="#1e40af"/>
+  <path d="M 135 68 Q 150 62 165 68" fill="none" stroke="#1e40af" stroke-width="3"/>
+  <rect x="148" y="72" width="4" height="3" fill="#1e40af"/>
+  
+  <!-- Main content -->
+  <text x="150" y="110" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="20">PublishJockey</text>
+  <text x="150" y="130" text-anchor="middle" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="12">Professional Publishing Made Simple</text>
+  
+  <!-- Feature highlights -->
+  <text x="150" y="155" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">✓ 55 Languages Supported</text>
+  <text x="150" y="175" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">✓ Print + EPUB + Word</text>
+  <text x="150" y="195" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="14">✓ 5-Second Lightning Exports</text>
+  
+  <!-- Price -->
+  <text x="150" y="220" text-anchor="middle" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="16">From $63</text>
+  
+  <!-- CTA -->
+  <rect x="75" y="235" width="150" height="25" fill="#fbbf24" rx="12"/>
+  <text x="150" y="252" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="12">TRY 12 PAGES FREE</text>
+</svg>
+
+<!-- Skyscraper Banner 160x600 -->
+<svg viewBox="0 0 160 600" xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;">
+  <defs>
+    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="25%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="75%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <rect width="160" height="600" fill="url(#skyGrad)" rx="10"/>
+  <rect x="2" y="2" width="156" height="596" fill="none" stroke="#60a5fa" stroke-width="1.5" rx="8"/>
+  
+  <!-- Logo section -->
+  <circle cx="80" cy="50" r="30" fill="#ffffff" opacity="0.9"/>
+  <text x="80" y="58" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="16">PJ</text>
+  
+  <text x="80" y="100" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="16">Publish</text>
+  <text x="80" y="118" text-anchor="middle" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="16">Jockey</text>
+  
+  <!-- Features list -->
+  <text x="80" y="160" text-anchor="middle" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="14">Current Features:</text>
+  
+  <text x="15" y="185" fill="white" font-family="Arial, sans-serif" font-size="12">✓ 55 Languages</text>
+  <text x="15" y="205" fill="white" font-family="Arial, sans-serif" font-size="12">✓ All 3 Formats</text>
+  <text x="15" y="225" fill="white" font-family="Arial, sans-serif" font-size="12">✓ 5-Sec Exports</text>
+  <text x="15" y="245" fill="white" font-family="Arial, sans-serif" font-size="12">✓ Pro Typography</text>
+  <text x="15" y="265" fill="white" font-family="Arial, sans-serif" font-size="12">✓ CSV Import</text>
+  <text x="15" y="285" fill="white" font-family="Arial, sans-serif" font-size="12">✓ Cover Generator</text>
+  <text x="15" y="305" fill="white" font-family="Arial, sans-serif" font-size="12">✓ Built-in Editor</text>
+  
+  <!-- VS Competition -->
+  <text x="80" y="340" text-anchor="middle" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="12">vs Competitors:</text>
+  <text x="15" y="360" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="11">Atticus: $147</text>
+  <text x="15" y="375" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="11">Vellum: $199</text>
+  <text x="15" y="390" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="11">PressBooks: $99/book</text>
+  
+  <!-- Price highlight -->
+  <rect x="20" y="410" width="120" height="30" fill="#fbbf24" rx="15"/>
+  <text x="80" y="425" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="12">Only $63</text>
+  <text x="80" y="437" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-size="10">(All formats included)</text>
+  
+  <!-- CTA -->
+  <rect x="20" y="520" width="120" height="50" fill="white" rx="10" opacity="0.95"/>
+  <text x="80" y="538" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="12">START FREE</text>
+  <text x="80" y="552" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="12">TRIAL</text>
+  <text x="80" y="565" text-anchor="middle" fill="#3b82f6" font-family="Arial, sans-serif" font-size="10">First 12 Pages</text>
+</svg>
+
+<!-- Facebook/Instagram Banner 1200x628 -->
+<svg viewBox="0 0 1200 628" xmlns="http://www.w3.org/2000/svg" style="margin-top: 20px;">
+  <defs>
+    <linearGradient id="socialGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1e40af;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#3b82f6;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#1e3a8a;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="socialGlow" cx="30%" cy="40%">
+      <stop offset="0%" style="stop-color:#ffffff;stop-opacity:0.2" />
+      <stop offset="100%" style="stop-color:#ffffff;stop-opacity:0" />
+    </radialGradient>
+  </defs>
+  
+  <rect width="1200" height="628" fill="url(#socialGrad)" rx="15"/>
+  <rect x="5" y="5" width="1190" height="618" fill="none" stroke="#60a5fa" stroke-width="3" rx="12"/>
+  <ellipse cx="400" cy="250" rx="300" ry="150" fill="url(#socialGlow)"/>
+  
+  <!-- Large logo with actual design -->
+  <circle cx="200" cy="200" r="60" fill="#ffffff" opacity="0.95"/>
+  <circle cx="200" cy="200" r="55" fill="none" stroke="#1e40af" stroke-width="4"/>
+  <!-- Detailed jockey on horse for large banner -->
+  <rect x="185" y="185" width="30" height="18" fill="#1e40af" rx="3"/>
+  <circle cx="190" cy="175" r="6" fill="#1e40af"/>
+  <path d="M 165 220 Q 200 210 235 220" fill="none" stroke="#1e40af" stroke-width="4"/>
+  <rect x="195" y="225" width="10" height="6" fill="#1e40af"/>
+  
+  <!-- Main headline -->
+  <text x="300" y="150" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="48">PublishJockey</text>
+  <text x="300" y="190" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="28">Professional Publishing Platform</text>
+  
+  <!-- Key benefits -->
+  <text x="300" y="250" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="24">🌍 55 Languages • ⚡ 5-Sec Exports • 📚 All 3 Formats</text>
+  
+  <!-- Comparison table -->
+  <rect x="50" y="320" width="500" height="220" fill="rgba(255,255,255,0.1)" rx="10"/>
+  <text x="70" y="345" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="18">Why PublishJockey Dominates:</text>
+  
+  <text x="70" y="375" fill="white" font-family="Arial, sans-serif" font-size="16">✓ PublishJockey: $63 (Print + EPUB + Word)</text>
+  <text x="70" y="400" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="16">   Atticus: $147 (No Word export)</text>
+  <text x="70" y="425" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="16">   Vellum: $199 (Mac only, no Word)</text>
+  <text x="70" y="450" fill="#e0e7ff" font-family="Arial, sans-serif" font-size="16">   PressBooks: $99 per book</text>
+  
+  <text x="70" y="485" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="16">✓ Only platform with 55 languages</text>
+  <text x="70" y="510" fill="white" font-family="Arial, sans-serif" font-weight="bold" font-size="16">✓ Only 5-second export speeds</text>
+  
+  <!-- CTA Section -->
+  <rect x="650" y="350" width="500" height="200" fill="rgba(251,191,36,0.9)" rx="20"/>
+  <text x="900" y="395" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="32">Try 12 Pages</text>
+  <text x="900" y="430" text-anchor="middle" fill="#1e40af" font-family="Arial, sans-serif" font-weight="bold" font-size="32">FREE!</text>
+  <text x="900" y="465" text-anchor="middle" fill="#1e3a8a" font-family="Arial, sans-serif" font-size="20">No credit card required</text>
+  <text x="900" y="490" text-anchor="middle" fill="#1e3a8a" font-family="Arial, sans-serif" font-size="20">Export in all 3 formats</text>
+  <text x="900" y="515" text-anchor="middle" fill="#1e3a8a" font-family="Arial, sans-serif" font-weight="bold" font-size="18">Start Publishing Today →</text>
+  
+  <!-- Bottom tagline -->
+  <text x="600" y="580" text-anchor="middle" fill="#fbbf24" font-family="Arial, sans-serif" font-weight="bold" font-size="20">Professional Results • Unbeatable Value • Lightning Fast</text>
+</svg>

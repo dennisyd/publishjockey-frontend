@@ -133,7 +133,49 @@ const languageOptions = [
   { value: 'kn', label: '🇮🇳 ಕನ್ನಡ', description: 'Kannada' },
   { value: 'ml', label: '🇮🇳 മലയാളം', description: 'Malayalam' },
   { value: 'pa', label: '🇮🇳 ਪੰਜਾਬੀ', description: 'Punjabi' },
-  { value: 'or', label: '🇮🇳 ଓଡ଼ିଆ', description: 'Oriya' }
+  { value: 'or', label: '🇮🇳 ଓଡ଼ିଆ', description: 'Oriya' },
+  
+  // African Languages (missing from export)
+  { value: 'ha', label: '🇳🇬 Hausa', description: 'Hausa' },
+  { value: 'ig', label: '🇳🇬 Igbo', description: 'Igbo' },
+  { value: 'ki', label: '🇰🇪 Gĩkũyũ', description: 'Kikuyu' },
+  { value: 'rw', label: '🇷🇼 Ikinyarwanda', description: 'Kinyarwanda' },
+  { value: 'rn', label: '🇧🇮 Ikirundi', description: 'Kirundi' },
+  { value: 'lg', label: '🇺🇬 Luganda', description: 'Luganda' },
+  { value: 'mg', label: '🇲🇬 Malagasy', description: 'Malagasy' },
+  { value: 'sn', label: '🇿🇼 chiShona', description: 'Shona' },
+  { value: 'st', label: '🇱🇸 Sesotho', description: 'Sotho' },
+  { value: 'sw', label: '🇹🇿 Kiswahili', description: 'Swahili' },
+  { value: 'tn', label: '🇧🇼 Setswana', description: 'Tswana' },
+  { value: 'xh', label: '🇿🇦 isiXhosa', description: 'Xhosa' },
+  { value: 'yo', label: '🇳🇬 Yorùbá', description: 'Yoruba' },
+  { value: 'zu', label: '🇿🇦 isiZulu', description: 'Zulu' },
+  
+  // European Languages (missing from export)
+  { value: 'cs', label: '🇨🇿 Čeština', description: 'Czech' },
+  { value: 'da', label: '🇩🇰 Dansk', description: 'Danish' },
+  { value: 'nl', label: '🇳🇱 Nederlands', description: 'Dutch' },
+  { value: 'et', label: '🇪🇪 Eesti', description: 'Estonian' },
+  { value: 'fi', label: '🇫🇮 Suomi', description: 'Finnish' },
+  { value: 'gl', label: '🇪🇸 Galego', description: 'Galician' },
+  { value: 'el', label: '🇬🇷 Ελληνικά', description: 'Greek' },
+  { value: 'hu', label: '🇭🇺 Magyar', description: 'Hungarian' },
+  { value: 'lv', label: '🇱🇻 Latviešu', description: 'Latvian' },
+  { value: 'lt', label: '🇱🇹 Lietuvių', description: 'Lithuanian' },
+  { value: 'mk', label: '🇲🇰 Македонски', description: 'Macedonian' },
+  { value: 'no', label: '🇳🇴 Norsk', description: 'Norwegian' },
+  { value: 'pl', label: '🇵🇱 Polski', description: 'Polish' },
+  { value: 'sr', label: '🇷🇸 Српски', description: 'Serbian' },
+  { value: 'sk', label: '🇸🇰 Slovenčina', description: 'Slovak' },
+  { value: 'sl', label: '🇸🇮 Slovenščina', description: 'Slovenian' },
+  { value: 'sv', label: '🇸🇪 Svenska', description: 'Swedish' },
+  { value: 'tr', label: '🇹🇷 Türkçe', description: 'Turkish' },
+  
+  // Asian Languages (missing from export)
+  { value: 'tl', label: '🇵🇭 Filipino', description: 'Filipino' },
+  { value: 'ms', label: '🇲🇾 Bahasa Melayu', description: 'Malaysian' },
+  { value: 'vi', label: '🇻🇳 Tiếng Việt', description: 'Vietnamese' }
+  
   // RTL languages (Arabic, Hebrew, Yiddish) coming soon!
   // CJK languages (Chinese, Japanese, Korean) coming soon!
 ];
