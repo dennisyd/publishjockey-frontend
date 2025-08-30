@@ -35,10 +35,36 @@ const localizedStructures = {
     main: ["Chapitre 1", "Chapitre 2", "Chapitre 3"],
     back: ["À propos de l'auteur", "Annexe", "Références", "Bibliographie", "Index", "Glossaire"]
   },
-  pt: {
+    pt: {
     front: [
       "Página de Título",
-      "Direitos Autorais", 
+      "Direitos Autorais",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
+  // Brazilian Portuguese (same structure as Portuguese for now)
+  'pt-BR': {
+    front: [
+      "Página de Título",
+      "Direitos Autorais",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
+  // European Portuguese (same structure as Portuguese for now)
+  'pt-PT': {
+    front: [
+      "Página de Título",
+      "Direitos Autorais",
       "Dedicatória",
       "Agradecimentos",
       "Prefácio",
@@ -717,26 +743,29 @@ export function isRTL(language?: string): boolean {
  * Returns {front, main, back}.
  */
 export function getLocalizedBookStructure(language?: string) {
-  const normalizedLanguage = normalizeLang(language);
-  console.log('[BOOK STRUCTURE] Input language:', language, 'Normalized:', normalizedLanguage);
+  console.log('[BOOK STRUCTURE] Input language:', language);
   
-  // SPECIAL DEBUG FOR PORTUGUESE
-  if (normalizedLanguage === 'pt') {
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Attempting to get Portuguese structure...');
+  // First try exact match (e.g., pt-BR, pt-PT)
+  if (language && (localizedStructures as any)[language]) {
+    console.log('[BOOK STRUCTURE] Found exact match for:', language);
+    return (localizedStructures as any)[language];
+  }
+  
+  // Then try normalized version (e.g., pt-BR -> pt)
+  const normalizedLanguage = normalizeLang(language);
+  console.log('[BOOK STRUCTURE] Normalized:', normalizedLanguage);
+  
+  // SPECIAL DEBUG FOR PORTUGUESE VARIANTS
+  if (language?.includes('pt') || normalizedLanguage === 'pt') {
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Input language:', language);
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Normalized:', normalizedLanguage);
     console.log('🇵🇹 [PORTUGUESE STRUCTURE] Available keys:', Object.keys(localizedStructures));
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has pt key?', 'pt' in localizedStructures);
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Direct access:', (localizedStructures as any)['pt']);
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has exact match?', language && (language in localizedStructures));
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has normalized match?', normalizedLanguage in localizedStructures);
   }
   
   const structure = (localizedStructures as any)[normalizedLanguage] || (localizedStructures as any)["en"];
   console.log('[BOOK STRUCTURE] Returning structure for:', normalizedLanguage, structure);
-  
-  // EXTRA PORTUGUESE DEBUG
-  if (normalizedLanguage === 'pt') {
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Final structure:', structure);
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Is it Portuguese?', structure === (localizedStructures as any)['pt']);
-    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Is it English fallback?', structure === (localizedStructures as any)['en']);
-  }
   
   return structure;
 }
@@ -774,11 +803,21 @@ export function getLocalizedSectionNamesObject(language?: string): {
   
   // Language-specific labels
   const localizedLabels: Record<string, { frontMatter: string; mainMatter: string; backMatter: string }> = {
-    pt: {
-      frontMatter: 'Matéria Preliminar',
-      mainMatter: 'Matéria Principal', 
-      backMatter: 'Matéria Final'
-    },
+      pt: {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
+  'pt-BR': {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
+  'pt-PT': {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
     es: {
       frontMatter: 'Materia Preliminar',
       mainMatter: 'Materia Principal', 

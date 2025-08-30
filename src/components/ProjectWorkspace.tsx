@@ -141,6 +141,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   console.log('🔍 [SIDEBAR DEBUG] documentLanguage (Document):', documentLanguage);
   console.log('🔍 [SIDEBAR DEBUG] Using for sidebar:', documentLanguage);
   
+  // BROWSER LANGUAGE DETECTION DEBUG
+  console.log('🌐 [BROWSER DEBUG] navigator.language:', navigator.language);
+  console.log('🌐 [BROWSER DEBUG] navigator.languages:', navigator.languages);
+  console.log('🌐 [BROWSER DEBUG] Detected browser languages:', navigator.languages?.join(', '));
+  
   // SPECIFIC DEBUG for Portuguese
   if (documentLanguage === 'pt') {
     console.log('🔍 [PORTUGUESE DEBUG] Portuguese detected! Should show Portuguese section names.');
@@ -166,9 +171,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
-    // SPECIAL PORTUGUESE FIX - Force Portuguese structure
-    if (documentLanguage === 'pt') {
-      console.log('🇵🇹 [PORTUGUESE FIX] Forcing Portuguese structure...');
+    // SPECIAL PORTUGUESE FIX - Force Portuguese structure for all variants
+    if (documentLanguage === 'pt' || documentLanguage === 'pt-BR' || documentLanguage === 'pt-PT' || documentLanguage?.includes('pt')) {
+      console.log('🇵🇹 [PORTUGUESE FIX] Forcing Portuguese structure for:', documentLanguage);
       const portugueseStructure = {
         front: [
           "Página de Título",
@@ -280,9 +285,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       return;
     }
     
-    // SPECIAL PORTUGUESE FIX - Force Portuguese structure in language change too
-    if (documentLanguage === 'pt') {
-      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Forcing Portuguese structure...');
+    // SPECIAL PORTUGUESE FIX - Force Portuguese structure in language change too for all variants
+    if (documentLanguage === 'pt' || documentLanguage === 'pt-BR' || documentLanguage === 'pt-PT' || documentLanguage?.includes('pt')) {
+      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Forcing Portuguese structure for:', documentLanguage);
       const portugueseStructure = {
         front: [
           "Página de Título",
