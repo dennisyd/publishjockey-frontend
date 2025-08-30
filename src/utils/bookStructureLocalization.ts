@@ -693,6 +693,13 @@ export function normalizeLang(language?: string): string {
   if (!language || typeof language !== "string") return "en";
   const normalized = language.split("-")[0].toLowerCase();
   console.log('[NORMALIZE] Input language:', language, 'Normalized:', normalized);
+  
+  // SPECIAL DEBUG FOR PORTUGUESE
+  if (normalized === 'pt' || language?.includes('pt')) {
+    console.log('🇵🇹 [PORTUGUESE NORMALIZE] Input:', language, 'Normalized:', normalized);
+    console.log('🇵🇹 [PORTUGUESE NORMALIZE] Should return "pt"');
+  }
+  
   return normalized;
 }
 
@@ -712,8 +719,25 @@ export function isRTL(language?: string): boolean {
 export function getLocalizedBookStructure(language?: string) {
   const normalizedLanguage = normalizeLang(language);
   console.log('[BOOK STRUCTURE] Input language:', language, 'Normalized:', normalizedLanguage);
+  
+  // SPECIAL DEBUG FOR PORTUGUESE
+  if (normalizedLanguage === 'pt') {
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Attempting to get Portuguese structure...');
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Available keys:', Object.keys(localizedStructures));
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Has pt key?', 'pt' in localizedStructures);
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Direct access:', (localizedStructures as any)['pt']);
+  }
+  
   const structure = (localizedStructures as any)[normalizedLanguage] || (localizedStructures as any)["en"];
   console.log('[BOOK STRUCTURE] Returning structure for:', normalizedLanguage, structure);
+  
+  // EXTRA PORTUGUESE DEBUG
+  if (normalizedLanguage === 'pt') {
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Final structure:', structure);
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Is it Portuguese?', structure === (localizedStructures as any)['pt']);
+    console.log('🇵🇹 [PORTUGUESE STRUCTURE] Is it English fallback?', structure === (localizedStructures as any)['en']);
+  }
+  
   return structure;
 }
 

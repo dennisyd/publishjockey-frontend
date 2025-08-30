@@ -166,6 +166,25 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
+    // SPECIAL PORTUGUESE FIX - Force Portuguese structure
+    if (documentLanguage === 'pt') {
+      console.log('🇵🇹 [PORTUGUESE FIX] Forcing Portuguese structure...');
+      const portugueseStructure = {
+        front: [
+          "Página de Título",
+          "Direitos Autorais", 
+          "Dedicatória",
+          "Agradecimentos",
+          "Prefácio",
+          "Introdução"
+        ],
+        main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+        back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+      };
+      console.log('🇵🇹 [PORTUGUESE FIX] Using hardcoded Portuguese structure:', portugueseStructure);
+      return portugueseStructure;
+    }
+    
     // Initialize with the current language's structure
     const initialStructure = getLocalizedBookStructure(documentLanguage);
     console.log('🔍 INITIAL STRUCTURE SET:', {
@@ -258,6 +277,26 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // DON'T override structure if we've already loaded one from the database
     if (structureLoaded) {
       console.log('🔍 [LANGUAGE CHANGE] Skipping structure update - database structure already loaded');
+      return;
+    }
+    
+    // SPECIAL PORTUGUESE FIX - Force Portuguese structure in language change too
+    if (documentLanguage === 'pt') {
+      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Forcing Portuguese structure...');
+      const portugueseStructure = {
+        front: [
+          "Página de Título",
+          "Direitos Autorais", 
+          "Dedicatória",
+          "Agradecimentos",
+          "Prefácio",
+          "Introdução"
+        ],
+        main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+        back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+      };
+      console.log('🇵🇹 [PORTUGUESE LANGUAGE CHANGE] Setting hardcoded Portuguese structure');
+      setStructure(portugueseStructure);
       return;
     }
     
