@@ -307,6 +307,45 @@ const localizedStructures = {
     main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
     back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
   },
+  // Angolan Portuguese
+  'pt-AO': {
+    front: [
+      "Página de Título",
+      "Direitos de Autor",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
+  // Mozambican Portuguese
+  'pt-MZ': {
+    front: [
+      "Página de Título",
+      "Direitos de Autor",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
+  // Cape Verdean Portuguese
+  'pt-CV': {
+    front: [
+      "Página de Título",
+      "Direitos de Autor",
+      "Dedicatória",
+      "Agradecimentos",
+      "Prefácio",
+      "Introdução"
+    ],
+    main: ["Capítulo 1", "Capítulo 2", "Capítulo 3"],
+    back: ["Sobre o Autor", "Apêndice", "Referências", "Bibliografia", "Índice", "Glossário"]
+  },
   de: {
     front: [
       "Titelseite",
@@ -909,6 +948,7 @@ const localizedStructures = {
     main: ["Chitsauko 1", "Chitsauko 2", "Chitsauko 3"],
     back: ["Nezve Munyori", "Chinyorwa chekuwedzera", "Zvirevo", "Rondedzero yemabhuku", "Rondedzero", "Duramazwi"]
   },
+  // Southern Sotho (Sesotho) - Lesotho, South Africa
   st: {
     front: [
       "Leqephe la Sehlooho",
@@ -920,6 +960,19 @@ const localizedStructures = {
     ],
     main: ["Khaolo 1", "Khaolo 2", "Khaolo 3"],
     back: ["Ka Mongoli", "Tlatsetso", "Diphuputso", "Lenane la libuka", "Tšupiso", "Bukantswe"]
+  },
+  // Northern Sotho (Sepedi) - South Africa
+  nso: {
+    front: [
+      "Letlakala la Sehloko",
+      "Ditokelo tša Mongwadi",
+      "Tšhomišo",
+      "Leboga",
+      "Mantšu a mathomo",
+      "Matseno"
+    ],
+    main: ["Kgaolo 1", "Kgaolo 2", "Kgaolo 3"],
+    back: ["Ka Mongwadi", "Tlatsetšo", "Ditshupo", "Lenane la dipuku", "Tšhupetšo", "Pukantšu"]
   },
   sw: {
     front: [
@@ -1079,6 +1132,21 @@ export function getLocalizedSectionNamesObject(language?: string): {
     mainMatter: 'Matéria Principal',
     backMatter: 'Matéria Final'
   },
+  'pt-AO': {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
+  'pt-MZ': {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
+  'pt-CV': {
+    frontMatter: 'Matéria Preliminar',
+    mainMatter: 'Matéria Principal',
+    backMatter: 'Matéria Final'
+  },
     es: {
       frontMatter: 'Materia Preliminar',
       mainMatter: 'Materia Principal', 
@@ -1208,6 +1276,16 @@ export function getLocalizedSectionNamesObject(language?: string): {
       frontMatter: 'Предварительная часть',
       mainMatter: 'Основная часть',
       backMatter: 'Заключительная часть'
+    },
+    st: {
+      frontMatter: 'Ntho ea Pele',
+      mainMatter: 'Ntho ea Bohareng',
+      backMatter: 'Ntho ea Qetellong'
+    },
+    nso: {
+      frontMatter: 'Selo sa Mathomo',
+      mainMatter: 'Selo sa Bogare',
+      backMatter: 'Selo sa Mafelelong'
     },
     ar: {
       frontMatter: 'المادة التمهيدية',
@@ -1546,6 +1624,36 @@ export const localizedMetadata = {
     copyright: 'Direitos autorais © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de breves citações em uma resenha do livro.'
   },
+  'pt-AO': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios',
+    copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
+    copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
+  },
+  'pt-MZ': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios',
+    copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
+    copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
+  },
+  'pt-CV': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios',
+    copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
+    copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
+  },
   // Italian
   it: {
     title: 'Titolo',
@@ -1761,6 +1869,16 @@ export const localizedMetadata = {
     required: 'Metadata e hlokahalang',
     copyright: 'Tokelo ea boqapi © {year} ea {author}. Litokelo tsohle li bolokiloe.',
     copyrightFull: 'Ha ho karolo ea buka ena e ka etsang hore e hatisoe ka mokhoa ofe kapa ofe kapa ka lisebelisoa life kapa life tsa elektroniki kapa tsa mechini, ho kenyelletsa le sistimi tsa polokelo le tsa fumana lintlha, ntle le tumello e ngotsoeng ea mongoli, ntle le tšebeliso ea mafoko a makhutšoane a makhutšoane ho tekong ea buka.'
+  },
+  nso: {
+    title: 'Sehloko',
+    author: 'Mongwadi',
+    subtitle: 'Sehloko se senyane (kgetho)',
+    isbn: 'ISBN (kgetho)',
+    metadata: 'Metadata ya letlakala la sehloko',
+    required: 'Metadata ye e nyakegago',
+    copyright: 'Ditokelo tša boiqapi © {year} tša {author}. Ditokelo tšohle di šireleditšwe.',
+    copyrightFull: 'Ga go na karolo ya puku ye e ka tšweletšwago ka mokgwa wo mongwe le wo mongwe goba ka mekgwa ye mengwe ya elektroniki goba ya metšhene, go akaretšwa le mekgwa ya polokelo le ya go hwetša tshedimošo, ntle le tumelelo ye e ngwadilwego go tšwa go mongwadi, ntle le tšhomišo ya mafoko a makopana go tekolo ya puku.'
   },
   tn: {
     title: 'Setlhogo',

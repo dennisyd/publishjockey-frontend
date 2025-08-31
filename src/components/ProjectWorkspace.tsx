@@ -242,7 +242,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     if (firstFrontSection?.includes('Ojú-ìwé Àkọlé') || firstMainSection?.includes('Orí')) return 'yo'; // Yoruba
     if (firstFrontSection?.includes('Ikhasi Lesihloko') || firstMainSection?.includes('Isahluko')) return 'zu'; // Zulu
     if (firstFrontSection?.includes('Iphepha Lesihloko') || firstMainSection?.includes('Isahluko')) return 'xh'; // Xhosa
-    if (firstFrontSection?.includes('Leqephe la Sehlooho') || firstMainSection?.includes('Khaolo')) return 'st'; // Sotho
+    if (firstFrontSection?.includes('Leqephe la Sehlooho') || firstMainSection?.includes('Khaolo')) return 'st'; // Southern Sotho
+    if (firstFrontSection?.includes('Letlakala la Sehloko') || firstMainSection?.includes('Kgaolo')) return 'nso'; // Northern Sotho
     if (firstFrontSection?.includes('Tsebe ya Setlhogo') || firstMainSection?.includes('Kgaolo')) return 'tn'; // Tswana
     if (firstFrontSection?.includes('Mũrango wa Rĩĩtwa') || firstMainSection?.includes('Gĩthemba')) return 'ki'; // Kikuyu
     if (firstFrontSection?.includes('Urupapuro rw\'Umutwe') || firstMainSection?.includes('Igice cya')) return 'rw'; // Kinyarwanda
@@ -692,7 +693,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('ikike') || // Igbo
       section.toLowerCase().includes('ẹ̀tọ́') || // Yoruba
       section.toLowerCase().includes('amalungelo') || // Zulu/Xhosa
-      section.toLowerCase().includes('litokelo') || // Sotho
+      section.toLowerCase().includes('litokelo') || // Southern Sotho
+      section.toLowerCase().includes('ditokelo') || // Northern Sotho
       section.toLowerCase().includes('ditshwanelo') || // Tswana
       section.toLowerCase().includes('kĩhooto') || // Kikuyu
       section.toLowerCase().includes('uburenganzira') || // Kinyarwanda/Kirundi
@@ -800,7 +802,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('ikike') || // Igbo
       section.toLowerCase().includes('ẹ̀tọ́') || // Yoruba
       section.toLowerCase().includes('amalungelo') || // Zulu/Xhosa
-      section.toLowerCase().includes('litokelo') || // Sotho
+      section.toLowerCase().includes('litokelo') || // Southern Sotho
+      section.toLowerCase().includes('ditokelo') || // Northern Sotho
       section.toLowerCase().includes('ditshwanelo') || // Tswana
       section.toLowerCase().includes('kĩhooto') || // Kikuyu
       section.toLowerCase().includes('uburenganzira') || // Kinyarwanda/Kirundi
