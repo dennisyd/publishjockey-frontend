@@ -607,6 +607,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     
     const currentCopyright = content[copyrightKey] || '';
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
+    console.log('🔍 DEBUG: projectAuthor:', projectAuthor, 'authorName:', authorName);
     
     // Initialize copyright if:
     // 1. No copyright content exists (new project)
@@ -622,12 +623,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       } else {
         // Generate placeholder copyright for new projects without author
         const metadata = getLocalizedMetadata(documentLanguage);
+        console.log('🔍 DEBUG: metadata for', documentLanguage, ':', metadata);
         const placeholderCopyrightLine = metadata.copyright
           .replace('{year}', new Date().getFullYear().toString())
           .replace('{author}', '[Author Name]');
-        const copyrightFull = metadata.copyrightFull || 'All rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
+        const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
         defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
         console.log('🎯 Generating placeholder copyright for new project in language:', documentLanguage);
+        console.log('🔍 DEBUG: placeholderCopyrightLine:', placeholderCopyrightLine);
+        console.log('🔍 DEBUG: copyrightFull:', copyrightFull);
       }
       
       setContent(prev => ({
