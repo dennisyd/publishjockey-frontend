@@ -1565,8 +1565,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadades de la Pàgina de Títol',
     required: 'Metadades Requerides',
-    copyright: 'Copyright © {year} per {author}. Tots els drets reservats.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Drets d\'autor © {year} per {author}. Tots els drets reservats.',
+    copyrightFull: 'Cap part d\'aquest llibre pot ser reproduïda en qualsevol forma o per qualsevol mitjà electrònic o mecànic, incloent sistemes d\'emmagatzematge i recuperació d\'informació, sense el permís escrit de l\'autor, excepte per a l\'ús de breus cites en una ressenya del llibre.'
   },
   oc: {
     title: 'Títol',
@@ -1575,8 +1575,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadonadas de la Pagina de Títol',
     required: 'Metadonadas Requeridas',
-    copyright: 'Copyright © {year} per {author}. Totes los dreches reservats.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: "Dreches d'autor © {year} per {author}. Totes los dreches reservats.",
+    copyrightFull: "Cap part d'aqueste libre pòt èsser reproduch en quina forma que siá o per qualque mejan electronic o mecanic que siá, incluses los sistèmas d'emmagazinatge e de recuperacion d'informacions, sens la permission escricha de l'autor, levat per l'usatge de citacions brèvas dins una recension del libre."
   },
   // Russian
   ru: {
@@ -1780,8 +1780,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (neobavezno)',
     metadata: 'Metapodaci stranice naslova',
     required: 'Potrebni metapodaci',
-    copyright: 'Copyright © {year} {author}. Sva prava pridržana.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Autorska prava © {year} {author}. Sva prava pridržana.',
+    copyrightFull: 'Nijedan dio ove knjige ne smije se reproducirati u bilo kojem obliku ili bilo kojim elektronskim ili mehaničkim sredstvima, uključujući sustave za pohranu i dohvaćanje informacija, bez pisane dozvole autora, osim za korištenje kratkih citata u recenziji knjige.'
   },
   cs: {
     title: 'Název',
@@ -1790,8 +1790,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (volitelné)',
     metadata: 'Metadata titulní stránky',
     required: 'Požadovaná metadata',
-    copyright: 'Copyright © {year} {author}. Všechna práva vyhrazena.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Autorská práva © {year} {author}. Všechna práva vyhrazena.',
+    copyrightFull: 'Žádná část této knihy nesmí být reprodukována v jakékoli formě nebo jakýmikoli elektronickými nebo mechanickými prostředky, včetně systémů pro ukládání a vyhledávání informací, bez písemného povolení autora, s výjimkou použití krátkých citátů v recenzi knihy.'
   },
   da: {
     title: 'Titel',
@@ -1930,8 +1930,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (opțional)',
     metadata: 'Metadate pagină de titlu',
     required: 'Metadate necesare',
-    copyright: 'Copyright © {year} {author}. Toate drepturile rezervate.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Drepturi de autor © {year} {author}. Toate drepturile rezervate.',
+    copyrightFull: 'Niciuna parte din această carte nu poate fi reprodusă în nicio formă sau prin orice mijloace electronice sau mecanice, inclusiv sisteme de stocare și recuperare a informațiilor, fără permisiunea scrisă a autorului, cu excepția utilizării de citate scurte într-o recenzie de carte.'
   },
   sr: {
     title: 'Наслов',
@@ -1992,7 +1992,7 @@ export const localizedMetadata = {
     metadata: 'Metadata halaman judul',
     required: 'Metadata diperlukan',
     copyright: 'Hak Cipta © {year} oleh {author}. Semua hak dilindungi.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Tidak ada bagian dari buku ini yang boleh direproduksi dalam bentuk apa pun atau dengan cara elektronik atau mekanik apa pun, termasuk sistem penyimpanan dan pengambilan informasi, tanpa izin tertulis dari penulis, kecuali untuk penggunaan kutipan singkat dalam ulasan buku.'
   },
   ms: {
     title: 'Tajuk',
@@ -2002,7 +2002,7 @@ export const localizedMetadata = {
     metadata: 'Metadata muka surat tajuk',
     required: 'Metadata diperlukan',
     copyright: 'Hak Cipta © {year} oleh {author}. Semua hak terpelihara.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Tiada bahagian buku ini boleh dihasilkan semula dalam sebarang bentuk atau dengan sebarang cara elektronik atau mekanikal, termasuk sistem penyimpanan dan pengambilan maklumat, tanpa kebenaran bertulis daripada pengarang, kecuali untuk penggunaan petikan ringkas dalam ulasan buku.'
   },
   vi: {
     title: 'Tiêu đề',
@@ -2012,7 +2012,7 @@ export const localizedMetadata = {
     metadata: 'Siêu dữ liệu trang tiêu đề',
     required: 'Siêu dữ liệu bắt buộc',
     copyright: 'Bản quyền © {year} bởi {author}. Mọi quyền được bảo lưu.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Không có phần nào của cuốn sách này được phép sao chép dưới bất kỳ hình thức nào hoặc bằng bất kỳ phương tiện điện tử hoặc cơ khí nào, bao gồm các hệ thống lưu trữ và truy xuất thông tin, mà không có sự cho phép bằng văn bản của tác giả, ngoại trừ việc sử dụng các trích dẫn ngắn trong bài đánh giá sách.'
   },
   tl: {
     title: 'Pamagat',
