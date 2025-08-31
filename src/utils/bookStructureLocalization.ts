@@ -1290,7 +1290,8 @@ export const localizedMetadata = {
     author: 'Author',
     subtitle: 'Subtitle (optional)',
     isbn: 'ISBN (optional)',
-    metadata: 'Title Page Metadata'
+    metadata: 'Title Page Metadata',
+    required: 'Metadata Required'
   },
   // Spanish variants
   es: {
@@ -1298,63 +1299,72 @@ export const localizedMetadata = {
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-ES': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-MX': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-AR': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-CO': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-CL': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-PE': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-VE': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   'es-PR': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadatos de la Página de Título'
+    metadata: 'Metadatos de la Página de Título',
+    required: 'Metadatos Requeridos'
   },
   // French variants
   fr: {
@@ -1362,63 +1372,72 @@ export const localizedMetadata = {
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-FR': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-CA': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-BE': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-CH': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-SN': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-CI': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-MA': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   'fr-HT': {
     title: 'Titre',
     author: 'Auteur',
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
-    metadata: 'Métadonnées de la Page de Titre'
+    metadata: 'Métadonnées de la Page de Titre',
+    required: 'Métadonnées Requises'
   },
   // German variants
   de: {
@@ -1426,28 +1445,32 @@ export const localizedMetadata = {
     author: 'Autor',
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
-    metadata: 'Titelseiten-Metadaten'
+    metadata: 'Titelseiten-Metadaten',
+    required: 'Metadaten Erforderlich'
   },
   'de-DE': {
     title: 'Titel',
     author: 'Autor',
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
-    metadata: 'Titelseiten-Metadaten'
+    metadata: 'Titelseiten-Metadaten',
+    required: 'Metadaten Erforderlich'
   },
   'de-AT': {
     title: 'Titel',
     author: 'Autor',
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
-    metadata: 'Titelseiten-Metadaten'
+    metadata: 'Titelseiten-Metadaten',
+    required: 'Metadaten Erforderlich'
   },
   'de-CH': {
     title: 'Titel',
     author: 'Autor',
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
-    metadata: 'Titelseiten-Metadaten'
+    metadata: 'Titelseiten-Metadaten',
+    required: 'Metadaten Erforderlich'
   },
   // Portuguese variants
   pt: {
@@ -1455,21 +1478,24 @@ export const localizedMetadata = {
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadados da Página de Título'
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios'
   },
   'pt-PT': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadados da Página de Título'
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios'
   },
   'pt-BR': {
     title: 'Título',
     author: 'Autor',
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadados da Página de Título'
+    metadata: 'Metadados da Página de Título',
+    required: 'Metadados Obrigatórios'
   },
   // Italian
   it: {
@@ -1477,7 +1503,8 @@ export const localizedMetadata = {
     author: 'Autore',
     subtitle: 'Sottotitolo (opzionale)',
     isbn: 'ISBN (opzionale)',
-    metadata: 'Metadati della Pagina del Titolo'
+    metadata: 'Metadati della Pagina del Titolo',
+    required: 'Metadati Richiesti'
   },
   // Catalan & Occitan
   ca: {
@@ -1485,14 +1512,16 @@ export const localizedMetadata = {
     author: 'Autor',
     subtitle: 'Subtítol (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadades de la Pàgina de Títol'
+    metadata: 'Metadades de la Pàgina de Títol',
+    required: 'Metadades Requerides'
   },
   oc: {
     title: 'Títol',
     author: 'Autor',
     subtitle: 'Sostítol (opcional)',
     isbn: 'ISBN (opcional)',
-    metadata: 'Metadonadas de la Pagina de Títol'
+    metadata: 'Metadonadas de la Pagina de Títol',
+    required: 'Metadonadas Requeridas'
   },
   // Russian
   ru: {
@@ -1500,7 +1529,8 @@ export const localizedMetadata = {
     author: 'Автор',
     subtitle: 'Подзаголовок (необязательно)',
     isbn: 'ISBN (необязательно)',
-    metadata: 'Метаданные Титульной Страницы'
+    metadata: 'Метаданные Титульной Страницы',
+    required: 'Метаданные Обязательны'
   },
   // Hindi
   hi: {
@@ -1508,7 +1538,8 @@ export const localizedMetadata = {
     author: 'लेखक',
     subtitle: 'उपशीर्षक (वैकल्पिक)',
     isbn: 'ISBN (वैकल्पिक)',
-    metadata: 'शीर्षक पृष्ठ मेटाडेटा'
+    metadata: 'शीर्षक पृष्ठ मेटाडेटा',
+    required: 'मेटाडेटा आवश्यक'
   },
   // Add more key languages
   zh: {
@@ -1516,21 +1547,24 @@ export const localizedMetadata = {
     author: '作者',
     subtitle: '副标题 (可选)',
     isbn: 'ISBN (可选)',
-    metadata: '标题页元数据'
+    metadata: '标题页元数据',
+    required: '元数据必需'
   },
   ja: {
     title: 'タイトル',
     author: '著者',
     subtitle: 'サブタイトル (オプション)',
     isbn: 'ISBN (オプション)',
-    metadata: 'タイトルページメタデータ'
+    metadata: 'タイトルページメタデータ',
+    required: 'メタデータ必須'
   },
   ar: {
     title: 'العنوان',
     author: 'المؤلف',
     subtitle: 'العنوان الفرعي (اختياري)',
     isbn: 'ISBN (اختياري)',
-    metadata: 'بيانات صفحة العنوان'
+    metadata: 'بيانات صفحة العنوان',
+    required: 'بيانات مطلوبة'
   }
 };
 

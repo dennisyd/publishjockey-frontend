@@ -2156,7 +2156,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                         )}
                         
                         {/* Add Metadata Required button for Title Page */}
-                        {area === 'front' && section === 'Title Page' && (
+                        {area === 'front' && sectionIdx === 0 && (
                           <Button 
                             size="small" 
                             variant="outlined" 
@@ -2166,7 +2166,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                             }}
                             sx={{ ml: 1, fontSize: '0.7rem', py: 0.25 }}
                           >
-                            Metadata Required
+                            {getLocalizedMetadata(documentLanguage).required}
                           </Button>
                         )}
                       </Box>
