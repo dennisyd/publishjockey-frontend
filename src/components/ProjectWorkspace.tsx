@@ -615,17 +615,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       let defaultCopyright = '';
       
       if (authorName) {
-        // Generate localized copyright notice with author
-        const localizedCopyright = generateCopyrightNotice(documentLanguage, authorName);
-        defaultCopyright = `${localizedCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+        // Generate localized copyright notice with author (includes full text)
+        defaultCopyright = generateCopyrightNotice(documentLanguage, authorName);
         console.log('🎯 Generating copyright with author for language:', documentLanguage, 'author:', authorName);
       } else {
         // Generate placeholder copyright for new projects without author
         const metadata = getLocalizedMetadata(documentLanguage);
-        const placeholderCopyright = metadata.copyright
+        const placeholderCopyrightLine = metadata.copyright
           .replace('{year}', new Date().getFullYear().toString())
           .replace('{author}', '[Author Name]');
-        defaultCopyright = `${placeholderCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+        const copyrightFull = metadata.copyrightFull || 'All rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
+        defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
         console.log('🎯 Generating placeholder copyright for new project in language:', documentLanguage);
       }
       
@@ -1768,8 +1768,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         // Only set if empty or matches the previous auto-generated template
         const current = content[key] || '';
         
-        // Get localized metadata labels
-        const metadata = getLocalizedMetadata(documentLanguage);
+                  // Get localized metadata labels
         
         // More flexible pattern to match auto-generated content
         const autoGenPattern = /^# .+/;
