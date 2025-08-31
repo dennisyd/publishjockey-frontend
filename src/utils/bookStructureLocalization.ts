@@ -1565,6 +1565,387 @@ export const localizedMetadata = {
     isbn: 'ISBN (اختياري)',
     metadata: 'بيانات صفحة العنوان',
     required: 'بيانات مطلوبة'
+  },
+  // African Languages
+  ha: {
+    title: 'Taken',
+    author: 'Marubucin',
+    subtitle: 'Karamin taken (na zaɓi)',
+    isbn: 'ISBN (na zaɓi)',
+    metadata: 'Bayanan Shafin Taken',
+    required: 'Bayanan da ake bukata'
+  },
+  ig: {
+    title: 'Aha',
+    author: 'Onye dere ya',
+    subtitle: 'Aha nta (nhọrọ)',
+    isbn: 'ISBN (nhọrọ)',
+    metadata: 'Metadata nke Peeji Aha',
+    required: 'Metadata achọrọ'
+  },
+  sw: {
+    title: 'Kichwa',
+    author: 'Mwandishi',
+    subtitle: 'Kichwa kidogo (si lazima)',
+    isbn: 'ISBN (si lazima)',
+    metadata: 'Metadata ya Ukurasa wa Kichwa',
+    required: 'Metadata inahitajika'
+  },
+  yo: {
+    title: 'Akọle',
+    author: 'Onkọwe',
+    subtitle: 'Akọle kekere (yiyan)',
+    isbn: 'ISBN (yiyan)',
+    metadata: 'Metadata ti Oju-iwe Akọle',
+    required: 'Metadata ti o nilo'
+  },
+  zu: {
+    title: 'Isihloko',
+    author: 'Umbhali',
+    subtitle: 'Isihloko esincane (ukukhetha)',
+    isbn: 'ISBN (ukukhetha)',
+    metadata: 'I-Metadata Yekhasi Lesihloko',
+    required: 'I-Metadata eyadingeka'
+  },
+  xh: {
+    title: 'Isihloko',
+    author: 'Umbhali',
+    subtitle: 'Isihloko esincinci (ukukhetha)',
+    isbn: 'ISBN (ukukhetha)',
+    metadata: 'I-Metadata Yephepha Lesihloko',
+    required: 'I-Metadata efunekayo'
+  },
+  // Other African Languages
+  ki: {
+    title: 'Mũtwe',
+    author: 'Mwandĩki',
+    subtitle: 'Mũtwe mũnini (gũthuura)',
+    isbn: 'ISBN (gũthuura)',
+    metadata: 'Metadata ya Rũrĩrĩ rwa Mũtwe',
+    required: 'Metadata ĩrĩa ĩbataire'
+  },
+  rw: {
+    title: 'Umutwe',
+    author: 'Uwanditse',
+    subtitle: 'Umutwe muto (guhitamo)',
+    isbn: 'ISBN (guhitamo)',
+    metadata: 'Metadata y\'urupapuro rw\'umutwe',
+    required: 'Metadata ikenewe'
+  },
+  rn: {
+    title: 'Umutwe',
+    author: 'Uwanditse',
+    subtitle: 'Umutwe muto (guhitamo)',
+    isbn: 'ISBN (guhitamo)',
+    metadata: 'Metadata y\'urupapuro rw\'umutwe',
+    required: 'Metadata ikenewe'
+  },
+  lg: {
+    title: 'Omutwe',
+    author: 'Omuwandiisi',
+    subtitle: 'Omutwe omuto (okulonda)',
+    isbn: 'ISBN (okulonda)',
+    metadata: 'Metadata y\'olupapula lw\'omutwe',
+    required: 'Metadata eyeetaagisa'
+  },
+  mg: {
+    title: 'Lohateny',
+    author: 'Mpanoratra',
+    subtitle: 'Lohateny kely (safidy)',
+    isbn: 'ISBN (safidy)',
+    metadata: 'Metadata an\'ny pejy lohateny',
+    required: 'Metadata ilaina'
+  },
+  sn: {
+    title: 'Musoro',
+    author: 'Munyori',
+    subtitle: 'Musoro mudiki (kusarudza)',
+    isbn: 'ISBN (kusarudza)',
+    metadata: 'Metadata yepeji remusoro',
+    required: 'Metadata inodiwa'
+  },
+  st: {
+    title: 'Sehlooho',
+    author: 'Mongodi',
+    subtitle: 'Sehlooho se senyane (khetho)',
+    isbn: 'ISBN (khetho)',
+    metadata: 'Metadata ea leqephe la sehlooho',
+    required: 'Metadata e hlokahalang'
+  },
+  tn: {
+    title: 'Setlhogo',
+    author: 'Mokwadi',
+    subtitle: 'Setlhogo se sennye (tlhopho)',
+    isbn: 'ISBN (tlhopho)',
+    metadata: 'Metadata ya tsebe ya setlhogo',
+    required: 'Metadata e e tlhokegang'
+  },
+  // European Languages (missing ones)
+  hr: {
+    title: 'Naslov',
+    author: 'Autor',
+    subtitle: 'Podnaslov (neobavezno)',
+    isbn: 'ISBN (neobavezno)',
+    metadata: 'Metapodaci stranice naslova',
+    required: 'Potrebni metapodaci'
+  },
+  cs: {
+    title: 'Název',
+    author: 'Autor',
+    subtitle: 'Podtitul (volitelné)',
+    isbn: 'ISBN (volitelné)',
+    metadata: 'Metadata titulní stránky',
+    required: 'Požadovaná metadata'
+  },
+  da: {
+    title: 'Titel',
+    author: 'Forfatter',
+    subtitle: 'Undertitel (valgfri)',
+    isbn: 'ISBN (valgfri)',
+    metadata: 'Metadata for titelside',
+    required: 'Påkrævet metadata'
+  },
+  nl: {
+    title: 'Titel',
+    author: 'Auteur',
+    subtitle: 'Ondertitel (optioneel)',
+    isbn: 'ISBN (optioneel)',
+    metadata: 'Metadata van titelpagina',
+    required: 'Vereiste metadata'
+  },
+  et: {
+    title: 'Pealkiri',
+    author: 'Autor',
+    subtitle: 'Alapealkiri (valikuline)',
+    isbn: 'ISBN (valikuline)',
+    metadata: 'Tiitellehe metaandmed',
+    required: 'Nõutavad metaandmed'
+  },
+  fi: {
+    title: 'Otsikko',
+    author: 'Kirjoittaja',
+    subtitle: 'Alaotsikko (valinnainen)',
+    isbn: 'ISBN (valinnainen)',
+    metadata: 'Otsikkosivun metatiedot',
+    required: 'Vaaditut metatiedot'
+  },
+  gl: {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos da páxina de título',
+    required: 'Metadatos requiridos'
+  },
+  el: {
+    title: 'Τίτλος',
+    author: 'Συγγραφέας',
+    subtitle: 'Υπότιτλος (προαιρετικό)',
+    isbn: 'ISBN (προαιρετικό)',
+    metadata: 'Μεταδεδομένα σελίδας τίτλου',
+    required: 'Απαιτούμενα μεταδεδομένα'
+  },
+  hu: {
+    title: 'Cím',
+    author: 'Szerző',
+    subtitle: 'Alcím (opcionális)',
+    isbn: 'ISBN (opcionális)',
+    metadata: 'Címlap metaadatai',
+    required: 'Szükséges metaadatok'
+  },
+  is: {
+    title: 'Titill',
+    author: 'Höfundur',
+    subtitle: 'Undirtitill (valfrjáls)',
+    isbn: 'ISBN (valfrjáls)',
+    metadata: 'Lýsigögn titilsíðu',
+    required: 'Nauðsynleg lýsigögn'
+  },
+  lv: {
+    title: 'Nosaukums',
+    author: 'Autors',
+    subtitle: 'Apakšnosaukums (pēc izvēles)',
+    isbn: 'ISBN (pēc izvēles)',
+    metadata: 'Titullapas metadati',
+    required: 'Nepieciešamie metadati'
+  },
+  lt: {
+    title: 'Pavadinimas',
+    author: 'Autorius',
+    subtitle: 'Paantraštė (pasirinktinai)',
+    isbn: 'ISBN (pasirinktinai)',
+    metadata: 'Titulinio puslapio metaduomenys',
+    required: 'Reikalingi metaduomenys'
+  },
+  mk: {
+    title: 'Наслов',
+    author: 'Автор',
+    subtitle: 'Поднаслов (опционално)',
+    isbn: 'ISBN (опционално)',
+    metadata: 'Метаподатоци на насловна страница',
+    required: 'Потребни метаподатоци'
+  },
+  no: {
+    title: 'Tittel',
+    author: 'Forfatter',
+    subtitle: 'Undertittel (valgfri)',
+    isbn: 'ISBN (valgfri)',
+    metadata: 'Metadata for tittelside',
+    required: 'Påkrevd metadata'
+  },
+  pl: {
+    title: 'Tytuł',
+    author: 'Autor',
+    subtitle: 'Podtytuł (opcjonalny)',
+    isbn: 'ISBN (opcjonalny)',
+    metadata: 'Metadane strony tytułowej',
+    required: 'Wymagane metadane'
+  },
+  ro: {
+    title: 'Titlu',
+    author: 'Autor',
+    subtitle: 'Subtitlu (opțional)',
+    isbn: 'ISBN (opțional)',
+    metadata: 'Metadate pagină de titlu',
+    required: 'Metadate necesare'
+  },
+  sr: {
+    title: 'Наслов',
+    author: 'Аутор',
+    subtitle: 'Поднаслов (опционо)',
+    isbn: 'ISBN (опционо)',
+    metadata: 'Метаподаци насловне стране',
+    required: 'Потребни метаподаци'
+  },
+  sk: {
+    title: 'Názov',
+    author: 'Autor',
+    subtitle: 'Podtitul (voliteľné)',
+    isbn: 'ISBN (voliteľné)',
+    metadata: 'Metaúdaje titulnej stránky',
+    required: 'Požadované metaúdaje'
+  },
+  sl: {
+    title: 'Naslov',
+    author: 'Avtor',
+    subtitle: 'Podnaslov (neobvezno)',
+    isbn: 'ISBN (neobvezno)',
+    metadata: 'Metapodatki naslovne strani',
+    required: 'Zahtevani metapodatki'
+  },
+  sv: {
+    title: 'Titel',
+    author: 'Författare',
+    subtitle: 'Undertitel (valfri)',
+    isbn: 'ISBN (valfri)',
+    metadata: 'Metadata för titelsida',
+    required: 'Nödvändig metadata'
+  },
+  tr: {
+    title: 'Başlık',
+    author: 'Yazar',
+    subtitle: 'Alt başlık (isteğe bağlı)',
+    isbn: 'ISBN (isteğe bağlı)',
+    metadata: 'Başlık sayfası meta verileri',
+    required: 'Gerekli meta veriler'
+  },
+  // Asian Languages (missing ones)
+  id: {
+    title: 'Judul',
+    author: 'Penulis',
+    subtitle: 'Subjudul (opsional)',
+    isbn: 'ISBN (opsional)',
+    metadata: 'Metadata halaman judul',
+    required: 'Metadata diperlukan'
+  },
+  ms: {
+    title: 'Tajuk',
+    author: 'Pengarang',
+    subtitle: 'Subtajuk (pilihan)',
+    isbn: 'ISBN (pilihan)',
+    metadata: 'Metadata muka surat tajuk',
+    required: 'Metadata diperlukan'
+  },
+  vi: {
+    title: 'Tiêu đề',
+    author: 'Tác giả',
+    subtitle: 'Phụ đề (tùy chọn)',
+    isbn: 'ISBN (tùy chọn)',
+    metadata: 'Siêu dữ liệu trang tiêu đề',
+    required: 'Siêu dữ liệu bắt buộc'
+  },
+  tl: {
+    title: 'Pamagat',
+    author: 'May-akda',
+    subtitle: 'Subtitle (opsyonal)',
+    isbn: 'ISBN (opsyonal)',
+    metadata: 'Metadata ng pahina ng pamagat',
+    required: 'Kinakailangang metadata'
+  },
+  // Indian Languages (missing ones)
+  bn: {
+    title: 'শিরোনাম',
+    author: 'লেখক',
+    subtitle: 'উপশিরোনাম (ঐচ্ছিক)',
+    isbn: 'ISBN (ঐচ্ছিক)',
+    metadata: 'শিরোনাম পৃষ্ঠার মেটাডেটা',
+    required: 'প্রয়োজনীয় মেটাডেটা'
+  },
+  gu: {
+    title: 'શીર્ષક',
+    author: 'લેખક',
+    subtitle: 'ઉપશીર્ષક (વૈકલ્પિક)',
+    isbn: 'ISBN (વૈકલ્પિક)',
+    metadata: 'શીર્ષક પૃષ્ઠ મેટાડેટા',
+    required: 'આવશ્યક મેટાડેટા'
+  },
+  te: {
+    title: 'శీర్షిక',
+    author: 'రచయిత',
+    subtitle: 'ఉపశీర్షిక (ఐచ్ఛిక)',
+    isbn: 'ISBN (ఐచ్ఛిక)',
+    metadata: 'శీర్షిక పేజీ మెటాడేటా',
+    required: 'అవసరమైన మెటాడేటా'
+  },
+  kn: {
+    title: 'ಶೀರ್ಷಿಕೆ',
+    author: 'ಲೇಖಕ',
+    subtitle: 'ಉಪಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)',
+    isbn: 'ISBN (ಐಚ್ಛಿಕ)',
+    metadata: 'ಶೀರ್ಷಿಕೆ ಪುಟದ ಮೆಟಾಡೇಟಾ',
+    required: 'ಅಗತ್ಯವಿರುವ ಮೆಟಾಡೇಟಾ'
+  },
+  ml: {
+    title: 'ശീർഷകം',
+    author: 'രചയിതാവ്',
+    subtitle: 'ഉപശീർഷകം (ഓപ്ഷണൽ)',
+    isbn: 'ISBN (ഓപ്ഷണൽ)',
+    metadata: 'ശീർഷക പേജ് മെറ്റാഡാറ്റ',
+    required: 'ആവശ്യമായ മെറ്റാഡാറ്റ'
+  },
+  pa: {
+    title: 'ਸਿਰਲੇਖ',
+    author: 'ਲੇਖਕ',
+    subtitle: 'ਉਪ-ਸਿਰਲੇਖ (ਵਿਕਲਪਿਕ)',
+    isbn: 'ISBN (ਵਿਕਲਪਿਕ)',
+    metadata: 'ਸਿਰਲੇਖ ਪੰਨਾ ਮੈਟਾਡੇਟਾ',
+    required: 'ਲੋੜੀਂਦਾ ਮੈਟਾਡੇਟਾ'
+  },
+  or: {
+    title: 'ଶୀର୍ଷକ',
+    author: 'ଲେଖକ',
+    subtitle: 'ଉପଶୀର୍ଷକ (ଇଚ୍ଛାଧୀନ)',
+    isbn: 'ISBN (ଇଚ୍ଛାଧୀନ)',
+    metadata: 'ଶୀର୍ଷକ ପୃଷ୍ଠା ମେଟାଡାଟା',
+    required: 'ଆବଶ୍ୟକ ମେଟାଡାଟା'
+  },
+  ta: {
+    title: 'தலைப்பு',
+    author: 'ஆசிரியர்',
+    subtitle: 'துணைத்தலைப்பு (விருப்பம்)',
+    isbn: 'ISBN (விருப்பம்)',
+    metadata: 'தலைப்பு பக்க மெட்டாடேட்டா',
+    required: 'தேவையான மெட்டாடேட்டா'
   }
 };
 
