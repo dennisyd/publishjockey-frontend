@@ -1850,8 +1850,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (προαιρετικό)',
     metadata: 'Μεταδεδομένα σελίδας τίτλου',
     required: 'Απαιτούμενα μεταδεδομένα',
-    copyright: 'Copyright © {year} {author}. Όλα τα δικαιώματα διατηρούνται.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Πνευματικά δικαιώματα © {year} {author}. Όλα τα δικαιώματα διατηρούνται.',
+    copyrightFull: 'Κανένα μέρος αυτού του βιβλίου δεν μπορεί να αναπαραχθεί σε οποιαδήποτε μορφή ή με οποιοδήποτε ηλεκτρονικό ή μηχανικό μέσο, συμπεριλαμβανομένων των συστημάτων αποθήκευσης και ανάκτησης πληροφοριών, χωρίς γραπτή άδεια από τον συγγραφέα, εκτός από τη χρήση σύντομων αποσπασμάτων σε κριτική βιβλίου.'
   },
   hu: {
     title: 'Cím',

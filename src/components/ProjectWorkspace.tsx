@@ -135,12 +135,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Use UI language for sidebar translations - simplified approach to avoid conflicts
   // Yancy Dennis - Portuguese localization fix: Use UI language instead of separate documentLanguage
-  const documentLanguage = i18n.language || 'en';
+  const sidebarLanguage = i18n.language || 'en';
   
   // DEBUG: Log the language being used for sidebar
   console.log('🔍 [SIDEBAR DEBUG] i18n.language (UI):', i18n.language);
-  console.log('🔍 [SIDEBAR DEBUG] documentLanguage (Document):', documentLanguage);
-  console.log('🔍 [SIDEBAR DEBUG] Using for sidebar:', documentLanguage);
+  console.log('🔍 [SIDEBAR DEBUG] Using for sidebar:', sidebarLanguage);
   
   // BROWSER LANGUAGE DETECTION DEBUG
   console.log('🌐 [BROWSER DEBUG] navigator.language:', navigator.language);
@@ -148,17 +147,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   console.log('🌐 [BROWSER DEBUG] Detected browser languages:', navigator.languages?.join(', '));
   
   // Debug for Portuguese variants
-  if (documentLanguage?.includes('pt')) {
-    console.log('🔍 [PORTUGUESE DEBUG] Portuguese variant detected:', documentLanguage);
-    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure(documentLanguage));
+  if (sidebarLanguage?.includes('pt')) {
+    console.log('🔍 [PORTUGUESE DEBUG] Portuguese variant detected:', sidebarLanguage);
+    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure(sidebarLanguage));
   }
   
   // Debug for Catalan and Occitan
-  if (documentLanguage === 'ca') {
+  if (sidebarLanguage === 'ca') {
     console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Catalan detected! Should show Catalan section names.');
     console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Structure should contain:', getLocalizedBookStructure('ca'));
   }
-  if (documentLanguage === 'oc') {
+  if (sidebarLanguage === 'oc') {
     console.log('🇫🇷 [OCCITAN DEBUG] Occitan detected! Should show Occitan section names.');
     console.log('🇫🇷 [OCCITAN DEBUG] Structure should contain:', getLocalizedBookStructure('oc'));
   }
@@ -180,9 +179,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Structure state - use localized structure as default
   const [structure, setStructure] = useState(() => {
     // Initialize with the current language's structure
-    const initialStructure = getLocalizedBookStructure(documentLanguage);
+    const initialStructure = getLocalizedBookStructure(sidebarLanguage);
     console.log('🔍 INITIAL STRUCTURE SET:', {
-      language: documentLanguage,
+      language: sidebarLanguage,
       structure: initialStructure
     });
     // Ensure structure is valid
@@ -204,6 +203,75 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   // Content state
   const [content, setContent] = useState<Record<string, string>>({});
+  
+  // Detect document language from project structure (for copyright generation)
+  // Use useMemo to avoid recalculating on every render
+  const documentLanguage = useMemo(() => {
+    // Check if structure has localized section names
+    const firstFrontSection = structure.front?.[0];
+    const firstMainSection = structure.main?.[0];
+    
+    // Common patterns to detect language from structure - using EXACT matches from structure data
+    // European Languages
+    if (firstFrontSection?.includes('Pagina del titolo') || firstMainSection?.includes('Capitolo')) return 'it'; // Italian
+    if (firstFrontSection?.includes('Naslovna Stranica') || firstMainSection?.includes('Poglavlje')) return 'hr'; // Croatian  
+    if (firstFrontSection?.includes('Σελίδα Τίτλου') || firstMainSection?.includes('Κεφάλαιο')) return 'el'; // Greek
+    if (firstFrontSection?.includes('Ihu Akwukwo') || firstMainSection?.includes('Isi')) return 'ig'; // Igbo
+    if (firstFrontSection?.includes('Página de título') || firstMainSection?.includes('Capítulo')) return 'es'; // Spanish
+    if (firstFrontSection?.includes('Page de titre') || firstMainSection?.includes('Chapitre')) return 'fr'; // French
+    if (firstFrontSection?.includes('Titelseite') || firstMainSection?.includes('Kapitel')) return 'de'; // German
+    if (firstFrontSection?.includes('Titulní Strana') || firstMainSection?.includes('Kapitola')) return 'cs'; // Czech
+    if (firstFrontSection?.includes('Pagina de titlu') || firstMainSection?.includes('Capitol')) return 'ro'; // Romanian
+    if (firstFrontSection?.includes('Titelpagina') || firstMainSection?.includes('Hoofdstuk')) return 'nl'; // Dutch
+    if (firstFrontSection?.includes('Strona Tytułowa') || firstMainSection?.includes('Rozdział')) return 'pl'; // Polish
+    if (firstFrontSection?.includes('Titelsida') || firstMainSection?.includes('Kapitel')) return 'sv'; // Swedish
+    if (firstFrontSection?.includes('Titelside') || firstMainSection?.includes('Kapitel')) return 'da'; // Danish
+    if (firstFrontSection?.includes('Tittelside') || firstMainSection?.includes('Kapittel')) return 'no'; // Norwegian
+    if (firstFrontSection?.includes('Otsikkosivu') || firstMainSection?.includes('Luku')) return 'fi'; // Finnish
+    if (firstFrontSection?.includes('Titilsíða') || firstMainSection?.includes('Kafli')) return 'is'; // Icelandic
+    if (firstFrontSection?.includes('Página de Título') || firstMainSection?.includes('Capítulo')) return 'pt'; // Portuguese
+    if (firstFrontSection?.includes('Титульная страница') || firstMainSection?.includes('Глава')) return 'ru'; // Russian
+    if (firstFrontSection?.includes('Címlap') || firstMainSection?.includes('Fejezet')) return 'hu'; // Hungarian
+    if (firstFrontSection?.includes('Pàgina de títol') || firstMainSection?.includes('Capítol')) return 'ca'; // Catalan
+    if (firstFrontSection?.includes('Pagina de títol') || firstMainSection?.includes('Capítol')) return 'oc'; // Occitan
+    
+    // African Languages
+    if (firstFrontSection?.includes('Shafin Taken') || firstMainSection?.includes('Babi na')) return 'ha'; // Hausa
+    if (firstFrontSection?.includes('Ihu Akwukwo') || firstMainSection?.includes('Isi')) return 'ig'; // Igbo
+    if (firstFrontSection?.includes('Ukurasa wa Kichwa') || firstMainSection?.includes('Sura ya')) return 'sw'; // Swahili
+    if (firstFrontSection?.includes('Ojú-ìwé Àkọlé') || firstMainSection?.includes('Orí')) return 'yo'; // Yoruba
+    if (firstFrontSection?.includes('Ikhasi Lesihloko') || firstMainSection?.includes('Isahluko')) return 'zu'; // Zulu
+    if (firstFrontSection?.includes('Iphepha Lesihloko') || firstMainSection?.includes('Isahluko')) return 'xh'; // Xhosa
+    if (firstFrontSection?.includes('Leqephe la Sehlooho') || firstMainSection?.includes('Khaolo')) return 'st'; // Sotho
+    if (firstFrontSection?.includes('Tsebe ya Setlhogo') || firstMainSection?.includes('Kgaolo')) return 'tn'; // Tswana
+    if (firstFrontSection?.includes('Mũrango wa Rĩĩtwa') || firstMainSection?.includes('Gĩthemba')) return 'ki'; // Kikuyu
+    if (firstFrontSection?.includes('Urupapuro rw\'Umutwe') || firstMainSection?.includes('Igice cya')) return 'rw'; // Kinyarwanda
+    if (firstFrontSection?.includes('Urupapuro rw\'Umutwe') || firstMainSection?.includes('Umutwe wa')) return 'rn'; // Kirundi
+    if (firstFrontSection?.includes('Lupapula lw\'Omutwe') || firstMainSection?.includes('Essuula')) return 'lg'; // Luganda
+    if (firstFrontSection?.includes('Pejin\'ny Lohateny') || firstMainSection?.includes('Toko')) return 'mg'; // Malagasy
+    if (firstFrontSection?.includes('Peji reMusoro') || firstMainSection?.includes('Chitsauko')) return 'sn'; // Shona
+    
+    // Asian Languages
+    if (firstFrontSection?.includes('صفحة العنوان') || firstMainSection?.includes('الفصل الأول')) return 'ar'; // Arabic
+    if (firstFrontSection?.includes('தலைப்பு பக்கம்') || firstMainSection?.includes('அத்தியாயம்')) return 'ta'; // Tamil
+    if (firstFrontSection?.includes('शीर्षक पृष्ठ') || firstMainSection?.includes('अध्याय')) return 'hi'; // Hindi
+    if (firstFrontSection?.includes('শিরোনাম পৃষ্ঠা') || firstMainSection?.includes('অধ্যায়')) return 'bn'; // Bengali
+    if (firstFrontSection?.includes('શીર્ષક પૃષ્ઠ') || firstMainSection?.includes('પ્રકરણ')) return 'gu'; // Gujarati
+    if (firstFrontSection?.includes('శీర్షిక పేజీ') || firstMainSection?.includes('అధ్యాయం')) return 'te'; // Telugu
+    if (firstFrontSection?.includes('ಶೀರ್ಷಿಕೆ ಪುಟ') || firstMainSection?.includes('ಅಧ್ಯಾಯ')) return 'kn'; // Kannada
+    if (firstFrontSection?.includes('തലക്കെട്ട് പേജ്') || firstMainSection?.includes('അധ്യായം')) return 'ml'; // Malayalam
+    if (firstFrontSection?.includes('ਸਿਰਲੇਖ ਸਫ਼ਾ') || firstMainSection?.includes('ਅਧਿਆਇ')) return 'pa'; // Punjabi
+    if (firstFrontSection?.includes('ଶୀର୍ଷକ ପୃଷ୍ଠା') || firstMainSection?.includes('ଅଧ୍ୟାୟ')) return 'or'; // Odia
+    if (firstFrontSection?.includes('Judul') || firstMainSection?.includes('Bab')) return 'id'; // Indonesian
+    if (firstFrontSection?.includes('Tajuk') || firstMainSection?.includes('Bab')) return 'ms'; // Malaysian
+    if (firstFrontSection?.includes('Tiêu đề') || firstMainSection?.includes('Chương')) return 'vi'; // Vietnamese
+    if (firstFrontSection?.includes('Pamagat') || firstMainSection?.includes('Kabanata')) return 'tl'; // Filipino
+    
+    // Fallback to UI language if no pattern matches
+    return sidebarLanguage;
+  }, [structure, sidebarLanguage]);
+  
+  console.log('🔍 [COPYRIGHT DEBUG] Detected document language:', documentLanguage, 'from structure:', structure.front?.[0], structure.main?.[0]);
   
   // Import state
   const [importOpen, setImportOpen] = useState(false);
@@ -274,10 +342,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       return;
     }
     
-    const newLocalizedStructure = getLocalizedBookStructure(documentLanguage);
-    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', documentLanguage, 'New structure:', newLocalizedStructure);
+    const newLocalizedStructure = getLocalizedBookStructure(sidebarLanguage);
+    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', sidebarLanguage, 'New structure:', newLocalizedStructure);
     setStructure(newLocalizedStructure);
-  }, [documentLanguage, structureLoaded]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
+  }, [sidebarLanguage, structureLoaded]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
   
   // Get auth token from context
   const { currentUser } = useAuth();
@@ -592,8 +660,20 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('droits') || // French
       section.toLowerCase().includes('derechos') || // Spanish
       section.toLowerCase().includes('direitos') || // Portuguese
+      section.toLowerCase().includes('diritti') || // Italian
       section.toLowerCase().includes('urheberrecht') || // German
       section.toLowerCase().includes('hakimiliki') || // Swahili
+      section.toLowerCase().includes('haƙƙin') || // Hausa
+      section.toLowerCase().includes('ikike') || // Igbo
+      section.toLowerCase().includes('ẹ̀tọ́') || // Yoruba
+      section.toLowerCase().includes('amalungelo') || // Zulu/Xhosa
+      section.toLowerCase().includes('litokelo') || // Sotho
+      section.toLowerCase().includes('ditshwanelo') || // Tswana
+      section.toLowerCase().includes('kĩhooto') || // Kikuyu
+      section.toLowerCase().includes('uburenganzira') || // Kinyarwanda/Kirundi
+      section.toLowerCase().includes('eddembe') || // Luganda
+      section.toLowerCase().includes('zo ara-javatra') || // Malagasy
+      section.toLowerCase().includes('kodzero') || // Shona
       section === 'Copyright' // Default fallback
     ) || 'Copyright';
     
@@ -610,9 +690,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
     console.log('🔍 DEBUG: projectAuthor:', projectAuthor, 'authorName:', authorName);
     
-    // Use the same language as the user selected in dashboard (like export modal does)
-    const copyrightLanguage = i18n.language || 'en';
-    console.log('🎯 [SIMPLE COPYRIGHT] Using dashboard language:', copyrightLanguage, 'for copyright generation');
+    // Use document language for copyright generation (not UI language)
+    // This ensures copyright is generated in the language of the book being written
+    const copyrightLanguage = documentLanguage || 'en';
+    console.log('🎯 [SIMPLE COPYRIGHT] Using document language:', copyrightLanguage, 'for copyright generation (not UI language:', i18n.language, ')');
     console.log('🔍 DEBUG: Structure sections:', structure?.front);
     
     // Initialize copyright conditions
@@ -670,8 +751,20 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('droits') || // French
       section.toLowerCase().includes('derechos') || // Spanish
       section.toLowerCase().includes('direitos') || // Portuguese
+      section.toLowerCase().includes('diritti') || // Italian
       section.toLowerCase().includes('urheberrecht') || // German
       section.toLowerCase().includes('hakimiliki') || // Swahili
+      section.toLowerCase().includes('haƙƙin') || // Hausa
+      section.toLowerCase().includes('ikike') || // Igbo
+      section.toLowerCase().includes('ẹ̀tọ́') || // Yoruba
+      section.toLowerCase().includes('amalungelo') || // Zulu/Xhosa
+      section.toLowerCase().includes('litokelo') || // Sotho
+      section.toLowerCase().includes('ditshwanelo') || // Tswana
+      section.toLowerCase().includes('kĩhooto') || // Kikuyu
+      section.toLowerCase().includes('uburenganzira') || // Kinyarwanda/Kirundi
+      section.toLowerCase().includes('eddembe') || // Luganda
+      section.toLowerCase().includes('zo ara-javatra') || // Malagasy
+      section.toLowerCase().includes('kodzero') || // Shona
       section.toLowerCase().includes('πνευματικά') || // Greek
       section.toLowerCase().includes('版权') || // Chinese
       section.toLowerCase().includes('कॉपीराइट') || // Hindi
@@ -1861,7 +1954,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           if (projectSubtitle) constructed += `\n\n## ${projectSubtitle}`;
           
           // Use localized "By" equivalent or fallback to author name format
-          if (documentLanguage === 'en') {
+          if (sidebarLanguage === 'en') {
             constructed += `\n\nBy ${projectAuthor}`;
           } else {
             // For non-English, just show the author name prominently
