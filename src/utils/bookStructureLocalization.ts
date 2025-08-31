@@ -1282,3 +1282,264 @@ export function getLocalizedChapterName(
   console.log('[CHAPTER NAME] Result:', result);
   return result;
 }
+
+// Localized metadata field labels
+export const localizedMetadata = {
+  en: {
+    title: 'Title',
+    author: 'Author',
+    subtitle: 'Subtitle (optional)',
+    isbn: 'ISBN (optional)',
+    metadata: 'Title Page Metadata'
+  },
+  // Spanish variants
+  es: {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-ES': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-MX': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-AR': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-CO': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-CL': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-PE': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-VE': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  'es-PR': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadatos de la Página de Título'
+  },
+  // French variants
+  fr: {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-FR': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-CA': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-BE': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-CH': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-SN': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-CI': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-MA': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  'fr-HT': {
+    title: 'Titre',
+    author: 'Auteur',
+    subtitle: 'Sous-titre (optionnel)',
+    isbn: 'ISBN (optionnel)',
+    metadata: 'Métadonnées de la Page de Titre'
+  },
+  // German variants
+  de: {
+    title: 'Titel',
+    author: 'Autor',
+    subtitle: 'Untertitel (optional)',
+    isbn: 'ISBN (optional)',
+    metadata: 'Titelseiten-Metadaten'
+  },
+  'de-DE': {
+    title: 'Titel',
+    author: 'Autor',
+    subtitle: 'Untertitel (optional)',
+    isbn: 'ISBN (optional)',
+    metadata: 'Titelseiten-Metadaten'
+  },
+  'de-AT': {
+    title: 'Titel',
+    author: 'Autor',
+    subtitle: 'Untertitel (optional)',
+    isbn: 'ISBN (optional)',
+    metadata: 'Titelseiten-Metadaten'
+  },
+  'de-CH': {
+    title: 'Titel',
+    author: 'Autor',
+    subtitle: 'Untertitel (optional)',
+    isbn: 'ISBN (optional)',
+    metadata: 'Titelseiten-Metadaten'
+  },
+  // Portuguese variants
+  pt: {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título'
+  },
+  'pt-PT': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título'
+  },
+  'pt-BR': {
+    title: 'Título',
+    author: 'Autor',
+    subtitle: 'Subtítulo (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadados da Página de Título'
+  },
+  // Italian
+  it: {
+    title: 'Titolo',
+    author: 'Autore',
+    subtitle: 'Sottotitolo (opzionale)',
+    isbn: 'ISBN (opzionale)',
+    metadata: 'Metadati della Pagina del Titolo'
+  },
+  // Catalan & Occitan
+  ca: {
+    title: 'Títol',
+    author: 'Autor',
+    subtitle: 'Subtítol (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadades de la Pàgina de Títol'
+  },
+  oc: {
+    title: 'Títol',
+    author: 'Autor',
+    subtitle: 'Sostítol (opcional)',
+    isbn: 'ISBN (opcional)',
+    metadata: 'Metadonadas de la Pagina de Títol'
+  },
+  // Russian
+  ru: {
+    title: 'Название',
+    author: 'Автор',
+    subtitle: 'Подзаголовок (необязательно)',
+    isbn: 'ISBN (необязательно)',
+    metadata: 'Метаданные Титульной Страницы'
+  },
+  // Hindi
+  hi: {
+    title: 'शीर्षक',
+    author: 'लेखक',
+    subtitle: 'उपशीर्षक (वैकल्पिक)',
+    isbn: 'ISBN (वैकल्पिक)',
+    metadata: 'शीर्षक पृष्ठ मेटाडेटा'
+  },
+  // Add more key languages
+  zh: {
+    title: '标题',
+    author: '作者',
+    subtitle: '副标题 (可选)',
+    isbn: 'ISBN (可选)',
+    metadata: '标题页元数据'
+  },
+  ja: {
+    title: 'タイトル',
+    author: '著者',
+    subtitle: 'サブタイトル (オプション)',
+    isbn: 'ISBN (オプション)',
+    metadata: 'タイトルページメタデータ'
+  },
+  ar: {
+    title: 'العنوان',
+    author: 'المؤلف',
+    subtitle: 'العنوان الفرعي (اختياري)',
+    isbn: 'ISBN (اختياري)',
+    metadata: 'بيانات صفحة العنوان'
+  }
+};
+
+// Helper function to get localized metadata labels
+export const getLocalizedMetadata = (languageCode: string) => {
+  const normalizedLang = normalizeLang(languageCode);
+  
+  // Try exact match first, then normalized, then fallback to English
+  return localizedMetadata[languageCode] || 
+         localizedMetadata[normalizedLang] || 
+         localizedMetadata['en'];
+};

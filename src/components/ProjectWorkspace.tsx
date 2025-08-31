@@ -50,7 +50,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedBookStructure } from '../utils/bookStructureLocalization';
+import { getLocalizedBookStructure, getLocalizedMetadata } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -2708,37 +2708,37 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         maxWidth="sm" 
         fullWidth
       >
-        <DialogTitle>Title Page Metadata</DialogTitle>
+        <DialogTitle>{getLocalizedMetadata(documentLanguage).metadata}</DialogTitle>
         <DialogContent>
           <TextField
-            label="Title"
+            label={getLocalizedMetadata(documentLanguage).title}
             value={projectTitle}
             onChange={e => setProjectTitle(e.target.value)}
             required
             fullWidth
             margin="dense"
             error={!projectTitle}
-            helperText={!projectTitle ? 'Title is required' : ''}
+            helperText={!projectTitle ? `${getLocalizedMetadata(documentLanguage).title} is required` : ''}
           />
           <TextField
-            label="Subtitle (optional)"
+            label={getLocalizedMetadata(documentLanguage).subtitle}
             value={projectSubtitle}
             onChange={e => setProjectSubtitle(e.target.value)}
             fullWidth
             margin="dense"
           />
           <TextField
-            label="Author"
+            label={getLocalizedMetadata(documentLanguage).author}
             value={projectAuthor}
             onChange={e => setProjectAuthor(e.target.value)}
             required
             fullWidth
             margin="dense"
             error={!projectAuthor}
-            helperText={!projectAuthor ? 'Author is required' : ''}
+            helperText={!projectAuthor ? `${getLocalizedMetadata(documentLanguage).author} is required` : ''}
           />
           <TextField
-            label="ISBN (optional)"
+            label={getLocalizedMetadata(documentLanguage).isbn}
             value={projectIsbn}
             onChange={e => setProjectIsbn(e.target.value)}
             fullWidth
