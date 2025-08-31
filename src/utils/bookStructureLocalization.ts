@@ -1401,7 +1401,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-CA': {
     title: 'Titre',
@@ -1410,7 +1411,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-BE': {
     title: 'Titre',
@@ -1419,7 +1421,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-CH': {
     title: 'Titre',
@@ -1428,7 +1431,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-SN': {
     title: 'Titre',
@@ -1437,7 +1441,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-CI': {
     title: 'Titre',
@@ -1446,7 +1451,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-MA': {
     title: 'Titre',
@@ -1455,7 +1461,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   'fr-HT': {
     title: 'Titre',
@@ -1464,7 +1471,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
-    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
+    copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
+    copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
   // German variants
   de: {
@@ -1741,8 +1749,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (khetho)',
     metadata: 'Metadata ea leqephe la sehlooho',
     required: 'Metadata e hlokahalang',
-    copyright: 'Copyright © {year} ea {author}. Litokelo tsohle li bolokiloe.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Tokelo ea boqapi © {year} ea {author}. Litokelo tsohle li bolokiloe.',
+    copyrightFull: 'Ha ho karolo ea buka ena e ka etsang hore e hatisoe ka mokhoa ofe kapa ofe kapa ka lisebelisoa life kapa life tsa elektroniki kapa tsa mechini, ho kenyelletsa le sistimi tsa polokelo le tsa fumana lintlha, ntle le tumello e ngotsoeng ea mongoli, ntle le tšebeliso ea mafoko a makhutšoane a makhutšoane ho tekong ea buka.'
   },
   tn: {
     title: 'Setlhogo',
