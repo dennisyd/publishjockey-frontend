@@ -50,7 +50,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedBookStructure, getLocalizedMetadata } from '../utils/bookStructureLocalization';
+import { getLocalizedBookStructure, getLocalizedMetadata, generateCopyrightNotice } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -586,18 +586,22 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Prefill Copyright page if not set or if author changes
   useEffect(() => {
     const copyrightKey = 'front:Copyright';
-    const currentYear = new Date().getFullYear();
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : 'Author Name';
-    const defaultCopyright = `Copyright © ${currentYear} ${authorName}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
     
-    // Always update the copyright text when author changes
-    console.log('Updating copyright text with current author:', authorName);
-    setContent(prev => ({
-      ...prev,
-      [copyrightKey]: defaultCopyright
-    }));
+    if (authorName && authorName !== 'Author Name') {
+      // Generate localized copyright notice
+      const localizedCopyright = generateCopyrightNotice(documentLanguage, authorName);
+      const defaultCopyright = `${localizedCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+      
+      // Always update the copyright text when author changes
+      console.log('Updating copyright text with localized notice for:', authorName, 'in', documentLanguage);
+      setContent(prev => ({
+        ...prev,
+        [copyrightKey]: defaultCopyright
+      }));
+    }
     
-  }, [projectAuthor]); // Only run when author changes
+  }, [projectAuthor, documentLanguage]); // Run when author or language changes
   
   // Standardize handleAdd function to work equally for all matter sections
   const handleAdd = (area: Area) => {

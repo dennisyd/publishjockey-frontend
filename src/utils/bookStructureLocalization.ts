@@ -1,3 +1,5 @@
+// Yancy Dennis
+
 const localizedStructures = {
   en: {
     front: [
@@ -1291,7 +1293,8 @@ export const localizedMetadata = {
     subtitle: 'Subtitle (optional)',
     isbn: 'ISBN (optional)',
     metadata: 'Title Page Metadata',
-    required: 'Metadata Required'
+    required: 'Metadata Required',
+    copyright: 'Copyright © {year} by {author}. All rights reserved.'
   },
   // Spanish variants
   es: {
@@ -1300,7 +1303,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-ES': {
     title: 'Título',
@@ -1308,7 +1312,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-MX': {
     title: 'Título',
@@ -1316,7 +1321,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-AR': {
     title: 'Título',
@@ -1324,7 +1330,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-CO': {
     title: 'Título',
@@ -1332,7 +1339,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-CL': {
     title: 'Título',
@@ -1340,7 +1348,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-PE': {
     title: 'Título',
@@ -1348,7 +1357,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-VE': {
     title: 'Título',
@@ -1356,7 +1366,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   'es-PR': {
     title: 'Título',
@@ -1364,7 +1375,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
-    required: 'Metadatos Requeridos'
+    required: 'Metadatos Requeridos',
+    copyright: 'Copyright © {year} por {author}. Todos los derechos reservados.'
   },
   // French variants
   fr: {
@@ -1373,7 +1385,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-FR': {
     title: 'Titre',
@@ -1381,7 +1394,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-CA': {
     title: 'Titre',
@@ -1389,7 +1403,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-BE': {
     title: 'Titre',
@@ -1397,7 +1412,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-CH': {
     title: 'Titre',
@@ -1405,7 +1421,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-SN': {
     title: 'Titre',
@@ -1413,7 +1430,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-CI': {
     title: 'Titre',
@@ -1421,7 +1439,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-MA': {
     title: 'Titre',
@@ -1429,7 +1448,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   'fr-HT': {
     title: 'Titre',
@@ -1437,7 +1457,8 @@ export const localizedMetadata = {
     subtitle: 'Sous-titre (optionnel)',
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
-    required: 'Métadonnées Requises'
+    required: 'Métadonnées Requises',
+    copyright: 'Copyright © {year} par {author}. Tous droits réservés.'
   },
   // German variants
   de: {
@@ -1446,7 +1467,8 @@ export const localizedMetadata = {
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
-    required: 'Metadaten Erforderlich'
+    required: 'Metadaten Erforderlich',
+    copyright: 'Copyright © {year} von {author}. Alle Rechte vorbehalten.'
   },
   'de-DE': {
     title: 'Titel',
@@ -1479,7 +1501,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
-    required: 'Metadados Obrigatórios'
+    required: 'Metadados Obrigatórios',
+    copyright: 'Copyright © {year} por {author}. Todos os direitos reservados.'
   },
   'pt-PT': {
     title: 'Título',
@@ -1504,7 +1527,8 @@ export const localizedMetadata = {
     subtitle: 'Sottotitolo (opzionale)',
     isbn: 'ISBN (opzionale)',
     metadata: 'Metadati della Pagina del Titolo',
-    required: 'Metadati Richiesti'
+    required: 'Metadati Richiesti',
+    copyright: 'Copyright © {year} di {author}. Tutti i diritti riservati.'
   },
   // Catalan & Occitan
   ca: {
@@ -1513,7 +1537,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítol (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadades de la Pàgina de Títol',
-    required: 'Metadades Requerides'
+    required: 'Metadades Requerides',
+    copyright: 'Copyright © {year} per {author}. Tots els drets reservats.'
   },
   oc: {
     title: 'Títol',
@@ -1521,7 +1546,8 @@ export const localizedMetadata = {
     subtitle: 'Sostítol (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadonadas de la Pagina de Títol',
-    required: 'Metadonadas Requeridas'
+    required: 'Metadonadas Requeridas',
+    copyright: 'Copyright © {year} per {author}. Totes los dreches reservats.'
   },
   // Russian
   ru: {
@@ -1530,7 +1556,8 @@ export const localizedMetadata = {
     subtitle: 'Подзаголовок (необязательно)',
     isbn: 'ISBN (необязательно)',
     metadata: 'Метаданные Титульной Страницы',
-    required: 'Метаданные Обязательны'
+    required: 'Метаданные Обязательны',
+    copyright: 'Copyright © {year} {author}. Все права защищены.'
   },
   // Hindi
   hi: {
@@ -1539,7 +1566,8 @@ export const localizedMetadata = {
     subtitle: 'उपशीर्षक (वैकल्पिक)',
     isbn: 'ISBN (वैकल्पिक)',
     metadata: 'शीर्षक पृष्ठ मेटाडेटा',
-    required: 'मेटाडेटा आवश्यक'
+    required: 'मेटाडेटा आवश्यक',
+    copyright: 'कॉपीराइट © {year} {author}। सभी अधिकार सुरक्षित।'
   },
   // Add more key languages
   zh: {
@@ -1548,7 +1576,8 @@ export const localizedMetadata = {
     subtitle: '副标题 (可选)',
     isbn: 'ISBN (可选)',
     metadata: '标题页元数据',
-    required: '元数据必需'
+    required: '元数据必需',
+    copyright: 'Copyright © {year} {author}。版权所有。'
   },
   ja: {
     title: 'タイトル',
@@ -1556,7 +1585,8 @@ export const localizedMetadata = {
     subtitle: 'サブタイトル (オプション)',
     isbn: 'ISBN (オプション)',
     metadata: 'タイトルページメタデータ',
-    required: 'メタデータ必須'
+    required: 'メタデータ必須',
+    copyright: 'Copyright © {year} {author}。無断転載を禁じます。'
   },
   ar: {
     title: 'العنوان',
@@ -1564,7 +1594,8 @@ export const localizedMetadata = {
     subtitle: 'العنوان الفرعي (اختياري)',
     isbn: 'ISBN (اختياري)',
     metadata: 'بيانات صفحة العنوان',
-    required: 'بيانات مطلوبة'
+    required: 'بيانات مطلوبة',
+    copyright: 'حقوق الطبع والنشر © {year} {author}. جميع الحقوق محفوظة.'
   },
   // African Languages
   ha: {
@@ -1573,7 +1604,8 @@ export const localizedMetadata = {
     subtitle: 'Karamin taken (na zaɓi)',
     isbn: 'ISBN (na zaɓi)',
     metadata: 'Bayanan Shafin Taken',
-    required: 'Bayanan da ake bukata'
+    required: 'Bayanan da ake bukata',
+    copyright: 'Copyright © {year} ta {author}. Duk wani hakki an kiyaye.'
   },
   ig: {
     title: 'Aha',
@@ -1581,7 +1613,8 @@ export const localizedMetadata = {
     subtitle: 'Aha nta (nhọrọ)',
     isbn: 'ISBN (nhọrọ)',
     metadata: 'Metadata nke Peeji Aha',
-    required: 'Metadata achọrọ'
+    required: 'Metadata achọrọ',
+    copyright: 'Copyright © {year} site na {author}. Ikike niile echekwara.'
   },
   sw: {
     title: 'Kichwa',
@@ -1589,7 +1622,8 @@ export const localizedMetadata = {
     subtitle: 'Kichwa kidogo (si lazima)',
     isbn: 'ISBN (si lazima)',
     metadata: 'Metadata ya Ukurasa wa Kichwa',
-    required: 'Metadata inahitajika'
+    required: 'Metadata inahitajika',
+    copyright: 'Hakimiliki © {year} na {author}. Haki zote zimehifadhiwa.'
   },
   yo: {
     title: 'Akọle',
@@ -1597,7 +1631,8 @@ export const localizedMetadata = {
     subtitle: 'Akọle kekere (yiyan)',
     isbn: 'ISBN (yiyan)',
     metadata: 'Metadata ti Oju-iwe Akọle',
-    required: 'Metadata ti o nilo'
+    required: 'Metadata ti o nilo',
+    copyright: 'Copyright © {year} nipasẹ {author}. Gbogbo ẹtọ ni a pa mọ.'
   },
   zu: {
     title: 'Isihloko',
@@ -1605,7 +1640,8 @@ export const localizedMetadata = {
     subtitle: 'Isihloko esincane (ukukhetha)',
     isbn: 'ISBN (ukukhetha)',
     metadata: 'I-Metadata Yekhasi Lesihloko',
-    required: 'I-Metadata eyadingeka'
+    required: 'I-Metadata eyadingeka',
+    copyright: 'Copyright © {year} ngu-{author}. Wonke amalungelo agodliwe.'
   },
   xh: {
     title: 'Isihloko',
@@ -1613,7 +1649,8 @@ export const localizedMetadata = {
     subtitle: 'Isihloko esincinci (ukukhetha)',
     isbn: 'ISBN (ukukhetha)',
     metadata: 'I-Metadata Yephepha Lesihloko',
-    required: 'I-Metadata efunekayo'
+    required: 'I-Metadata efunekayo',
+    copyright: 'Copyright © {year} ngu-{author}. Onke amalungelo agodliwe.'
   },
   // Other African Languages
   ki: {
@@ -1622,7 +1659,8 @@ export const localizedMetadata = {
     subtitle: 'Mũtwe mũnini (gũthuura)',
     isbn: 'ISBN (gũthuura)',
     metadata: 'Metadata ya Rũrĩrĩ rwa Mũtwe',
-    required: 'Metadata ĩrĩa ĩbataire'
+    required: 'Metadata ĩrĩa ĩbataire',
+    copyright: 'Copyright © {year} nĩ {author}. Mĩthiirĩre yothe nĩyagĩrĩirwo.'
   },
   rw: {
     title: 'Umutwe',
@@ -1630,7 +1668,8 @@ export const localizedMetadata = {
     subtitle: 'Umutwe muto (guhitamo)',
     isbn: 'ISBN (guhitamo)',
     metadata: 'Metadata y\'urupapuro rw\'umutwe',
-    required: 'Metadata ikenewe'
+    required: 'Metadata ikenewe',
+    copyright: 'Uburenganzira © {year} bwa {author}. Uburenganzira bwose burarinzwe.'
   },
   rn: {
     title: 'Umutwe',
@@ -1638,7 +1677,8 @@ export const localizedMetadata = {
     subtitle: 'Umutwe muto (guhitamo)',
     isbn: 'ISBN (guhitamo)',
     metadata: 'Metadata y\'urupapuro rw\'umutwe',
-    required: 'Metadata ikenewe'
+    required: 'Metadata ikenewe',
+    copyright: 'Uburenganzira © {year} bwa {author}. Uburenganzira bwose burarinzwe.'
   },
   lg: {
     title: 'Omutwe',
@@ -1646,7 +1686,8 @@ export const localizedMetadata = {
     subtitle: 'Omutwe omuto (okulonda)',
     isbn: 'ISBN (okulonda)',
     metadata: 'Metadata y\'olupapula lw\'omutwe',
-    required: 'Metadata eyeetaagisa'
+    required: 'Metadata eyeetaagisa',
+    copyright: 'Copyright © {year} wa {author}. Eddembe lyonna liriko.'
   },
   mg: {
     title: 'Lohateny',
@@ -1654,7 +1695,8 @@ export const localizedMetadata = {
     subtitle: 'Lohateny kely (safidy)',
     isbn: 'ISBN (safidy)',
     metadata: 'Metadata an\'ny pejy lohateny',
-    required: 'Metadata ilaina'
+    required: 'Metadata ilaina',
+    copyright: 'Copyright © {year} an\'i {author}. Ny zo rehetra voatahiry.'
   },
   sn: {
     title: 'Musoro',
@@ -1662,7 +1704,8 @@ export const localizedMetadata = {
     subtitle: 'Musoro mudiki (kusarudza)',
     isbn: 'ISBN (kusarudza)',
     metadata: 'Metadata yepeji remusoro',
-    required: 'Metadata inodiwa'
+    required: 'Metadata inodiwa',
+    copyright: 'Copyright © {year} na {author}. Kodzero dzose dzakachengetwa.'
   },
   st: {
     title: 'Sehlooho',
@@ -1670,7 +1713,8 @@ export const localizedMetadata = {
     subtitle: 'Sehlooho se senyane (khetho)',
     isbn: 'ISBN (khetho)',
     metadata: 'Metadata ea leqephe la sehlooho',
-    required: 'Metadata e hlokahalang'
+    required: 'Metadata e hlokahalang',
+    copyright: 'Copyright © {year} ea {author}. Litokelo tsohle li bolokiloe.'
   },
   tn: {
     title: 'Setlhogo',
@@ -1678,7 +1722,8 @@ export const localizedMetadata = {
     subtitle: 'Setlhogo se sennye (tlhopho)',
     isbn: 'ISBN (tlhopho)',
     metadata: 'Metadata ya tsebe ya setlhogo',
-    required: 'Metadata e e tlhokegang'
+    required: 'Metadata e e tlhokegang',
+    copyright: 'Copyright © {year} ya {author}. Ditshwanelo tsotlhe di boloketswe.'
   },
   // European Languages (missing ones)
   hr: {
@@ -1687,7 +1732,8 @@ export const localizedMetadata = {
     subtitle: 'Podnaslov (neobavezno)',
     isbn: 'ISBN (neobavezno)',
     metadata: 'Metapodaci stranice naslova',
-    required: 'Potrebni metapodaci'
+    required: 'Potrebni metapodaci',
+    copyright: 'Copyright © {year} {author}. Sva prava pridržana.'
   },
   cs: {
     title: 'Název',
@@ -1695,7 +1741,8 @@ export const localizedMetadata = {
     subtitle: 'Podtitul (volitelné)',
     isbn: 'ISBN (volitelné)',
     metadata: 'Metadata titulní stránky',
-    required: 'Požadovaná metadata'
+    required: 'Požadovaná metadata',
+    copyright: 'Copyright © {year} {author}. Všechna práva vyhrazena.'
   },
   da: {
     title: 'Titel',
@@ -1703,7 +1750,8 @@ export const localizedMetadata = {
     subtitle: 'Undertitel (valgfri)',
     isbn: 'ISBN (valgfri)',
     metadata: 'Metadata for titelside',
-    required: 'Påkrævet metadata'
+    required: 'Påkrævet metadata',
+    copyright: 'Copyright © {year} af {author}. Alle rettigheder forbeholdes.'
   },
   nl: {
     title: 'Titel',
@@ -1711,7 +1759,8 @@ export const localizedMetadata = {
     subtitle: 'Ondertitel (optioneel)',
     isbn: 'ISBN (optioneel)',
     metadata: 'Metadata van titelpagina',
-    required: 'Vereiste metadata'
+    required: 'Vereiste metadata',
+    copyright: 'Copyright © {year} door {author}. Alle rechten voorbehouden.'
   },
   et: {
     title: 'Pealkiri',
@@ -1719,7 +1768,8 @@ export const localizedMetadata = {
     subtitle: 'Alapealkiri (valikuline)',
     isbn: 'ISBN (valikuline)',
     metadata: 'Tiitellehe metaandmed',
-    required: 'Nõutavad metaandmed'
+    required: 'Nõutavad metaandmed',
+    copyright: 'Copyright © {year} {author}. Kõik õigused kaitstud.'
   },
   fi: {
     title: 'Otsikko',
@@ -1727,7 +1777,8 @@ export const localizedMetadata = {
     subtitle: 'Alaotsikko (valinnainen)',
     isbn: 'ISBN (valinnainen)',
     metadata: 'Otsikkosivun metatiedot',
-    required: 'Vaaditut metatiedot'
+    required: 'Vaaditut metatiedot',
+    copyright: 'Copyright © {year} {author}. Kaikki oikeudet pidätetään.'
   },
   gl: {
     title: 'Título',
@@ -1735,7 +1786,8 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos da páxina de título',
-    required: 'Metadatos requiridos'
+    required: 'Metadatos requiridos',
+    copyright: 'Copyright © {year} por {author}. Todos os dereitos reservados.'
   },
   el: {
     title: 'Τίτλος',
@@ -1743,7 +1795,8 @@ export const localizedMetadata = {
     subtitle: 'Υπότιτλος (προαιρετικό)',
     isbn: 'ISBN (προαιρετικό)',
     metadata: 'Μεταδεδομένα σελίδας τίτλου',
-    required: 'Απαιτούμενα μεταδεδομένα'
+    required: 'Απαιτούμενα μεταδεδομένα',
+    copyright: 'Copyright © {year} {author}. Όλα τα δικαιώματα διατηρούνται.'
   },
   hu: {
     title: 'Cím',
@@ -1751,7 +1804,8 @@ export const localizedMetadata = {
     subtitle: 'Alcím (opcionális)',
     isbn: 'ISBN (opcionális)',
     metadata: 'Címlap metaadatai',
-    required: 'Szükséges metaadatok'
+    required: 'Szükséges metaadatok',
+    copyright: 'Copyright © {year} {author}. Minden jog fenntartva.'
   },
   is: {
     title: 'Titill',
@@ -1759,7 +1813,8 @@ export const localizedMetadata = {
     subtitle: 'Undirtitill (valfrjáls)',
     isbn: 'ISBN (valfrjáls)',
     metadata: 'Lýsigögn titilsíðu',
-    required: 'Nauðsynleg lýsigögn'
+    required: 'Nauðsynleg lýsigögn',
+    copyright: 'Höfundarréttur © {year} {author}. Öll réttindi áskilin.'
   },
   lv: {
     title: 'Nosaukums',
@@ -1767,7 +1822,8 @@ export const localizedMetadata = {
     subtitle: 'Apakšnosaukums (pēc izvēles)',
     isbn: 'ISBN (pēc izvēles)',
     metadata: 'Titullapas metadati',
-    required: 'Nepieciešamie metadati'
+    required: 'Nepieciešamie metadati',
+    copyright: 'Copyright © {year} {author}. Visas tiesības aizsargātas.'
   },
   lt: {
     title: 'Pavadinimas',
@@ -1775,7 +1831,8 @@ export const localizedMetadata = {
     subtitle: 'Paantraštė (pasirinktinai)',
     isbn: 'ISBN (pasirinktinai)',
     metadata: 'Titulinio puslapio metaduomenys',
-    required: 'Reikalingi metaduomenys'
+    required: 'Reikalingi metaduomenys',
+    copyright: 'Copyright © {year} {author}. Visos teisės saugomos.'
   },
   mk: {
     title: 'Наслов',
@@ -1783,7 +1840,8 @@ export const localizedMetadata = {
     subtitle: 'Поднаслов (опционално)',
     isbn: 'ISBN (опционално)',
     metadata: 'Метаподатоци на насловна страница',
-    required: 'Потребни метаподатоци'
+    required: 'Потребни метаподатоци',
+    copyright: 'Copyright © {year} {author}. Сите права задржани.'
   },
   no: {
     title: 'Tittel',
@@ -1791,7 +1849,8 @@ export const localizedMetadata = {
     subtitle: 'Undertittel (valgfri)',
     isbn: 'ISBN (valgfri)',
     metadata: 'Metadata for tittelside',
-    required: 'Påkrevd metadata'
+    required: 'Påkrevd metadata',
+    copyright: 'Copyright © {year} av {author}. Alle rettigheter forbeholdt.'
   },
   pl: {
     title: 'Tytuł',
@@ -1799,7 +1858,8 @@ export const localizedMetadata = {
     subtitle: 'Podtytuł (opcjonalny)',
     isbn: 'ISBN (opcjonalny)',
     metadata: 'Metadane strony tytułowej',
-    required: 'Wymagane metadane'
+    required: 'Wymagane metadane',
+    copyright: 'Copyright © {year} {author}. Wszelkie prawa zastrzeżone.'
   },
   ro: {
     title: 'Titlu',
@@ -1807,7 +1867,8 @@ export const localizedMetadata = {
     subtitle: 'Subtitlu (opțional)',
     isbn: 'ISBN (opțional)',
     metadata: 'Metadate pagină de titlu',
-    required: 'Metadate necesare'
+    required: 'Metadate necesare',
+    copyright: 'Copyright © {year} {author}. Toate drepturile rezervate.'
   },
   sr: {
     title: 'Наслов',
@@ -1815,7 +1876,8 @@ export const localizedMetadata = {
     subtitle: 'Поднаслов (опционо)',
     isbn: 'ISBN (опционо)',
     metadata: 'Метаподаци насловне стране',
-    required: 'Потребни метаподаци'
+    required: 'Потребни метаподаци',
+    copyright: 'Copyright © {year} {author}. Сва права задржана.'
   },
   sk: {
     title: 'Názov',
@@ -1823,7 +1885,8 @@ export const localizedMetadata = {
     subtitle: 'Podtitul (voliteľné)',
     isbn: 'ISBN (voliteľné)',
     metadata: 'Metaúdaje titulnej stránky',
-    required: 'Požadované metaúdaje'
+    required: 'Požadované metaúdaje',
+    copyright: 'Copyright © {year} {author}. Všetky práva vyhradené.'
   },
   sl: {
     title: 'Naslov',
@@ -1831,7 +1894,8 @@ export const localizedMetadata = {
     subtitle: 'Podnaslov (neobvezno)',
     isbn: 'ISBN (neobvezno)',
     metadata: 'Metapodatki naslovne strani',
-    required: 'Zahtevani metapodatki'
+    required: 'Zahtevani metapodatki',
+    copyright: 'Copyright © {year} {author}. Vse pravice pridržane.'
   },
   sv: {
     title: 'Titel',
@@ -1839,7 +1903,8 @@ export const localizedMetadata = {
     subtitle: 'Undertitel (valfri)',
     isbn: 'ISBN (valfri)',
     metadata: 'Metadata för titelsida',
-    required: 'Nödvändig metadata'
+    required: 'Nödvändig metadata',
+    copyright: 'Copyright © {year} av {author}. Alla rättigheter förbehållna.'
   },
   tr: {
     title: 'Başlık',
@@ -1847,7 +1912,8 @@ export const localizedMetadata = {
     subtitle: 'Alt başlık (isteğe bağlı)',
     isbn: 'ISBN (isteğe bağlı)',
     metadata: 'Başlık sayfası meta verileri',
-    required: 'Gerekli meta veriler'
+    required: 'Gerekli meta veriler',
+    copyright: 'Copyright © {year} {author}. Tüm hakları saklıdır.'
   },
   // Asian Languages (missing ones)
   id: {
@@ -1856,7 +1922,8 @@ export const localizedMetadata = {
     subtitle: 'Subjudul (opsional)',
     isbn: 'ISBN (opsional)',
     metadata: 'Metadata halaman judul',
-    required: 'Metadata diperlukan'
+    required: 'Metadata diperlukan',
+    copyright: 'Hak Cipta © {year} oleh {author}. Semua hak dilindungi.'
   },
   ms: {
     title: 'Tajuk',
@@ -1864,7 +1931,8 @@ export const localizedMetadata = {
     subtitle: 'Subtajuk (pilihan)',
     isbn: 'ISBN (pilihan)',
     metadata: 'Metadata muka surat tajuk',
-    required: 'Metadata diperlukan'
+    required: 'Metadata diperlukan',
+    copyright: 'Hak Cipta © {year} oleh {author}. Semua hak terpelihara.'
   },
   vi: {
     title: 'Tiêu đề',
@@ -1872,7 +1940,8 @@ export const localizedMetadata = {
     subtitle: 'Phụ đề (tùy chọn)',
     isbn: 'ISBN (tùy chọn)',
     metadata: 'Siêu dữ liệu trang tiêu đề',
-    required: 'Siêu dữ liệu bắt buộc'
+    required: 'Siêu dữ liệu bắt buộc',
+    copyright: 'Bản quyền © {year} bởi {author}. Mọi quyền được bảo lưu.'
   },
   tl: {
     title: 'Pamagat',
@@ -1880,7 +1949,8 @@ export const localizedMetadata = {
     subtitle: 'Subtitle (opsyonal)',
     isbn: 'ISBN (opsyonal)',
     metadata: 'Metadata ng pahina ng pamagat',
-    required: 'Kinakailangang metadata'
+    required: 'Kinakailangang metadata',
+    copyright: 'Copyright © {year} ni {author}. Lahat ng karapatan ay nakalaan.'
   },
   // Indian Languages (missing ones)
   bn: {
@@ -1889,7 +1959,8 @@ export const localizedMetadata = {
     subtitle: 'উপশিরোনাম (ঐচ্ছিক)',
     isbn: 'ISBN (ঐচ্ছিক)',
     metadata: 'শিরোনাম পৃষ্ঠার মেটাডেটা',
-    required: 'প্রয়োজনীয় মেটাডেটা'
+    required: 'প্রয়োজনীয় মেটাডেটা',
+    copyright: 'কপিরাইট © {year} {author}। সমস্ত অধিকার সংরক্ষিত।'
   },
   gu: {
     title: 'શીર્ષક',
@@ -1897,7 +1968,8 @@ export const localizedMetadata = {
     subtitle: 'ઉપશીર્ષક (વૈકલ્પિક)',
     isbn: 'ISBN (વૈકલ્પિક)',
     metadata: 'શીર્ષક પૃષ્ઠ મેટાડેટા',
-    required: 'આવશ્યક મેટાડેટા'
+    required: 'આવશ્યક મેટાડેટા',
+    copyright: 'કૉપિરાઇટ © {year} {author}. બધા અધિકારો આરક્ષિત.'
   },
   te: {
     title: 'శీర్షిక',
@@ -1905,7 +1977,8 @@ export const localizedMetadata = {
     subtitle: 'ఉపశీర్షిక (ఐచ్ఛిక)',
     isbn: 'ISBN (ఐచ్ఛిక)',
     metadata: 'శీర్షిక పేజీ మెటాడేటా',
-    required: 'అవసరమైన మెటాడేటా'
+    required: 'అవసరమైన మెటాడేటా',
+    copyright: 'కాపీరైట్ © {year} {author}. అన్ని హక్కులు రక్షించబడ్డాయి.'
   },
   kn: {
     title: 'ಶೀರ್ಷಿಕೆ',
@@ -1913,7 +1986,8 @@ export const localizedMetadata = {
     subtitle: 'ಉಪಶೀರ್ಷಿಕೆ (ಐಚ್ಛಿಕ)',
     isbn: 'ISBN (ಐಚ್ಛಿಕ)',
     metadata: 'ಶೀರ್ಷಿಕೆ ಪುಟದ ಮೆಟಾಡೇಟಾ',
-    required: 'ಅಗತ್ಯವಿರುವ ಮೆಟಾಡೇಟಾ'
+    required: 'ಅಗತ್ಯವಿರುವ ಮೆಟಾಡೇಟಾ',
+    copyright: 'ಹಕ್ಕುಸ್ವಾಮ್ಯ © {year} {author}. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.'
   },
   ml: {
     title: 'ശീർഷകം',
@@ -1921,7 +1995,8 @@ export const localizedMetadata = {
     subtitle: 'ഉപശീർഷകം (ഓപ്ഷണൽ)',
     isbn: 'ISBN (ഓപ്ഷണൽ)',
     metadata: 'ശീർഷക പേജ് മെറ്റാഡാറ്റ',
-    required: 'ആവശ്യമായ മെറ്റാഡാറ്റ'
+    required: 'ആവശ്യമായ മെറ്റാഡാറ്റ',
+    copyright: 'പകർപ്പവകാശം © {year} {author}. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു.'
   },
   pa: {
     title: 'ਸਿਰਲੇਖ',
@@ -1929,7 +2004,8 @@ export const localizedMetadata = {
     subtitle: 'ਉਪ-ਸਿਰਲੇਖ (ਵਿਕਲਪਿਕ)',
     isbn: 'ISBN (ਵਿਕਲਪਿਕ)',
     metadata: 'ਸਿਰਲੇਖ ਪੰਨਾ ਮੈਟਾਡੇਟਾ',
-    required: 'ਲੋੜੀਂਦਾ ਮੈਟਾਡੇਟਾ'
+    required: 'ਲੋੜੀਂਦਾ ਮੈਟਾਡੇਟਾ',
+    copyright: 'ਕਾਪੀਰਾਈਟ © {year} {author}। ਸਾਰੇ ਅਧਿਕਾਰ ਰਾਖਵੇਂ ਹਨ।'
   },
   or: {
     title: 'ଶୀର୍ଷକ',
@@ -1937,7 +2013,8 @@ export const localizedMetadata = {
     subtitle: 'ଉପଶୀର୍ଷକ (ଇଚ୍ଛାଧୀନ)',
     isbn: 'ISBN (ଇଚ୍ଛାଧୀନ)',
     metadata: 'ଶୀର୍ଷକ ପୃଷ୍ଠା ମେଟାଡାଟା',
-    required: 'ଆବଶ୍ୟକ ମେଟାଡାଟା'
+    required: 'ଆବଶ୍ୟକ ମେଟାଡାଟା',
+    copyright: 'କପିରାଇଟ୍ © {year} {author}। ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ।'
   },
   ta: {
     title: 'தலைப்பு',
@@ -1945,7 +2022,8 @@ export const localizedMetadata = {
     subtitle: 'துணைத்தலைப்பு (விருப்பம்)',
     isbn: 'ISBN (விருப்பம்)',
     metadata: 'தலைப்பு பக்க மெட்டாடேட்டா',
-    required: 'தேவையான மெட்டாடேட்டா'
+    required: 'தேவையான மெட்டாடேட்டா',
+    copyright: 'பதிப்புரிமை © {year} {author}। அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன।'
   }
 };
 
@@ -1957,4 +2035,18 @@ export const getLocalizedMetadata = (languageCode: string) => {
   return localizedMetadata[languageCode] || 
          localizedMetadata[normalizedLang] || 
          localizedMetadata['en'];
+};
+
+// Helper function to generate localized copyright notice
+export const generateCopyrightNotice = (languageCode: string, author: string, year?: number) => {
+  const metadata = getLocalizedMetadata(languageCode);
+  const currentYear = year || new Date().getFullYear();
+  
+  if (!author || author.trim() === '') {
+    return '';
+  }
+  
+  return metadata.copyright
+    .replace('{year}', currentYear.toString())
+    .replace('{author}', author.trim());
 };
