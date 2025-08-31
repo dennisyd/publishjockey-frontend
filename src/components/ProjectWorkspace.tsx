@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef, useMemo } from 'react'; // Yancy Dennis
+import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'; // Yancy Dennis
 // Narrow area keys to string to avoid symbol-to-string issues in template literals
 
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import WordCountDisplay from './WordCountDisplay';
+import { localizedStructures } from '../utils/bookStructureLocalization';
 import {
   Box,
   Typography,
@@ -609,38 +610,154 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
     console.log('🔍 DEBUG: projectAuthor:', projectAuthor, 'authorName:', authorName);
     
-    // Initialize copyright if:
-    // 1. No copyright content exists (new project)
-    // 2. Copyright content contains template placeholders (needs updating)
-    const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}');
-    if (!currentCopyright.trim() || hasPlaceholders) {
-      let defaultCopyright = '';
-      
-      if (authorName) {
-        // Generate localized copyright notice with author (includes full text)
-        defaultCopyright = generateCopyrightNotice(documentLanguage, authorName);
-        console.log('🎯 Generating copyright with author for language:', documentLanguage, 'author:', authorName);
-      } else {
-        // Generate placeholder copyright for new projects without author
-        const metadata = getLocalizedMetadata(documentLanguage);
-        console.log('🔍 DEBUG: metadata for', documentLanguage, ':', metadata);
-        const placeholderCopyrightLine = metadata.copyright
-          .replace('{year}', new Date().getFullYear().toString())
-          .replace('{author}', '[Author Name]');
-        const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
-        defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
-        console.log('🎯 Generating placeholder copyright for new project in language:', documentLanguage);
-        console.log('🔍 DEBUG: placeholderCopyrightLine:', placeholderCopyrightLine);
-        console.log('🔍 DEBUG: copyrightFull:', copyrightFull);
+    // Detect book language from structure for copyright only
+    const detectBookLanguage = () => {
+      // Check each supported language to see if the current structure matches
+      for (const [langCode, langStructure] of Object.entries(localizedStructures)) {
+        const frontSections = (langStructure as any).front;
+        if (frontSections && Array.isArray(frontSections)) {
+          // Check if any of the current structure's front sections match this language's sections
+          const hasMatchingSections = frontSections.some((section: string) => 
+            structure?.front?.includes(section)
+          );
+          if (hasMatchingSections) {
+            console.log('🔍 Detected book language:', langCode, 'based on sections:', frontSections.filter((s: string) => structure?.front?.includes(s)));
+            return langCode;
+          }
+        }
       }
       
-      setContent(prev => ({
-        ...prev,
-        [copyrightKey]: defaultCopyright
-      }));
+      console.log('🔍 No language match found, using UI language:', documentLanguage);
+      return documentLanguage; // Fallback to UI language
+    };
+    
+    const copyrightLanguage = detectBookLanguage();
+    console.log('🔍 DEBUG: Structure sections:', structure?.front);
+    console.log('🔍 DEBUG: Detected copyrightLanguage:', copyrightLanguage);
+    
+    // Initialize copyright conditions
+    const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}') || currentCopyright.includes('[Author Name]');
+    const hasEnglishCopyright = currentCopyright.includes('Copyright ©') && copyrightLanguage !== 'en';
+    
+    // Only regenerate if:
+    // 1. No copyright exists (new project)
+    // 2. Has template placeholders 
+    // 3. Has English copyright in non-English book
+    const shouldRegenerate = !currentCopyright.trim() || hasPlaceholders || hasEnglishCopyright;
+    
+    console.log('🔍 DEBUG: shouldRegenerate?', shouldRegenerate);
+    
+    if (!shouldRegenerate) {
+      console.log('🚫 Skipping copyright regeneration - conditions not met');
+      return;
     }
     
+    let defaultCopyright = '';
+    
+    if (authorName) {
+      // Generate localized copyright notice with author (includes full text)
+      console.log('🔍 DEBUG: About to call generateCopyrightNotice with author:', `"${authorName}"`);
+      console.log('🔍 DEBUG: Author length:', authorName.length);
+      defaultCopyright = generateCopyrightNotice(copyrightLanguage, authorName);
+      console.log('🎯 Generating copyright with author for language:', copyrightLanguage, 'author:', authorName);
+      console.log('🔍 DEBUG: Generated copyright:', defaultCopyright);
+    } else {
+      // Generate placeholder copyright for new projects without author
+      const metadata = getLocalizedMetadata(copyrightLanguage);
+      console.log('🔍 DEBUG: metadata for', copyrightLanguage, ':', metadata);
+      const placeholderCopyrightLine = metadata.copyright
+        .replace('{year}', new Date().getFullYear().toString())
+        .replace('{author}', '[Author Name]');
+      const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
+      defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
+      console.log('🎯 Generating placeholder copyright for new project in language:', copyrightLanguage);
+      console.log('🔍 DEBUG: placeholderCopyrightLine:', placeholderCopyrightLine);
+      console.log('🔍 DEBUG: copyrightFull:', copyrightFull);
+    }
+    
+    setContent(prev => ({
+      ...prev,
+      [copyrightKey]: defaultCopyright
+    }));
+    
   }, [projectAuthor, documentLanguage, structure.front, content]); // Run when author, language, or structure changes
+  
+  // Function to force copyright regeneration (called when metadata dialog closes)
+  const regenerateCopyright = useCallback(() => {
+    // Find copyright section name in the current structure
+    const copyrightSectionName = structure.front.find(section => 
+      section.toLowerCase().includes('copyright') || 
+      section.toLowerCase().includes('droits') || // French
+      section.toLowerCase().includes('derechos') || // Spanish
+      section.toLowerCase().includes('direitos') || // Portuguese
+      section.toLowerCase().includes('urheberrecht') || // German
+      section.toLowerCase().includes('hakimiliki') || // Swahili
+      section.toLowerCase().includes('πνευματικά') || // Greek
+      section.toLowerCase().includes('版权') || // Chinese
+      section.toLowerCase().includes('कॉपीराइट') || // Hindi
+      section.toLowerCase().includes('著作権') || // Japanese
+      section.toLowerCase().includes('авторское') || // Russian
+      section === 'Copyright' // Default fallback
+    ) || 'Copyright';
+    
+    const copyrightKey = `front:${copyrightSectionName}`;
+    
+    // Check if copyright section exists in structure
+    const copyrightExists = structure.front.includes(copyrightSectionName);
+    if (!copyrightExists) {
+      console.log('🚫 Copyright section not found in structure for regeneration');
+      return;
+    }
+    
+    // Detect book language from structure for copyright only
+    const detectBookLanguage = () => {
+      // Check each supported language to see if the current structure matches
+      for (const [langCode, langStructure] of Object.entries(localizedStructures)) {
+        const frontSections = (langStructure as any).front;
+        if (frontSections && Array.isArray(frontSections)) {
+          // Check if any of the current structure's front sections match this language's sections
+          const hasMatchingSections = frontSections.some((section: string) => 
+            structure?.front?.includes(section)
+          );
+          if (hasMatchingSections) {
+            console.log('🔍 Detected book language:', langCode, 'based on sections:', frontSections.filter((s: string) => structure?.front?.includes(s)));
+            return langCode;
+          }
+        }
+      }
+      
+      console.log('🔍 No language match found, using UI language:', documentLanguage);
+      return documentLanguage; // Fallback to UI language
+    };
+    
+    const copyrightLanguage = detectBookLanguage();
+    const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
+    
+    console.log('🔄 FORCE REGENERATING COPYRIGHT on dialog close');
+    console.log('🔍 Author:', `"${authorName}"`, 'Language:', copyrightLanguage);
+    
+    let defaultCopyright = '';
+    
+    if (authorName) {
+      // Generate localized copyright notice with author (includes full text)
+      defaultCopyright = generateCopyrightNotice(copyrightLanguage, authorName);
+      console.log('🎯 Generated copyright with author for language:', copyrightLanguage, 'author:', authorName);
+    } else {
+      // Generate placeholder copyright for new projects without author
+      const metadata = getLocalizedMetadata(copyrightLanguage);
+      const placeholderCopyrightLine = metadata.copyright
+        .replace('{year}', new Date().getFullYear().toString())
+        .replace('{author}', '[Author Name]');
+      const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
+      defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
+      console.log('🎯 Generated placeholder copyright for language:', copyrightLanguage);
+    }
+    
+    setContent(prev => ({
+      ...prev,
+      [copyrightKey]: defaultCopyright
+    }));
+  }, [projectAuthor, documentLanguage, structure.front]);
   
   // Standardize handleAdd function to work equally for all matter sections
   const handleAdd = (area: Area) => {
@@ -1755,6 +1872,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Add useEffect to construct Title Page markdown after metadata is entered and dialog is closed
   useEffect(() => {
     if (!metadataDialogOpen && projectTitle && projectAuthor) {
+      // Force regenerate copyright when dialog closes with author info
+      regenerateCopyright();
       const area = 'front';
       
       // Find title page section in the current structure (it should be localized already)
@@ -1799,7 +1918,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       }
     }
     // Only run when dialog closes or metadata changes
-  }, [metadataDialogOpen, projectTitle, projectSubtitle, projectAuthor, projectIsbn, structure.front, documentLanguage]);
+  }, [metadataDialogOpen, projectTitle, projectSubtitle, projectAuthor, projectIsbn, structure.front, documentLanguage, regenerateCopyright]);
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
@@ -2800,7 +2919,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           <TextField
             label={getLocalizedMetadata(documentLanguage).author}
             value={projectAuthor}
-            onChange={e => setProjectAuthor(e.target.value)}
+            onChange={e => {
+              console.log('🔍 [METADATA] Author input changed to:', `"${e.target.value}"`);
+              setProjectAuthor(e.target.value);
+            }}
             required
             fullWidth
             margin="dense"

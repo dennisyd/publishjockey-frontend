@@ -983,6 +983,9 @@ const localizedStructures = {
   }
 };
 
+// Export localizedStructures for use in other components
+export { localizedStructures };
+
 // ------------------------------------------------------------------
 // Helpers and Exports (single declarations with inline debug logs)
 // ------------------------------------------------------------------
@@ -2098,18 +2101,32 @@ export const getLocalizedMetadata = (languageCode: string) => {
 
 // Helper function to generate localized copyright notice
 export const generateCopyrightNotice = (languageCode: string, author: string, year?: number) => {
+  console.log('🔍 [generateCopyrightNotice] Input author:', `"${author}"`);
+  console.log('🔍 [generateCopyrightNotice] Author length:', author?.length);
+  console.log('🔍 [generateCopyrightNotice] Language:', languageCode);
+  
   const metadata = getLocalizedMetadata(languageCode);
   const currentYear = year || new Date().getFullYear();
   
   if (!author || author.trim() === '') {
+    console.log('🔍 [generateCopyrightNotice] Author is empty, returning empty string');
     return '';
   }
   
+  const trimmedAuthor = author.trim();
+  console.log('🔍 [generateCopyrightNotice] Trimmed author:', `"${trimmedAuthor}"`);
+  console.log('🔍 [generateCopyrightNotice] Metadata copyright template:', metadata.copyright);
+  
   const copyrightLine = metadata.copyright
     .replace('{year}', currentYear.toString())
-    .replace('{author}', author.trim());
+    .replace('{author}', trimmedAuthor);
+  
+  console.log('🔍 [generateCopyrightNotice] Generated copyright line:', copyrightLine);
   
   const copyrightFull = metadata.copyrightFull || metadata.copyright;
   
-  return `${copyrightLine}\n\n${copyrightFull}`;
+  const result = `${copyrightLine}\n\n${copyrightFull}`;
+  console.log('🔍 [generateCopyrightNotice] Final result:', result);
+  
+  return result;
 };
