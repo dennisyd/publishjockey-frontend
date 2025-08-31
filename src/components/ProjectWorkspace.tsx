@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef, useMemo, useCallback } from 'react'
 
 import { sanitizeHtml } from '../utils/sanitizeHtml';
 import WordCountDisplay from './WordCountDisplay';
-import { localizedStructures } from '../utils/bookStructureLocalization';
+
 import {
   Box,
   Typography,
@@ -610,30 +610,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
     console.log('🔍 DEBUG: projectAuthor:', projectAuthor, 'authorName:', authorName);
     
-    // Detect book language from structure for copyright only
-    const detectBookLanguage = () => {
-      // Check each supported language to see if the current structure matches
-      for (const [langCode, langStructure] of Object.entries(localizedStructures)) {
-        const frontSections = (langStructure as any).front;
-        if (frontSections && Array.isArray(frontSections)) {
-          // Check if any of the current structure's front sections match this language's sections
-          const hasMatchingSections = frontSections.some((section: string) => 
-            structure?.front?.includes(section)
-          );
-          if (hasMatchingSections) {
-            console.log('🔍 Detected book language:', langCode, 'based on sections:', frontSections.filter((s: string) => structure?.front?.includes(s)));
-            return langCode;
-          }
-        }
-      }
-      
-      console.log('🔍 No language match found, using UI language:', documentLanguage);
-      return documentLanguage; // Fallback to UI language
-    };
-    
-    const copyrightLanguage = detectBookLanguage();
+    // Use the same language as the user selected in dashboard (like export modal does)
+    const copyrightLanguage = i18n.language || 'en';
+    console.log('🎯 [SIMPLE COPYRIGHT] Using dashboard language:', copyrightLanguage, 'for copyright generation');
     console.log('🔍 DEBUG: Structure sections:', structure?.front);
-    console.log('🔍 DEBUG: Detected copyrightLanguage:', copyrightLanguage);
     
     // Initialize copyright conditions
     const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}') || currentCopyright.includes('[Author Name]');
@@ -709,32 +689,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       return;
     }
     
-    // Detect book language from structure for copyright only
-    const detectBookLanguage = () => {
-      // Check each supported language to see if the current structure matches
-      for (const [langCode, langStructure] of Object.entries(localizedStructures)) {
-        const frontSections = (langStructure as any).front;
-        if (frontSections && Array.isArray(frontSections)) {
-          // Check if any of the current structure's front sections match this language's sections
-          const hasMatchingSections = frontSections.some((section: string) => 
-            structure?.front?.includes(section)
-          );
-          if (hasMatchingSections) {
-            console.log('🔍 Detected book language:', langCode, 'based on sections:', frontSections.filter((s: string) => structure?.front?.includes(s)));
-            return langCode;
-          }
-        }
-      }
-      
-      console.log('🔍 No language match found, using UI language:', documentLanguage);
-      return documentLanguage; // Fallback to UI language
-    };
-    
-    const copyrightLanguage = detectBookLanguage();
+    // Use the same language as the user selected in dashboard (like export modal does)
+    const copyrightLanguage = i18n.language || 'en';
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
     
-    console.log('🔄 FORCE REGENERATING COPYRIGHT on dialog close');
-    console.log('🔍 Author:', `"${authorName}"`, 'Language:', copyrightLanguage);
+    console.log('🔄 [REGENERATE COPYRIGHT] Using dashboard language:', copyrightLanguage);
+    console.log('🔍 Author:', `"${authorName}"`);
     
     let defaultCopyright = '';
     

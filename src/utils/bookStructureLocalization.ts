@@ -2093,10 +2093,19 @@ export const localizedMetadata = {
 export const getLocalizedMetadata = (languageCode: string) => {
   const normalizedLang = normalizeLang(languageCode);
   
+  console.log('🔍 [getLocalizedMetadata] Input language:', languageCode);
+  console.log('🔍 [getLocalizedMetadata] Normalized language:', normalizedLang);
+  console.log('🔍 [getLocalizedMetadata] Available keys:', Object.keys(localizedMetadata));
+  
   // Try exact match first, then normalized, then fallback to English
-  return localizedMetadata[languageCode] || 
-         localizedMetadata[normalizedLang] || 
-         localizedMetadata['en'];
+  const result = localizedMetadata[languageCode] || 
+                 localizedMetadata[normalizedLang] || 
+                 localizedMetadata['en'];
+  
+  console.log('🔍 [getLocalizedMetadata] Using metadata for:', languageCode, '→', normalizedLang);
+  console.log('🔍 [getLocalizedMetadata] Copyright template:', result.copyright);
+  
+  return result;
 };
 
 // Helper function to generate localized copyright notice
