@@ -3332,6 +3332,11 @@ const FAQ = () => {
           id: "unused-sections",
           question: "Do I need to delete unused sections of my book?",
           answer: "No, there's no need to delete them. However, you're free to delete unused sections, repurpose (rename) existing ones, and add custom sections to fit your book's structure. The application is designed to be flexible—any sections you don't use will simply be ignored in the final output."
+        },
+        {
+          id: "language-selection",
+          question: "Should I select my native language before creating my book?",
+          answer: "Yes, we <strong>highly recommend</strong> selecting your native language before creating your book project. Here's why:<br><br><ul style='padding-left: 20px;'><li><strong>Book Structure:</strong> Your book outline (chapters, copyright page, etc.) will appear in your native language from the start.</li><li><strong>Copyright Generation:</strong> The copyright notice will be automatically generated in your language with proper legal terminology.</li><li><strong>Better Experience:</strong> All book sections and templates will be localized for your language.</li></ul><br><strong>What if I forgot to select my language?</strong><br>Don't worry! The service still works perfectly, but:<br><br><ul style='padding-left: 20px;'><li>Your book outline will show in English initially</li><li>You'll need to manually select your copyright language</li><li>You can change your language anytime in settings, and the system will automatically correct the structure and copyright</li></ul><br>We support <strong>60+ languages</strong> including regional variants like Northern/Southern Sotho and African Portuguese, so you can always find the perfect match for your book!"
         }
       ]
     },
