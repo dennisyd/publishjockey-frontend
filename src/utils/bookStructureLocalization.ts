@@ -1491,7 +1491,9 @@ export const localizedMetadata = {
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
-    required: 'Metadaten Erforderlich'
+    required: 'Metadaten Erforderlich',
+    copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
+    copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
   'de-AT': {
     title: 'Titel',
@@ -1499,7 +1501,9 @@ export const localizedMetadata = {
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
-    required: 'Metadaten Erforderlich'
+    required: 'Metadaten Erforderlich',
+    copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
+    copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
   'de-CH': {
     title: 'Titel',
@@ -1507,7 +1511,9 @@ export const localizedMetadata = {
     subtitle: 'Untertitel (optional)',
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
-    required: 'Metadaten Erforderlich'
+    required: 'Metadaten Erforderlich',
+    copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
+    copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
   // Portuguese variants
   pt: {
@@ -1526,7 +1532,9 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
-    required: 'Metadados Obrigatórios'
+    required: 'Metadados Obrigatórios',
+    copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
+    copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de breves citações em uma resenha do livro.'
   },
   'pt-BR': {
     title: 'Título',
@@ -1534,7 +1542,9 @@ export const localizedMetadata = {
     subtitle: 'Subtítulo (opcional)',
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
-    required: 'Metadados Obrigatórios'
+    required: 'Metadados Obrigatórios',
+    copyright: 'Direitos autorais © {year} por {author}. Todos os direitos reservados.',
+    copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de breves citações em uma resenha do livro.'
   },
   // Italian
   it: {
@@ -1910,8 +1920,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcjonalny)',
     metadata: 'Metadane strony tytułowej',
     required: 'Wymagane metadane',
-    copyright: 'Copyright © {year} {author}. Wszelkie prawa zastrzeżone.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyright: 'Prawa autorskie © {year} {author}. Wszelkie prawa zastrzeżone.',
+    copyrightFull: 'Żadna część tej książki nie może być reprodukowana w jakiejkolwiek formie ani jakimikolwiek środkami elektronicznymi lub mechanicznymi, w tym systemami przechowywania i wyszukiwania informacji, bez pisemnej zgody autora, z wyjątkiem użycia krótkich cytatów w recenzji książki.'
   },
   ro: {
     title: 'Titlu',
