@@ -583,25 +583,59 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
 
   
-  // Prefill Copyright page if not set or if author changes
+  // Prefill Copyright page when project loads or when author/language changes
   useEffect(() => {
-    const copyrightKey = 'front:Copyright';
-    const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : 'Author Name';
+    // Find copyright section in the current structure (it should be localized already)
+    const copyrightSectionName = structure.front.find(section => 
+      section.toLowerCase().includes('copyright') || 
+      section.toLowerCase().includes('droits') || // French
+      section.toLowerCase().includes('derechos') || // Spanish
+      section.toLowerCase().includes('direitos') || // Portuguese
+      section.toLowerCase().includes('urheberrecht') || // German
+      section.toLowerCase().includes('hakimiliki') || // Swahili
+      section === 'Copyright' // Default fallback
+    ) || 'Copyright';
     
-    if (authorName && authorName !== 'Author Name') {
-      // Generate localized copyright notice
-      const localizedCopyright = generateCopyrightNotice(documentLanguage, authorName);
-      const defaultCopyright = `${localizedCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+    const copyrightKey = `front:${copyrightSectionName}`;
+    
+    // Check if copyright section exists in structure
+    const copyrightExists = structure.front.includes(copyrightSectionName);
+    if (!copyrightExists) {
+      console.log('Copyright section not found in structure for language:', documentLanguage);
+      return;
+    }
+    
+    const currentCopyright = content[copyrightKey] || '';
+    const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
+    
+    // Initialize copyright if:
+    // 1. No copyright content exists (new project)
+    // 2. Author is provided and copyright is empty or default
+    if (!currentCopyright.trim() || (authorName && authorName !== '')) {
+      let defaultCopyright = '';
       
-      // Always update the copyright text when author changes
-      console.log('Updating copyright text with localized notice for:', authorName, 'in', documentLanguage);
+      if (authorName) {
+        // Generate localized copyright notice with author
+        const localizedCopyright = generateCopyrightNotice(documentLanguage, authorName);
+        defaultCopyright = `${localizedCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+        console.log('🎯 Generating copyright with author for language:', documentLanguage, 'author:', authorName);
+      } else {
+        // Generate placeholder copyright for new projects without author
+        const metadata = getLocalizedMetadata(documentLanguage);
+        const placeholderCopyright = metadata.copyright
+          .replace('{year}', new Date().getFullYear().toString())
+          .replace('{author}', '[Author Name]');
+        defaultCopyright = `${placeholderCopyright}\n\nAll rights reserved. No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.`;
+        console.log('🎯 Generating placeholder copyright for new project in language:', documentLanguage);
+      }
+      
       setContent(prev => ({
         ...prev,
         [copyrightKey]: defaultCopyright
       }));
     }
     
-  }, [projectAuthor, documentLanguage]); // Run when author or language changes
+  }, [projectAuthor, documentLanguage, structure.front, content]); // Run when author, language, or structure changes
   
   // Standardize handleAdd function to work equally for all matter sections
   const handleAdd = (area: Area) => {
@@ -1717,23 +1751,51 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   useEffect(() => {
     if (!metadataDialogOpen && projectTitle && projectAuthor) {
       const area = 'front';
-      const idx = structure.front.findIndex(s => s === 'Title Page');
+      
+      // Find title page section in the current structure (it should be localized already)
+      const titlePageName = structure.front.find(section => 
+        section.toLowerCase().includes('title') || 
+        section.toLowerCase().includes('titre') || // French
+        section.toLowerCase().includes('título') || // Spanish
+        section.toLowerCase().includes('titel') || // German/Dutch
+        section.toLowerCase().includes('kichwa') || // Swahili
+        section === 'Title Page' // Default fallback
+      ) || 'Title Page';
+      const idx = structure.front.findIndex(s => s === titlePageName);
+      
       if (idx !== -1) {
-        const key = `${area}:Title Page`;
+        const key = `${area}:${titlePageName}`;
         // Only set if empty or matches the previous auto-generated template
         const current = content[key] || '';
-        const autoGenPattern = /^# .+\n*(## .+\n*)?\n*By .+\n*(ISBN: .+)?/;
+        
+        // Get localized metadata labels
+        const metadata = getLocalizedMetadata(documentLanguage);
+        
+        // More flexible pattern to match auto-generated content
+        const autoGenPattern = /^# .+/;
         if (!current.trim() || autoGenPattern.test(current.trim())) {
           let constructed = `# ${projectTitle}`;
           if (projectSubtitle) constructed += `\n\n## ${projectSubtitle}`;
-          constructed += `\n\nBy ${projectAuthor}`;
-          if (projectIsbn) constructed += `\n\nISBN: ${projectIsbn}`;
+          
+          // Use localized "By" equivalent or fallback to author name format
+          if (documentLanguage === 'en') {
+            constructed += `\n\nBy ${projectAuthor}`;
+          } else {
+            // For non-English, just show the author name prominently
+            constructed += `\n\n**${projectAuthor}**`;
+          }
+          
+          if (projectIsbn) {
+            constructed += `\n\nISBN: ${projectIsbn}`;
+          }
+          
+          console.log('🎯 Auto-generating title page for language:', documentLanguage, 'section:', titlePageName);
           setContent(prev => ({ ...prev, [key]: constructed }));
         }
       }
     }
     // Only run when dialog closes or metadata changes
-  }, [metadataDialogOpen, projectTitle, projectSubtitle, projectAuthor, projectIsbn, structure.front]);
+  }, [metadataDialogOpen, projectTitle, projectSubtitle, projectAuthor, projectIsbn, structure.front, documentLanguage]);
 
   const fileInputRef = React.useRef<HTMLInputElement | null>(null);
 
