@@ -657,11 +657,36 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Find copyright section in the current structure (it should be localized already)
     const copyrightSectionName = structure.front.find(section => 
       section.toLowerCase().includes('copyright') || 
+      // European Languages
       section.toLowerCase().includes('droits') || // French
       section.toLowerCase().includes('derechos') || // Spanish
       section.toLowerCase().includes('direitos') || // Portuguese
       section.toLowerCase().includes('diritti') || // Italian
+      section.toLowerCase().includes('drets') || // Catalan
+      section.toLowerCase().includes('dreches') || // Occitan
       section.toLowerCase().includes('urheberrecht') || // German
+      section.toLowerCase().includes('auteursrechten') || // Dutch
+      section.toLowerCase().includes('prawa autorskie') || // Polish
+      section.toLowerCase().includes('autorská práva') || // Czech
+      section.toLowerCase().includes('upphovsrätt') || // Swedish
+      section.toLowerCase().includes('ophavsret') || // Danish
+      section.toLowerCase().includes('opphavsrett') || // Norwegian
+      section.toLowerCase().includes('tekijänoikeus') || // Finnish
+      section.toLowerCase().includes('höfundarréttur') || // Icelandic
+      section.toLowerCase().includes('авторские права') || // Russian
+      section.toLowerCase().includes('πνευματικά δικαιώματα') || // Greek
+      section.toLowerCase().includes('szerzői jog') || // Hungarian
+      section.toLowerCase().includes('autortiesības') || // Latvian
+      section.toLowerCase().includes('autorių teisės') || // Lithuanian
+      section.toLowerCase().includes('авторски права') || // Macedonian/Serbian
+      section.toLowerCase().includes('autorské práva') || // Slovak
+      section.toLowerCase().includes('avtorske pravice') || // Slovenian
+      section.toLowerCase().includes('telif hakkı') || // Turkish
+      section.toLowerCase().includes('autorska prava') || // Croatian
+      section.toLowerCase().includes('drepturi de autor') || // Romanian
+      section.toLowerCase().includes('autoriõigus') || // Estonian
+      section.toLowerCase().includes('dereitos de autor') || // Galician
+      // African Languages
       section.toLowerCase().includes('hakimiliki') || // Swahili
       section.toLowerCase().includes('haƙƙin') || // Hausa
       section.toLowerCase().includes('ikike') || // Igbo
@@ -674,6 +699,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('eddembe') || // Luganda
       section.toLowerCase().includes('zo ara-javatra') || // Malagasy
       section.toLowerCase().includes('kodzero') || // Shona
+      // Asian Languages
+      section.toLowerCase().includes('حقوق النشر') || // Arabic
+      section.toLowerCase().includes('பதிப்புரிமை') || // Tamil
+      section.toLowerCase().includes('कॉपीराइट') || // Hindi
+      section.toLowerCase().includes('কপিরাইট') || // Bengali
+      section.toLowerCase().includes('કોપીરાઇટ') || // Gujarati
+      section.toLowerCase().includes('కాపీరైట్') || // Telugu
+      section.toLowerCase().includes('ಕೃತಿಸ್ವಾಮ್ಯ') || // Kannada
+      section.toLowerCase().includes('പകർപ്പവകാശം') || // Malayalam
+      section.toLowerCase().includes('ਕਾਪੀਰਾਈਟ') || // Punjabi
+      section.toLowerCase().includes('କପିରାଇଟ୍') || // Odia
+      section.toLowerCase().includes('hak cipta') || // Indonesian/Malaysian
+      section.toLowerCase().includes('bản quyền') || // Vietnamese
+      section.toLowerCase().includes('著作権') || // Japanese
+      section.toLowerCase().includes('版权') || // Chinese
+      section.toLowerCase().includes('저작권') || // Korean
+      section.toLowerCase().includes('ลิขสิทธิ์') || // Thai
       section === 'Copyright' // Default fallback
     ) || 'Copyright';
     
