@@ -610,8 +610,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     
     // Initialize copyright if:
     // 1. No copyright content exists (new project)
-    // 2. Author is provided and copyright is empty or default
-    if (!currentCopyright.trim() || (authorName && authorName !== '')) {
+    // 2. Copyright content contains template placeholders (needs updating)
+    const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}');
+    if (!currentCopyright.trim() || hasPlaceholders) {
       let defaultCopyright = '';
       
       if (authorName) {
