@@ -1440,6 +1440,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1531,6 +1532,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1622,6 +1624,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
     required: 'Metadaten Erforderlich',
+    by: 'Von',
     copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
     copyrightFull: 'Kein Teil dieses Buches darf in irgendeiner Form oder durch elektronische oder mechanische Mittel, einschließlich Informationsspeicher- und -abrufsystemen, ohne schriftliche Genehmigung des Autors reproduziert werden, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
@@ -1663,6 +1666,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos autorais © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de citações breves em uma resenha de livro.'
   },
@@ -1693,6 +1697,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
   },
@@ -1703,6 +1708,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
   },
@@ -1713,6 +1719,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio electrónico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, excepto para o uso de breves citações numa resenha do livro.'
   },
@@ -1724,6 +1731,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opzionale)',
     metadata: 'Metadati della Pagina del Titolo',
     required: 'Metadati Richiesti',
+    by: 'Di',
     copyright: 'Diritti d\'autore © {year} di {author}. Tutti i diritti riservati.',
     copyrightFull: 'Nessuna parte di questo libro può essere riprodotta in qualsiasi forma o con qualsiasi mezzo elettronico o meccanico, compresi i sistemi di archiviazione e recupero delle informazioni, senza il permesso scritto dell\'autore, eccetto per l\'uso di brevi citazioni in una recensione del libro.'
   },
@@ -1735,6 +1743,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadades de la Pàgina de Títol',
     required: 'Metadades Requerides',
+    by: 'Per',
     copyright: 'Drets d\'autor © {year} per {author}. Tots els drets reservats.',
     copyrightFull: 'Cap part d\'aquest llibre pot ser reproduïda en qualsevol forma o per qualsevol mitjà electrònic o mecànic, incloent sistemes d\'emmagatzematge i recuperació d\'informació, sense el permís escrit de l\'autor, excepte per a l\'ús de breus cites en una ressenya del llibre.'
   },
@@ -1745,6 +1754,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadonadas de la Pagina de Títol',
     required: 'Metadonadas Requeridas',
+    by: 'Per',
     copyright: "Dreches d'autor © {year} per {author}. Totes los dreches reservats.",
     copyrightFull: "Cap part d'aqueste libre pòt èsser reproduch en quina forma que siá o per qualque mejan electronic o mecanic que siá, incluses los sistèmas d'emmagazinatge e de recuperacion d'informacions, sens la permission escricha de l'autor, levat per l'usatge de citacions brèvas dins una recension del libre."
   },
@@ -1756,6 +1766,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (необязательно)',
     metadata: 'Метаданные титульной страницы',
     required: 'Обязательные метаданные',
+    by: 'Автор',
     copyright: 'Авторское право © {year} {author}. Все права защищены.',
     copyrightFull: 'Никакая часть этой книги не может быть воспроизведена в любой форме или любыми электронными или механическими средствами, включая системы хранения и поиска информации, без письменного разрешения автора, за исключением использования кратких цитат в рецензии на книгу.'
   },
@@ -1766,6 +1777,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (اختياري)',
     metadata: 'بيانات صفحة العنوان',
     required: 'بيانات مطلوبة',
+    by: 'بقلم',
     copyright: 'حقوق الطبع والنشر © {year} {author}. جميع الحقوق محفوظة.',
     copyrightFull: 'لا يجوز إعادة إنتاج أي جزء من هذا الكتاب بأي شكل أو بأي وسيلة إلكترونية أو ميكانيكية، بما في ذلك أنظمة تخزين واسترجاع المعلومات، دون إذن كتابي من المؤلف، باستثناء استخدام اقتباسات قصيرة في مراجعة الكتاب.'
   },
@@ -1777,6 +1789,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (na zaɓi)',
     metadata: 'Bayanan Shafin Taken',
     required: 'Bayanan da ake bukata',
+    by: 'Na',
     copyright: 'Haƙƙin marubuciya © {year} ta {author}. Duk wani hakki an kiyaye.',
     copyrightFull: 'Babu wani bangare na wannan littafi da za a iya sake yin shi ta kowace hanya ko ta kowace hanyar lantarki ko injina, gami da tsarin ajiya da dawo da bayanai, ba tare da izinin rubutu daga marubucin ba, sai dai don amfani da gajerun maganganu a cikin bitar littafi.'
   },
@@ -1787,6 +1800,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (nhọrọ)',
     metadata: 'Metadata nke Peeji Aha',
     required: 'Metadata achọrọ',
+    by: 'Site na',
     copyright: 'Ikike nkwupụta © {year} site na {author}. Ikike niile echekwara.',
     copyrightFull: 'Enweghị akụkụ nke akwụkwọ a nke enwere ike imegharị n\'ụdị ọ bụla ma ọ bụ site n\'ụzọ eletrọnịkị ma ọ bụ igwe ọ bụla, gụnyere sistemu nchekwa na nwetaghachi ozi, na-enweghị ikike ederede sitere n\'aka onye edemede, belụsọ maka ojiji nke nkwupụta dị mkpụmkpụ na nyocha akwụkwọ.'
   },
@@ -1797,6 +1811,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (si lazima)',
     metadata: 'Metadata ya Ukurasa wa Kichwa',
     required: 'Metadata inahitajika',
+    by: 'Na',
     copyright: 'Hakimiliki © {year} na {author}. Haki zote zimehifadhiwa.',
     copyrightFull: 'Hakuna sehemu ya kitabu hiki inayoweza kunakiliwa kwa njia yoyote au kwa njia yoyote ya kielektroniki au kiufundi, ikiwa ni pamoja na mifumo ya kuhifadhi na kupata taarifa, bila ruhusa ya maandishi kutoka kwa mwandishi, isipokuwa kwa matumizi ya nukuu fupi katika ukaguzi wa kitabu.'
   },
@@ -1807,6 +1822,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (yiyan)',
     metadata: 'Metadata ti Oju-iwe Akọle',
     required: 'Metadata ti o nilo',
+    by: 'Nípasẹ̀',
     copyright: 'Ẹtọ onkọwe © {year} nipasẹ {author}. Gbogbo ẹtọ ni a pa mọ.',
     copyrightFull: 'Ko si apakan ti iwe yii ti o le ṣe atunṣe ni eyikeyi ọna tabi nipasẹ eyikeyi ọna itanna tabi ẹrọ, pẹlu awọn eto ipamọ ati igbapada alaye, laisi aṣẹ kikọ lati ọdọ onkọwe, ayafi fun lilo awọn itọka kukuru ninu atunyẹwo iwe.'
   },
@@ -1817,6 +1833,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ukukhetha)',
     metadata: 'I-Metadata Yekhasi Lesihloko',
     required: 'I-Metadata eyadingeka',
+    by: 'Ngu',
     copyright: 'Ilungelo lombhali © {year} ngu-{author}. Wonke amalungelo agodliwe.',
     copyrightFull: 'Akukho ingxenye yale ncwadi engaphindwa ngayiphi indlela noma ngayiphi indlela ye-elekthronikhi noma yomatshini, okuhlanganisa amasistimu okugcina nokubuya kolwazi, ngaphandle kwemvume ebhaliwe evela kumbhali, ngaphandle kokusebenzisa izingcaphuno ezimfushane ekubuyekezweni kwencwadi.'
   },
@@ -1827,6 +1844,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ukukhetha)',
     metadata: 'I-Metadata Yephepha Lesihloko',
     required: 'I-Metadata efunekayo',
+    by: 'Ngu',
     copyright: 'Ilungelo lombhali © {year} ngu-{author}. Onke amalungelo agodliwe.',
     copyrightFull: 'Akukho nxalenye yale ncwadi inokuthi iphindwe ngayiphi na indlela okanye ngayiphi na indlela ye-elektroniki okanye yomatshini, kuquka iinkqubo zokugcina nokubuyisela ulwazi, ngaphandle kwemvume ebhaliweyo evela kumbhali, ngaphandle kokusebenzisa izicatshulwa ezimfutshane kuphononongo lwencwadi.'
   },
@@ -1838,6 +1856,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (gũthuura)',
     metadata: 'Metadata ya Rũrĩrĩ rwa Mũtwe',
     required: 'Metadata ĩrĩa ĩbataire',
+    by: 'Nĩ',
     copyright: 'Mĩthiirĩre ya gwandĩka © {year} nĩ {author}. Mĩthiirĩre yothe nĩyagĩrĩirwo.',
     copyrightFull: 'Gatĩrĩ ka ĩbũku rĩĩ gĩtingĩ kũonwo rĩngĩ na njira ĩĩrĩa kana na njira ya elektroniki kana ya mĩkĩna, o hamwe na mithiire ya kũiga na gũcũkia ũhoro, tĩgũo kũrĩ na kĩenda kĩa gwandĩka kĩa mwandĩki, tĩgũo gwa gũtũmĩra ciugo nini cia gacũngĩ thĩ ya ũcaragia wa ĩbũku.'
   },
@@ -1848,6 +1867,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (guhitamo)',
     metadata: 'Metadata y\'urupapuro rw\'umutwe',
     required: 'Metadata ikenewe',
+    by: 'Na',
     copyright: 'Uburenganzira © {year} bwa {author}. Uburenganzira bwose burarinzwe.',
     copyrightFull: 'Nta gice cy\'iki gitabo gishobora kwongererwa mu buryo ubwo ari bwo bwose cyangwa n\'uburyo bw\'ikoranabuhanga cyangwa ubw\'imashini, harimo na sisitemu zo kubika no gushaka amakuru, bitabanje kubona uruhushya rwanditswe rw\'uwanditse, usibye gukoresha amagambo make mu isuzuma ry\'igitabo.'
   },
@@ -1858,6 +1878,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (guhitamo)',
     metadata: 'Metadata y\'urupapuro rw\'umutwe',
     required: 'Metadata ikenewe',
+    by: 'Na',
     copyright: 'Uburenganzira © {year} bwa {author}. Uburenganzira bwose burarinzwe.',
     copyrightFull: 'Nta gice cy\'iki gitabo gishobora kwongererwa mu buryo ubwo ari bwo bwose cyangwa n\'uburyo bw\'ikoranabuhanga cyangwa ubw\'imashini, harimo na sisitemu zo kubika no gushaka amakuru, bitabanje kubona uruhushya rwanditswe rw\'uwanditse, usibye gukoresha amagambo make mu isuzuma ry\'igitabo.'
   },
@@ -1868,6 +1889,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (okulonda)',
     metadata: 'Metadata y\'olupapula lw\'omutwe',
     required: 'Metadata eyeetaagisa',
+    by: 'Nga',
     copyright: 'Eddembe ly\'okuwandiika © {year} wa {author}. Eddembe lyonna liriko.',
     copyrightFull: 'Tewali kitundu ky\'ekitabo kino ekiyinza okuddamu kukolebwa mu ngeri yonna oba mu ngeri y\'ebyuma oba ey\'omutindo, omuli n\'enkola z\'okutereka n\'okufuna obubaka, awatali lukusa oluwandiikiddwa okuva eri omuwandiisi, okuggyako okukozesa ebigambo ebitono mu kukebereza ekitabo.'
   },
@@ -1878,6 +1900,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (safidy)',
     metadata: 'Metadata an\'ny pejy lohateny',
     required: 'Metadata ilaina',
+    by: 'Nosoratan\'i',
     copyright: 'Zo ara-javatra © {year} an\'i {author}. Ny zo rehetra voatahiry.',
     copyrightFull: 'Tsy misy ampahany amin\'ity boky ity azo averina amin\'ny endrika na fomba elektronika na mekanika inona, ao anatin\'izany ny rafi-pitehirizana sy famerenana vaovao, raha tsy misy alalana an-tsoratra avy amin\'ny mpanoratra, afa-tsy ny fampiasana teny fohy amin\'ny famerenana boky.'
   },
@@ -1888,6 +1911,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (kusarudza)',
     metadata: 'Metadata yepeji remusoro',
     required: 'Metadata inodiwa',
+    by: 'Na',
     copyright: 'Kodzero dzenyora © {year} na {author}. Kodzero dzose dzakachengetwa.',
     copyrightFull: 'Hapana chikamu chebhuku iri chinogona kudzoreredza mune chero nzira kana nenzira dzemagetsi kana dzimashini, kusanganisira masisitimu ekuchengetera nekutsvaga ruzivo, pasina mvumo yakanyorwa kubva kumunyori, kunze kwekushandisa mashoko mapfupi mukuongorora bhuku.'
   },
@@ -1898,6 +1922,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (khetho)',
     metadata: 'Metadata ea leqephe la sehlooho',
     required: 'Metadata e hlokahalang',
+    by: 'Ka',
     copyright: 'Tokelo ea boqapi © {year} ea {author}. Litokelo tsohle li bolokiloe.',
     copyrightFull: 'Ha ho karolo ea buka ena e ka etsang hore e hatisoe ka mokhoa ofe kapa ofe kapa ka lisebelisoa life kapa life tsa elektroniki kapa tsa mechini, ho kenyelletsa le sistimi tsa polokelo le tsa fumana lintlha, ntle le tumello e ngotsoeng ea mongoli, ntle le tšebeliso ea mafoko a makhutšoane a makhutšoane ho tekong ea buka.'
   },
@@ -1908,6 +1933,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (kgetho)',
     metadata: 'Metadata ya letlakala la sehloko',
     required: 'Metadata ye e nyakegago',
+    by: 'Ke',
     copyright: 'Ditokelo tša boiqapi © {year} tša {author}. Ditokelo tšohle di šireleditšwe.',
     copyrightFull: 'Ga go na karolo ya puku ye e ka tšweletšwago ka mokgwa wo mongwe le wo mongwe goba ka mekgwa ye mengwe ya elektroniki goba ya metšhene, go akaretšwa le mekgwa ya polokelo le ya go hwetša tshedimošo, ntle le tumelelo ye e ngwadilwego go tšwa go mongwadi, ntle le tšhomišo ya mafoko a makopana go tekolo ya puku.'
   },
@@ -1918,6 +1944,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (tlhopho)',
     metadata: 'Metadata ya tsebe ya setlhogo',
     required: 'Metadata e e tlhokegang',
+    by: 'Ke',
     copyright: 'Ditshwanelo tsa dikwalo © {year} ya {author}. Ditshwanelo tsotlhe di boloketswe.',
     copyrightFull: 'Ga go na karolo ya buka e e ka tsweletswang ka tsela epe kgotsa ka ditsela tsa elektroniki kgotsa tsa metšhini, go akaretsa le dithulaganyo tsa polokelo le go batla tshedimosetso, ntle le tetla e e kwadilweng go tswa go mokwadi, fa e se tiriso ya mafoko a makgutshwane mo tshekatshekong ya buka.'
   },
@@ -1929,6 +1956,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (neobavezno)',
     metadata: 'Metapodaci stranice naslova',
     required: 'Potrebni metapodaci',
+    by: 'Autor',
     copyright: 'Autorska prava © {year} {author}. Sva prava pridržana.',
     copyrightFull: 'Nijedan dio ove knjige ne smije se reproducirati u bilo kojem obliku ili bilo kojim elektronskim ili mehaničkim sredstvima, uključujući sustave za pohranu i dohvaćanje informacija, bez pisane dozvole autora, osim za korištenje kratkih citata u recenziji knjige.'
   },
@@ -1939,6 +1967,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (volitelné)',
     metadata: 'Metadata titulní stránky',
     required: 'Požadovaná metadata',
+    by: 'Autor',
     copyright: 'Autorská práva © {year} {author}. Všechna práva vyhrazena.',
     copyrightFull: 'Žádná část této knihy nesmí být reprodukována v jakékoli formě nebo jakýmikoli elektronickými nebo mechanickými prostředky, včetně systémů pro ukládání a vyhledávání informací, bez písemného povolení autora, s výjimkou použití krátkých citátů v recenzi knihy.'
   },
@@ -1949,6 +1978,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valgfri)',
     metadata: 'Metadata for titelside',
     required: 'Påkrævet metadata',
+    by: 'Af',
     copyright: 'Ophavsret © {year} af {author}. Alle rettigheder forbeholdes.',
     copyrightFull: 'Ingen del af denne bog må gengives i nogen form eller med elektroniske eller mekaniske midler, herunder informationslagring og genfindingssystemer, uden skriftlig tilladelse fra forfatteren, undtagen for brug af korte citater i en boganmeldelse.'
   },
@@ -1959,6 +1989,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optioneel)',
     metadata: 'Metadata van titelpagina',
     required: 'Vereiste metadata',
+    by: 'Door',
     copyright: 'Auteursrecht © {year} door {author}. Alle rechten voorbehouden.',
     copyrightFull: 'Geen deel van dit boek mag worden gereproduceerd in welke vorm dan ook of door elektronische of mechanische middelen, inclusief informatieopslagsystemen, zonder schriftelijke toestemming van de auteur, behalve voor het gebruik van korte citaten in een boekrecensie.'
   },
@@ -1969,6 +2000,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valikuline)',
     metadata: 'Tiitellehe metaandmed',
     required: 'Nõutavad metaandmed',
+    by: 'Autor',
     copyright: 'Autoriõigus © {year} {author}. Kõik õigused kaitstud.',
     copyrightFull: 'Selle raamatu ühtegi osa ei tohi taastootada mingil kujul ega mingite elektrooniliste või mehaaniliste vahenditega, sealhulgas teabe salvestamise ja otsimise süsteemidega, ilma autori kirjaliku loata, välja arvatud lühikeste tsitaatide kasutamine raamatu arvustuses.'
   },
@@ -1979,6 +2011,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valinnainen)',
     metadata: 'Otsikkosivun metatiedot',
     required: 'Vaaditut metatiedot',
+    by: 'Kirjoittanut',
     copyright: 'Tekijänoikeus © {year} {author}. Kaikki oikeudet pidätetään.',
     copyrightFull: 'Mitään osaa tästä kirjasta ei saa jäljentää missään muodossa tai sähköisillä tai mekaanisilla keinoilla, mukaan lukien tiedon tallentamis- ja hakujärjestelmät, ilman kirjailijan kirjallista lupaa, paitsi lyhyiden lainausten käyttöä kirja-arvostelussa.'
   },
@@ -1989,6 +2022,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos da páxina de título',
     required: 'Metadatos requiridos',
+    by: 'Por',
     copyright: 'Dereitos de autor © {year} por {author}. Todos os dereitos reservados.',
     copyrightFull: 'Ningunha parte deste libro pode ser reproducida de ningunha forma ou por ningún medio electrónico ou mecánico, incluíndo sistemas de almacenamento e recuperación de información, sen o permiso escrito do autor, excepto para o uso de citas breves nunha recensión do libro.'
   },
@@ -2009,6 +2043,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcionális)',
     metadata: 'Címlap metaadatai',
     required: 'Szükséges metaadatok',
+    by: 'Szerző',
     copyright: 'Szerzői jog © {year} {author}. Minden jog fenntartva.',
     copyrightFull: 'Ennek a könyvnek egyetlen része sem reprodukálható semmilyen formában vagy elektronikus vagy mechanikus eszközökkel, beleértve az információtárolási és -visszakeresési rendszereket, a szerző írásos engedélye nélkül, kivéve rövid idézetek használatát könyvkritikában.'
   },
@@ -2019,6 +2054,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valfrjáls)',
     metadata: 'Lýsigögn titilsíðu',
     required: 'Nauðsynleg lýsigögn',
+    by: 'Eftir',
     copyright: 'Höfundarréttur © {year} {author}. Öll réttindi áskilin.',
     copyrightFull: 'Enginn hluti þessarar bókar má endurframleiða í nokkru formi eða með rafrænum eða vélrænum hætti, þar á meðal upplýsingageymslu og endurheimt kerfi, án skriflegs leyfis höfundarins, nema fyrir notkun stuttra tilvitnana í bókagagnrýni.'
   },
@@ -2029,6 +2065,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (pēc izvēles)',
     metadata: 'Titullapas metadati',
     required: 'Nepieciešamie metadati',
+    by: 'Autors',
     copyright: 'Autortiesības © {year} {author}. Visas tiesības aizsargātas.',
     copyrightFull: 'Neviena šīs grāmatas daļa nedrīkst tikt reproducēta jebkādā veidā vai ar jebkādiem elektroniskiem vai mehāniskiem līdzekļiem, ieskaitot informācijas glabāšanas un meklēšanas sistēmas, bez autora rakstiskas atļaujas, izņemot īsu citātu izmantošanu grāmatas apskatē.'
   },
@@ -2039,6 +2076,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (pasirinktinai)',
     metadata: 'Titulinio puslapio metaduomenys',
     required: 'Reikalingi metaduomenys',
+    by: 'Autorius',
     copyright: 'Autoriaus teisės © {year} {author}. Visos teisės saugomos.',
     copyrightFull: 'Jokia šios knygos dalis negali būti atkuriama jokia forma ar jokiais elektroniniais ar mechaniniais būdais, įskaitant informacijos saugojimo ir paieškos sistemas, be raštiško autoriaus leidimo, išskyrus trumpų citatų naudojimą knygos apžvalgoje.'
   },
@@ -2049,6 +2087,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (опционално)',
     metadata: 'Метаподатоци на насловна страница',
     required: 'Потребни метаподатоци',
+    by: 'Автор',
     copyright: 'Авторски права © {year} {author}. Сите права задржани.',
     copyrightFull: 'Ниту дел од оваа книга не смее да се репродуцира во било која форма или со било кои електронски или механички средства, вклучувајќи системи за счувување и пребарување на информации, без писмено одобрување од авторот, освен за користење на кратки цитати во приказ на книгата.'
   },
@@ -2059,6 +2098,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valgfri)',
     metadata: 'Metadata for tittelside',
     required: 'Påkrevd metadata',
+    by: 'Av',
     copyright: 'Opphavsrett © {year} av {author}. Alle rettigheter forbeholdt.',
     copyrightFull: 'Ingen del av denne boken kan reproduseres i noen form eller med elektroniske eller mekaniske midler, inkludert informasjonslagring og gjenfinningssystemer, uten skriftlig tillatelse fra forfatteren, unntatt for bruk av korte sitater i en bokanmeldelse.'
   },
@@ -2069,6 +2109,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcjonalny)',
     metadata: 'Metadane strony tytułowej',
     required: 'Wymagane metadane',
+    by: 'Autor',
     copyright: 'Prawa autorskie © {year} {author}. Wszelkie prawa zastrzeżone.',
     copyrightFull: 'Żadna część tej książki nie może być reprodukowana w jakiejkolwiek formie ani jakimikolwiek środkami elektronicznymi lub mechanicznymi, w tym systemami przechowywania i wyszukiwania informacji, bez pisemnej zgody autora, z wyjątkiem użycia krótkich cytatów w recenzji książki.'
   },
@@ -2079,6 +2120,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opțional)',
     metadata: 'Metadate pagină de titlu',
     required: 'Metadate necesare',
+    by: 'De',
     copyright: 'Drepturi de autor © {year} {author}. Toate drepturile rezervate.',
     copyrightFull: 'Niciuna parte din această carte nu poate fi reprodusă în nicio formă sau prin orice mijloace electronice sau mecanice, inclusiv sisteme de stocare și recuperare a informațiilor, fără permisiunea scrisă a autorului, cu excepția utilizării de citate scurte într-o recenzie de carte.'
   },
@@ -2089,6 +2131,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (опционо)',
     metadata: 'Метаподаци насловне стране',
     required: 'Потребни метаподаци',
+    by: 'Аутор',
     copyright: 'Ауторска права © {year} {author}. Сва права задржана.',
     copyrightFull: 'Ниједан део ове књиге не сме се репродуковати у било којој форми или помоћу електронских или механичких средстава, укључујући системе за чување и преузимање информација, без писмене дозволе аутора, осим за коришћење кратких цитата у приказу књиге.'
   },
@@ -2099,6 +2142,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (voliteľné)',
     metadata: 'Metaúdaje titulnej stránky',
     required: 'Požadované metaúdaje',
+    by: 'Autor',
     copyright: 'Autorské práva © {year} {author}. Všetky práva vyhradené.',
     copyrightFull: 'Žiadna časť tejto knihy nemôže byť reprodukovaná v žiadnej forme alebo žiadnymi elektronickými alebo mechanickými prostriedkami, vrátane systémov uloženia a získania informácií, bez písomného súhlasu autora, okrem použitia krátkych citátov v recenzii knihy.'
   },
@@ -2109,6 +2153,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (neobvezno)',
     metadata: 'Metapodatki naslovne strani',
     required: 'Zahtevani metapodatki',
+    by: 'Avtor',
     copyright: 'Avtorske pravice © {year} {author}. Vse pravice pridržane.',
     copyrightFull: 'Noben del te knjige se ne sme reproducirati v nobeni obliki ali s kakršnimikoli elektronskimi ali mehaničnimi sredstvi, vključno s sistemi za shranjevanje in iskanje informacij, brez pisnega dovoljenja avtorja, razen za uporabo kratkih citatov v recenziji knjige.'
   },
@@ -2119,6 +2164,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (valfri)',
     metadata: 'Metadata för titelsida',
     required: 'Nödvändig metadata',
+    by: 'Av',
     copyright: 'Upphovsrätt © {year} av {author}. Alla rättigheter förbehållna.',
     copyrightFull: 'Ingen del av denna bok får reproduceras i någon form eller med elektroniska eller mekaniska medel, inklusive informationslagrings- och återvinningssystem, utan skriftligt tillstånd från författaren, förutom för användning av korta citat i en bokrecension.'
   },
@@ -2129,6 +2175,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (isteğe bağlı)',
     metadata: 'Başlık sayfası meta verileri',
     required: 'Gerekli meta veriler',
+    by: 'Yazar',
     copyright: 'Telif hakkı © {year} {author}. Tüm hakları saklıdır.',
     copyrightFull: 'Bu kitabın hiçbir bölümü, bilgi depolama ve geri alma sistemleri dahil olmak üzere, yazarın yazılı izni olmaksızın herhangi bir biçimde veya herhangi bir elektronik veya mekanik yöntemle çoğaltılamaz, ancak kitap incelemesinde kısa alıntıların kullanılması hariçtir.'
   },
@@ -2140,6 +2187,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opsional)',
     metadata: 'Metadata halaman judul',
     required: 'Metadata diperlukan',
+    by: 'Oleh',
     copyright: 'Hak Cipta © {year} oleh {author}. Semua hak dilindungi.',
     copyrightFull: 'Tidak ada bagian dari buku ini yang boleh direproduksi dalam bentuk apa pun atau dengan cara elektronik atau mekanik apa pun, termasuk sistem penyimpanan dan pengambilan informasi, tanpa izin tertulis dari penulis, kecuali untuk penggunaan kutipan singkat dalam ulasan buku.'
   },
@@ -2150,6 +2198,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (pilihan)',
     metadata: 'Metadata muka surat tajuk',
     required: 'Metadata diperlukan',
+    by: 'Oleh',
     copyright: 'Hak Cipta © {year} oleh {author}. Semua hak terpelihara.',
     copyrightFull: 'Tiada bahagian buku ini boleh dihasilkan semula dalam sebarang bentuk atau dengan sebarang cara elektronik atau mekanikal, termasuk sistem penyimpanan dan pengambilan maklumat, tanpa kebenaran bertulis daripada pengarang, kecuali untuk penggunaan petikan ringkas dalam ulasan buku.'
   },
@@ -2160,6 +2209,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (tùy chọn)',
     metadata: 'Siêu dữ liệu trang tiêu đề',
     required: 'Siêu dữ liệu bắt buộc',
+    by: 'Tác giả',
     copyright: 'Bản quyền © {year} bởi {author}. Mọi quyền được bảo lưu.',
     copyrightFull: 'Không có phần nào của cuốn sách này được phép sao chép dưới bất kỳ hình thức nào hoặc bằng bất kỳ phương tiện điện tử hoặc cơ khí nào, bao gồm các hệ thống lưu trữ và truy xuất thông tin, mà không có sự cho phép bằng văn bản của tác giả, ngoại trừ việc sử dụng các trích dẫn ngắn trong bài đánh giá sách.'
   },
@@ -2182,6 +2232,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ঐচ্ছিক)',
     metadata: 'শিরোনাম পৃষ্ঠার মেটাডেটা',
     required: 'প্রয়োজনীয় মেটাডেটা',
+    by: 'লেখক',
     copyright: 'কপিরাইট © {year} {author}। সমস্ত অধিকার সংরক্ষিত।',
     copyrightFull: 'এই বইয়ের কোন অংশ লেখকের লিখিত অনুমতি ছাড়া তথ্য সংরক্ষণ এবং পুনরুদ্ধার সিস্টেম সহ যে কোন ইলেকট্রনিক বা যান্ত্রিক মাধ্যমে পুনরুৎপাদন করা যাবে না, বই সমীক্ষায় সংক্ষিপ্ত উদ্ধৃতি ব্যবহার ব্যতীত।'
   },
@@ -2192,6 +2243,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (વૈકલ્પિક)',
     metadata: 'શીર્ષક પૃષ્ઠ મેટાડેટા',
     required: 'આવશ્યક મેટાડેટા',
+    by: 'લેખક',
     copyright: 'કૉપિરાઇટ © {year} {author}. બધા અધિકારો આરક્ષિત.',
     copyrightFull: 'લેખકની લિખિત મંજૂરી વગર માહિતી સંગ્રહ અને પુનઃપ્રાપ્તિ વ્યવસ્થા સહિત કોઈ પણ ઇલેક્ટ્રોનિક કે યાંત્રિક માધ્યમોદ્વારા કોઈ રૂપમાં આ પુસ્તકનો કોઈ ભાગ પુનઃપ્રસ્તુત કરી શકાશે નહીં, પુસ્તક સમીક્ષામાં સંક્ષિપ્ત ઉદ્ધરણોને વાપરવાં સિવાય।'
   },
@@ -2202,6 +2254,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ఐచ్ఛిక)',
     metadata: 'శీర్షిక పేజీ మెటాడేటా',
     required: 'అవసరమైన మెటాడేటా',
+    by: 'రచయిత',
     copyright: 'కాపీరైట్ © {year} {author}. అన్ని హక్కులు రక్షించబడ్డాయి.',
     copyrightFull: 'రచయిత వ్రాతపూర్వక అనుమతి లేకుండా మాహితి సంగ్రహణ మరియు పునర్ప్రాప్తి వ్యవస్థలు సహా ఏలాంటి ఇలెక్ట్రానిక్ లేదా యాంత్రిక విధానాలద్వారా ఏ రూపంలోనూ ఈ పుస్తకంలో ఏదైనా భాగాన్ని పునరుత్పాదన చేయలేము, పుస్తక సమీక్షలో కొన్ని సంక్షిప్త ఉద్ధరణలను ఉపయోగించడం తప్ప.'
   },
@@ -2212,6 +2265,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ಐಚ್ಛಿಕ)',
     metadata: 'ಶೀರ್ಷಿಕೆ ಪುಟದ ಮೆಟಾಡೇಟಾ',
     required: 'ಅಗತ್ಯವಿರುವ ಮೆಟಾಡೇಟಾ',
+    by: 'ಲೇಖಕ',
     copyright: 'ಹಕ್ಕುಸ್ವಾಮ್ಯ © {year} {author}. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.',
     copyrightFull: 'ಲೇಖಕರ ಲಿಖಿತ ಅನುಮತಿಯಿಲ್ಲದೆ ಮಾಹಿತಿ ಸಂಗ್ರಹ ಮತ್ತು ಪುನರುದ್ಧಾರ ವ್ಯವಸ್ಥೆಗಳು ಸಹಿತ ಇಲೆಕ್ಟ್ರಾನಿಕ್ ಅಥವಾ ಯಾಂತ್ರಿಕ ಸಾಧನಗಳಿಂದ ಇ ಪುಸ್ತಕದ ಯಾವುದೆ ಭಾಗವನ್ನೂ ಯಾವುದೆ ರೀತಿಯಲ್ಲಿ ಪುನರುತ್ಪಾದನೆ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ, ಪುಸ್ತಕ ಸಮೀಕ್ಷೆಯಲ್ಲಿ ಸಂಕ್ಷಿಪ್ತ ಉದ್ಧರಣಗಳನ್ನು ವಾಪರಿಸುವುದು ತಪ್ಪಿಸಿ.'
   },
@@ -2222,6 +2276,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ഓപ്ഷണൽ)',
     metadata: 'ശീർഷക പേജ് മെറ്റാഡാറ്റ',
     required: 'ആവശ്യമായ മെറ്റാഡാറ്റ',
+    by: 'രചയിതാവ്',
     copyright: 'പകർപ്പവകാശം © {year} {author}. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു.',
     copyrightFull: 'രചയിതാവിന്റെ ലിഖിത അനുമതി ഇല്ലാതെ വിവര സംഗ്രഹണ മറ്റും പുനരുദ്ധരണ വ്യവസ്ഥകളും സഹിതം ഏതെങ്കിലും ഇലക്ട്രോണിക് അല്ലെങ്കിൽ യാന്ത്രിക സാധനങ്ങളാൽ ഏതെങ്കിലും രൂപത്തിലും ഇ പുസ്തകത്തിന്റെ ഏതെങ്കിലും ഭാഗം പുനരുത്പാദിപ്പിക്കാനാകില്ല, പുസ്തക പരിശീലനത്തിലെ ചുരുക്കമായ ഉദ്ധരണങ്ങളുടെ ഉപയോഗം ഒഴികെ.'
   },
@@ -2232,6 +2287,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ਵਿਕਲਪਿਕ)',
     metadata: 'ਸਿਰਲੇਖ ਪੰਨਾ ਮੈਟਾਡੇਟਾ',
     required: 'ਲੋੜੀਂਦਾ ਮੈਟਾਡੇਟਾ',
+    by: 'ਲੇਖਕ',
     copyright: 'ਕਾਪੀਰਾਈਟ © {year} {author}। ਸਾਰੇ ਅਧਿਕਾਰ ਰਾਖਵੇਂ ਹਨ।',
     copyrightFull: 'ਲੇਖਕ ਦੀ ਲਿਖਤ ਇਜਾਜ਼ਤ ਤੋਂ ਬਿਨਾਂ ਜਾਣਕਾਰੀ ਸੰਗ੍ਰਹਿ ਅਤੇ ਪੁਨਰ-ਪ੍ਰਾਪਤੀ ਪ੍ਰਣਾਲੀਆਂ ਸਮੇਤ ਕਿਸੇ ਵੀ ਇਲੈਕਟਰਾਨਿਕ ਜਾਂ ਮਸ਼ੀਨੀ ਸਾਧਨਾਂ ਦੁਆਰਾ ਇਸ ਕਿਤਾਬ ਦਾ ਕੋਈ ਵੀ ਹਿਸਾ ਕਿਸੇ ਵੀ ਰੂਪ ਵਿੱਚ ਦੁਬਾਰਾ ਪੈਦਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ, ਕਿਤਾਬ ਦੀ ਸਮੀਖਿਆ ਵਿੱਚ ਛੋਟੇ ਹਵਾਲੇ ਦੀ ਵਰਤੋਂ ਨੂੰ ਛੱਡ ਕੇ।'
   },
@@ -2242,6 +2298,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (ଇଚ୍ଛାଧୀନ)',
     metadata: 'ଶୀର୍ଷକ ପୃଷ୍ଠା ମେଟାଡାଟା',
     required: 'ଆବଶ୍ୟକ ମେଟାଡାଟା',
+    by: 'ଲେଖକ',
     copyright: 'କପିରାଇଟ୍ © {year} {author}। ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ।',
     copyrightFull: 'ଲେଖକଙ୍କ ଲିଖିତ ଅନୁମତି ବିନା ସୂଚନା ସଂଗ୍ରହ ପୁଣି ପ୍ରାପ୍ତି ପ୍ରଣାଳୀ ସହ କୋଣସି ଇଲେକ୍ଟ୍ରନିକ କିମ୍ବା ଯାନ୍ତ୍ରିକ ମାଧ୍ୟମଦ୍ୱାରା ଏହି ପୁସ୍ତକର କୋଣସି ଅଂଶ କୋଣସି ରୂପରେ ପୁନରୁତ୍ପାଦନ କରିବାକୁ ନିଷେଧ, ପୁସ୍ତକ ସମୀକ୍ଷାରେ ସଂକ୍ଷିପ୍ତ ଉଦ୍ଧୃତିର ବ୍ୟବହାର ବିନା।'
   },
@@ -2252,6 +2309,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (விருப்பம்)',
     metadata: 'தலைப்பு பக்க மெட்டாடேட்டா',
     required: 'தேவையான மெட்டாடேட்டா',
+    by: 'ஆசிரியர்',
     copyright: 'பதிப்புரிமை © {year} {author}। அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன।',
     copyrightFull: 'ஆசிரியரின் எழுத்து அனுமதி இல்லாமல் தகவல் சேமிப்பு மற்றும் மீட்டெடுப்பு வ்வஸ்தைகள் உள்பட கோணசி இலெக்ட்ரானிக் அல்லது இயந்திர வழிகளின் மூலம் இந்த நூலின் எந்த பகுதியும் எந்த வடிவிலும் மறுதிருத்தக் கூடாது, நூல் மதிப்பீடில் குறுகிய உद்धரணங்களை பயன்படுத்துவதை தவிர.'
   },
@@ -2266,6 +2324,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (необов\'язково)',
     metadata: 'Метадані титульної сторінки',
     required: 'Необхідні метадані',
+    by: 'Автор',
     copyright: 'Авторське право © {year} {author}. Всі права захищені.',
     copyrightFull: 'Жодна частина цієї книги не може бути відтворена в будь-якій формі або будь-якими електронними чи механічними засобами, включаючи системи зберігання та пошуку інформації, без письмового дозволу автора, за винятком використання коротких цитат у рецензії на книгу.'
   },
@@ -2279,6 +2338,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (वैकल्पिक)',
     metadata: 'शीर्षक पृष्ठ मेटाडेटा',
     required: 'आवश्यक मेटाडेटा',
+    by: 'लेखक',
     copyright: 'प्रतिलिपि अधिकार © {year} {author}। सबै अधिकार सुरक्षित।',
     copyrightFull: 'लेखकको लिखित अनुमति बिना सूचना भण्डारण र पुनः प्राप्ति प्रणाली सहित कुनै पनि इलेक्ट्रोनिक वा मेकानिकल माध्यमबाट यस पुस्तकको कुनै पनि भाग कुनै पनि रूपमा पुनः उत्पादन गर्न सकिंदैन, पुस्तक समीक्षामा छोटो उद्धरणहरूको प्रयोग बाहेक।'
   },
@@ -2292,6 +2352,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (འདོད་པ།)',
     metadata: 'མཚན་བྱང་ཤོག་ལེབ་ཀྱི་གནད་དོན།',
     required: 'དགོས་པའི་གནད་དོན།',
+    by: 'རྩོམ་པ་པོ།',
     copyright: 'པར་དབང་ © {year} {author}། ཐོབ་ཐང་ཡོངས་རྫོགས་སྲུང་སྐྱོབ།',
     copyrightFull: 'རྩོམ་པ་པོའི་ཡིག་ཆ་ཅན་གྱི་གནང་བ་མེད་པར་ཆ་འཕྲིན་གསོག་འཇོག་དང་སླར་རྙེད་པའི་རིམ་ལུགས་དང་བཅས་པའི་གློག་རྫས་སམ་འཕྲུལ་འཁོར་གྱི་ཐབས་ལམ་གང་ཡང་བེད་སྤྱོད་ཀྱིས་དེབ་འདིའི་ཆ་ཤས་གང་ཡང་རྣམ་པ་གང་ཡང་གིས་སླར་སྐྲུན་བྱེད་མི་ཆོག་པ་ཡིན། དེབ་ཞིབ་འཇུག་ནང་ཚིག་བསྡུས་ཐུང་ངུ་བེད་སྤྱོད་པ་མ་གཏོགས།'
   }
