@@ -89,7 +89,12 @@ export const languages = [
   { code: 'ru', name: 'Russian', nativeName: 'Русский', flag: '🇷🇺', region: 'Europe' },
 
   // Additional Languages
-  { code: 'tl', name: 'Filipino', nativeName: 'Filipino', flag: '🇵🇭', region: 'Asia' }
+  { code: 'tl', name: 'Filipino', nativeName: 'Filipino', flag: '🇵🇭', region: 'Asia' },
+  
+  // Major languages with significant populations
+  { code: 'uk', name: 'Ukrainian', nativeName: 'Українська', flag: '🇺🇦', region: 'Europe' },
+  { code: 'ne', name: 'Nepali', nativeName: 'नेपाली', flag: '🇳🇵', region: 'Asia' },
+  { code: 'bo', name: 'Tibetan', nativeName: 'བོད་སྐད།', flag: '🏔️', region: 'Asia' }
 ];
 
 // Helper functions for language selection

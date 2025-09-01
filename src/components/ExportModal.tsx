@@ -180,7 +180,10 @@ const fontRecommendations = {
   'vi': [{ value: 'Linux Libertine O', label: 'Linux Libertine O (Recommended)' }, { value: 'Noto Serif', label: 'Noto Serif' }, { value: 'Gentium Plus', label: 'Gentium Plus' }],
   'id': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
   'ms': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
-  'tl': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }]
+  'tl': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'Charis SIL', label: 'Charis SIL' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'uk': [{ value: 'Noto Serif', label: 'Noto Serif (Recommended)' }, { value: 'DejaVu Serif', label: 'DejaVu Serif' }, { value: 'Linux Libertine O', label: 'Linux Libertine O' }],
+  'ne': [{ value: 'Noto Serif Devanagari', label: 'Noto Serif Devanagari (Recommended)' }, { value: 'Noto Sans Devanagari', label: 'Noto Sans Devanagari' }, { value: 'Mangal', label: 'Mangal' }],
+  'bo': [{ value: 'Noto Serif Tibetan', label: 'Noto Serif Tibetan (Recommended)' }, { value: 'Noto Sans Tibetan', label: 'Noto Sans Tibetan' }, { value: 'Tibetan Machine Uni', label: 'Tibetan Machine Uni' }]
 };
 
 // Get font recommendations for a specific language
@@ -274,7 +277,12 @@ const languageOptions = [
   // Asian Languages (missing from export)
   { value: 'tl', label: '🇵🇭 Filipino', description: 'Filipino' },
   { value: 'ms', label: '🇲🇾 Bahasa Melayu', description: 'Malaysian' },
-  { value: 'vi', label: '🇻🇳 Tiếng Việt', description: 'Vietnamese' }
+  { value: 'vi', label: '🇻🇳 Tiếng Việt', description: 'Vietnamese' },
+  
+  // Additional major languages
+  { value: 'uk', label: '🇺🇦 Українська', description: 'Ukrainian' },
+  { value: 'ne', label: '🇳🇵 नेपाली', description: 'Nepali' },
+  { value: 'bo', label: '🏔️ བོད་སྐད།', description: 'Tibetan' }
   
   // RTL languages (Arabic, Hebrew, Yiddish) coming soon!
   // CJK languages (Chinese, Japanese, Korean) coming soon!
