@@ -2128,7 +2128,7 @@ export const localizedMetadata = {
     metadata: 'শিরোনাম পৃষ্ঠার মেটাডেটা',
     required: 'প্রয়োজনীয় মেটাডেটা',
     copyright: 'কপিরাইট © {year} {author}। সমস্ত অধিকার সংরক্ষিত।',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'এই বইয়ের কোন অংশ লেখকের লিখিত অনুমতি ছাড়া তথ্য সংরক্ষণ এবং পুনরুদ্ধার সিস্টেম সহ যে কোন ইলেকট্রনিক বা যান্ত্রিক মাধ্যমে পুনরুৎপাদন করা যাবে না, বই সমীক্ষায় সংক্ষিপ্ত উদ্ধৃতি ব্যবহার ব্যতীত।'
   },
   gu: {
     title: 'શીર્ષક',
@@ -2138,7 +2138,7 @@ export const localizedMetadata = {
     metadata: 'શીર્ષક પૃષ્ઠ મેટાડેટા',
     required: 'આવશ્યક મેટાડેટા',
     copyright: 'કૉપિરાઇટ © {year} {author}. બધા અધિકારો આરક્ષિત.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'લેખકની લિખિત મંજૂરી વગર માહિતી સંગ્રહ અને પુનઃપ્રાપ્તિ વ્યવસ્થા સહિત કોઈ પણ ઇલેક્ટ્રોનિક કે યાંત્રિક માધ્યમોદ્વારા કોઈ રૂપમાં આ પુસ્તકનો કોઈ ભાગ પુનઃપ્રસ્તુત કરી શકાશે નહીં, પુસ્તક સમીક્ષામાં સંક્ષિપ્ત ઉદ્ધરણોને વાપરવાં સિવાય।'
   },
   te: {
     title: 'శీర్షిక',
@@ -2148,7 +2148,7 @@ export const localizedMetadata = {
     metadata: 'శీర్షిక పేజీ మెటాడేటా',
     required: 'అవసరమైన మెటాడేటా',
     copyright: 'కాపీరైట్ © {year} {author}. అన్ని హక్కులు రక్షించబడ్డాయి.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'రచయిత వ్రాతపూర్వక అనుమతి లేకుండా మాహితి సంగ్రహణ మరియు పునర్ప్రాప్తి వ్యవస్థలు సహా ఏలాంటి ఇలెక్ట్రానిక్ లేదా యాంత్రిక విధానాలద్వారా ఏ రూపంలోనూ ఈ పుస్తకంలో ఏదైనా భాగాన్ని పునరుత్పాదన చేయలేము, పుస్తక సమీక్షలో కొన్ని సంక్షిప్త ఉద్ధరణలను ఉపయోగించడం తప్ప.'
   },
   kn: {
     title: 'ಶೀರ್ಷಿಕೆ',
