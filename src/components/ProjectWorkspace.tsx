@@ -58,6 +58,7 @@ import ExportModal, { ExportSettings } from './ExportModal';
 import ImportModal, { ImportSettings } from './ImportModal';
 import { ExportService } from '../services/ExportService';
 import { realImageService } from '../services/realImageService';
+import ReorderableSection from './ReorderableSection';
 import { FormatAdapter } from '../services/FormatAdapter';
 import { TEMPLATES } from '../constants/FormatConstants';
 type Area = 'front' | 'main' | 'back';
@@ -962,6 +963,30 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const handleEdit = (area: Area, idx: number) => {
     setEditing({ area, idx });
     setEditValue(structure[area][idx]);
+  };
+
+  // Handle section reordering within the same matter area
+  const handleReorder = (area: Area, newSections: string[]) => {
+    console.log(`🔄 Reordering ${area} matter:`, newSections);
+    
+    // Create updated structure
+    const updatedStructure = { ...structure };
+    updatedStructure[area] = newSections;
+    
+    // Content keys don't need to change for reordering since they're based on section names
+    
+    // Update structure state
+    setStructure(updatedStructure);
+    
+    // Save to backend
+    saveStructureToBackend(updatedStructure);
+    
+    // Show feedback
+    setNotification({
+      open: true,
+      message: `${area === 'front' ? 'Front' : area === 'main' ? 'Main' : 'Back'} matter sections reordered`,
+      severity: 'success'
+    });
   };
 
   // Save rename
@@ -2398,68 +2423,97 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               
               {/* Area Content */}
               <Collapse in={expanded[area as keyof typeof expanded]}>
-                <List disablePadding>
-                  {!structureLoaded ? (
-                    <ListItem>
-                      <CircularProgress size={20} sx={{ mr: 2 }} />
-                      <ListItemText primary="Loading sections..." />
-                    </ListItem>
-                  ) : (structure[area as Area] && Array.isArray(structure[area as Area])) ? structure[area as Area].map((section, sectionIdx) => (
+                {area === 'front' && structure[area] && structure[area].length >= 2 ? (
+                  // Front matter with fixed Title Page and Copyright
+                  <List disablePadding>
+                    {/* Fixed Title Page */}
                     <ListItem
-                      key={`${area}-${sectionIdx}`}
                       button
-                      selected={selected ? selected.area === area && selected.idx === sectionIdx : false}
-                      onClick={() => setSelected({ area: area as Area, idx: sectionIdx })}
+                      selected={selected ? selected.area === area && selected.idx === 0 : false}
+                      onClick={() => setSelected({ area: area as Area, idx: 0 })}
                       sx={{ 
                         pl: 4, 
-                        borderLeft: selected && selected.area === area && selected.idx === sectionIdx ? '3px solid #4fd1c5' : 'none',
-                        position: 'relative',
+                        borderLeft: selected && selected.area === area && selected.idx === 0 ? '3px solid #4fd1c5' : 'none',
+                        backgroundColor: 'rgba(255, 215, 0, 0.1)', // Light gold background for locked sections
                         '&:hover': {
-                          backgroundColor: 'rgba(0, 0, 0, 0.04)',
+                          backgroundColor: 'rgba(255, 215, 0, 0.2)',
                           '& .section-actions': {
                             opacity: 1
                           }
                         }
                       }}
                     >
-                      <ListItemText primary={section} />
-                      <Box 
-                        className="section-actions" 
-                        sx={{ 
-                          opacity: 0, 
-                          transition: 'opacity 0.2s',
-                          display: 'flex'
-                        }}
-                      >
-                        {/* Show Edit and Delete buttons for all sections now */}
-                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEdit(area as Area, sectionIdx); }}>
+                      <ListItemText primary={`🔒 ${structure[area][0]}`} />
+                      <Box className="section-actions" sx={{ opacity: 0, transition: 'opacity 0.2s', display: 'flex' }}>
+                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEdit(area as Area, 0); }}>
                           <EditIcon fontSize="small" />
                         </IconButton>
-                        {/* Hide delete button for Title Page and Copyright */}
-                        {!(area === 'front' && (section === 'Title Page' || section === 'Copyright')) && (
-                          <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleDelete(area as Area, sectionIdx); }}>
-                            <DeleteIcon fontSize="small" />
-                          </IconButton>
-                        )}
-                        
-                        {/* Add Metadata Required button for Title Page */}
-                        {area === 'front' && sectionIdx === 0 && (
-                          <Button 
-                            size="small" 
-                            variant="outlined" 
-                            onClick={(e) => { 
-                              e.stopPropagation(); 
-                              setMetadataDialogOpen(true); 
-                            }}
-                            sx={{ ml: 1, fontSize: '0.7rem', py: 0.25 }}
-                          >
-                            {getLocalizedMetadata(documentLanguage).required}
-                          </Button>
-                        )}
+                        <Button 
+                          size="small" 
+                          variant="outlined" 
+                          onClick={(e) => { 
+                            e.stopPropagation(); 
+                            setMetadataDialogOpen(true); 
+                          }}
+                          sx={{ ml: 1, fontSize: '0.7rem', py: 0.25 }}
+                        >
+                          {getLocalizedMetadata(documentLanguage).required}
+                        </Button>
                       </Box>
                     </ListItem>
-                  )) : []}
-                </List>
+                    
+                    {/* Fixed Copyright */}
+                    <ListItem
+                      button
+                      selected={selected ? selected.area === area && selected.idx === 1 : false}
+                      onClick={() => setSelected({ area: area as Area, idx: 1 })}
+                      sx={{ 
+                        pl: 4, 
+                        borderLeft: selected && selected.area === area && selected.idx === 1 ? '3px solid #4fd1c5' : 'none',
+                        backgroundColor: 'rgba(255, 215, 0, 0.1)', // Light gold background for locked sections
+                        '&:hover': {
+                          backgroundColor: 'rgba(255, 215, 0, 0.2)',
+                          '& .section-actions': {
+                            opacity: 1
+                          }
+                        }
+                      }}
+                    >
+                      <ListItemText primary={`🔒 ${structure[area][1]}`} />
+                      <Box className="section-actions" sx={{ opacity: 0, transition: 'opacity 0.2s', display: 'flex' }}>
+                        <IconButton size="small" onClick={(e) => { e.stopPropagation(); handleEdit(area as Area, 1); }}>
+                          <EditIcon fontSize="small" />
+                        </IconButton>
+                      </Box>
+                    </ListItem>
+                    
+                    {/* Reorderable front matter sections (skip first two) */}
+                    {structure[area].length > 2 && (
+                      <ReorderableSection
+                        sections={structure[area].slice(2)}
+                        onReorder={(newSections) => handleReorder(area as Area, [structure[area][0], structure[area][1], ...newSections])}
+                        selectedIndex={selected?.area === area && selected.idx >= 2 ? selected.idx - 2 : null}
+                        onSelectSection={(index) => setSelected({ area: area as Area, idx: index + 2 })}
+                        onEditSection={(index) => handleEdit(area as Area, index + 2)}
+                        onDeleteSection={(index) => handleDelete(area as Area, index + 2)}
+                        loading={!structureLoaded}
+                        matterType={area as 'front' | 'main' | 'back'}
+                      />
+                    )}
+                  </List>
+                ) : (
+                  // Main and Back matter - fully reorderable
+                  <ReorderableSection
+                    sections={structure[area as Area] || []}
+                    onReorder={(newSections) => handleReorder(area as Area, newSections)}
+                    selectedIndex={selected?.area === area ? selected.idx : null}
+                    onSelectSection={(index) => setSelected({ area: area as Area, idx: index })}
+                    onEditSection={(index) => handleEdit(area as Area, index)}
+                    onDeleteSection={(index) => handleDelete(area as Area, index)}
+                    loading={!structureLoaded}
+                    matterType={area as 'front' | 'main' | 'back'}
+                  />
+                )}
               </Collapse>
             </React.Fragment>
           ))}
