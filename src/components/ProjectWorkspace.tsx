@@ -2012,9 +2012,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('página') || // Spanish/Portuguese
           // Germanic languages
           sectionLower.includes('titel') || // German/Dutch
+          sectionLower.includes('titelseite') || // German
           sectionLower.includes('tittel') || // Norwegian
           sectionLower.includes('titelpagina') || // Dutch
           sectionLower.includes('titul') || // Czech
+          sectionLower.includes('titulní') || // Czech
+          sectionLower.includes('titullapas') || // Latvian
+          sectionLower.includes('titulinis') || // Lithuanian
+          sectionLower.includes('puslapis') || // Lithuanian
           sectionLower.includes('strona') || // Polish
           sectionLower.includes('titelsida') || // Swedish
           sectionLower.includes('titelside') || // Danish
@@ -2057,6 +2062,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('ਸਿਰਲੇਖ') || // Punjabi
           sectionLower.includes('ଶୀର୍ଷକ') || // Odia
           sectionLower.includes('タイトル') || // Japanese
+          sectionLower.includes('halaman') || // Indonesian/Malaysian
+          sectionLower.includes('judul') || // Indonesian
+          sectionLower.includes('tajuk') || // Malaysian
+          sectionLower.includes('trang') || // Vietnamese
+          sectionLower.includes('tiêu') || // Vietnamese
+          // Other languages
+          sectionLower.includes('σελίδα') || // Greek
+          sectionLower.includes('τίτλου') || // Greek
+          sectionLower.includes('címlap') || // Hungarian
+          sectionLower.includes('başlık') || // Turkish
+          sectionLower.includes('sayfası') || // Turkish
           // Arabic
           sectionLower.includes('صفحة') || // Arabic
           // Exact match fallback
