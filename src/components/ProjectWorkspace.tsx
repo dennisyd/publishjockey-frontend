@@ -817,6 +817,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('著作権') || // Japanese
       section.toLowerCase().includes('авторское') || // Russian
       section.toLowerCase().includes('авторські') || // Ukrainian
+      section.toLowerCase().includes('karapatang') || // Filipino
       section.includes('པར་དབང') || // Tibetan (no lowercase needed for Tibetan script)
       section === 'Copyright' // Default fallback
     ) || 'Copyright';
@@ -2078,6 +2079,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('címlap') || // Hungarian
           sectionLower.includes('başlık') || // Turkish
           sectionLower.includes('sayfası') || // Turkish
+          sectionLower.includes('pahinang') || // Filipino
+          sectionLower.includes('pamagat') || // Filipino
           // Arabic
           sectionLower.includes('صفحة') || // Arabic
           // Exact match fallback
