@@ -3137,6 +3137,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         <DialogTitle>{getLocalizedMetadata(documentLanguage).metadata}</DialogTitle>
         <DialogContent>
           <TextField
+            id="project-title"
+            name="projectTitle"
             label={getLocalizedMetadata(documentLanguage).title}
             value={projectTitle}
             onChange={e => setProjectTitle(e.target.value)}
@@ -3147,6 +3149,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             helperText={!projectTitle ? `${getLocalizedMetadata(documentLanguage).title} is required` : ''}
           />
           <TextField
+            id="project-subtitle"
+            name="projectSubtitle"
             label={getLocalizedMetadata(documentLanguage).subtitle}
             value={projectSubtitle}
             onChange={e => setProjectSubtitle(e.target.value)}
@@ -3154,6 +3158,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             margin="dense"
           />
           <TextField
+            id="project-author"
+            name="projectAuthor"
             label={getLocalizedMetadata(documentLanguage).author}
             value={projectAuthor}
             onChange={e => {
@@ -3167,6 +3173,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             helperText={!projectAuthor ? `${getLocalizedMetadata(documentLanguage).author} is required` : ''}
           />
           <TextField
+            id="project-isbn"
+            name="projectIsbn"
             label={getLocalizedMetadata(documentLanguage).isbn}
             value={projectIsbn}
             onChange={e => setProjectIsbn(e.target.value)}
@@ -3471,6 +3479,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         <DialogTitle>Edit Section Name</DialogTitle>
         <DialogContent>
           <TextField
+            id="section-name-edit"
+            name="sectionName"
             label="Section Name"
             value={editValue}
             onChange={e => setEditValue(e.target.value)}

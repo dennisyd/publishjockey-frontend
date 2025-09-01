@@ -2238,35 +2238,23 @@ export const getLocalizedMetadata = (languageCode: string) => {
                  localizedMetadata[normalizedLang] || 
                  localizedMetadata['en'];
   
-  console.log('🔍 [getLocalizedMetadata] Using metadata for:', languageCode, '→', normalizedLang);
-  console.log('🔍 [getLocalizedMetadata] Copyright template:', result.copyright);
-  
   return result;
 };
 
 // Helper function to generate localized copyright notice
 export const generateCopyrightNotice = (languageCode: string, author: string, year?: number) => {
-  console.log('🔍 [generateCopyrightNotice] Input author:', `"${author}"`);
-  console.log('🔍 [generateCopyrightNotice] Author length:', author?.length);
-  console.log('🔍 [generateCopyrightNotice] Language:', languageCode);
-  
   const metadata = getLocalizedMetadata(languageCode);
   const currentYear = year || new Date().getFullYear();
   
   if (!author || author.trim() === '') {
-    console.log('🔍 [generateCopyrightNotice] Author is empty, returning empty string');
     return '';
   }
   
   const trimmedAuthor = author.trim();
-  console.log('🔍 [generateCopyrightNotice] Trimmed author:', `"${trimmedAuthor}"`);
-  console.log('🔍 [generateCopyrightNotice] Metadata copyright template:', metadata.copyright);
   
   const copyrightLine = metadata.copyright
     .replace('{year}', currentYear.toString())
     .replace('{author}', trimmedAuthor);
-  
-  console.log('🔍 [generateCopyrightNotice] Generated copyright line:', copyrightLine);
   
   // Process copyrightFull the same way, or fall back to the processed copyrightLine if missing
   const copyrightFullTemplate = metadata.copyrightFull || metadata.copyright;
@@ -2275,7 +2263,6 @@ export const generateCopyrightNotice = (languageCode: string, author: string, ye
     .replace('{author}', trimmedAuthor);
   
   const result = `${copyrightLine}\n\n${copyrightFull}`;
-  console.log('🔍 [generateCopyrightNotice] Final result:', result);
   
   return result;
 };
