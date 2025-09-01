@@ -1966,7 +1966,7 @@ export const localizedMetadata = {
     metadata: 'Lýsigögn titilsíðu',
     required: 'Nauðsynleg lýsigögn',
     copyright: 'Höfundarréttur © {year} {author}. Öll réttindi áskilin.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Enginn hluti þessarar bókar má endurframleiða í nokkru formi eða með rafrænum eða vélrænum hætti, þar á meðal upplýsingageymslu og endurheimt kerfi, án skriflegs leyfis höfundarins, nema fyrir notkun stuttra tilvitnana í bókagagnrýni.'
   },
   lv: {
     title: 'Nosaukums',
@@ -1996,7 +1996,7 @@ export const localizedMetadata = {
     metadata: 'Метаподатоци на насловна страница',
     required: 'Потребни метаподатоци',
     copyright: 'Авторски права © {year} {author}. Сите права задржани.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Ниту дел од оваа книга не смее да се репродуцира во било која форма или со било кои електронски или механички средства, вклучувајќи системи за счувување и пребарување на информации, без писмено одобрување од авторот, освен за користење на кратки цитати во приказ на книгата.'
   },
   no: {
     title: 'Tittel',
@@ -2046,7 +2046,7 @@ export const localizedMetadata = {
     metadata: 'Metaúdaje titulnej stránky',
     required: 'Požadované metaúdaje',
     copyright: 'Autorské práva © {year} {author}. Všetky práva vyhradené.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Žiadna časť tejto knihy nemôže byť reprodukovaná v žiadnej forme alebo žiadnymi elektronickými alebo mechanickými prostriedkami, vrátane systémov uloženia a získania informácií, bez písomného súhlasu autora, okrem použitia krátkych citátov v recenzii knihy.'
   },
   sl: {
     title: 'Naslov',
@@ -2056,7 +2056,7 @@ export const localizedMetadata = {
     metadata: 'Metapodatki naslovne strani',
     required: 'Zahtevani metapodatki',
     copyright: 'Avtorske pravice © {year} {author}. Vse pravice pridržane.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Noben del te knjige se ne sme reproducirati v nobeni obliki ali s kakršnimikoli elektronskimi ali mehaničnimi sredstvi, vključno s sistemi za shranjevanje in iskanje informacij, brez pisnega dovoljenja avtorja, razen za uporabo kratkih citatov v recenziji knjige.'
   },
   sv: {
     title: 'Titel',
@@ -2158,7 +2158,7 @@ export const localizedMetadata = {
     metadata: 'ಶೀರ್ಷಿಕೆ ಪುಟದ ಮೆಟಾಡೇಟಾ',
     required: 'ಅಗತ್ಯವಿರುವ ಮೆಟಾಡೇಟಾ',
     copyright: 'ಹಕ್ಕುಸ್ವಾಮ್ಯ © {year} {author}. ಎಲ್ಲಾ ಹಕ್ಕುಗಳನ್ನು ಕಾಯ್ದಿರಿಸಲಾಗಿದೆ.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'ಲೇಖಕರ ಲಿಖಿತ ಅನುಮತಿಯಿಲ್ಲದೆ ಮಾಹಿತಿ ಸಂಗ್ರಹ ಮತ್ತು ಪುನರುದ್ಧಾರ ವ್ಯವಸ್ಥೆಗಳು ಸಹಿತ ಇಲೆಕ್ಟ್ರಾನಿಕ್ ಅಥವಾ ಯಾಂತ್ರಿಕ ಸಾಧನಗಳಿಂದ ಇ ಪುಸ್ತಕದ ಯಾವುದೆ ಭಾಗವನ್ನೂ ಯಾವುದೆ ರೀತಿಯಲ್ಲಿ ಪುನರುತ್ಪಾದನೆ ಮಾಡಲು ಸಾಧ್ಯವಿಲ್ಲ, ಪುಸ್ತಕ ಸಮೀಕ್ಷೆಯಲ್ಲಿ ಸಂಕ್ಷಿಪ್ತ ಉದ್ಧರಣಗಳನ್ನು ವಾಪರಿಸುವುದು ತಪ್ಪಿಸಿ.'
   },
   ml: {
     title: 'ശീർഷകം',
@@ -2168,7 +2168,7 @@ export const localizedMetadata = {
     metadata: 'ശീർഷക പേജ് മെറ്റാഡാറ്റ',
     required: 'ആവശ്യമായ മെറ്റാഡാറ്റ',
     copyright: 'പകർപ്പവകാശം © {year} {author}. എല്ലാ അവകാശങ്ങളും സംരക്ഷിച്ചിരിക്കുന്നു.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'രചയിതാവിന്റെ ലിഖിത അനുമതി ഇല്ലാതെ വിവര സംഗ്രഹണ മറ്റും പുനരുദ്ധരണ വ്യവസ്ഥകളും സഹിതം ഏതെങ്കിലും ഇലക്ട്രോണിക് അല്ലെങ്കിൽ യാന്ത്രിക സാധനങ്ങളാൽ ഏതെങ്കിലും രൂപത്തിലും ഇ പുസ്തകത്തിന്റെ ഏതെങ്കിലും ഭാഗം പുനരുത്പാദിപ്പിക്കാനാകില്ല, പുസ്തക പരിശീലനത്തിലെ ചുരുക്കമായ ഉദ്ധരണങ്ങളുടെ ഉപയോഗം ഒഴികെ.'
   },
   pa: {
     title: 'ਸਿਰਲੇਖ',
@@ -2178,7 +2178,7 @@ export const localizedMetadata = {
     metadata: 'ਸਿਰਲੇਖ ਪੰਨਾ ਮੈਟਾਡੇਟਾ',
     required: 'ਲੋੜੀਂਦਾ ਮੈਟਾਡੇਟਾ',
     copyright: 'ਕਾਪੀਰਾਈਟ © {year} {author}। ਸਾਰੇ ਅਧਿਕਾਰ ਰਾਖਵੇਂ ਹਨ।',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'ਲੇਖਕ ਦੀ ਲਿਖਤ ਇਜਾਜ਼ਤ ਤੋਂ ਬਿਨਾਂ ਜਾਣਕਾਰੀ ਸੰਗ੍ਰਹਿ ਅਤੇ ਪੁਨਰ-ਪ੍ਰਾਪਤੀ ਪ੍ਰਣਾਲੀਆਂ ਸਮੇਤ ਕਿਸੇ ਵੀ ਇਲੈਕਟਰਾਨਿਕ ਜਾਂ ਮਸ਼ੀਨੀ ਸਾਧਨਾਂ ਦੁਆਰਾ ਇਸ ਕਿਤਾਬ ਦਾ ਕੋਈ ਵੀ ਹਿਸਾ ਕਿਸੇ ਵੀ ਰੂਪ ਵਿੱਚ ਦੁਬਾਰਾ ਪੈਦਾ ਨਹੀਂ ਕੀਤਾ ਜਾ ਸਕਦਾ, ਕਿਤਾਬ ਦੀ ਸਮੀਖਿਆ ਵਿੱਚ ਛੋਟੇ ਹਵਾਲੇ ਦੀ ਵਰਤੋਂ ਨੂੰ ਛੱਡ ਕੇ।'
   },
   or: {
     title: 'ଶୀର୍ଷକ',
@@ -2188,7 +2188,7 @@ export const localizedMetadata = {
     metadata: 'ଶୀର୍ଷକ ପୃଷ୍ଠା ମେଟାଡାଟା',
     required: 'ଆବଶ୍ୟକ ମେଟାଡାଟା',
     copyright: 'କପିରାଇଟ୍ © {year} {author}। ସମସ୍ତ ଅଧିକାର ସଂରକ୍ଷିତ।',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'ଲେଖକଙ୍କ ଲିଖିତ ଅନୁମତି ବିନା ସୂଚନା ସଂଗ୍ରହ ପୁଣି ପ୍ରାପ୍ତି ପ୍ରଣାଳୀ ସହ କୋଣସି ଇଲେକ୍ଟ୍ରନିକ କିମ୍ବା ଯାନ୍ତ୍ରିକ ମାଧ୍ୟମଦ୍ୱାରା ଏହି ପୁସ୍ତକର କୋଣସି ଅଂଶ କୋଣସି ରୂପରେ ପୁନରୁତ୍ପାଦନ କରିବାକୁ ନିଷେଧ, ପୁସ୍ତକ ସମୀକ୍ଷାରେ ସଂକ୍ଷିପ୍ତ ଉଦ୍ଧୃତିର ବ୍ୟବହାର ବିନା।'
   },
   ta: {
     title: 'தலைப்பு',
@@ -2198,7 +2198,7 @@ export const localizedMetadata = {
     metadata: 'தலைப்பு பக்க மெட்டாடேட்டா',
     required: 'தேவையான மெட்டாடேட்டா',
     copyright: 'பதிப்புரிமை © {year} {author}। அனைத்து உரிமைகளும் பாதுகாக்கப்பட்டுள்ளன।',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'ஆசிரியரின் எழுத்து அனுமதி இல்லாமல் தகவல் சேமிப்பு மற்றும் மீட்டெடுப்பு வ்வஸ்தைகள் உள்பட கோணசி இலெக்ட்ரானிக் அல்லது இயந்திர வழிகளின் மூலம் இந்த நூலின் எந்த பகுதியும் எந்த வடிவிலும் மறுதிருத்தக் கூடாது, நூல் மதிப்பீடில் குறுகிய உद்धரணங்களை பயன்படுத்துவதை தவிர.'
   }
 };
 
