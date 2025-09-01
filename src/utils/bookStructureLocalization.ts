@@ -851,8 +851,8 @@ const localizedStructures = {
   },
   tl: {
     front: [
-      "Title Page",
-      "Copyright",
+      "Pahinang Pamagat",
+      "Karapatang-sipi",
       "Paglalaan",
       "Pagkilala",
       "Panimula",

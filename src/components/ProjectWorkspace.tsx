@@ -2029,6 +2029,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('otsikkosivu') || // Finnish
           // Slavic languages
           sectionLower.includes('титульная') || // Russian
+          sectionLower.includes('титульна') || // Ukrainian
           sectionLower.includes('naslovna') || // Croatian/Serbian
           sectionLower.includes('tytul') || // Polish
           // Nordic languages
@@ -2055,7 +2056,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('lohateny') || // Malagasy
           // Asian languages
           sectionLower.includes('தலைப்பு') || // Tamil
-          sectionLower.includes('शीर्षक') || // Hindi
+          sectionLower.includes('शीर्षक') || // Hindi/Nepali
+          sectionLower.includes('पृष्ठ') || // Nepali (पृष्ठ)
           sectionLower.includes('শিরোনাম') || // Bengali
           sectionLower.includes('शीर्षिके') || // Gujarati
           sectionLower.includes('శీర్షిక') || // Telugu
@@ -2063,6 +2065,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           sectionLower.includes('തലക്കെട്ട്') || // Malayalam
           sectionLower.includes('ਸਿਰਲੇਖ') || // Punjabi
           sectionLower.includes('ଶୀର୍ଷକ') || // Odia
+          section.includes('མཚན་བྱང') || // Tibetan (no lowercase needed)
           sectionLower.includes('タイトル') || // Japanese
           sectionLower.includes('halaman') || // Indonesian/Malaysian
           sectionLower.includes('judul') || // Indonesian
