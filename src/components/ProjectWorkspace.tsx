@@ -26,7 +26,7 @@ import {
 import {
   Add as AddIcon,
   Edit as EditIcon,
-  Delete as DeleteIcon,
+
   ImportExport as ImportExportIcon,
   CloudDownload as CloudDownloadIcon,
   CloudUpload as CloudUploadIcon,
@@ -2490,6 +2490,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     {/* Reorderable front matter sections (skip first two) */}
                     {structure[area].length > 2 && (
                       <ReorderableSection
+                        key={`front-reorderable`}
                         sections={structure[area].slice(2)}
                         onReorder={(newSections) => handleReorder(area as Area, [structure[area][0], structure[area][1], ...newSections])}
                         selectedIndex={selected?.area === area && selected.idx >= 2 ? selected.idx - 2 : null}
@@ -2497,13 +2498,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                         onEditSection={(index) => handleEdit(area as Area, index + 2)}
                         onDeleteSection={(index) => handleDelete(area as Area, index + 2)}
                         loading={!structureLoaded}
-                        matterType={area as 'front' | 'main' | 'back'}
+                        matterType="front"
                       />
                     )}
                   </List>
-                ) : (
-                  // Main and Back matter - fully reorderable
+                ) : area === 'main' ? (
+                  // Main matter - fully reorderable
                   <ReorderableSection
+                    key={`main-reorderable`}
                     sections={structure[area as Area] || []}
                     onReorder={(newSections) => handleReorder(area as Area, newSections)}
                     selectedIndex={selected?.area === area ? selected.idx : null}
@@ -2511,9 +2513,22 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     onEditSection={(index) => handleEdit(area as Area, index)}
                     onDeleteSection={(index) => handleDelete(area as Area, index)}
                     loading={!structureLoaded}
-                    matterType={area as 'front' | 'main' | 'back'}
+                    matterType="main"
                   />
-                )}
+                ) : area === 'back' ? (
+                  // Back matter - fully reorderable
+                  <ReorderableSection
+                    key={`back-reorderable`}
+                    sections={structure[area as Area] || []}
+                    onReorder={(newSections) => handleReorder(area as Area, newSections)}
+                    selectedIndex={selected?.area === area ? selected.idx : null}
+                    onSelectSection={(index) => setSelected({ area: area as Area, idx: index })}
+                    onEditSection={(index) => handleEdit(area as Area, index)}
+                    onDeleteSection={(index) => handleDelete(area as Area, index)}
+                    loading={!structureLoaded}
+                    matterType="back"
+                  />
+                ) : null}
               </Collapse>
             </React.Fragment>
           ))}
