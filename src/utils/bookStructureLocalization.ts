@@ -1687,47 +1687,7 @@ export const localizedMetadata = {
     copyrightFull: "Cap part d'aqueste libre pòt èsser reproduch en quina forma que siá o per qualque mejan electronic o mecanic que siá, incluses los sistèmas d'emmagazinatge e de recuperacion d'informacions, sens la permission escricha de l'autor, levat per l'usatge de citacions brèvas dins una recension del libre."
   },
   // Russian
-  ru: {
-    title: 'Название',
-    author: 'Автор',
-    subtitle: 'Подзаголовок (необязательно)',
-    isbn: 'ISBN (необязательно)',
-    metadata: 'Метаданные Титульной Страницы',
-    required: 'Метаданные Обязательны',
-    copyright: 'Авторские права © {year} {author}. Все права защищены.',
-    copyrightFull: 'Никакая часть этой книги не может быть воспроизведена в любой форме или любыми электронными или механическими средствами, включая системы хранения и поиска информации, без письменного разрешения автора, за исключением использования кратких цитат в рецензии на книгу.'
-  },
-  // Hindi
-  hi: {
-    title: 'शीर्षक',
-    author: 'लेखक',
-    subtitle: 'उपशीर्षक (वैकल्पिक)',
-    isbn: 'ISBN (वैकल्पिक)',
-    metadata: 'शीर्षक पृष्ठ मेटाडेटा',
-    required: 'मेटाडेटा आवश्यक',
-    copyright: 'कॉपीराइट © {year} {author}। सभी अधिकार सुरक्षित।',
-    copyrightFull: 'लेखक की लिखित अनुमति के बिना, सूचना भंडारण और पुनर्प्राप्ति प्रणालियों सहित किसी भी इलेक्ट्रॉनिक या यांत्रिक साधनों द्वारा इस पुस्तक के किसी भी हिस्से को किसी भी रूप में पुन: प्रस्तुत नहीं किया जा सकता है, सिवाय पुस्तक समीक्षा में संक्षिप्त उद्धरणों के उपयोग के।'
-  },
-  // Add more key languages
-  zh: {
-    title: '标题',
-    author: '作者',
-    subtitle: '副标题 (可选)',
-    isbn: 'ISBN (可选)',
-    metadata: '标题页元数据',
-    required: '元数据必需',
-    copyright: '版权 © {year} {author}。版权所有。',
-    copyrightFull: '未经作者书面许可，不得以任何形式或任何电子或机械手段（包括信息存储和检索系统）复制本书的任何部分，但在书评中使用简短引文除外。'
-  },
-  ja: {
-    title: 'タイトル',
-    author: '著者',
-    subtitle: 'サブタイトル (オプション)',
-    isbn: 'ISBN (オプション)',
-    metadata: 'タイトルページメタデータ',
-    required: 'メタデータ必須',
-    copyright: '著作権 © {year} {author}。無断転載を禁じます。',
-    copyrightFull: '著者の書面による許可なしに、情報保存・検索システムを含む電子的または機械的手段により、本書のいかなる部分も複製することを禁じます。ただし、書評における短い引用は除きます。'
+  ru: {ca
   },
   ar: {
     title: 'العنوان',
@@ -1848,7 +1808,8 @@ export const localizedMetadata = {
     isbn: 'ISBN (safidy)',
     metadata: 'Metadata an\'ny pejy lohateny',
     required: 'Metadata ilaina',
-    copyright: 'Copyright © {year} an\'i {author}. Ny zo rehetra voatahiry.'
+    copyright: 'Copyright © {year} an\'i {author}. Ny zo rehetra voatahiry.',
+    copyrightFull: 'Tsy misy ampahany amin\'ity boky ity azo averina amin\'ny endrika na fomba elektronika na mekanika inona, ao anatin\'izany ny rafi-pitehirizana sy famerenana vaovao, raha tsy misy alalana an-tsoratra avy amin\'ny mpanoratra, afa-tsy ny fampiasana teny fohy amin\'ny famerenana boky.'
   },
   sn: {
     title: 'Musoro',
