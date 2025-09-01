@@ -2000,14 +2000,69 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       const area = 'front';
       
       // Find title page section in the current structure (it should be localized already)
-      const titlePageName = structure.front.find(section => 
-        section.toLowerCase().includes('title') || 
-        section.toLowerCase().includes('titre') || // French
-        section.toLowerCase().includes('título') || // Spanish
-        section.toLowerCase().includes('titel') || // German/Dutch
-        section.toLowerCase().includes('kichwa') || // Swahili
-        section === 'Title Page' // Default fallback
-      ) || 'Title Page';
+      const titlePageName = structure.front.find(section => {
+        const sectionLower = section.toLowerCase();
+        return (
+          // English patterns
+          sectionLower.includes('title') ||
+          // Romance languages  
+          sectionLower.includes('titre') || // French
+          sectionLower.includes('título') || // Spanish
+          sectionLower.includes('pagina') || // Italian/Romanian
+          sectionLower.includes('página') || // Spanish/Portuguese
+          // Germanic languages
+          sectionLower.includes('titel') || // German/Dutch
+          sectionLower.includes('tittel') || // Norwegian
+          sectionLower.includes('titelpagina') || // Dutch
+          sectionLower.includes('titul') || // Czech
+          sectionLower.includes('strona') || // Polish
+          sectionLower.includes('titelsida') || // Swedish
+          sectionLower.includes('titelside') || // Danish
+          sectionLower.includes('tiitelleht') || // Estonian
+          sectionLower.includes('otsikkosivu') || // Finnish
+          // Slavic languages
+          sectionLower.includes('титульная') || // Russian
+          sectionLower.includes('naslovna') || // Croatian/Serbian
+          sectionLower.includes('tytul') || // Polish
+          // Nordic languages
+          sectionLower.includes('titilsíða') || // Icelandic
+          sectionLower.includes('otsikko') || // Finnish
+          // African languages
+          sectionLower.includes('kichwa') || // Swahili
+          sectionLower.includes('ihu') || // Igbo
+          sectionLower.includes('taken') || // Hausa
+          sectionLower.includes('leqephe') || // Southern Sotho
+          sectionLower.includes('sehlooho') || // Southern Sotho
+          sectionLower.includes('letlakala') || // Northern Sotho
+          sectionLower.includes('sehloko') || // Northern Sotho
+          sectionLower.includes('tsebe') || // Tswana
+          sectionLower.includes('setlhogo') || // Tswana
+          sectionLower.includes('iphepha') || // Xhosa
+          sectionLower.includes('lesihloko') || // Xhosa/Zulu
+          sectionLower.includes('ikhasi') || // Zulu
+          sectionLower.includes('ojú-ìwé') || // Yoruba
+          sectionLower.includes('àkọlé') || // Yoruba
+          sectionLower.includes('peji') || // Shona
+          sectionLower.includes('musoro') || // Shona
+          sectionLower.includes('pejin') || // Malagasy
+          sectionLower.includes('lohateny') || // Malagasy
+          // Asian languages
+          sectionLower.includes('தலைப்பு') || // Tamil
+          sectionLower.includes('शीर्षक') || // Hindi
+          sectionLower.includes('শিরোনাম') || // Bengali
+          sectionLower.includes('शीर्षिके') || // Gujarati
+          sectionLower.includes('శీర్షిక') || // Telugu
+          sectionLower.includes('ಶೀರ್ಷಿಕೆ') || // Kannada
+          sectionLower.includes('തലക്കെട്ട്') || // Malayalam
+          sectionLower.includes('ਸਿਰਲੇਖ') || // Punjabi
+          sectionLower.includes('ଶୀର୍ଷକ') || // Odia
+          sectionLower.includes('タイトル') || // Japanese
+          // Arabic
+          sectionLower.includes('صفحة') || // Arabic
+          // Exact match fallback
+          section === 'Title Page'
+        );
+      }) || 'Title Page';
       const idx = structure.front.findIndex(s => s === titlePageName);
       
       if (idx !== -1) {
