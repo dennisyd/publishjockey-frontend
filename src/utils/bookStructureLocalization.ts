@@ -1428,6 +1428,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optional)',
     metadata: 'Title Page Metadata',
     required: 'Metadata Required',
+    by: 'By',
     copyright: 'Copyright © {year} by {author}. All rights reserved.',
     copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
   },
@@ -2165,10 +2166,11 @@ export const localizedMetadata = {
   tl: {
     title: 'Pamagat',
     author: 'May-akda',
-    subtitle: 'Subtitle (opsyonal)',
+    subtitle: 'Subtitulo (opsyonal)',
     isbn: 'ISBN (opsyonal)',
     metadata: 'Metadata ng pahina ng pamagat',
     required: 'Kinakailangang metadata',
+    by: 'Ni',
     copyright: 'Karapatang-ari © {year} ni {author}. Lahat ng karapatan ay nakalaan.',
     copyrightFull: 'Walang bahagi ng aklat na ito ang maaaring kopyahin sa anumang paraan o sa pamamagitan ng anumang elektroniko o mekanikal na pamamaraan, kasama ang mga sistema ng pag-iimbak at pagkuha ng impormasyon, nang walang nakasulat na pahintulot mula sa may-akda, maliban sa paggamit ng maikling sipi sa pagsusuri ng aklat.'
   },

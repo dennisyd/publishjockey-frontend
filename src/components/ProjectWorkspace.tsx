@@ -2102,13 +2102,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           let constructed = `# ${projectTitle}`;
           if (projectSubtitle) constructed += `\n\n## ${projectSubtitle}`;
           
-          // Use localized "By" equivalent or fallback to author name format
-          if (sidebarLanguage === 'en') {
-            constructed += `\n\nBy ${projectAuthor}`;
-          } else {
-            // For non-English, just show the author name prominently
-            constructed += `\n\n**${projectAuthor}**`;
-          }
+          // Use localized "By" equivalent
+          const metadata = getLocalizedMetadata(documentLanguage);
+          const byText = metadata.by || 'By'; // Fallback to English "By"
+          constructed += `\n\n${byText} ${projectAuthor}`;
           
           if (projectIsbn) {
             constructed += `\n\nISBN: ${projectIsbn}`;
