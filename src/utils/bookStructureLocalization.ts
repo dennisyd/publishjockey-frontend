@@ -2036,7 +2036,7 @@ export const localizedMetadata = {
     metadata: 'Метаподаци насловне стране',
     required: 'Потребни метаподаци',
     copyright: 'Ауторска права © {year} {author}. Сва права задржана.',
-    copyrightFull: 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.'
+    copyrightFull: 'Ниједан део ове књиге не сме се репродуковати у било којој форми или помоћу електронских или механичких средстава, укључујући системе за чување и преузимање информација, без писмене дозволе аутора, осим за коришћење кратких цитата у приказу књиге.'
   },
   sk: {
     title: 'Názov',
