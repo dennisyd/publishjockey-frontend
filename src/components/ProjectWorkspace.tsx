@@ -212,17 +212,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const firstFrontSection = structure.front?.[0];
     const firstMainSection = structure.main?.[0];
     
-    console.log('🔍 [LANGUAGE DETECTION] firstFrontSection:', firstFrontSection);
-    console.log('🔍 [LANGUAGE DETECTION] firstMainSection:', firstMainSection);
-    
+
     // Common patterns to detect language from structure - using EXACT matches from structure data
     // European Languages
     if (firstFrontSection?.includes('Pagina del titolo') || firstMainSection?.includes('Capitolo')) return 'it'; // Italian
     if (firstFrontSection?.includes('Naslovna Stranica') || firstMainSection?.includes('Poglavlje')) return 'hr'; // Croatian  
-    if (firstFrontSection?.includes('Σελίδα Τίτλου') || firstMainSection?.includes('Κεφάλαιο')) {
-      console.log('🔍 [LANGUAGE DETECTION] Greek detected!');
-      return 'el'; // Greek
-    }
+    if (firstFrontSection?.includes('Σελίδα Τίτλου') || firstMainSection?.includes('Κεφάλαιο')) return 'el'; // Greek
     if (firstFrontSection?.includes('Ihu Akwukwo') || firstMainSection?.includes('Isi')) return 'ig'; // Igbo
     if (firstFrontSection?.includes('Página de título') || firstMainSection?.includes('Capítulo')) return 'es'; // Spanish
     if (firstFrontSection?.includes('Page de titre') || firstMainSection?.includes('Chapitre')) return 'fr'; // French
@@ -249,10 +244,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     if (firstFrontSection?.includes('Ojú-ìwé Àkọlé') || firstMainSection?.includes('Orí')) return 'yo'; // Yoruba
     if (firstFrontSection?.includes('Ikhasi Lesihloko') || firstMainSection?.includes('Isahluko')) return 'zu'; // Zulu
     if (firstFrontSection?.includes('Iphepha Lesihloko') || firstMainSection?.includes('Isahluko')) return 'xh'; // Xhosa
-    if (firstFrontSection?.includes('Leqephe la Sehlooho') || firstMainSection?.includes('Khaolo')) {
-      console.log('🔍 [LANGUAGE DETECTION] Southern Sotho detected!');
-      return 'st'; // Southern Sotho
-    }
+    if (firstFrontSection?.includes('Leqephe la Sehlooho') || firstMainSection?.includes('Khaolo')) return 'st'; // Southern Sotho
     if (firstFrontSection?.includes('Letlakala la Sehloko') || firstMainSection?.includes('Kgaolo')) return 'nso'; // Northern Sotho
     if (firstFrontSection?.includes('Tsebe ya Setlhogo') || firstMainSection?.includes('Kgaolo')) return 'tn'; // Tswana
     if (firstFrontSection?.includes('Mũrango wa Rĩĩtwa') || firstMainSection?.includes('Gĩthemba')) return 'ki'; // Kikuyu
@@ -265,10 +257,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Asian Languages
     if (firstFrontSection?.includes('صفحة العنوان') || firstMainSection?.includes('الفصل الأول')) return 'ar'; // Arabic
     if (firstFrontSection?.includes('தலைப்பு பக்கம்') || firstMainSection?.includes('அத்தியாயம்')) return 'ta'; // Tamil
-    if (firstFrontSection?.includes('शीर्षक पृष्ठ') || firstMainSection?.includes('अध्याय')) {
-      console.log('🔍 [LANGUAGE DETECTION] Hindi detected!');
-      return 'hi'; // Hindi
-    }
+    if (firstFrontSection?.includes('शीर्षक पृष्ठ') || firstMainSection?.includes('अध्याय')) return 'hi'; // Hindi
     if (firstFrontSection?.includes('শিরোনাম পৃষ্ঠা') || firstMainSection?.includes('অধ্যায়')) return 'bn'; // Bengali
     if (firstFrontSection?.includes('શીર્ષક પૃષ્ઠ') || firstMainSection?.includes('પ્રકરણ')) return 'gu'; // Gujarati
     if (firstFrontSection?.includes('శీర్షిక పేజీ') || firstMainSection?.includes('అధ్యాయం')) return 'te'; // Telugu
@@ -282,11 +271,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     if (firstFrontSection?.includes('Pamagat') || firstMainSection?.includes('Kabanata')) return 'tl'; // Filipino
     
     // Fallback to UI language if no pattern matches
-    console.log('🔍 [LANGUAGE DETECTION] No pattern matched, falling back to UI language:', sidebarLanguage);
     return sidebarLanguage;
   }, [structure, sidebarLanguage]);
-  
-  console.log('🔍 [COPYRIGHT DEBUG] Detected document language:', documentLanguage, 'from structure:', structure.front?.[0], structure.main?.[0]);
   
   // Import state
   const [importOpen, setImportOpen] = useState(false);
