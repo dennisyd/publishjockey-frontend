@@ -2268,7 +2268,11 @@ export const generateCopyrightNotice = (languageCode: string, author: string, ye
   
   console.log('🔍 [generateCopyrightNotice] Generated copyright line:', copyrightLine);
   
-  const copyrightFull = metadata.copyrightFull || metadata.copyright;
+  // Process copyrightFull the same way, or fall back to the processed copyrightLine if missing
+  const copyrightFullTemplate = metadata.copyrightFull || metadata.copyright;
+  const copyrightFull = copyrightFullTemplate
+    .replace('{year}', currentYear.toString())
+    .replace('{author}', trimmedAuthor);
   
   const result = `${copyrightLine}\n\n${copyrightFull}`;
   console.log('🔍 [generateCopyrightNotice] Final result:', result);
