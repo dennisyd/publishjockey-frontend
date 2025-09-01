@@ -813,8 +813,11 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       section.toLowerCase().includes('πνευματικά') || // Greek
       section.toLowerCase().includes('版权') || // Chinese
       section.toLowerCase().includes('कॉपीराइट') || // Hindi
+      section.toLowerCase().includes('प्रतिलिपि') || // Nepali
       section.toLowerCase().includes('著作権') || // Japanese
       section.toLowerCase().includes('авторское') || // Russian
+      section.toLowerCase().includes('авторські') || // Ukrainian
+      section.includes('པར་དབང') || // Tibetan (no lowercase needed for Tibetan script)
       section === 'Copyright' // Default fallback
     ) || 'Copyright';
     
