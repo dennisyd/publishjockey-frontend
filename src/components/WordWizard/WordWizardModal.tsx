@@ -30,6 +30,25 @@ import {
 } from '@mui/icons-material';
 import { useDropzone } from 'react-dropzone';
 import JSZip from 'jszip';
+import { 
+  DndContext, 
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+  DragEndEvent
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import {
+  CSS
+} from '@dnd-kit/utilities';
 import { classifyDocuments, convertToBookStructure, validateImport } from '../../utils/WordWizard';
 
 interface WordWizardModalProps {
@@ -52,6 +71,71 @@ interface ClassificationResult {
 
 const steps = ['Upload ZIP', 'Review Classification', 'Import Book'];
 
+// Sortable item component
+interface SortableItemProps {
+  id: string;
+  doc: any;
+  matterType: 'front' | 'main' | 'back';
+  onMoveToMatter: (docId: string, fromMatter: string, toMatter: string) => void;
+}
+
+const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMoveToMatter }) => {
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+    isDragging
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <ListItem 
+      ref={setNodeRef}
+      style={style}
+      sx={{
+        border: '1px solid',
+        borderColor: isDragging ? 'primary.main' : 'divider',
+        borderRadius: 1,
+        mb: 1,
+        bgcolor: 'background.paper'
+      }}
+    >
+      <ListItemIcon {...attributes} {...listeners} sx={{ cursor: 'grab' }}>
+        <DragIcon fontSize="small" />
+      </ListItemIcon>
+      <ListItemIcon>
+        <DocumentIcon fontSize="small" />
+      </ListItemIcon>
+      <ListItemText 
+        primary={doc.filename}
+        secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
+      />
+      <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
+        <Chip 
+          size="small" 
+          label={`${(doc.confidence * 100).toFixed(0)}%`}
+          color={doc.confidence > 0.8 ? 'success' : doc.confidence > 0.5 ? 'warning' : 'default'}
+        />
+        <Button
+          size="small"
+          variant="outlined"
+          onClick={() => onMoveToMatter(id, matterType, matterType === 'front' ? 'main' : matterType === 'main' ? 'back' : 'front')}
+          sx={{ minWidth: 'auto', px: 1 }}
+        >
+          Move
+        </Button>
+      </Box>
+    </ListItem>
+  );
+};
+
 const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImport }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
@@ -61,6 +145,14 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
   const [classification, setClassification] = useState<ClassificationResult | null>(null);
   const [bookData, setBookData] = useState<any>(null);
   const [validation, setValidation] = useState<any>(null);
+
+  // Drag and drop sensors
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     const file = acceptedFiles[0];
@@ -157,6 +249,75 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
     }
   };
 
+  // Handle drag end
+  const handleDragEnd = (event: DragEndEvent) => {
+    const { active, over } = event;
+    
+    if (!over || !classification) return;
+
+    const activeId = active.id as string;
+    const overId = over.id as string;
+
+    if (activeId !== overId) {
+      // Find which matter type contains the active item
+      const fromMatter = classification.frontMatter.find(doc => doc.filename === activeId) ? 'front' :
+                        classification.mainMatter.find(doc => doc.filename === activeId) ? 'main' : 'back';
+      
+      const toMatter = classification.frontMatter.find(doc => doc.filename === overId) ? 'front' :
+                      classification.mainMatter.find(doc => doc.filename === overId) ? 'main' : 'back';
+
+      if (fromMatter === toMatter) {
+        // Reorder within same matter type
+        const matterArray = fromMatter === 'front' ? classification.frontMatter :
+                           fromMatter === 'main' ? classification.mainMatter : classification.backMatter;
+        
+        const oldIndex = matterArray.findIndex(doc => doc.filename === activeId);
+        const newIndex = matterArray.findIndex(doc => doc.filename === overId);
+
+        const newArray = arrayMove(matterArray, oldIndex, newIndex);
+        
+        setClassification(prev => prev ? {
+          ...prev,
+          [fromMatter === 'front' ? 'frontMatter' : fromMatter === 'main' ? 'mainMatter' : 'backMatter']: newArray
+        } : null);
+      }
+    }
+  };
+
+  // Handle moving items between matter types
+  const handleMoveToMatter = (docFilename: string, fromMatter: string, toMatter: string) => {
+    if (!classification) return;
+
+    const fromArray = fromMatter === 'front' ? classification.frontMatter :
+                     fromMatter === 'main' ? classification.mainMatter : classification.backMatter;
+    
+    const toArray = toMatter === 'front' ? classification.frontMatter :
+                   toMatter === 'main' ? classification.mainMatter : classification.backMatter;
+
+    const docIndex = fromArray.findIndex(doc => doc.filename === docFilename);
+    if (docIndex === -1) return;
+
+    const doc = fromArray[docIndex];
+    const newFromArray = [...fromArray];
+    newFromArray.splice(docIndex, 1);
+
+    const newToArray = [...toArray, doc];
+
+    setClassification(prev => prev ? {
+      ...prev,
+      [fromMatter === 'front' ? 'frontMatter' : fromMatter === 'main' ? 'mainMatter' : 'backMatter']: newFromArray,
+      [toMatter === 'front' ? 'frontMatter' : toMatter === 'main' ? 'mainMatter' : 'backMatter']: newToArray
+    } : null);
+
+    // Update book data and validation
+    if (bookData) {
+      const updatedBookData = convertToBookStructure(classification);
+      setBookData(updatedBookData);
+      const validationResult = validateImport(updatedBookData);
+      setValidation(validationResult);
+    }
+  };
+
   const handleImport = () => {
     if (bookData && validation?.isValid) {
       onImport(bookData);
@@ -224,10 +385,18 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
     if (!classification) return null;
 
     return (
-      <Box sx={{ py: 2 }}>
-        <Typography variant="h6" gutterBottom>
-          📚 Detected Book Structure
-        </Typography>
+      <DndContext 
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <Box sx={{ py: 2 }}>
+          <Typography variant="h6" gutterBottom>
+            📚 Detected Book Structure
+          </Typography>
+          <Typography variant="body2" color="text.secondary" gutterBottom>
+            Drag sections to reorder or use "Move" buttons to change categories
+          </Typography>
         
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle2" gutterBottom>
@@ -245,24 +414,22 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
             <Typography variant="subtitle1" gutterBottom>
               📖 Front Matter ({classification.frontMatter.length} sections)
             </Typography>
-            <List dense>
-              {classification.frontMatter.map((doc, index) => (
-                <ListItem key={index}>
-                  <ListItemIcon>
-                    <DocumentIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary={doc.filename}
-                    secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
+            <SortableContext 
+              items={classification.frontMatter.map(doc => doc.filename)}
+              strategy={verticalListSortingStrategy}
+            >
+              <List dense sx={{ maxHeight: 200, overflow: 'auto' }}>
+                {classification.frontMatter.map((doc) => (
+                  <SortableItem
+                    key={doc.filename}
+                    id={doc.filename}
+                    doc={doc}
+                    matterType="front"
+                    onMoveToMatter={handleMoveToMatter}
                   />
-                  <Chip 
-                    size="small" 
-                    label={`${(doc.confidence * 100).toFixed(0)}%`}
-                    color={doc.confidence > 0.8 ? 'success' : doc.confidence > 0.5 ? 'warning' : 'default'}
-                  />
-                </ListItem>
-              ))}
-            </List>
+                ))}
+              </List>
+            </SortableContext>
           </Paper>
         )}
 
@@ -272,29 +439,22 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
             <Typography variant="subtitle1" gutterBottom>
               📚 Main Matter ({classification.mainMatter.length} sections)
             </Typography>
-            <List dense>
-              {classification.mainMatter.slice(0, 5).map((doc, index) => (
-                <ListItem key={index}>
-                  <ListItemIcon>
-                    <DocumentIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary={doc.filename}
-                    secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
+            <SortableContext 
+              items={classification.mainMatter.map(doc => doc.filename)}
+              strategy={verticalListSortingStrategy}
+            >
+              <List dense sx={{ maxHeight: 300, overflow: 'auto' }}>
+                {classification.mainMatter.map((doc) => (
+                  <SortableItem
+                    key={doc.filename}
+                    id={doc.filename}
+                    doc={doc}
+                    matterType="main"
+                    onMoveToMatter={handleMoveToMatter}
                   />
-                  <Chip 
-                    size="small" 
-                    label={`${(doc.confidence * 100).toFixed(0)}%`}
-                    color={doc.confidence > 0.8 ? 'success' : doc.confidence > 0.5 ? 'warning' : 'default'}
-                  />
-                </ListItem>
-              ))}
-              {classification.mainMatter.length > 5 && (
-                <Typography variant="body2" color="text.secondary" sx={{ pl: 2 }}>
-                  ... and {classification.mainMatter.length - 5} more sections
-                </Typography>
-              )}
-            </List>
+                ))}
+              </List>
+            </SortableContext>
           </Paper>
         )}
 
@@ -304,24 +464,22 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
             <Typography variant="subtitle1" gutterBottom>
               📝 Back Matter ({classification.backMatter.length} sections)
             </Typography>
-            <List dense>
-              {classification.backMatter.map((doc, index) => (
-                <ListItem key={index}>
-                  <ListItemIcon>
-                    <DocumentIcon fontSize="small" />
-                  </ListItemIcon>
-                  <ListItemText 
-                    primary={doc.filename}
-                    secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
+            <SortableContext 
+              items={classification.backMatter.map(doc => doc.filename)}
+              strategy={verticalListSortingStrategy}
+            >
+              <List dense sx={{ maxHeight: 200, overflow: 'auto' }}>
+                {classification.backMatter.map((doc) => (
+                  <SortableItem
+                    key={doc.filename}
+                    id={doc.filename}
+                    doc={doc}
+                    matterType="back"
+                    onMoveToMatter={handleMoveToMatter}
                   />
-                  <Chip 
-                    size="small" 
-                    label={`${(doc.confidence * 100).toFixed(0)}%`}
-                    color={doc.confidence > 0.8 ? 'success' : doc.confidence > 0.5 ? 'warning' : 'default'}
-                  />
-                </ListItem>
-              ))}
-            </List>
+                ))}
+              </List>
+            </SortableContext>
           </Paper>
         )}
 
@@ -345,7 +503,8 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
             )}
           </Box>
         )}
-      </Box>
+        </Box>
+      </DndContext>
     );
   };
 

@@ -225,7 +225,7 @@ const Dashboard: React.FC = () => {
       setLoading(true);
       
       // Create project with WordWizard data
-      const response = await http.post('/api/projects/word-wizard', {
+      const response = await http.post('/projects/word-wizard', {
         title: bookData.metadata.title,
         author: bookData.metadata.author,
         language: bookData.metadata.language,
