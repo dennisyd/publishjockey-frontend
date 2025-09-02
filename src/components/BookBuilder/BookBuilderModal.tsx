@@ -18,7 +18,9 @@ import {
   ListItemText,
   ListItemIcon,
   Chip,
-  IconButton
+  IconButton,
+  Menu,
+  MenuItem
 } from '@mui/material';
 import {
   CloudUpload as UploadIcon,
@@ -26,7 +28,8 @@ import {
   CheckCircle as CheckIcon,
   Warning as WarningIcon,
   Error as ErrorIcon,
-  DragHandle as DragIcon
+  DragHandle as DragIcon,
+  ArrowDropDown as ArrowDropDownIcon
 } from '@mui/icons-material';
 import { useDropzone } from 'react-dropzone';
 import JSZip from 'jszip';
@@ -80,6 +83,9 @@ interface SortableItemProps {
 }
 
 const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMoveToMatter }) => {
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  
   const {
     attributes,
     listeners,
@@ -93,6 +99,27 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
     transform: CSS.Transform.toString(transform),
     transition,
     opacity: isDragging ? 0.5 : 1,
+  };
+
+  const handleMoveClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleMoveClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleMoveToSection = (targetMatter: string) => {
+    onMoveToMatter(id, matterType, targetMatter);
+    handleMoveClose();
+  };
+
+  const getMatterOptions = () => {
+    const options = [];
+    if (matterType !== 'front') options.push({ value: 'front', label: '📑 Front Matter', description: 'Title page, copyright, preface, etc.' });
+    if (matterType !== 'main') options.push({ value: 'main', label: '📚 Main Matter', description: 'Chapters and main content' });
+    if (matterType !== 'back') options.push({ value: 'back', label: '📝 Back Matter', description: 'Conclusion, appendix, index, etc.' });
+    return options;
   };
 
   return (
@@ -126,11 +153,42 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
         <Button
           size="small"
           variant="outlined"
-          onClick={() => onMoveToMatter(id, matterType, matterType === 'front' ? 'main' : matterType === 'main' ? 'back' : 'front')}
+          onClick={handleMoveClick}
+          endIcon={<ArrowDropDownIcon />}
           sx={{ minWidth: 'auto', px: 1 }}
         >
-          Move
+          MOVE
         </Button>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleMoveClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          {getMatterOptions().map((option) => (
+            <MenuItem 
+              key={option.value} 
+              onClick={() => handleMoveToSection(option.value)}
+              sx={{ minWidth: 200 }}
+            >
+              <Box>
+                <Typography variant="body2" sx={{ fontWeight: 'medium' }}>
+                  {option.label}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {option.description}
+                </Typography>
+              </Box>
+            </MenuItem>
+          ))}
+        </Menu>
       </Box>
     </ListItem>
   );
@@ -391,11 +449,33 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
         onDragEnd={handleDragEnd}
       >
         <Box sx={{ py: 2 }}>
+          {/* Instructions */}
+          <Alert severity="info" sx={{ mb: 3 }}>
+            <Typography variant="subtitle2" gutterBottom>
+              📋 Review & Reorder Your Sections
+            </Typography>
+            <Typography variant="body2">
+              Our AI has intelligently classified your documents with confidence percentages. 
+              <strong> Please review and move any documents to their correct sections before building your book.</strong>
+            </Typography>
+            <Box sx={{ mt: 1 }}>
+              <Typography variant="caption" display="block">
+                • <strong>Front Matter:</strong> Title page, copyright, dedication, preface, table of contents
+              </Typography>
+              <Typography variant="caption" display="block">
+                • <strong>Main Matter:</strong> Chapters, main content, core material
+              </Typography>
+              <Typography variant="caption" display="block">
+                • <strong>Back Matter:</strong> Conclusion, epilogue, appendix, glossary, index, references
+              </Typography>
+            </Box>
+          </Alert>
+          
           <Typography variant="h6" gutterBottom>
             📚 Detected Book Structure
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>
-            Drag sections to reorder or use "Move" buttons to change categories
+            Drag sections to reorder within categories or use "MOVE" dropdown to change sections between Front/Main/Back Matter
           </Typography>
         
         <Box sx={{ mb: 3 }}>

@@ -224,6 +224,22 @@ const Dashboard: React.FC = () => {
     try {
       setLoading(true);
       
+      // Check if user has books remaining
+      if (booksRemaining !== null && booksRemaining <= 0) {
+        alert("You've reached your book limit. Please upgrade your plan to create more books.");
+        return;
+      }
+      
+      console.log('Creating BookBuilder project with data:', {
+        title: bookData.metadata.title,
+        language: bookData.metadata.language,
+        structureKeys: Object.keys(bookData.structure),
+        contentKeys: Object.keys(bookData.content),
+        contentSample: Object.keys(bookData.content).slice(0, 3).map(key => 
+          `${key}: ${(bookData.content[key] || '').substring(0, 50)}...`
+        )
+      });
+      
       // Create project with BookBuilder data
       const response = await http.post('/projects/book-builder', {
         title: bookData.metadata.title,
@@ -234,6 +250,16 @@ const Dashboard: React.FC = () => {
       });
 
       if (response.data && response.data.id) {
+        // Add the new project to the projects list
+        const newProject = response.data.data || response.data;
+        setProjects([...projects, newProject]);
+        
+        // Close the BookBuilder modal
+        setBookBuilderModalOpen(false);
+        
+        // Update book count (backend handles decrement automatically)
+        setBooksRemaining(prevCount => prevCount !== null ? prevCount - 1 : null);
+        
         // Navigate to the new project
         navigate(`/projects/${encodeURIComponent(response.data.id)}`, { 
           state: { title: bookData.metadata.title } 
