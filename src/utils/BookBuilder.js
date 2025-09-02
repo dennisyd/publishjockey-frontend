@@ -373,19 +373,19 @@ function convertToBookStructure(classificationResult) {
   // Add front matter content
   frontMatter.forEach((doc, index) => {
     const sectionName = structure.front[index];
-    content[sectionName] = doc.content;
+    content[`front:${sectionName}`] = doc.content;
   });
 
   // Add main matter content
   mainMatter.forEach((doc, index) => {
     const sectionName = structure.main[index];
-    content[sectionName] = doc.content;
+    content[`main:${sectionName}`] = doc.content;
   });
 
   // Add back matter content
   backMatter.forEach((doc, index) => {
     const sectionName = structure.back[index];
-    content[sectionName] = doc.content;
+    content[`back:${sectionName}`] = doc.content;
   });
 
   return {
