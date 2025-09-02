@@ -29,6 +29,7 @@ import {
   DragHandle as DragIcon
 } from '@mui/icons-material';
 import { useDropzone } from 'react-dropzone';
+import JSZip from 'jszip';
 import { classifyDocuments, convertToBookStructure, validateImport } from '../../utils/WordWizard';
 
 interface WordWizardModalProps {
@@ -85,38 +86,71 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
     setError(null);
 
     try {
-      // In a real implementation, you'd use a ZIP library like JSZip
-      // For now, we'll simulate the process with your test data
+      console.log('Processing ZIP file:', file.name, 'Size:', file.size);
+
+      // Read the ZIP file
+      const zip = new JSZip();
+      const zipData = await zip.loadAsync(file);
       
-      // Simulate ZIP extraction delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      console.log('ZIP loaded successfully, files:', Object.keys(zipData.files));
 
-      // For demo purposes, use the test documents
-      // In production, this would extract and read the actual ZIP file
-      const mockDocuments = [
-        { filename: 'section1_introduction.md', content: '# Introduction\nVanquish the Noise\n\nTake Back Your Mind\n\nDr. Yancy Dennis' },
-        { filename: 'section2_title_page.md', content: '# Title Page\n\n\\[TOC\\]' },
-        { filename: 'section8_chapter_1.md', content: '# Chapter 1: The Anatomy of Noise\n\nThe car horn blaring...' },
-        { filename: 'section21_references.md', content: '# References and Resources\n\n## Books and Publications' }
-      ];
+      // Extract all markdown/text files
+      const extractedDocuments = [];
+      
+      for (const [filename, zipEntry] of Object.entries(zipData.files)) {
+        // Skip directories and non-text files
+        if (zipEntry.dir) continue;
+        
+        // Only process markdown, text, and document files
+        const ext = filename.split('.').pop()?.toLowerCase();
+        if (!ext || !['md', 'txt', 'docx'].includes(ext)) {
+          console.log('Skipping non-text file:', filename);
+          continue;
+        }
 
-      setDocuments(mockDocuments);
+        try {
+          console.log('Extracting:', filename);
+          const content = await zipEntry.async('string');
+          
+          if (content.trim()) { // Only include non-empty files
+            extractedDocuments.push({
+              filename,
+              content: content.trim()
+            });
+            console.log(`Extracted ${filename}: ${content.length} characters`);
+          }
+        } catch (extractError) {
+          console.warn(`Failed to extract ${filename}:`, extractError);
+        }
+      }
+
+      if (extractedDocuments.length === 0) {
+        throw new Error('No valid text files found in ZIP. Please ensure your ZIP contains .md, .txt, or .docx files.');
+      }
+
+      console.log(`Successfully extracted ${extractedDocuments.length} documents`);
+      setDocuments(extractedDocuments);
       
       // Classify the documents
-      const classificationResult = classifyDocuments(mockDocuments);
+      console.log('Classifying documents...');
+      const classificationResult = classifyDocuments(extractedDocuments);
+      console.log('Classification result:', classificationResult);
       setClassification(classificationResult);
 
       // Convert to book structure
       const convertedBookData = convertToBookStructure(classificationResult);
+      console.log('Converted book data:', convertedBookData);
       setBookData(convertedBookData);
 
       // Validate the import
       const validationResult = validateImport(convertedBookData);
+      console.log('Validation result:', validationResult);
       setValidation(validationResult);
 
       setActiveStep(1);
-    } catch (err) {
-      setError('Failed to process ZIP file. Please try again.');
+    } catch (err: any) {
+      const errorMessage = err.message || 'Failed to process ZIP file. Please try again.';
+      setError(errorMessage);
       console.error('ZIP processing error:', err);
     } finally {
       setLoading(false);
