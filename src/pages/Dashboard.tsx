@@ -27,6 +27,7 @@ import ImageUsageDisplay from '../components/ImageUsageDisplay';
 import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
 import SearchableLanguageSelector from '../components/SearchableLanguageSelector';
 import { getLanguageByCode } from '../config/languages';
+import WordWizardModal from '../components/WordWizard/WordWizardModal';
 
 // Error boundary component to catch runtime errors
 interface ErrorBoundaryProps {
@@ -94,6 +95,7 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [newProjectDialogOpen, setNewProjectDialogOpen] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
+  const [wordWizardModalOpen, setWordWizardModalOpen] = useState(false);
   const [booksRemaining, setBooksRemaining] = useState<number | null>(null);
   const [booksAllowed, setBooksAllowed] = useState<number | null>(null);
   const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
@@ -216,6 +218,34 @@ const Dashboard: React.FC = () => {
   }, []);
 
 
+
+  // Handle WordWizard import
+  const handleWordWizardImport = async (bookData: any) => {
+    try {
+      setLoading(true);
+      
+      // Create project with WordWizard data
+      const response = await http.post('/api/projects/word-wizard', {
+        title: bookData.metadata.title,
+        author: bookData.metadata.author,
+        language: bookData.metadata.language,
+        structure: bookData.structure,
+        content: bookData.content
+      });
+
+      if (response.data && response.data.id) {
+        // Navigate to the new project
+        navigate(`/projects/${encodeURIComponent(response.data.id)}`, { 
+          state: { title: bookData.metadata.title } 
+        });
+      }
+    } catch (error) {
+      console.error('Error importing WordWizard book:', error);
+      alert('Failed to import book. Please try again.');
+    } finally {
+      setLoading(false);
+    }
+  };
 
   // Handle dialog confirmation
   const handleCreateProjectConfirm = async () => {
@@ -383,25 +413,49 @@ const Dashboard: React.FC = () => {
                 )}
               </Box>
               
-              <Button 
-                variant="contained" 
-                color="primary" 
-                startIcon={<AddIcon />}
-                onClick={() => setNewProjectDialogOpen(true)}
-                disabled={booksRemaining !== null && booksRemaining <= 0}
-                sx={{ 
-                  borderRadius: 2,
-                  px: 3,
-                  py: 1,
-                  fontWeight: 600,
-                  boxShadow: 'none',
-                  '&:hover': { 
-                    boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)' 
-                  }
-                }}
-              >
-                {subscriptionType?.startsWith('e') ? 'NEW EBOOK' : 'NEW BOOK'}
-              </Button>
+              <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+                <Button 
+                  variant="contained" 
+                  color="primary" 
+                  startIcon={<AddIcon />}
+                  onClick={() => setNewProjectDialogOpen(true)}
+                  disabled={booksRemaining !== null && booksRemaining <= 0}
+                  sx={{ 
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1,
+                    fontWeight: 600,
+                    boxShadow: 'none',
+                    '&:hover': { 
+                      boxShadow: '0 4px 12px rgba(25, 118, 210, 0.3)' 
+                    }
+                  }}
+                >
+                  📝 {subscriptionType?.startsWith('e') ? 'NEW EBOOK' : 'NEW BOOK'}
+                </Button>
+                
+                <Button 
+                  variant="outlined" 
+                  color="primary" 
+                  startIcon={<span style={{ fontSize: '1.2em' }}>🪄</span>}
+                  onClick={() => setWordWizardModalOpen(true)}
+                  disabled={booksRemaining !== null && booksRemaining <= 0}
+                  sx={{ 
+                    borderRadius: 2,
+                    px: 3,
+                    py: 1,
+                    fontWeight: 600,
+                    borderColor: 'primary.main',
+                    '&:hover': {
+                      backgroundColor: 'primary.light',
+                      borderColor: 'primary.main',
+                      boxShadow: '0 4px 12px rgba(25, 118, 210, 0.2)'
+                    }
+                  }}
+                >
+                  🪄 WORDWIZARD
+                </Button>
+              </Box>
             </Box>
           </Box>
         </ClickAwayListener>
@@ -687,6 +741,13 @@ const Dashboard: React.FC = () => {
             // Refresh the page to update image usage stats
             window.location.reload();
           }}
+        />
+
+        {/* WordWizard Modal */}
+        <WordWizardModal 
+          open={wordWizardModalOpen}
+          onClose={() => setWordWizardModalOpen(false)}
+          onImport={handleWordWizardImport}
         />
       </Box>
     </ErrorBoundary>
