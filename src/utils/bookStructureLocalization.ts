@@ -1451,6 +1451,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1461,6 +1462,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1471,6 +1473,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1481,6 +1484,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1491,6 +1495,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1501,6 +1506,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1511,6 +1517,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1521,6 +1528,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadatos de la Página de Título',
     required: 'Metadatos Requeridos',
+    by: 'Por',
     copyright: 'Derechos de autor © {year} por {author}. Todos los derechos reservados.',
     copyrightFull: 'Ninguna parte de este libro puede ser reproducida en cualquier forma o por cualquier medio electrónico o mecánico, incluyendo sistemas de almacenamiento y recuperación de información, sin el permiso escrito del autor, excepto para el uso de citas breves en una reseña de libro.'
   },
@@ -1543,6 +1551,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1553,6 +1562,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1563,6 +1573,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1573,6 +1584,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1583,6 +1595,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1593,6 +1606,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1603,6 +1617,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1613,6 +1628,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optionnel)',
     metadata: 'Métadonnées de la Page de Titre',
     required: 'Métadonnées Requises',
+    by: 'Par',
     copyright: 'Droits d\'auteur © {year} par {author}. Tous droits réservés.',
     copyrightFull: 'Aucune partie de ce livre ne peut être reproduite sous quelque forme que ce soit ou par quelque moyen électronique ou mécanique, y compris les systèmes de stockage et de récupération d\'informations, sans l\'autorisation écrite de l\'auteur, sauf pour l\'utilisation de brèves citations dans une critique de livre.'
   },
@@ -1635,6 +1651,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
     required: 'Metadaten Erforderlich',
+    by: 'Von',
     copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
     copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
@@ -1645,6 +1662,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
     required: 'Metadaten Erforderlich',
+    by: 'Von',
     copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
     copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
@@ -1655,6 +1673,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (optional)',
     metadata: 'Titelseiten-Metadaten',
     required: 'Metadaten Erforderlich',
+    by: 'Von',
     copyright: 'Urheberrecht © {year} von {author}. Alle Rechte vorbehalten.',
     copyrightFull: 'Kein Teil dieses Buches darf ohne schriftliche Genehmigung des Autors in irgendeiner Form oder mit irgendwelchen elektronischen oder mechanischen Mitteln reproduziert werden, einschließlich Informationsspeicher- und -abrufsystemen, außer für die Verwendung kurzer Zitate in einer Buchbesprechung.'
   },
@@ -1677,6 +1696,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos de autor © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de breves citações em uma resenha do livro.'
   },
@@ -1687,6 +1707,7 @@ export const localizedMetadata = {
     isbn: 'ISBN (opcional)',
     metadata: 'Metadados da Página de Título',
     required: 'Metadados Obrigatórios',
+    by: 'Por',
     copyright: 'Direitos autorais © {year} por {author}. Todos os direitos reservados.',
     copyrightFull: 'Nenhuma parte deste livro pode ser reproduzida de qualquer forma ou por qualquer meio eletrônico ou mecânico, incluindo sistemas de armazenamento e recuperação de informações, sem permissão por escrito do autor, exceto para o uso de breves citações em uma resenha do livro.'
   },
