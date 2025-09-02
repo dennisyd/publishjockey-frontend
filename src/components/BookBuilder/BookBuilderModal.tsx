@@ -361,19 +361,21 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
 
     const newToArray = [...toArray, doc];
 
-    setClassification(prev => prev ? {
-      ...prev,
+    // Create the updated classification object
+    const updatedClassification = {
+      ...classification,
       [fromMatter === 'front' ? 'frontMatter' : fromMatter === 'main' ? 'mainMatter' : 'backMatter']: newFromArray,
       [toMatter === 'front' ? 'frontMatter' : toMatter === 'main' ? 'mainMatter' : 'backMatter']: newToArray
-    } : null);
+    };
 
-    // Update book data and validation
-    if (bookData) {
-      const updatedBookData = convertToBookStructure(classification);
-      setBookData(updatedBookData);
-      const validationResult = validateImport(updatedBookData);
-      setValidation(validationResult);
-    }
+    // Update the classification state
+    setClassification(updatedClassification);
+
+    // Update book data and validation using the updated classification
+    const updatedBookData = convertToBookStructure(updatedClassification);
+    setBookData(updatedBookData);
+    const validationResult = validateImport(updatedBookData);
+    setValidation(validationResult);
   };
 
   const handleImport = () => {
