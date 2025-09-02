@@ -361,19 +361,108 @@ function parseZipStructure(fileList) {
 function convertToBookStructure(classificationResult) {
   const { frontMatter, mainMatter, backMatter, metadata } = classificationResult;
 
+  // Get localized structure for the detected language
+  const { getLocalizedBookStructure } = require('./bookStructureLocalization');
+  const localizedStructure = getLocalizedBookStructure(metadata.language);
+  
+  // Get localized names for essential front matter sections
+  const titlePageName = localizedStructure.front[0]; // Always "Title Page" equivalent
+  const copyrightName = localizedStructure.front[1]; // Always "Copyright" equivalent
+
   // Convert to the structure expected by PublishJockey
+  let frontSections = frontMatter.map(doc => extractSectionTitle(doc.content));
+  
+  // Ensure Title Page and Copyright are always first two sections
+  const hasTitle = frontSections.some(section => 
+    section.toLowerCase().includes('title') || 
+    section.toLowerCase() === titlePageName.toLowerCase()
+  );
+  const hasCopyright = frontSections.some(section => 
+    section.toLowerCase().includes('copyright') || 
+    section.toLowerCase().includes('rights') ||
+    section.toLowerCase() === copyrightName.toLowerCase()
+  );
+
+  // Add missing essential sections at the beginning
+  if (!hasTitle) {
+    frontSections.unshift(titlePageName);
+  }
+  if (!hasCopyright) {
+    // Insert copyright after title page
+    const titleIndex = frontSections.findIndex(s => 
+      s.toLowerCase().includes('title') || s.toLowerCase() === titlePageName.toLowerCase()
+    );
+    frontSections.splice(titleIndex + 1, 0, copyrightName);
+  }
+
+  // Move Title Page and Copyright to correct positions if they exist but are in wrong order
+  const titleIdx = frontSections.findIndex(s => 
+    s.toLowerCase().includes('title') || s.toLowerCase() === titlePageName.toLowerCase()
+  );
+  const copyrightIdx = frontSections.findIndex(s => 
+    s.toLowerCase().includes('copyright') || s.toLowerCase().includes('rights') || 
+    s.toLowerCase() === copyrightName.toLowerCase()
+  );
+
+  if (titleIdx > 0) {
+    // Move title to first position
+    const titleSection = frontSections.splice(titleIdx, 1)[0];
+    frontSections.unshift(titleSection);
+  }
+
+  if (copyrightIdx > 1 || copyrightIdx === -1) {
+    // Move copyright to second position (or add if missing)
+    const currentCopyrightIdx = frontSections.findIndex(s => 
+      s.toLowerCase().includes('copyright') || s.toLowerCase().includes('rights') || 
+      s.toLowerCase() === copyrightName.toLowerCase()
+    );
+    if (currentCopyrightIdx > 1) {
+      const copyrightSection = frontSections.splice(currentCopyrightIdx, 1)[0];
+      frontSections.splice(1, 0, copyrightSection);
+    }
+  }
+
   const structure = {
-    front: frontMatter.map(doc => extractSectionTitle(doc.content)),
+    front: frontSections,
     main: mainMatter.map(doc => extractSectionTitle(doc.content)),
     back: backMatter.map(doc => extractSectionTitle(doc.content))
   };
 
   const content = {};
   
-  // Add front matter content
-  frontMatter.forEach((doc, index) => {
-    const sectionName = structure.front[index];
-    content[`front:${sectionName}`] = doc.content;
+  // Create a mapping of original section names to imported documents
+  const frontMatterMap = {};
+  frontMatter.forEach(doc => {
+    const sectionTitle = extractSectionTitle(doc.content);
+    frontMatterMap[sectionTitle.toLowerCase()] = doc.content;
+  });
+
+  // Add front matter content (including auto-generated sections)
+  structure.front.forEach(sectionName => {
+    const key = `front:${sectionName}`;
+    
+    // Check if we have content for this section
+    const matchingContent = Object.keys(frontMatterMap).find(originalTitle => 
+      originalTitle.includes(sectionName.toLowerCase()) ||
+      sectionName.toLowerCase().includes(originalTitle) ||
+      (sectionName.toLowerCase().includes('title') && originalTitle.includes('title')) ||
+      (sectionName.toLowerCase().includes('copyright') && (originalTitle.includes('copyright') || originalTitle.includes('rights')))
+    );
+
+    if (matchingContent) {
+      content[key] = frontMatterMap[matchingContent];
+    } else {
+      // Auto-generate content for missing essential sections
+      if (sectionName.toLowerCase() === titlePageName.toLowerCase() || 
+          sectionName.toLowerCase().includes('title')) {
+        content[key] = generateTitlePageContent(metadata);
+      } else if (sectionName.toLowerCase() === copyrightName.toLowerCase() || 
+                 sectionName.toLowerCase().includes('copyright')) {
+        content[key] = generateCopyrightContent(metadata);
+      } else {
+        content[key] = ''; // Empty content for other missing sections
+      }
+    }
   });
 
   // Add main matter content
@@ -424,6 +513,43 @@ function extractSectionTitle(content) {
   }
 
   return 'Untitled Section';
+}
+
+/**
+ * Generate Title Page content using metadata
+ * @param {Object} metadata - Book metadata
+ * @returns {string} Generated title page markdown
+ */
+function generateTitlePageContent(metadata) {
+  return `# ${metadata.title || 'Untitled Book'}
+
+${metadata.author ? `**${metadata.author}**` : '**Author Name**'}
+
+---
+
+*Please update the project metadata to customize this title page*`;
+}
+
+/**
+ * Generate Copyright content using metadata and language
+ * @param {Object} metadata - Book metadata
+ * @returns {string} Generated copyright markdown
+ */
+function generateCopyrightContent(metadata) {
+  const year = new Date().getFullYear();
+  const author = metadata.author || 'Author Name';
+  const title = metadata.title || 'Untitled Book';
+  
+  // Basic copyright notice - will be enhanced by the system's copyright generation
+  return `© ${year} ${author}
+
+All rights reserved. No part of this publication may be reproduced, distributed, or transmitted in any form or by any means, including photocopying, recording, or other electronic or mechanical methods, without the prior written permission of the author.
+
+**${title}**
+
+---
+
+*This copyright page will be automatically localized based on your selected language. Please update the project metadata to customize the author and title information.*`;
 }
 
 /**

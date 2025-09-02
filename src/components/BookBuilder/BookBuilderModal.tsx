@@ -470,6 +470,20 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
               </Typography>
             </Box>
           </Alert>
+
+          {/* Essential Pages Notice */}
+          <Alert severity="success" sx={{ mb: 3 }}>
+            <Typography variant="subtitle2" gutterBottom>
+              ✨ Essential Pages Auto-Generated
+            </Typography>
+            <Typography variant="body2">
+              <strong>Title Page</strong> and <strong>Copyright</strong> pages will be automatically added as the first two sections 
+              and localized to your selected language ({classification?.metadata?.language || 'English'}).
+            </Typography>
+            <Typography variant="body2" sx={{ mt: 1 }}>
+              💡 <strong>Tip:</strong> After importing, update your project metadata (title, author, description) to customize these pages.
+            </Typography>
+          </Alert>
           
           <Typography variant="h6" gutterBottom>
             📚 Detected Book Structure
