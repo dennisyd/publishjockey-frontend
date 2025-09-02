@@ -49,9 +49,9 @@ import {
 import {
   CSS
 } from '@dnd-kit/utilities';
-import { classifyDocuments, convertToBookStructure, validateImport } from '../../utils/WordWizard';
+import { classifyDocuments, convertToBookStructure, validateImport } from '../../utils/BookBuilder';
 
-interface WordWizardModalProps {
+interface BookBuilderModalProps {
   open: boolean;
   onClose: () => void;
   onImport: (bookData: any) => void;
@@ -136,7 +136,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
   );
 };
 
-const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImport }) => {
+const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onImport }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -520,7 +520,7 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
     >
       <DialogTitle>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          🪄 <Typography variant="h6">WordWizard Import</Typography>
+          📚 <Typography variant="h6">BookBuilder Import</Typography>
         </Box>
       </DialogTitle>
 
@@ -562,4 +562,4 @@ const WordWizardModal: React.FC<WordWizardModalProps> = ({ open, onClose, onImpo
   );
 };
 
-export default WordWizardModal;
+export default BookBuilderModal;

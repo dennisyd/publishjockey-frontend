@@ -1,11 +1,11 @@
 /**
- * WordWizard Test Suite
+ * BookBuilder Test Suite
  * Tests for intelligent document classification and import functionality
  */
 
-import { classifyDocuments, parseZipStructure, detectLanguage } from './WordWizard';
+import { classifyDocuments, parseZipStructure, detectLanguage } from './BookBuilder';
 
-describe('WordWizard Document Classification', () => {
+describe('BookBuilder Document Classification', () => {
   // Test data based on your actual markdown.zip structure
   const mockDocuments = [
     { filename: 'section1_introduction.md', content: '# Introduction\nVanquish the Noise\n\nTake Back Your Mind\n\nDr. Yancy Dennis' },
@@ -228,7 +228,7 @@ describe('WordWizard Document Classification', () => {
   });
 });
 
-describe('WordWizard Integration', () => {
+describe('BookBuilder Integration', () => {
   test('should create valid book structure', () => {
     const result = classifyDocuments(mockDocuments);
     

@@ -27,7 +27,7 @@ import ImageUsageDisplay from '../components/ImageUsageDisplay';
 import ImageSlotPurchaseModal from '../components/ImageSlotPurchaseModal';
 import SearchableLanguageSelector from '../components/SearchableLanguageSelector';
 import { getLanguageByCode } from '../config/languages';
-import WordWizardModal from '../components/WordWizard/WordWizardModal';
+import BookBuilderModal from '../components/BookBuilder/BookBuilderModal';
 
 // Error boundary component to catch runtime errors
 interface ErrorBoundaryProps {
@@ -95,7 +95,7 @@ const Dashboard: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [newProjectDialogOpen, setNewProjectDialogOpen] = useState(false);
   const [newProjectName, setNewProjectName] = useState('');
-  const [wordWizardModalOpen, setWordWizardModalOpen] = useState(false);
+  const [bookBuilderModalOpen, setBookBuilderModalOpen] = useState(false);
   const [booksRemaining, setBooksRemaining] = useState<number | null>(null);
   const [booksAllowed, setBooksAllowed] = useState<number | null>(null);
   const [subscriptionType, setSubscriptionType] = useState<string | null>(null);
@@ -219,13 +219,13 @@ const Dashboard: React.FC = () => {
 
 
 
-  // Handle WordWizard import
-  const handleWordWizardImport = async (bookData: any) => {
+  // Handle BookBuilder import
+  const handleBookBuilderImport = async (bookData: any) => {
     try {
       setLoading(true);
       
-      // Create project with WordWizard data
-      const response = await http.post('/projects/word-wizard', {
+      // Create project with BookBuilder data
+      const response = await http.post('/projects/book-builder', {
         title: bookData.metadata.title,
         author: bookData.metadata.author,
         language: bookData.metadata.language,
@@ -240,7 +240,7 @@ const Dashboard: React.FC = () => {
         });
       }
     } catch (error) {
-      console.error('Error importing WordWizard book:', error);
+      console.error('Error importing BookBuilder book:', error);
       alert('Failed to import book. Please try again.');
     } finally {
       setLoading(false);
@@ -437,8 +437,8 @@ const Dashboard: React.FC = () => {
                 <Button 
                   variant="outlined" 
                   color="primary" 
-                  startIcon={<span style={{ fontSize: '1.2em' }}>🪄</span>}
-                  onClick={() => setWordWizardModalOpen(true)}
+                  startIcon={<span style={{ fontSize: '1.2em' }}>📚</span>}
+                  onClick={() => setBookBuilderModalOpen(true)}
                   disabled={booksRemaining !== null && booksRemaining <= 0}
                   sx={{ 
                     borderRadius: 2,
@@ -453,7 +453,7 @@ const Dashboard: React.FC = () => {
                     }
                   }}
                 >
-                  🪄 WORDWIZARD
+                  📚 BOOKBUILDER
                 </Button>
               </Box>
             </Box>
@@ -743,11 +743,11 @@ const Dashboard: React.FC = () => {
           }}
         />
 
-        {/* WordWizard Modal */}
-        <WordWizardModal 
-          open={wordWizardModalOpen}
-          onClose={() => setWordWizardModalOpen(false)}
-          onImport={handleWordWizardImport}
+        {/* BookBuilder Modal */}
+        <BookBuilderModal 
+          open={bookBuilderModalOpen}
+          onClose={() => setBookBuilderModalOpen(false)}
+          onImport={handleBookBuilderImport}
         />
       </Box>
     </ErrorBoundary>

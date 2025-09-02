@@ -1,5 +1,5 @@
 /**
- * WordWizard - Intelligent Document Classification and Import
+ * BookBuilder - Intelligent Document Classification and Import
  * Converts ZIP archives of documents into structured book format
  */
 
@@ -354,7 +354,7 @@ function parseZipStructure(fileList) {
 }
 
 /**
- * Convert WordWizard result to PublishJockey book structure
+ * Convert BookBuilder result to PublishJockey book structure
  * @param {Object} classificationResult - Result from classifyDocuments
  * @returns {Object} Book structure compatible with existing system
  */
@@ -427,7 +427,7 @@ function extractSectionTitle(content) {
 }
 
 /**
- * Validate WordWizard import data
+ * Validate BookBuilder import data
  * @param {Object} bookData - Book data to validate
  * @returns {Object} Validation result with errors if any
  */
