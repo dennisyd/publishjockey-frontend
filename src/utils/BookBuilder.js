@@ -13,7 +13,19 @@ const CLASSIFICATION_PATTERNS = {
     keywords: [
       'title page', 'copyright', 'dedication', 'acknowledgement', 'acknowledgment',
       'foreword', 'preface', 'prologue', 'table of contents', 'toc',
-      'disclaimer', 'about this book', 'how to use', 'introduction'
+      'disclaimer', 'about this book', 'how to use', 'introduction',
+      // Spanish keywords
+      'página de título', 'derechos de autor', 'dedicatoria', 'agradecimientos',
+      'prólogo', 'prefacio', 'tabla de contenidos', 'introducción', 'introduccion',
+      // French keywords
+      'page de titre', 'droits d\'auteur', 'dédicace', 'remerciements',
+      'avant-propos', 'préface', 'table des matières', 'introduction',
+      // German keywords
+      'titelseite', 'urheberrecht', 'widmung', 'danksagung',
+      'vorwort', 'einleitung', 'inhaltsverzeichnis',
+      // Italian keywords
+      'pagina del titolo', 'diritti d\'autore', 'dedica', 'ringraziamenti',
+      'prefazione', 'introduzione', 'indice'
     ],
     filenamePatterns: [
       /title[_\s]page/i,
@@ -24,32 +36,105 @@ const CLASSIFICATION_PATTERNS = {
       /preface/i,
       /prologue/i,
       /toc|table[_\s]of[_\s]contents/i,
-      /disclaimer/i
+      /disclaimer/i,
+      // Spanish patterns (handle accent corruption)
+      /introducci[oó_]?n/i,
+      /pr[oó]logo/i,
+      /dedicatoria/i,
+      /agradecimientos/i,
+      // French patterns
+      /introduction/i,
+      /avant[_\s]propos/i,
+      /remerciements/i,
+      // German patterns
+      /einleitung/i,
+      /vorwort/i,
+      /danksagung/i,
+      // Italian patterns
+      /introduzione/i,
+      /prefazione/i,
+      /ringraziamenti/i
     ],
     contentPatterns: [
       /^#\s*(title\s+page|copyright|dedication|acknowledgements?|foreword|preface|prologue)/i,
       /table\s+of\s+contents/i,
-      /©|\(c\)|copyright/i
+      /©|\(c\)|copyright/i,
+      // Spanish patterns
+      /^#\s*(introducción|introduccion|prólogo|prologo|dedicatoria|agradecimientos)/i,
+      /derechos\s+de\s+autor|©/i,
+      // French patterns
+      /^#\s*(introduction|avant-propos|préface|remerciements)/i,
+      /droits\s+d'auteur/i,
+      // German patterns
+      /^#\s*(einleitung|vorwort|danksagung)/i,
+      /urheberrecht/i,
+      // Italian patterns
+      /^#\s*(introduzione|prefazione|ringraziamenti)/i,
+      /diritti\s+d'autore/i
     ]
   },
   
   mainMatter: {
     keywords: [
-      'chapter', 'part', 'section', 'book'
+      'chapter', 'part', 'section', 'book',
+      // Spanish keywords
+      'capítulo', 'capitulo', 'parte', 'sección', 'seccion', 'libro',
+      // French keywords
+      'chapitre', 'partie', 'section', 'livre',
+      // German keywords
+      'kapitel', 'teil', 'abschnitt', 'buch',
+      // Italian keywords
+      'capitolo', 'parte', 'sezione', 'libro'
     ],
     filenamePatterns: [
       /chapter[_\s]*\d+/i,
       /ch[_\s]*\d+/i,
       /part[_\s]*[ivx\d]+/i,
       /section[_\s]*\d+/i,
-      /book[_\s]*\d+/i
+      /book[_\s]*\d+/i,
+      // Spanish patterns
+      /cap[íi]tulo[_\s]*\d+/i,
+      /cap[_\s]*\d+/i,
+      /parte[_\s]*[ivx\d]+/i,
+      /secci[óo]n[_\s]*\d+/i,
+      /libro[_\s]*\d+/i,
+      // French patterns
+      /chapitre[_\s]*\d+/i,
+      /partie[_\s]*[ivx\d]+/i,
+      /livre[_\s]*\d+/i,
+      // German patterns
+      /kapitel[_\s]*\d+/i,
+      /teil[_\s]*[ivx\d]+/i,
+      /abschnitt[_\s]*\d+/i,
+      /buch[_\s]*\d+/i,
+      // Italian patterns
+      /capitolo[_\s]*\d+/i,
+      /sezione[_\s]*\d+/i,
+      /libro[_\s]*\d+/i
     ],
     contentPatterns: [
       /^#\s*chapter\s*\d+/i,
       /^#\s*ch\.\s*\d+/i,
       /^#\s*part\s*[ivx\d]+/i,
       /^#\s*section\s*\d+/i,
-      /^#\s*book\s*\d+/i
+      /^#\s*book\s*\d+/i,
+      // Spanish patterns
+      /^#\s*capítulo\s*\d+/i,
+      /^#\s*capitulo\s*\d+/i,
+      /^#\s*cap\.\s*\d+/i,
+      /^#\s*parte\s*[ivx\d]+/i,
+      /^#\s*sección\s*\d+/i,
+      /^#\s*seccion\s*\d+/i,
+      // French patterns
+      /^#\s*chapitre\s*\d+/i,
+      /^#\s*partie\s*[ivx\d]+/i,
+      // German patterns
+      /^#\s*kapitel\s*\d+/i,
+      /^#\s*teil\s*[ivx\d]+/i,
+      /^#\s*abschnitt\s*\d+/i,
+      // Italian patterns
+      /^#\s*capitolo\s*\d+/i,
+      /^#\s*sezione\s*\d+/i
     ]
   },
   
@@ -57,7 +142,20 @@ const CLASSIFICATION_PATTERNS = {
     keywords: [
       'conclusion', 'epilogue', 'afterword', 'references', 'bibliography',
       'index', 'glossary', 'appendix', 'about the author', 'resources',
-      'bonus', 'additional', 'further reading', 'notes'
+      'bonus', 'additional', 'further reading', 'notes',
+      // Spanish keywords
+      'conclusión', 'conclusion', 'epílogo', 'epilogo', 'posfacio',
+      'referencias', 'bibliografía', 'bibliografia', 'índice', 'indice',
+      'glosario', 'apéndice', 'apendice', 'sobre el autor', 'recursos', 'notas',
+      // French keywords
+      'conclusion', 'épilogue', 'postface', 'références', 'bibliographie',
+      'index', 'glossaire', 'appendice', 'à propos de l\'auteur', 'ressources',
+      // German keywords
+      'schluss', 'epilog', 'nachwort', 'referenzen', 'bibliographie',
+      'index', 'glossar', 'anhang', 'über den autor', 'ressourcen',
+      // Italian keywords
+      'conclusione', 'epilogo', 'postfazione', 'riferimenti', 'bibliografia',
+      'indice', 'glossario', 'appendice', 'sull\'autore', 'risorse'
     ],
     filenamePatterns: [
       /conclusion/i,
@@ -71,14 +169,102 @@ const CLASSIFICATION_PATTERNS = {
       /about[_\s]the?[_\s]author/i,
       /resources?/i,
       /bonus/i,
-      /notes/i
+      /notes/i,
+      // Spanish patterns
+      /conclusi[óo]n/i,
+      /ep[íi]logo/i,
+      /posfacio/i,
+      /referencias/i,
+      /bibliograf[íi]a/i,
+      /[íi]ndice/i,
+      /glosario/i,
+      /ap[ée]ndice/i,
+      /sobre[_\s]el[_\s]autor/i,
+      /recursos/i,
+      /notas/i,
+      // French patterns
+      /épilogue/i,
+      /postface/i,
+      /références/i,
+      /bibliographie/i,
+      /glossaire/i,
+      /appendice/i,
+      /ressources/i,
+      // German patterns
+      /schluss/i,
+      /epilog/i,
+      /nachwort/i,
+      /referenzen/i,
+      /bibliographie/i,
+      /glossar/i,
+      /anhang/i,
+      /ressourcen/i,
+      // Italian patterns
+      /conclusione/i,
+      /epilogo/i,
+      /postfazione/i,
+      /riferimenti/i,
+      /bibliografia/i,
+      /glossario/i,
+      /appendice/i,
+      /risorse/i
     ],
     contentPatterns: [
       /^#\s*(conclusion|epilogue|afterword|references?|bibliography|index|glossary|appendix)/i,
-      /^#\s*(about\s+the\s+author|resources?|bonus|notes)/i
+      /^#\s*(about\s+the\s+author|resources?|bonus|notes)/i,
+      // Spanish patterns
+      /^#\s*(conclusión|conclusion|epílogo|epilogo|posfacio|referencias|bibliografía|bibliografia)/i,
+      /^#\s*(índice|indice|glosario|apéndice|apendice|sobre\s+el\s+autor|recursos|notas)/i,
+      // French patterns
+      /^#\s*(conclusion|épilogue|postface|références|bibliographie|glossaire|appendice)/i,
+      /^#\s*(à\s+propos\s+de\s+l'auteur|ressources)/i,
+      // German patterns
+      /^#\s*(schluss|epilog|nachwort|referenzen|bibliographie|glossar|anhang)/i,
+      /^#\s*(über\s+den\s+autor|ressourcen)/i,
+      // Italian patterns
+      /^#\s*(conclusione|epilogo|postfazione|riferimenti|bibliografia|glossario|appendice)/i,
+      /^#\s*(sull'autore|risorse)/i
     ]
   }
 };
+
+/**
+ * Section name mappings to prevent duplicates across languages
+ */
+const SECTION_MAPPINGS = {
+  introduction: ['introduction', 'introducción', 'introduccion', 'introduction', 'einleitung', 'introduzione'],
+  conclusion: ['conclusion', 'conclusión', 'conclusion', 'schluss', 'conclusione'],
+  chapter: ['chapter', 'capítulo', 'capitulo', 'chapitre', 'kapitel', 'capitolo'],
+  prologue: ['prologue', 'prólogo', 'prologo', 'prologue', 'prolog', 'prologo'],
+  epilogue: ['epilogue', 'epílogo', 'epilogo', 'épilogue', 'epilog', 'epilogo'],
+  preface: ['preface', 'prefacio', 'préface', 'vorwort', 'prefazione'],
+  acknowledgments: ['acknowledgments', 'acknowledgements', 'agradecimientos', 'remerciements', 'danksagung', 'ringraziamenti'],
+  bibliography: ['bibliography', 'bibliografía', 'bibliografia', 'bibliographie', 'bibliographie', 'bibliografia'],
+  references: ['references', 'referencias', 'références', 'referenzen', 'riferimenti'],
+  appendix: ['appendix', 'apéndice', 'apendice', 'appendice', 'anhang', 'appendice'],
+  glossary: ['glossary', 'glosario', 'glossaire', 'glossar', 'glossario'],
+  index: ['index', 'índice', 'indice', 'index', 'index', 'indice']
+};
+
+/**
+ * Normalize section names to prevent duplicates
+ * @param {string} sectionName - Original section name
+ * @returns {string} Normalized section name
+ */
+function normalizeSectionName(sectionName) {
+  const normalized = sectionName.toLowerCase().trim();
+  
+  // Check each mapping to find a match
+  for (const [canonical, variants] of Object.entries(SECTION_MAPPINGS)) {
+    if (variants.some(variant => normalized.includes(variant.toLowerCase()))) {
+      // Return the canonical English name (capitalized)
+      return canonical.charAt(0).toUpperCase() + canonical.slice(1);
+    }
+  }
+  
+  // If no mapping found, return original (cleaned up)
+  return sectionName.trim();
+}
 
 /**
  * Language detection patterns (basic implementation)
@@ -430,37 +616,44 @@ function convertToBookStructure(classificationResult) {
 
   const content = {};
   
-  // Create a mapping of original section names to imported documents
+  // Create a mapping of normalized section names to imported documents
   const frontMatterMap = {};
   frontMatter.forEach(doc => {
     const sectionTitle = extractSectionTitle(doc.content);
-    frontMatterMap[sectionTitle.toLowerCase()] = doc.content;
+    const normalizedTitle = normalizeSectionName(sectionTitle);
+    frontMatterMap[normalizedTitle] = doc.content;
   });
 
   // Add front matter content (including auto-generated sections)
   structure.front.forEach(sectionName => {
     const key = `front:${sectionName}`;
+    const normalizedSectionName = normalizeSectionName(sectionName);
     
-    // Check if we have content for this section
-    const matchingContent = Object.keys(frontMatterMap).find(originalTitle => 
-      originalTitle.includes(sectionName.toLowerCase()) ||
-      sectionName.toLowerCase().includes(originalTitle) ||
-      (sectionName.toLowerCase().includes('title') && originalTitle.includes('title')) ||
-      (sectionName.toLowerCase().includes('copyright') && (originalTitle.includes('copyright') || originalTitle.includes('rights')))
-    );
-
-    if (matchingContent) {
-      content[key] = frontMatterMap[matchingContent];
+    // Direct match with normalized names
+    if (frontMatterMap[normalizedSectionName]) {
+      content[key] = frontMatterMap[normalizedSectionName];
     } else {
-      // Auto-generate content for missing essential sections
-      if (sectionName.toLowerCase() === titlePageName.toLowerCase() || 
-          sectionName.toLowerCase().includes('title')) {
-        content[key] = generateTitlePageContent(metadata);
-      } else if (sectionName.toLowerCase() === copyrightName.toLowerCase() || 
-                 sectionName.toLowerCase().includes('copyright')) {
-        content[key] = generateCopyrightContent(metadata);
+      // Try fuzzy matching for edge cases
+      const matchingContent = Object.keys(frontMatterMap).find(originalTitle => 
+        originalTitle.toLowerCase().includes(normalizedSectionName.toLowerCase()) ||
+        normalizedSectionName.toLowerCase().includes(originalTitle.toLowerCase()) ||
+        (normalizedSectionName.toLowerCase().includes('title') && originalTitle.toLowerCase().includes('title')) ||
+        (normalizedSectionName.toLowerCase().includes('copyright') && (originalTitle.toLowerCase().includes('copyright') || originalTitle.toLowerCase().includes('rights')))
+      );
+
+      if (matchingContent) {
+        content[key] = frontMatterMap[matchingContent];
       } else {
-        content[key] = ''; // Empty content for other missing sections
+        // Auto-generate content for missing essential sections
+        if (normalizedSectionName.toLowerCase() === titlePageName.toLowerCase() || 
+            normalizedSectionName.toLowerCase().includes('title')) {
+          content[key] = generateTitlePageContent(metadata);
+        } else if (normalizedSectionName.toLowerCase() === copyrightName.toLowerCase() || 
+                   normalizedSectionName.toLowerCase().includes('copyright')) {
+          content[key] = generateCopyrightContent(metadata);
+        } else {
+          content[key] = ''; // Empty content for other missing sections
+        }
       }
     }
   });
@@ -495,24 +688,34 @@ function convertToBookStructure(classificationResult) {
  */
 function extractSectionTitle(content) {
   const lines = content.split('\n');
+  let rawTitle = '';
   
   // Look for first # header
   for (let line of lines) {
     line = line.trim();
     if (line.startsWith('# ')) {
-      return line.substring(2).trim();
+      rawTitle = line.substring(2).trim();
+      break;
     }
   }
 
   // Fallback to first non-empty line
-  for (let line of lines) {
-    line = line.trim();
-    if (line && !line.startsWith('\\[') && line.length < 100) {
-      return line;
+  if (!rawTitle) {
+    for (let line of lines) {
+      line = line.trim();
+      if (line && !line.startsWith('\\[') && line.length < 100) {
+        rawTitle = line;
+        break;
+      }
     }
   }
 
-  return 'Untitled Section';
+  if (!rawTitle) {
+    return 'Untitled Section';
+  }
+
+  // Normalize the section name to prevent duplicates
+  return normalizeSectionName(rawTitle);
 }
 
 /**

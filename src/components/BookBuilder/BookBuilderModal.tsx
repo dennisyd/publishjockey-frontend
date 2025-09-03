@@ -260,14 +260,21 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
 
         try {
           console.log('Extracting:', filename);
+          // Ensure UTF-8 encoding for proper Spanish/European character handling
           const content = await zipEntry.async('string');
           
           if (content.trim()) { // Only include non-empty files
+            // Clean up filename encoding issues (common with Spanish accents)
+            const cleanFilename = filename
+              .replace(/_n\.md$/, 'ón.md')  // Fix introducción -> introducci_n
+              .replace(/_([aeiou])([^.])/g, 'ó$2') // General accent fixes
+              .normalize('NFC'); // Normalize Unicode characters
+            
             extractedDocuments.push({
-              filename,
+              filename: cleanFilename,
               content: content.trim()
             });
-            console.log(`Extracted ${filename}: ${content.length} characters`);
+            console.log(`Extracted ${cleanFilename}: ${content.length} characters`);
           }
         } catch (extractError) {
           console.warn(`Failed to extract ${filename}:`, extractError);
