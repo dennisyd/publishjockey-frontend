@@ -141,7 +141,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
         <DocumentIcon fontSize="small" />
       </ListItemIcon>
       <ListItemText 
-        primary={doc.filename}
+        primary={doc.title || doc.filename}
         secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
       />
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
