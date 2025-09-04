@@ -421,11 +421,30 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         // Load structure from backend if available
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
+          console.log('🔍 PROJECT DATA DEBUG:', {
+            createdVia: projectData.createdVia,
+            hasCreatedVia: 'createdVia' in projectData,
+            allKeys: Object.keys(projectData)
+          });
           
-          // Check if this is a BookBuilder project (has createdVia field)
+          // Check if this is a BookBuilder project (has createdVia field OR non-default section names)
           const isBookBuilderProject = projectData.createdVia === 'book-builder';
           
-          if (isBookBuilderProject) {
+          // Fallback: Check if structure has non-default Spanish section names (BookBuilder indicator)
+          const hasSpanishSections = projectData.structure.main?.some(section => 
+            section.includes('campanario') || section.includes('Grande') || section.includes('puente')
+          ) || projectData.structure.front?.some(section => 
+            section === 'Introducción' // Spanish section with accent
+          );
+          
+          const isBookBuilderFallback = isBookBuilderProject || hasSpanishSections;
+          console.log('🔍 IS BOOKBUILDER PROJECT?', {
+            byCreatedVia: isBookBuilderProject,
+            bySpanishSections: hasSpanishSections,
+            finalDecision: isBookBuilderFallback
+          });
+          
+          if (isBookBuilderFallback) {
             console.log('🔍 BOOKBUILDER PROJECT DETECTED - PRESERVING IMPORTED STRUCTURE:', {
               backendStructure: projectData.structure
             });
