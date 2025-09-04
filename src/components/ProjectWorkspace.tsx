@@ -88,6 +88,7 @@ interface ProjectApiResponse {
       main: string[];
       back: string[];
     };
+    createdVia?: string;
     // add other fields as needed
   };
   data?: {
@@ -101,6 +102,7 @@ interface ProjectApiResponse {
       main: string[];
       back: string[];
     };
+    createdVia?: string;
     // add other fields as needed
   };
   title?: string;
@@ -113,6 +115,7 @@ interface ProjectApiResponse {
     main: string[];
     back: string[];
   };
+  createdVia?: string;
   [key: string]: any;
 }
 
@@ -419,33 +422,42 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         if (projectData.structure) {
           console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
           
-          // Get the current localized structure for comparison
-          const currentLocalizedStructure = getLocalizedBookStructure(documentLanguage);
+          // Check if this is a BookBuilder project (has createdVia field)
+          const isBookBuilderProject = projectData.createdVia === 'book-builder';
           
-          // Check if the backend structure has more sections than the default template
-          const backendSectionCount = (projectData.structure.front?.length || 0) + 
-                                     (projectData.structure.main?.length || 0) + 
-                                     (projectData.structure.back?.length || 0);
-          const localizedSectionCount = (currentLocalizedStructure.front?.length || 0) + 
-                                       (currentLocalizedStructure.main?.length || 0) + 
-                                       (currentLocalizedStructure.back?.length || 0);
-          
-          // Only use backend structure if it has MORE sections than the localized template
-          // This preserves custom sections while allowing language switching
-          if (backendSectionCount > localizedSectionCount) {
-            
-            console.log('🔍 USING BACKEND STRUCTURE (contains custom sections):', {
-              backendSectionCount,
-              localizedSectionCount,
+          if (isBookBuilderProject) {
+            console.log('🔍 BOOKBUILDER PROJECT DETECTED - PRESERVING IMPORTED STRUCTURE:', {
               backendStructure: projectData.structure
             });
             
-            // Use the backend structure which contains the custom sections
+            // Always use the backend structure for BookBuilder projects
+            // This preserves the actual imported section names
             setStructure(projectData.structure);
           } else {
-            console.log('🔍 BACKEND STRUCTURE IS DEFAULT SIZE, USING LOCALIZED STRUCTURE FOR LANGUAGE:', documentLanguage);
-            console.log('🔍 LOCALIZED STRUCTURE:', currentLocalizedStructure);
-            // Keep the localized structure that was set during initialization
+            // For regular projects, use the existing logic
+            const currentLocalizedStructure = getLocalizedBookStructure(documentLanguage);
+            
+            // Check if the backend structure has more sections than the default template
+            const backendSectionCount = (projectData.structure.front?.length || 0) + 
+                                       (projectData.structure.main?.length || 0) + 
+                                       (projectData.structure.back?.length || 0);
+            const localizedSectionCount = (currentLocalizedStructure.front?.length || 0) + 
+                                         (currentLocalizedStructure.main?.length || 0) + 
+                                         (currentLocalizedStructure.back?.length || 0);
+            
+            // Only use backend structure if it has MORE sections than the localized template
+            if (backendSectionCount > localizedSectionCount) {
+              console.log('🔍 USING BACKEND STRUCTURE (contains custom sections):', {
+                backendSectionCount,
+                localizedSectionCount,
+                backendStructure: projectData.structure
+              });
+              setStructure(projectData.structure);
+            } else {
+              console.log('🔍 BACKEND STRUCTURE IS DEFAULT SIZE, USING LOCALIZED STRUCTURE FOR LANGUAGE:', documentLanguage);
+              console.log('🔍 LOCALIZED STRUCTURE:', currentLocalizedStructure);
+              // Keep the localized structure that was set during initialization
+            }
           }
           
           setStructureLoaded(true);

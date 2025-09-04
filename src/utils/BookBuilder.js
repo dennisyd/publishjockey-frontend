@@ -33,11 +33,6 @@ function classifyDocuments(documents) {
   // Users can reorganize in the UI - much more reliable than AI guessing!
   documents.forEach((doc, index) => {
     const extractedTitle = extractSectionTitle(doc.content);
-    console.log(`📚 Processing document ${index + 1}:`, {
-      filename: doc.filename,
-      extractedTitle,
-      contentPreview: doc.content.substring(0, 100) + '...'
-    });
     
     result.mainMatter.push({
       ...doc,
@@ -45,13 +40,6 @@ function classifyDocuments(documents) {
       suggestedOrder: index,
       title: extractedTitle // Extract clean title for display
     });
-  });
-  
-  console.log(`📊 Classification Result:`, {
-    frontMatter: result.frontMatter.length,
-    mainMatter: result.mainMatter.length,
-    backMatter: result.backMatter.length,
-    mainMatterTitles: result.mainMatter.map(doc => doc.title)
   });
 
   return result;
@@ -168,13 +156,6 @@ function parseZipStructure(fileList) {
  */
 function convertToBookStructure(classificationResult) {
   const { frontMatter, mainMatter, backMatter, metadata } = classificationResult;
-  
-  console.log(`🔄 Converting to book structure:`, {
-    frontMatter: frontMatter.length,
-    mainMatter: mainMatter.length,
-    backMatter: backMatter.length,
-    mainMatterTitles: mainMatter.map(doc => doc.title || extractSectionTitle(doc.content))
-  });
 
   // Simple approach: Create structure directly from imported content
   const structure = {
@@ -182,8 +163,6 @@ function convertToBookStructure(classificationResult) {
     main: mainMatter.map(doc => doc.title || extractSectionTitle(doc.content)),
     back: backMatter.map(doc => doc.title || extractSectionTitle(doc.content))
   };
-  
-  console.log(`📋 Final structure created:`, structure);
 
   const content = {};
 
@@ -192,7 +171,6 @@ function convertToBookStructure(classificationResult) {
     const sectionName = structure.front[index];
     const contentKey = `front:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added front matter: ${contentKey} (${doc.content.length} chars)`);
   });
 
   // Add all main matter content
@@ -200,7 +178,6 @@ function convertToBookStructure(classificationResult) {
     const sectionName = structure.main[index];
     const contentKey = `main:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added main matter: ${contentKey} (${doc.content.length} chars)`);
   });
 
   // Add all back matter content
@@ -208,10 +185,7 @@ function convertToBookStructure(classificationResult) {
     const sectionName = structure.back[index];
     const contentKey = `back:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added back matter: ${contentKey} (${doc.content.length} chars)`);
   });
-  
-  console.log(`✅ Final content keys:`, Object.keys(content));
 
   return {
     structure,
