@@ -755,7 +755,7 @@ const Hero = ({ handleRegister }) => {
                 ¹ Speed verified on a 60,733-word book (server benchmark). Exports auto-delete after 15 minutes.
               </Typography>
 
-              {/* New features line - Convert Word docs first */}
+              {/* New features line - Word transformation process */}
               <Typography 
                 variant="body2" 
                 component="p" 
@@ -768,7 +768,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                <strong>Convert Word docs</strong> • Import images & CSVs • Create tables
+                <strong>Word → Book</strong> (auto-split chapters) • Add images • CSV → Tables
               </Typography>
 
               {/* Language support - tighter spacing */}
