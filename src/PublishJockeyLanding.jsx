@@ -122,9 +122,6 @@ const PublishJockeyLanding = () => {
     }}>
       <LandingHeader openTerms={handleOpenTerms} />
       
-      {/* Ticker Tape */}
-      <TickerTape />
-      
       {/* Hero Section */}
       <Hero handleRegister={handleRegister} />
       
@@ -327,88 +324,7 @@ const PublishJockeyLanding = () => {
   );
 };
 
-// Ticker Tape Component - Yancy Dennis
-const TickerTape = () => {
-  // Use launch offer if active
-  const launchOfferActive = isLaunchOfferActive();
-  
-  // Ticker items with icons
-  const tickerItems = [
-    { text: "⚡ PDFs generated in ~30 seconds. EPUBs in ~5 seconds. Word docs in ~5 seconds." },
-    { text: "🧠 Real-time preview shows your content before you publish." },
-    { text: "🖼️ Native image and table support—no formatting headaches." },
-    { text: "✅ Only one book? No problem. Unlimited edits & downloads of your final manuscript." },
-    { text: launchOfferActive 
-        ? "🚀 LAUNCH OFFER: Ebooks from $31, Full Books from $63, Full Service from $449 — 3-year validity!" 
-        : "💰 Pricing: Ebooks from $46, Full Books from $93, Full Service from $499 — 3-year validity!" 
-    },
-    { text: "🎨 Free AI cover creation & upscaling included—no designer needed!" },
-    { text: "📖 Ebook plans: 50-page limit for shorter works. Full Books: unlimited pages for complete manuscripts!" },
-    { text: "🎨 Full Service: Complete package with 3 custom cover designs + optional KDP setup!" },
-    { text: "🌍 Multi-lingual support for 50+ languages including Spanish, French, German, Russian & more!" },
-    { text: "⚠️ Verify native language quality before purchasing—test export with free plan!" },
-    { text: "🚫 Unused sections? Delete, rename, or ignore—your choice." },
-    { text: "📘 Your finished manuscript isn't stored—only Markdown files while your account is active." },
-    { text: "📚 Textbook publishing not yet supported—let us know if you need it!" },
-  ];
-
-  return (
-    <Box
-      sx={{
-        position: 'fixed',
-        top: '80px', // Right below the header
-        left: 0,
-        right: 0,
-        zIndex: 1050,
-        width: '100%',
-        background: 'linear-gradient(90deg, #005c97 0%, #363795 100%)', // Horizontal gradient from navy to slate blue
-        color: 'white',
-        overflow: 'hidden',
-        height: '74px', // Slightly increased height for more padding
-        display: 'flex',
-        alignItems: 'center',
-        boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-        borderBottom: '1px solid rgba(255,255,255,0.2)',
-        borderRadius: '0 0 8px 8px', // Rounded bottom corners
-        padding: '0 15px', // Add horizontal padding
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          width: 'fit-content',
-          whiteSpace: 'nowrap',
-          marginLeft: '100%', // Start offscreen on the right
-          animation: 'ticker-slide 60s linear infinite',
-          '@keyframes ticker-slide': {
-            '0%': { transform: 'translateX(0)' },
-            '100%': { transform: 'translateX(-100%)' }, // Move left by 100%
-          },
-          height: '100%',
-        }}
-      >
-        {tickerItems.map((item, index) => (
-          <Box
-            key={index}
-            sx={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              margin: '0 35px',
-              fontSize: '18px', // Increased font size
-              fontWeight: 600,
-              letterSpacing: '0.2px',
-              textShadow: '0px 1px 2px rgba(0,0,0,0.4)', // Enhanced text shadow for better readability
-              height: '100%',
-              paddingTop: '18px', // Adjusted to center text better
-            }}
-          >
-            {item.text}
-          </Box>
-        ))}
-      </Box>
-    </Box>
-  );
-};
+// Ticker removed for cleaner homepage design
 
 const LandingHeader = ({ openTerms }) => {
   const { currentUser, logout } = useAuth();
@@ -744,18 +660,16 @@ const Hero = ({ handleRegister }) => {
     <Box
       id="hero"
       sx={{
-        background: 'linear-gradient(135deg, #4F46E5 0%, #7C3AED 100%)',
-        backgroundImage: 'url("https://images.unsplash.com/photo-1550399105-c4db5fb85c18?ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80")',
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
+        background: 'linear-gradient(135deg, #1e3a8a 0%, #3730a3 50%, #581c87 100%)',
         color: 'white',
         position: 'relative',
         overflow: 'hidden',
-        pt: { xs: 10, md: 14 },
-        pb: { xs: 6, md: 8 }
+        pt: { xs: 4, md: 6 },
+        pb: { xs: 6, md: 8 },
+        minHeight: '70vh'
       }}
     >
-      {/* Dark overlay */}
+      {/* Subtle pattern overlay */}
       <Box 
         sx={{
           position: 'absolute',
@@ -763,112 +677,125 @@ const Hero = ({ handleRegister }) => {
           left: 0,
           right: 0,
           bottom: 0,
-          backgroundColor: 'rgba(31, 41, 90, 0.85)',
+          backgroundImage: `
+            radial-gradient(circle at 25% 25%, rgba(255,255,255,0.1) 0%, transparent 50%),
+            radial-gradient(circle at 75% 75%, rgba(255,255,255,0.05) 0%, transparent 50%)
+          `,
           zIndex: 0
         }}
       />
-      
-      {/* Background decoration */}
-      <Box 
-        sx={{
-          position: 'absolute',
-          width: '600px',
-          height: '600px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)',
-          top: '-200px',
-          right: '-100px',
-          zIndex: 0
-        }}
-      />
-      <Box 
-        sx={{
-          position: 'absolute',
-          width: '400px',
-          height: '400px',
-          borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 70%)',
-          bottom: '-150px',
-          left: '-150px',
-          zIndex: 0
-        }}
-      />
+
       
       {/* Content */}
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12} md={6}>
-            <Box sx={{ maxWidth: '600px', mx: 'auto', textAlign: { xs: 'center', md: 'left' } }}>
-              <Box 
-                sx={{ 
-                  display: 'inline-block',
-                  px: 2,
-                  py: 0.5,
-                  bgcolor: 'rgba(255,255,255,0.15)',
-                  borderRadius: '30px',
-                  color: 'white',
-                  mb: 3,
-                  mt: 0,
-                  border: '1px solid rgba(255,255,255,0.2)'
-                }}
-              >
-                <Typography variant="subtitle2" sx={{ fontWeight: 500 }}>
-                  Write anywhere. Publish here — fast, clean, professional.
-                </Typography>
-              </Box>
+            <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
+              {/* Main heading - exact text from image */}
               <Typography 
                 variant="h1" 
                 component="h1" 
                 sx={{ 
-                  fontSize: { xs: '2.5rem', md: '3.5rem' }, 
-                  fontWeight: 800,
-                  lineHeight: 1.1,
+                  fontSize: { xs: '2.5rem', md: '3.2rem' }, 
+                  fontWeight: 700,
+                  lineHeight: 1.2,
                   mb: 2,
-                  letterSpacing: '-0.02em',
-                  textShadow: '0 2px 10px rgba(0,0,0,0.2)'
+                  color: 'white',
+                  maxWidth: '500px'
                 }}
               >
-                Turn Your Writing Into Professional Books
+                Publish a Bookstore-Quality Book—today.
               </Typography>
+
+              {/* Subtitle - exact text from image */}
               <Typography 
-                variant="h2" 
+                variant="body1" 
                 component="p" 
                 sx={{ 
-                  fontSize: { xs: '1.1rem', md: '1.3rem' }, 
+                  fontSize: { xs: '1rem', md: '1.1rem' }, 
                   fontWeight: 400, 
                   opacity: 0.9, 
-                  mb: 3,
-                  lineHeight: 1.4,
-                  maxWidth: '530px',
-                  mx: { xs: 'auto', md: 0 }
+                  mb: 1.5,
+                  lineHeight: 1.5,
+                  maxWidth: '450px'
                 }}
               >
-                Simple markdown editing paired with beautiful typesetting technology that gets your books print-ready in minutes.
+                From manuscript to polished, print-ready in minutes—no formatting headaches.
               </Typography>
-              <Box sx={{ display: 'flex', gap: 2, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
+
+              {/* Feature highlight - updated with specific metrics */}
+              <Typography 
+                variant="body2" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '1rem' }, 
+                  fontWeight: 500, 
+                  opacity: 0.8, 
+                  mb: 1,
+                  lineHeight: 1.4,
+                  maxWidth: '450px'
+                }}
+              >
+                <strong>Instant Preview</strong> • PDF 26.7s • EPUB 6.6s • DOCX 1.8s¹
+              </Typography>
+
+              {/* Speed verification footnote */}
+              <Typography 
+                variant="caption" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.75rem', md: '0.8rem' }, 
+                  fontWeight: 400, 
+                  opacity: 0.6, 
+                  mb: 2,
+                  lineHeight: 1.3,
+                  maxWidth: '450px'
+                }}
+              >
+                ¹ Speed verified on a 60,733-word book (server benchmark). Exports auto-delete after 15 minutes.
+              </Typography>
+
+              {/* Language support */}
+              <Typography 
+                variant="body2" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '1rem' }, 
+                  fontWeight: 500, 
+                  opacity: 0.8, 
+                  mb: 3,
+                  lineHeight: 1.4,
+                  maxWidth: '450px'
+                }}
+              >
+                Publish in <strong>55+ languages</strong> • Publisher-grade typesetting
+              </Typography>
+
+              {/* CTA Buttons */}
+              <Box sx={{ display: 'flex', gap: 3, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap', mb: 2 }}>
                 <Button 
                   href="/register" 
                   variant="contained" 
                   size="large"
                   sx={{ 
-                    bgcolor: 'white', 
-                    color: 'primary.main',
+                    bgcolor: '#2563eb', 
+                    color: 'white',
                     fontWeight: 600,
-                    borderRadius: '50px',
+                    borderRadius: '8px',
                     px: 3,
-                    py: 1,
+                    py: 1.2,
                     fontSize: '1rem',
                     textTransform: 'none',
-                    boxShadow: '0 4px 14px rgba(0, 0, 0, 0.25)',
+                    boxShadow: '0 4px 14px rgba(37, 99, 235, 0.4)',
                     '&:hover': {
-                      bgcolor: 'white',
-                      boxShadow: '0 6px 20px rgba(255, 255, 255, 0.4)',
+                      bgcolor: '#1d4ed8',
+                      boxShadow: '0 6px 20px rgba(37, 99, 235, 0.6)',
                       transform: 'translateY(-2px)',
-                      transition: 'all 0.2s'
+                      transition: 'all 0.2s ease'
                     }
                   }}
                 >
-                  Register
+                  Register Today
                 </Button>
                 <Button 
                   href="#how-it-works" 
@@ -877,103 +804,298 @@ const Hero = ({ handleRegister }) => {
                   sx={{ 
                     borderColor: 'rgba(255,255,255,0.6)', 
                     color: 'white',
-                    fontWeight: 600,
-                    borderRadius: '50px',
+                    fontWeight: 500,
+                    borderRadius: '8px',
                     px: 3,
-                    py: 1,
+                    py: 1.2,
                     fontSize: '1rem',
                     textTransform: 'none',
                     '&:hover': {
                       borderColor: 'white',
                       bgcolor: 'rgba(255,255,255,0.1)',
                       transform: 'translateY(-2px)',
-                      transition: 'all 0.2s'
+                      transition: 'all 0.2s ease'
                     }
                   }}
                 >
                   See How It Works
                 </Button>
               </Box>
+
+              {/* Bottom note - moved closer to buttons */}
+              <Typography 
+                variant="caption" 
+                sx={{ 
+                  fontSize: '0.85rem',
+                  opacity: 0.7,
+                  display: 'block'
+                }}
+              >
+                Registered users can print 12 pages free.
+              </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
-            <Box sx={{
-              display: 'flex',
+            {/* Professional book cover - smaller size */}
+            <Box sx={{ 
+              display: 'flex', 
               flexDirection: 'column',
-              gap: 3
+              alignItems: 'center',
+              position: 'relative'
             }}>
-              <Box sx={{ 
+              {/* Book cover with 3D effect */}
+              <Box sx={{
+                width: '240px',
+                height: '300px',
                 position: 'relative',
-                p: 2,
-                mx: 'auto',
-                maxWidth: '500px',
-                height: { xs: 'auto', md: '250px' },
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: '10px',
-                  left: '10px',
-                  right: '10px',
-                  bottom: '10px',
-                  background: 'rgba(255,255,255,0.1)',
-                  borderRadius: '24px',
-                  zIndex: -1
+                transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)',
+                transformOrigin: 'center center',
+                mb: 3,
+                '&:hover': {
+                  transform: 'perspective(1000px) rotateY(-10deg) rotateX(2deg)',
+                  transition: 'all 0.4s ease'
                 }
               }}>
-                <Box 
-                  sx={{ 
-                    bgcolor: 'white', 
-                    borderRadius: '16px', 
-                    overflow: 'hidden',
-                    boxShadow: '0 10px 20px rgba(0,0,0,0.2)',
-                    height: '100%',
-                    '&:hover': {
-                      transform: 'translateY(-5px)',
-                      boxShadow: '0 15px 30px rgba(0,0,0,0.3)',
-                      transition: 'all 0.3s ease'
-                    }
-                  }}
-                >
-                  <img 
-                    src="https://images.unsplash.com/photo-1589998059171-988d887df646?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1776&q=80" 
-                    alt="Book publishing preview" 
-                    style={{ width: '100%', height: '100%', display: 'block', objectFit: 'cover' }}
-                  />
+                {/* Book shadow */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '15px',
+                  left: '15px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: 'rgba(0,0,0,0.3)',
+                  borderRadius: '6px',
+                  filter: 'blur(12px)',
+                  zIndex: 0
+                }} />
+                
+                {/* Main book cover */}
+                <Box sx={{
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: '#1e3a8a',
+                  borderRadius: '6px',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  alignItems: 'center',
+                  p: 2.5,
+                  boxShadow: '0 15px 30px rgba(0,0,0,0.4)',
+                  border: '2px solid rgba(255,255,255,0.1)',
+                  position: 'relative',
+                  zIndex: 1,
+                  backgroundImage: 'linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%)',
+                  color: 'white'
+                }}>
+                  {/* Book title */}
+                  <Typography sx={{ 
+                    fontSize: '22px', 
+                    fontWeight: 'bold', 
+                    textAlign: 'center',
+                    mb: 1.5,
+                    lineHeight: 1.2,
+                    textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                  }}>
+                    Your Book
+                  </Typography>
+                  
+                  {/* Decorative line */}
+                  <Box sx={{ 
+                    width: '60px', 
+                    height: '2px', 
+                    bgcolor: 'rgba(255,255,255,0.6)', 
+                    mb: 2
+                  }} />
+                  
+                  {/* Author */}
+                  <Typography sx={{ 
+                    fontSize: '14px', 
+                    fontWeight: 500,
+                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+                  }}>
+                    To Be Named
+                  </Typography>
+
+                  {/* Format badges */}
+                  <Box sx={{
+                    position: 'absolute',
+                    bottom: '12px',
+                    left: '12px',
+                    display: 'flex',
+                    gap: 0.5
+                  }}>
+                    <Box sx={{
+                      bgcolor: '#ef4444',
+                      color: 'white',
+                      fontSize: '8px',
+                      px: 0.8,
+                      py: 0.4,
+                      borderRadius: '3px',
+                      fontWeight: 600
+                    }}>
+                      PDF
+                    </Box>
+                    <Box sx={{
+                      bgcolor: '#8b5cf6',
+                      color: 'white',
+                      fontSize: '8px',
+                      px: 0.8,
+                      py: 0.4,
+                      borderRadius: '3px',
+                      fontWeight: 600
+                    }}>
+                      EPUB
+                    </Box>
+                    <Box sx={{
+                      bgcolor: '#0ea5e9',
+                      color: 'white',
+                      fontSize: '8px',
+                      px: 0.8,
+                      py: 0.4,
+                      borderRadius: '3px',
+                      fontWeight: 600
+                    }}>
+                      DOCX
+                    </Box>
+                  </Box>
+                </Box>
+
+                {/* Book spine */}
+                <Box sx={{
+                  position: 'absolute',
+                  left: '-5px',
+                  top: '0',
+                  width: '5px',
+                  height: '100%',
+                  bgcolor: '#1e293b',
+                  borderRadius: '2px 0 0 2px',
+                  zIndex: 0
+                }} />
+
+                {/* Callout on book's top-right corner */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '-10px',
+                  right: '-15px',
+                  bgcolor: '#ffffff',
+                  borderRadius: '8px',
+                  px: 2,
+                  py: 1,
+                  border: '2px solid #1e3a8a',
+                  zIndex: 10,
+                  boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
+                  color: '#1e3a8a'
+                }}>
                   <Typography 
-                    variant="caption" 
+                    variant="body2" 
                     sx={{ 
-                      display: 'block',
+                      fontWeight: 600,
+                      fontSize: '0.8rem',
                       textAlign: 'center',
-                      fontStyle: 'italic',
-                      color: 'rgba(0,0,0,0.55)',
-                      mt: 1,
-                      fontSize: '0.95rem'
+                      whiteSpace: 'nowrap'
                     }}
                   >
-                    Free Cover Created using ChatGPT & Upscale Tool on this site
+                    PublishJockey: In a League of its Own
                   </Typography>
                 </Box>
               </Box>
-              
-              {/* Stats moved here */}
-              <Box sx={{ 
+
+              {/* Language indicators - static per page load */}
+              <Box sx={{
+                position: 'absolute',
+                right: '5px',
+                top: '30px',
                 display: 'flex',
-                justifyContent: 'space-around',
-                px: 2,
-                py: 1.5,
-                bgcolor: 'rgba(255,255,255,0.1)',
-                borderRadius: '16px',
-                backdropFilter: 'blur(10px)',
-                border: '1px solid rgba(255,255,255,0.2)'
+                flexDirection: 'column',
+                gap: 1.5
               }}>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Minutes not Weeks</Typography>
-                </Box>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>Professional Quality</Typography>
-                </Box>
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ fontWeight: 700, fontSize: '1.5rem', mb: 0 }}>
+                {(() => {
+                  // All your working languages (excluding English)
+                  const otherLanguages = [
+                    'French', 'German', 'Spanish', 'Portuguese', 'Italian', 'Russian', 
+                    'Polish', 'Dutch', 'Swedish', 'Hindi', 'Bengali', 'Tamil', 
+                    'Ukrainian', 'Nepali', 'Swahili', 'Hausa', 'Yoruba', 'Zulu', 
+                    'Malagasy', 'Czech', 'Finnish', 'Norwegian', 'Romanian', 'Croatian'
+                  ];
+                  
+                  // Randomly select 5 languages for this page load
+                  const shuffled = [...otherLanguages];
+                  for (let i = shuffled.length - 1; i > 0; i--) {
+                    const j = Math.floor(Math.random() * (i + 1));
+                    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+                  }
+                  const selectedLanguages = shuffled.slice(0, 5);
+                  
+                  // Always show English first, then 5 random languages, then "+50 more"
+                  const displayItems = ['English', ...selectedLanguages, '+50 more'];
+                  
+                  return displayItems.map((lang, index) => (
+                    <Box 
+                      key={`${lang}-${index}`}
+                      sx={{
+                        bgcolor: lang === '+50 more' ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.95)',
+                        color: '#1e3a8a',
+                        fontSize: lang === '+50 more' ? '9px' : '10px',
+                        fontWeight: lang === 'English' ? 700 : 600,
+                        px: 1.5,
+                        py: 0.8,
+                        borderRadius: '12px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                        position: 'absolute',
+                        top: `${index * 35}px`,
+                        whiteSpace: 'nowrap',
+                        minWidth: '60px',
+                        ...(lang === 'English' && {
+                          border: '1px solid rgba(30, 58, 138, 0.3)',
+                          boxShadow: '0 4px 16px rgba(30, 58, 138, 0.3)'
+                        })
+                      }}
+                    >
+                      {lang}
+                    </Box>
+                  ));
+                })()}
+              </Box>
+
+              {/* Bottom stats directly under the book */}
+              <Box sx={{ 
+                bgcolor: 'rgba(255,255,255,0.15)',
+                backdropFilter: 'blur(10px)',
+                borderRadius: '12px',
+                border: '1px solid rgba(255,255,255,0.2)',
+                py: 2,
+                px: 3,
+                mt: 1
+              }}>
+                <Box sx={{ 
+                  display: 'flex', 
+                  justifyContent: 'space-around',
+                  alignItems: 'center',
+                  textAlign: 'center',
+                  gap: 2
+                }}>
+                  <Typography sx={{ 
+                    fontWeight: 600, 
+                    color: 'white',
+                    fontSize: '0.9rem'
+                  }}>
+                    Minutes not Weeks
+                  </Typography>
+                  <Typography sx={{ 
+                    fontWeight: 600, 
+                    color: 'white',
+                    fontSize: '0.9rem'
+                  }}>
+                    Professional Quality
+                  </Typography>
+                  <Typography sx={{ 
+                    fontWeight: 600, 
+                    color: 'white',
+                    fontSize: '0.9rem'
+                  }}>
                     {launchOfferActive ? 'Starting at $31' : 'Starting at $46'}
                   </Typography>
                 </Box>
