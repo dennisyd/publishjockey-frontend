@@ -873,19 +873,35 @@ const Hero = ({ handleRegister }) => {
                 <Box sx={{
                   width: '100%',
                   height: '100%',
-                  bgcolor: '#1e3a8a',
+                  backgroundImage: `
+                    linear-gradient(135deg, #F7F3E8 0%, #F2EBDD 100%),
+                    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.4) 0%, transparent 50%),
+                    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.02) 0%, transparent 50%)
+                  `,
                   borderRadius: '6px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
                   p: 2.5,
-                  boxShadow: '0 15px 30px rgba(0,0,0,0.4)',
-                  border: '2px solid rgba(255,255,255,0.1)',
+                  boxShadow: 'rgba(16, 24, 40, 0.25) 0px 12px 28px',
+                  border: '1px solid #E8E0CC',
+                  outline: '1px solid rgba(232, 224, 204, 0.6)',
+                  outlineOffset: '1px',
                   position: 'relative',
                   zIndex: 1,
-                  backgroundImage: 'linear-gradient(135deg, #1e3a8a 0%, #3730a3 100%)',
-                  color: 'white'
+                  color: '#1F2937',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    left: 0,
+                    top: 0,
+                    bottom: 0,
+                    width: '3px',
+                    background: 'linear-gradient(180deg, #D4C5A9 0%, #C4B59D 50%, #B8A88C 100%)',
+                    borderRadius: '6px 0 0 6px',
+                    zIndex: 1
+                  }
                 }}>
                   {/* Book title */}
                   <Typography sx={{ 
@@ -894,7 +910,7 @@ const Hero = ({ handleRegister }) => {
                     textAlign: 'center',
                     mb: 1.5,
                     lineHeight: 1.2,
-                    textShadow: '0 2px 4px rgba(0,0,0,0.3)'
+                    color: '#1F2937'
                   }}>
                     Your Book
                   </Typography>
@@ -903,7 +919,8 @@ const Hero = ({ handleRegister }) => {
                   <Box sx={{ 
                     width: '60px', 
                     height: '2px', 
-                    bgcolor: 'rgba(255,255,255,0.6)', 
+                    bgcolor: '#1F2937', 
+                    opacity: 0.3,
                     mb: 2
                   }} />
                   
@@ -911,9 +928,10 @@ const Hero = ({ handleRegister }) => {
                   <Typography sx={{ 
                     fontSize: '14px', 
                     fontWeight: 500,
-                    textShadow: '0 1px 2px rgba(0,0,0,0.3)'
+                    color: '#1F2937',
+                    opacity: 0.8
                   }}>
-                    To Be Named
+                    Author
                   </Typography>
 
                   {/* Format badges */}
