@@ -859,93 +859,186 @@ const Hero = ({ handleRegister }) => {
               alignItems: 'center',
               position: 'relative'
             }}>
-              {/* Book cover with 3D effect */}
+              {/* Book cover with 3D effect - showing page edges */}
               <Box sx={{
                 width: '240px',
                 height: '300px',
                 position: 'relative',
-                transform: 'perspective(1000px) rotateY(-15deg) rotateX(5deg)',
+                transform: 'perspective(1200px) rotateY(-15deg) rotateX(5deg)',
                 transformOrigin: 'center center',
                 mb: 3,
                 '&:hover': {
-                  transform: 'perspective(1000px) rotateY(-10deg) rotateX(2deg)',
+                  transform: 'perspective(1200px) rotateY(-10deg) rotateX(2deg)',
                   transition: 'all 0.4s ease'
                 }
               }}>
-                {/* Book shadow */}
+                {/* Page layer 1 - deepest (thicker) */}
                 <Box sx={{
                   position: 'absolute',
-                  top: '15px',
-                  left: '15px',
+                  top: '12px',
+                  left: '12px',
                   width: '100%',
                   height: '100%',
-                  bgcolor: 'rgba(0,0,0,0.3)',
+                  bgcolor: '#F0EBE0',
                   borderRadius: '6px',
-                  filter: 'blur(12px)',
-                  zIndex: 0
+                  zIndex: -6,
+                  border: '1px solid #DDD4C4',
+                  boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
                 }} />
                 
-                {/* Main book cover */}
+                {/* Page layer 2 */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '9px',
+                  left: '9px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: '#F3EEE3',
+                  borderRadius: '6px',
+                  zIndex: -5,
+                  border: '1px solid #DFD6C6',
+                  boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
+                }} />
+                
+                {/* Page layer 3 */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '6px',
+                  left: '6px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: '#F6F1E6',
+                  borderRadius: '6px',
+                  zIndex: -4,
+                  border: '1px solid #E1D8C8',
+                  boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
+                }} />
+                
+                {/* Page layer 4 */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '4px',
+                  left: '4px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: '#F8F4E9',
+                  borderRadius: '6px',
+                  zIndex: -3,
+                  border: '1px solid #E3DACA',
+                  boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
+                }} />
+                
+                {/* Page layer 5 */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '2px',
+                  left: '2px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: '#FAF6EB',
+                  borderRadius: '6px',
+                  zIndex: -2,
+                  border: '1px solid #E5DCCC',
+                  boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
+                }} />
+                
+                {/* Main book shadow */}
+                <Box sx={{
+                  position: 'absolute',
+                  top: '20px',
+                  left: '20px',
+                  width: '100%',
+                  height: '100%',
+                  bgcolor: 'rgba(0,0,0,0.4)',
+                  borderRadius: '6px',
+                  filter: 'blur(15px)',
+                  zIndex: -10
+                }} />
+                
+                {/* Main book cover - enhanced realism */}
                 <Box sx={{
                   width: '100%',
                   height: '100%',
                   backgroundImage: `
-                    linear-gradient(135deg, #F7F3E8 0%, #F2EBDD 100%),
-                    radial-gradient(circle at 25% 25%, rgba(255,255,255,0.4) 0%, transparent 50%),
-                    radial-gradient(circle at 75% 75%, rgba(0,0,0,0.02) 0%, transparent 50%)
+                    linear-gradient(135deg, #FDFBF6 0%, #F8F4E8 30%, #F2EBDD 100%),
+                    radial-gradient(circle at 20% 20%, rgba(255,255,255,0.6) 0%, transparent 40%),
+                    radial-gradient(circle at 80% 80%, rgba(0,0,0,0.03) 0%, transparent 50%),
+                    radial-gradient(ellipse at center, rgba(255,255,255,0.1) 0%, transparent 70%)
                   `,
-                  borderRadius: '6px',
+                  borderRadius: '8px',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'center',
                   alignItems: 'center',
                   p: 2.5,
-                  boxShadow: 'rgba(16, 24, 40, 0.25) 0px 12px 28px',
+                  boxShadow: `
+                    rgba(16, 24, 40, 0.35) 0px 16px 32px,
+                    rgba(16, 24, 40, 0.15) 0px 4px 16px,
+                    inset 0 1px 0 rgba(255,255,255,0.4)
+                  `,
                   border: '1px solid #E8E0CC',
-                  outline: '1px solid rgba(232, 224, 204, 0.6)',
-                  outlineOffset: '1px',
                   position: 'relative',
-                  zIndex: 1,
+                  zIndex: 10,
                   color: '#1F2937',
+                  overflow: 'hidden',
                   '&::before': {
                     content: '""',
                     position: 'absolute',
                     left: 0,
                     top: 0,
                     bottom: 0,
-                    width: '3px',
+                    width: '4px',
                     background: 'linear-gradient(180deg, #D4C5A9 0%, #C4B59D 50%, #B8A88C 100%)',
-                    borderRadius: '6px 0 0 6px',
-                    zIndex: 1
+                    borderRadius: '8px 0 0 8px',
+                    zIndex: 15,
+                    boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2)'
+                  },
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    top: '12px',
+                    left: '20px',
+                    right: '12px',
+                    bottom: '12px',
+                    border: '1px solid rgba(31, 41, 55, 0.08)',
+                    borderRadius: '4px',
+                    pointerEvents: 'none',
+                    zIndex: 12
                   }
                 }}>
-                  {/* Book title */}
+                  {/* Book title - enhanced typography */}
                   <Typography sx={{ 
-                    fontSize: '22px', 
-                    fontWeight: 'bold', 
+                    fontSize: '24px', 
+                    fontWeight: 700, 
                     textAlign: 'center',
-                    mb: 1.5,
-                    lineHeight: 1.2,
-                    color: '#1F2937'
+                    mb: 2,
+                    lineHeight: 1.1,
+                    color: '#1F2937',
+                    letterSpacing: '-0.5px',
+                    textShadow: '0 1px 2px rgba(0,0,0,0.1)',
+                    fontFamily: '"Georgia", "Times New Roman", serif'
                   }}>
                     Your Book
                   </Typography>
                   
-                  {/* Decorative line */}
+                  {/* Decorative line - more elegant */}
                   <Box sx={{ 
-                    width: '60px', 
-                    height: '2px', 
-                    bgcolor: '#1F2937', 
-                    opacity: 0.3,
+                    width: '80px', 
+                    height: '1px', 
+                    background: 'linear-gradient(90deg, transparent 0%, #1F2937 20%, #1F2937 80%, transparent 100%)', 
+                    opacity: 0.4,
                     mb: 2
                   }} />
                   
-                  {/* Author */}
+                  {/* Author - refined styling */}
                   <Typography sx={{ 
-                    fontSize: '14px', 
-                    fontWeight: 500,
+                    fontSize: '16px', 
+                    fontWeight: 400,
                     color: '#1F2937',
-                    opacity: 0.8
+                    opacity: 0.7,
+                    fontStyle: 'italic',
+                    letterSpacing: '0.5px',
+                    fontFamily: '"Georgia", "Times New Roman", serif'
                   }}>
                     Author
                   </Typography>
@@ -1131,6 +1224,29 @@ const Hero = ({ handleRegister }) => {
                     fontSize: '0.9rem'
                   }}>
                     {launchOfferActive ? 'Starting at $31' : 'Starting at $46'}
+                  </Typography>
+                </Box>
+
+                {/* Unlimited features - new line below stats */}
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  bgcolor: 'rgba(255,255,255,0.1)',
+                  backdropFilter: 'blur(8px)',
+                  borderRadius: '8px',
+                  border: '1px solid rgba(255,255,255,0.15)',
+                  py: 1.5,
+                  px: 2,
+                  mt: 1
+                }}>
+                  <Typography sx={{ 
+                    color: 'white', 
+                    fontWeight: 600, 
+                    fontSize: '0.85rem',
+                    textAlign: 'center'
+                  }}>
+                    <strong>Unlimited Revisions</strong> • <strong>Unlimited Exports</strong>
                   </Typography>
                 </Box>
               </Box>
