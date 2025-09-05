@@ -942,6 +942,57 @@ const Hero = ({ handleRegister }) => {
                   boxShadow: '3px 3px 10px rgba(0,0,0,0.15)'
                 }} />
                 
+                {/* Page edge lines on left side */}
+                <Box sx={{
+                  position: 'absolute',
+                  left: '3px',
+                  top: '3px',
+                  bottom: '3px',
+                  width: '1px',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.05) 50%, rgba(0,0,0,0.1) 100%)',
+                  zIndex: -1
+                }} />
+                <Box sx={{
+                  position: 'absolute',
+                  left: '5px',
+                  top: '5px',
+                  bottom: '5px',
+                  width: '1px',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.08) 0%, rgba(0,0,0,0.04) 50%, rgba(0,0,0,0.08) 100%)',
+                  zIndex: -1
+                }} />
+                <Box sx={{
+                  position: 'absolute',
+                  left: '7px',
+                  top: '7px',
+                  bottom: '7px',
+                  width: '1px',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.06) 0%, rgba(0,0,0,0.03) 50%, rgba(0,0,0,0.06) 100%)',
+                  zIndex: -1
+                }} />
+                <Box sx={{
+                  position: 'absolute',
+                  left: '9px',
+                  top: '9px',
+                  bottom: '9px',
+                  width: '1px',
+                  background: 'linear-gradient(180deg, rgba(0,0,0,0.04) 0%, rgba(0,0,0,0.02) 50%, rgba(0,0,0,0.04) 100%)',
+                  zIndex: -1
+                }} />
+                
+                {/* Bottom wedge shadow for grounding */}
+                <Box sx={{
+                  position: 'absolute',
+                  bottom: '-5px',
+                  left: '5px',
+                  right: '5px',
+                  height: '8px',
+                  background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.2) 100%)',
+                  borderRadius: '0 0 8px 8px',
+                  filter: 'blur(3px)',
+                  zIndex: -8
+                }} />
+                
                 {/* Main book shadow */}
                 <Box sx={{
                   position: 'absolute',
@@ -955,7 +1006,7 @@ const Hero = ({ handleRegister }) => {
                   zIndex: -10
                 }} />
                 
-                {/* Main book cover - enhanced realism */}
+                {/* Main book cover - enhanced realism with finishing touches */}
                 <Box sx={{
                   width: '100%',
                   height: '100%',
@@ -974,7 +1025,9 @@ const Hero = ({ handleRegister }) => {
                   boxShadow: `
                     rgba(16, 24, 40, 0.35) 0px 16px 32px,
                     rgba(16, 24, 40, 0.15) 0px 4px 16px,
-                    inset 0 1px 0 rgba(255,255,255,0.4)
+                    inset 0 1px 0 rgba(255,255,255,0.4),
+                    inset 0 -2px 0 rgba(0,0,0,0.08),
+                    inset 0 2px 4px rgba(0,0,0,0.06)
                   `,
                   border: '1px solid #E8E0CC',
                   position: 'relative',
@@ -988,10 +1041,16 @@ const Hero = ({ handleRegister }) => {
                     top: 0,
                     bottom: 0,
                     width: '4px',
-                    background: 'linear-gradient(180deg, #D4C5A9 0%, #C4B59D 50%, #B8A88C 100%)',
+                    background: `
+                      linear-gradient(180deg, #D4C5A9 0%, #C4B59D 50%, #B8A88C 100%),
+                      linear-gradient(90deg, rgba(255,255,255,0.3) 0%, transparent 50%)
+                    `,
                     borderRadius: '8px 0 0 8px',
                     zIndex: 15,
-                    boxShadow: 'inset -2px 0 4px rgba(0,0,0,0.2)'
+                    boxShadow: `
+                      inset -2px 0 4px rgba(0,0,0,0.2),
+                      inset 1px 0 0 rgba(255,255,255,0.4)
+                    `
                   },
                   '&::after': {
                     content: '""',
