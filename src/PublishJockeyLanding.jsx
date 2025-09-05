@@ -691,15 +691,15 @@ const Hero = ({ handleRegister }) => {
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              {/* Main heading - exact text from image */}
+              {/* Main heading - tighter spacing */}
               <Typography 
                 variant="h1" 
                 component="h1" 
                 sx={{ 
                   fontSize: { xs: '2.5rem', md: '3.2rem' }, 
                   fontWeight: 700,
-                  lineHeight: 1.2,
-                  mb: 2,
+                  lineHeight: 1.1,
+                  mb: 1.5,
                   color: 'white',
                   maxWidth: '500px'
                 }}
@@ -707,7 +707,7 @@ const Hero = ({ handleRegister }) => {
                 Publish a Bookstore-Quality Book—today.
               </Typography>
 
-              {/* Subtitle - exact text from image */}
+              {/* Subtitle - tighter spacing */}
               <Typography 
                 variant="body1" 
                 component="p" 
@@ -715,15 +715,15 @@ const Hero = ({ handleRegister }) => {
                   fontSize: { xs: '1rem', md: '1.1rem' }, 
                   fontWeight: 400, 
                   opacity: 0.9, 
-                  mb: 1.5,
-                  lineHeight: 1.5,
+                  mb: 1.2,
+                  lineHeight: 1.4,
                   maxWidth: '450px'
                 }}
               >
                 From manuscript to polished, print-ready in minutes—no formatting headaches.
               </Typography>
 
-              {/* Feature highlight - updated with specific metrics */}
+              {/* Feature highlight - tighter spacing */}
               <Typography 
                 variant="body2" 
                 component="p" 
@@ -731,15 +731,15 @@ const Hero = ({ handleRegister }) => {
                   fontSize: { xs: '0.9rem', md: '1rem' }, 
                   fontWeight: 500, 
                   opacity: 0.8, 
-                  mb: 1,
-                  lineHeight: 1.4,
+                  mb: 0.5,
+                  lineHeight: 1.3,
                   maxWidth: '450px'
                 }}
               >
                 <strong>Instant Preview</strong> • PDF 26.7s • EPUB 6.6s • DOCX 1.8s¹
               </Typography>
 
-              {/* Speed verification footnote */}
+              {/* Speed verification footnote - much closer to speed metrics */}
               <Typography 
                 variant="caption" 
                 component="p" 
@@ -747,15 +747,15 @@ const Hero = ({ handleRegister }) => {
                   fontSize: { xs: '0.75rem', md: '0.8rem' }, 
                   fontWeight: 400, 
                   opacity: 0.6, 
-                  mb: 2,
-                  lineHeight: 1.3,
+                  mb: 1.5,
+                  lineHeight: 1.2,
                   maxWidth: '450px'
                 }}
               >
                 ¹ Speed verified on a 60,733-word book (server benchmark). Exports auto-delete after 15 minutes.
               </Typography>
 
-              {/* Language support */}
+              {/* New features line - Convert Word docs first */}
               <Typography 
                 variant="body2" 
                 component="p" 
@@ -763,8 +763,24 @@ const Hero = ({ handleRegister }) => {
                   fontSize: { xs: '0.9rem', md: '1rem' }, 
                   fontWeight: 500, 
                   opacity: 0.8, 
-                  mb: 3,
-                  lineHeight: 1.4,
+                  mb: 1.2,
+                  lineHeight: 1.3,
+                  maxWidth: '450px'
+                }}
+              >
+                <strong>Convert Word docs</strong> • Import images & CSVs • Create tables
+              </Typography>
+
+              {/* Language support - tighter spacing */}
+              <Typography 
+                variant="body2" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '1rem' }, 
+                  fontWeight: 500, 
+                  opacity: 0.8, 
+                  mb: 2.5,
+                  lineHeight: 1.3,
                   maxWidth: '450px'
                 }}
               >
