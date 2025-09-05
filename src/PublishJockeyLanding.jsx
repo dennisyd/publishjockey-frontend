@@ -859,10 +859,10 @@ const Hero = ({ handleRegister }) => {
               alignItems: 'center',
               position: 'relative'
             }}>
-              {/* Book cover with 3D effect - showing page edges */}
+              {/* Book cover with 3D effect - showing page edges (better proportions) */}
               <Box sx={{
-                width: '240px',
-                height: '300px',
+                width: '220px',
+                height: '250px',
                 position: 'relative',
                 transform: 'perspective(1200px) rotateY(-15deg) rotateX(5deg)',
                 transformOrigin: 'center center',
@@ -1158,30 +1158,52 @@ const Hero = ({ handleRegister }) => {
                   zIndex: 0
                 }} />
 
-                {/* Callout on book's top-right corner */}
+                {/* Premium gold ribbon callout - refined styling */}
                 <Box sx={{
                   position: 'absolute',
-                  top: '-10px',
+                  top: '-8px',
                   right: '-15px',
-                  bgcolor: '#ffffff',
-                  borderRadius: '8px',
-                  px: 2,
-                  py: 1,
-                  border: '2px solid #1e3a8a',
+                  background: 'linear-gradient(135deg, #E6B800 0%, #CC9900 50%, #B8860B 100%)',
+                  borderRadius: '6px',
+                  px: { xs: 1.5, md: 2.5 },
+                  py: { xs: 0.8, md: 1.2 },
+                  border: '1px solid #996600',
                   zIndex: 10,
-                  boxShadow: '0 4px 15px rgba(0,0,0,0.2)',
-                  color: '#1e3a8a'
+                  transform: { xs: 'rotate(6deg)', md: 'rotate(7deg)' },
+                  height: { xs: '32px', md: '38px' },
+                  display: 'flex',
+                  alignItems: 'center',
+                  boxShadow: `
+                    0 3px 12px rgba(0,0,0,0.25),
+                    0 1px 4px rgba(0,0,0,0.15),
+                    inset 0 1px 0 rgba(255,255,255,0.4),
+                    inset 0 -1px 0 rgba(0,0,0,0.1)
+                  `,
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '2px',
+                    background: 'linear-gradient(90deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%)',
+                    borderRadius: '6px 6px 0 0'
+                  }
                 }}>
                   <Typography 
                     variant="body2" 
                     sx={{ 
-                      fontWeight: 600,
-                      fontSize: '0.8rem',
+                      fontWeight: 700,
+                      fontSize: { xs: '0.7rem', md: '0.8rem' },
                       textAlign: 'center',
-                      whiteSpace: 'nowrap'
+                      whiteSpace: 'nowrap',
+                      color: '#FFFFFF',
+                      textShadow: '0 1px 3px rgba(0,0,0,0.4), 0 0 1px rgba(0,0,0,0.3)',
+                      letterSpacing: '0.2px',
+                      lineHeight: 1
                     }}
                   >
-                    PublishJockey: In a League of its Own
+                    PublishJockey — In a League of Its Own
                   </Typography>
                 </Box>
               </Box>
