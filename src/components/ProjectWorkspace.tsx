@@ -208,6 +208,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Content state
   const [content, setContent] = useState<Record<string, string>>({});
   
+  // Track if this is a BookBuilder project
+  const [isBookBuilderProject, setIsBookBuilderProject] = useState(false);
+  
   // Detect document language from project structure (for copyright generation)
   // Use useMemo to avoid recalculating on every render
   const documentLanguage = useMemo(() => {
@@ -428,7 +431,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           });
           
           // Check if this is a BookBuilder project (has createdVia field OR non-default section names)
-          const isBookBuilderProject = projectData.createdVia === 'book-builder';
+          const isBookBuilderImport = projectData.createdVia === 'book-builder';
+          setIsBookBuilderProject(isBookBuilderImport);
           
           // Fallback: Check if structure has non-default Spanish section names (BookBuilder indicator)
           const hasSpanishSections = projectData.structure.main?.some(section => 
@@ -437,9 +441,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             section === 'Introducción' // Spanish section with accent
           );
           
-          const isBookBuilderFallback = isBookBuilderProject || hasSpanishSections;
+          const isBookBuilderFallback = isBookBuilderImport || hasSpanishSections;
           console.log('🔍 IS BOOKBUILDER PROJECT?', {
-            byCreatedVia: isBookBuilderProject,
+            byCreatedVia: isBookBuilderImport,
             bySpanishSections: hasSpanishSections,
             finalDecision: isBookBuilderFallback
           });
@@ -760,6 +764,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       console.log('Copyright section not found in structure for language:', documentLanguage);
       return;
     }
+
+    // For BookBuilder imports, always generate copyright in the detected language
+    // This ensures proper localized copyright even for imported books
+    if (isBookBuilderProject) {
+      console.log('📚 BookBuilder project detected - will generate localized copyright');
+    }
     
     const currentCopyright = content[copyrightKey] || '';
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
@@ -775,13 +785,21 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}') || currentCopyright.includes('[Author Name]');
     const hasEnglishCopyright = currentCopyright.includes('Copyright ©') && copyrightLanguage !== 'en';
     
-    // Only regenerate if:
-    // 1. No copyright exists (new project)
-    // 2. Has template placeholders 
-    // 3. Has English copyright in non-English book
-    const shouldRegenerate = !currentCopyright.trim() || hasPlaceholders || hasEnglishCopyright;
+    // For BookBuilder projects, always generate copyright in the detected language
+    // For regular projects, use the existing logic
+    let shouldRegenerate;
+    if (isBookBuilderProject) {
+      shouldRegenerate = !currentCopyright.trim(); // Only if no copyright exists
+      console.log('📚 BookBuilder: Will generate copyright in detected language:', copyrightLanguage);
+    } else {
+      // Only regenerate if:
+      // 1. No copyright exists (new project)
+      // 2. Has template placeholders 
+      // 3. Has English copyright in non-English book
+      shouldRegenerate = !currentCopyright.trim() || hasPlaceholders || hasEnglishCopyright;
+    }
     
-    console.log('🔍 DEBUG: shouldRegenerate?', shouldRegenerate);
+    console.log('🔍 DEBUG: shouldRegenerate?', shouldRegenerate, 'isBookBuilder:', isBookBuilderProject);
     
     if (!shouldRegenerate) {
       console.log('🚫 Skipping copyright regeneration - conditions not met');
@@ -816,7 +834,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       [copyrightKey]: defaultCopyright
     }));
     
-  }, [projectAuthor, documentLanguage, structure.front, content]); // Run when author, language, or structure changes
+  }, [projectAuthor, documentLanguage, structure.front, content, isBookBuilderProject]); // Run when author, language, structure, or BookBuilder status changes
   
   // Function to force copyright regeneration (called when metadata dialog closes)
   const regenerateCopyright = useCallback(() => {
