@@ -50,6 +50,21 @@ function classifyDocuments(documents) {
     // Simple classification based on content patterns  
     const title = extractedTitle.toLowerCase();
     
+    // Skip system pages that should be managed by the app
+    if (title.includes('title page') || 
+        title.includes('página de título') ||
+        title.includes('page de titre') ||
+        title.includes('titelseite') ||
+        title.includes('copyright') ||
+        title.includes('derechos de autor') ||
+        title.includes('droits d\'auteur') ||
+        title.includes('urheberrecht') ||
+        title.includes('direitos autorais') ||
+        title.includes('diritti d\'autore')) {
+      console.log(`🚫 SKIPPED system page: ${extractedTitle} (will be auto-generated)`);
+      return; // Skip this document entirely
+    }
+    
     // Front matter: introductions, prefaces, etc.
     if (title.includes('introducción') || 
         title.includes('introduction') || 
@@ -295,7 +310,7 @@ function extractSectionTitle(content) {
     }
   }
 
-  // Look for first substantial line (not copyright, not metadata)
+  // Look for first substantial line (not copyright, not metadata, not system pages)
   for (let line of lines) {
     line = line.trim();
     if (line && 
@@ -306,6 +321,8 @@ function extractSectionTitle(content) {
         !line.toLowerCase().includes('copyright') &&
         !line.toLowerCase().includes('©') &&
         !line.toLowerCase().includes('derechos') &&
+        !line.toLowerCase().includes('title page') &&
+        !line.toLowerCase().includes('página de título') &&
         !line.toLowerCase().includes('por juan') &&
         !line.toLowerCase().includes('by ') &&
         !line.toLowerCase().includes('por ') &&
@@ -337,6 +354,9 @@ function validateImport(bookData) {
   if (!bookData.metadata.author || bookData.metadata.author === 'Unknown Author') {
     warnings.push('No author detected - you may want to add one manually');
   }
+
+  // Inform about system page handling
+  warnings.push('Title Page and Copyright are auto-generated - any imported title/copyright pages were skipped');
 
   // Check structure
   if (bookData.structure.front.length === 0 && bookData.structure.main.length === 0) {
