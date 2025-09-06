@@ -186,7 +186,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const initialStructure = getLocalizedBookStructure(sidebarLanguage);
     console.log('🔍 INITIAL STRUCTURE SET:', {
       language: sidebarLanguage,
-      structure: initialStructure
+      structure: initialStructure,
+      frontSections: initialStructure?.front
     });
     // Ensure structure is valid
     if (!initialStructure || !initialStructure.front || !initialStructure.main || !initialStructure.back) {
@@ -450,11 +451,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           
           if (isBookBuilderFallback) {
             console.log('🔍 BOOKBUILDER PROJECT DETECTED - PRESERVING IMPORTED STRUCTURE:', {
-              backendStructure: projectData.structure
+              backendStructure: projectData.structure,
+              frontSections: projectData.structure?.front
             });
             
             // Always use the backend structure for BookBuilder projects
             // This preserves the actual imported section names
+            console.log('📌 SETTING BOOKBUILDER STRUCTURE:', projectData.structure);
             setStructure(projectData.structure);
           } else {
             // For regular projects, use the existing logic
@@ -484,6 +487,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           }
           
           setStructureLoaded(true);
+          
+          // Debug: Check what structure is actually set after BookBuilder processing
+          setTimeout(() => {
+            console.log('🏁 STRUCTURE STATE AFTER BOOKBUILDER PROCESSING:', {
+              isBookBuilder: isBookBuilderFallback,
+              currentStructure: structure,
+              currentFrontSections: structure?.front
+            });
+          }, 100);
         } else {
           console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
             currentStructure: structure

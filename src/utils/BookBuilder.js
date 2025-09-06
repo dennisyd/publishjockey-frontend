@@ -74,31 +74,57 @@ function classifyDocuments(documents, userLanguage = 'en') {
       return; // Skip this document entirely
     }
     
-    // Front matter: introductions, prefaces, etc. (language-aware)
-    if (title.includes('introducción') || 
-        title.includes('introduccion') || // Without accent
-        title.includes('introduction') || 
-        title.includes('prefacio') || 
-        title.includes('preface') ||
-        title.includes('prólogo') ||
-        title.includes('prologo') || // Without accent
-        title.includes('prologue')) {
-      console.log(`📋 Classified as FRONT matter: ${extractedTitle}`);
+    // Define language-specific patterns
+    const getLanguagePatterns = (lang) => {
+      const patterns = {
+        'es': {
+          front: ['introducción', 'introduccion', 'prefacio', 'prólogo', 'prologo'],
+          back: ['conclusión', 'conclusion', 'apéndice', 'apendice', 'bibliografía', 'bibliografia']
+        },
+        'en': {
+          front: ['introduction', 'preface', 'prologue', 'foreword'],
+          back: ['conclusion', 'appendix', 'bibliography', 'references']
+        },
+        'fr': {
+          front: ['introduction', 'préface', 'prologue', 'avant-propos'],
+          back: ['conclusion', 'appendice', 'bibliographie', 'références']
+        },
+        'de': {
+          front: ['einleitung', 'vorwort', 'prolog'],
+          back: ['schluss', 'anhang', 'bibliographie', 'literatur']
+        },
+        'pt': {
+          front: ['introdução', 'introducao', 'prefácio', 'prefacio', 'prólogo', 'prologo'],
+          back: ['conclusão', 'conclusao', 'apêndice', 'apendice', 'bibliografia']
+        },
+        'it': {
+          front: ['introduzione', 'prefazione', 'prologo'],
+          back: ['conclusione', 'appendice', 'bibliografia']
+        }
+        // Add more languages as needed
+      };
+      
+      // Return patterns for the specified language, fallback to English
+      return patterns[lang] || patterns['en'];
+    };
+
+    const langPatterns = getLanguagePatterns(userLanguage);
+    console.log(`🌍 Using language patterns for "${userLanguage}":`, langPatterns);
+    
+    // Check if title matches front matter patterns for the current language ONLY
+    const isFrontMatter = langPatterns.front.some(pattern => title.includes(pattern));
+    const isBackMatter = langPatterns.back.some(pattern => title.includes(pattern));
+    
+    if (isFrontMatter) {
+      console.log(`📋 Classified as FRONT matter: ${extractedTitle} (matched ${userLanguage} patterns)`);
       result.frontMatter.push(processedDoc);
     }
-    // Back matter: conclusions, appendices, etc.
-    else if (title.includes('conclusión') || 
-             title.includes('conclusion') || 
-             title.includes('apéndice') || 
-             title.includes('appendix') ||
-             title.includes('bibliografía') ||
-             title.includes('bibliography')) {
-      console.log(`📋 Classified as BACK matter: ${extractedTitle}`);
+    else if (isBackMatter) {
+      console.log(`📋 Classified as BACK matter: ${extractedTitle} (matched ${userLanguage} patterns)`);
       result.backMatter.push(processedDoc);
     }
-    // Main matter: everything else
     else {
-      console.log(`📋 Classified as MAIN matter: ${extractedTitle}`);
+      console.log(`📋 Classified as MAIN matter: ${extractedTitle} (no ${userLanguage} pattern match)`);
       result.mainMatter.push(processedDoc);
     }
   });
@@ -217,10 +243,12 @@ function convertToBookStructure(classificationResult) {
   const { getLocalizedBookStructure } = require('./bookStructureLocalization');
   const localizedStructure = getLocalizedBookStructure(metadata.language || 'en');
   
-  console.log('🌍 Using localized structure for language:', metadata.language);
-  console.log('📋 Localized system pages:', {
+  console.log('🌍 BookBuilder DEBUG: Using language:', metadata.language);
+  console.log('🌍 BookBuilder DEBUG: Full localized structure:', localizedStructure);
+  console.log('📋 BookBuilder DEBUG: System pages:', {
     titlePage: localizedStructure.front[0],
-    copyright: localizedStructure.front[1]
+    copyright: localizedStructure.front[1],
+    fullFrontArray: localizedStructure.front
   });
 
   // Create front matter with ONLY the 2 pinned system pages + imported content
@@ -233,13 +261,19 @@ function convertToBookStructure(classificationResult) {
   frontSections.push(titlePageName);
   frontSections.push(copyrightName);
   
-  console.log('📌 Added pinned system pages:', frontSections);
+  console.log('📌 BookBuilder DEBUG: Added pinned system pages:', frontSections);
+  console.log('📄 BookBuilder DEBUG: Imported frontMatter documents:', frontMatter.map(doc => ({
+    filename: doc.filename,
+    title: doc.title,
+    extractedTitle: extractSectionTitle(doc.content),
+    contentPreview: doc.content.substring(0, 100) + '...'
+  })));
   
   // Add ONLY imported front matter sections (no default template sections)
   frontMatter.forEach(doc => {
     const sectionTitle = doc.title || extractSectionTitle(doc.content);
     frontSections.push(sectionTitle);
-    console.log('📄 Added imported front matter:', sectionTitle);
+    console.log('📄 BookBuilder DEBUG: Added imported front matter:', sectionTitle);
   });
 
   // Create structure with pinned sections
@@ -291,9 +325,17 @@ function convertToBookStructure(classificationResult) {
     createdVia: 'book-builder' // Important: Mark as BookBuilder import
   };
 
-  console.log('✅ BookBuilder: Conversion complete. Total content keys:', Object.keys(content).length);
-  console.log('🏷️ BookBuilder: Content keys:', Object.keys(content));
-  console.log('📌 Pinned sections: Title Page and Copyright at top of front matter');
+  console.log('✅ BookBuilder DEBUG: Conversion complete. Total content keys:', Object.keys(content).length);
+  console.log('🏷️ BookBuilder DEBUG: Content keys:', Object.keys(content));
+  console.log('📌 BookBuilder DEBUG: Pinned sections: Title Page and Copyright at top of front matter');
+  console.log('🔍 BookBuilder DEBUG: Final front sections breakdown:', {
+    totalFrontSections: structure.front.length,
+    sections: structure.front.map((section, index) => ({
+      index,
+      name: section,
+      type: index < 2 ? 'PINNED_SYSTEM' : 'IMPORTED_USER'
+    }))
+  });
 
   return result;
 }
