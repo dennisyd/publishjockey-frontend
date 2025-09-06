@@ -52,27 +52,36 @@ function classifyDocuments(documents, userLanguage = 'en') {
     // Simple classification based on content patterns  
     const title = extractedTitle.toLowerCase();
     
-    // Skip system pages that should be managed by the app
+    // Skip system pages that should be managed by the app (case-insensitive)
     if (title.includes('title page') || 
         title.includes('página de título') ||
+        title.includes('pagina de titulo') || // Without accent
         title.includes('page de titre') ||
         title.includes('titelseite') ||
+        title.includes('portada') || // Spanish alternative
         title.includes('copyright') ||
         title.includes('derechos de autor') ||
+        title.includes('derechos') ||
         title.includes('droits d\'auteur') ||
         title.includes('urheberrecht') ||
         title.includes('direitos autorais') ||
-        title.includes('diritti d\'autore')) {
+        title.includes('diritti d\'autore') ||
+        // Also skip generic titles that might be system pages
+        title === 'title' ||
+        title === 'título' ||
+        title === 'titulo') {
       console.log(`🚫 SKIPPED system page: ${extractedTitle} (will be auto-generated)`);
       return; // Skip this document entirely
     }
     
-    // Front matter: introductions, prefaces, etc.
+    // Front matter: introductions, prefaces, etc. (language-aware)
     if (title.includes('introducción') || 
+        title.includes('introduccion') || // Without accent
         title.includes('introduction') || 
         title.includes('prefacio') || 
         title.includes('preface') ||
         title.includes('prólogo') ||
+        title.includes('prologo') || // Without accent
         title.includes('prologue')) {
       console.log(`📋 Classified as FRONT matter: ${extractedTitle}`);
       result.frontMatter.push(processedDoc);
@@ -204,24 +213,33 @@ function convertToBookStructure(classificationResult) {
   console.log('🔄 BookBuilder: Converting to book structure...');
   const { frontMatter, mainMatter, backMatter, metadata } = classificationResult;
 
-  // Get localized structure for the detected language to ensure proper section names
+  // Get localized structure ONLY for the pinned system pages (Title Page and Copyright)
   const { getLocalizedBookStructure } = require('./bookStructureLocalization');
   const localizedStructure = getLocalizedBookStructure(metadata.language || 'en');
   
   console.log('🌍 Using localized structure for language:', metadata.language);
-  console.log('📋 Localized sections:', localizedStructure);
+  console.log('📋 Localized system pages:', {
+    titlePage: localizedStructure.front[0],
+    copyright: localizedStructure.front[1]
+  });
 
-  // Create front matter with Title Page and Copyright pinned at top
+  // Create front matter with ONLY the 2 pinned system pages + imported content
   const frontSections = [];
   
-  // Always add Title Page and Copyright at the top (localized names)
-  frontSections.push(localizedStructure.front[0]); // Title Page (localized)
-  frontSections.push(localizedStructure.front[1]); // Copyright (localized)
+  // Add ONLY the 2 pinned system pages (Title Page and Copyright)
+  const titlePageName = localizedStructure.front[0]; // e.g., "Página de título"
+  const copyrightName = localizedStructure.front[1];  // e.g., "Derechos de autor"
   
-  // Add imported front matter sections after the pinned ones
+  frontSections.push(titlePageName);
+  frontSections.push(copyrightName);
+  
+  console.log('📌 Added pinned system pages:', frontSections);
+  
+  // Add ONLY imported front matter sections (no default template sections)
   frontMatter.forEach(doc => {
     const sectionTitle = doc.title || extractSectionTitle(doc.content);
     frontSections.push(sectionTitle);
+    console.log('📄 Added imported front matter:', sectionTitle);
   });
 
   // Create structure with pinned sections
