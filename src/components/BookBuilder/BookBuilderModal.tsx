@@ -1,4 +1,5 @@
 import React, { useState, useCallback } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Dialog,
   DialogTitle,
@@ -195,6 +196,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
 };
 
 const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onImport }) => {
+  const { i18n } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -288,9 +290,11 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
       console.log(`Successfully extracted ${extractedDocuments.length} documents`);
       setDocuments(extractedDocuments);
       
-      // Classify the documents
+      // Classify the documents using user-selected language
       console.log('Classifying documents...');
-      const classificationResult = classifyDocuments(extractedDocuments);
+      const userLanguage = i18n.language || 'en';
+      console.log('📍 BookBuilder: Using dashboard language:', userLanguage);
+      const classificationResult = classifyDocuments(extractedDocuments, userLanguage);
       console.log('Classification result:', classificationResult);
       setClassification(classificationResult);
 

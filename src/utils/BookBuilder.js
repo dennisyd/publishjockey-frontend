@@ -9,12 +9,14 @@
 // Simple filename-based import is much more reliable and works in any language.
 
 /**
- * Improved document classification - handles Spanish and other languages better
+ * Improved document classification - uses user-selected language
  * @param {Array} documents - Array of {filename, content} objects
+ * @param {string} userLanguage - Language selected by user in dashboard
  * @returns {Object} Classification result with proper matter distribution
  */
-function classifyDocuments(documents) {
+function classifyDocuments(documents, userLanguage = 'en') {
   console.log('🔍 BookBuilder: Starting classification of', documents.length, 'documents');
+  console.log('🌍 BookBuilder: Using user-selected language:', userLanguage);
   
   const result = {
     frontMatter: [],
@@ -23,13 +25,13 @@ function classifyDocuments(documents) {
     metadata: {
       title: '',
       author: '',
-      language: 'en',
+      language: userLanguage,
       totalSections: documents.length
     }
   };
 
-  // Extract metadata first
-  result.metadata = extractMetadata(documents);
+  // Extract metadata first (with user-selected language)
+  result.metadata = extractMetadata(documents, userLanguage);
   console.log('📊 BookBuilder: Extracted metadata:', result.metadata);
 
   // Process each document
@@ -105,14 +107,16 @@ function classifyDocuments(documents) {
 // The simple filename-based approach is much more reliable.
 
 /**
- * Extract metadata from documents - simplified and more reliable
+ * Extract metadata from documents - user controls language selection
  * @param {Array} documents - Array of document objects
+ * @param {string} userLanguage - Language selected by user in dashboard
  * @returns {Object} Extracted metadata
  */
-function extractMetadata(documents) {
+function extractMetadata(documents, userLanguage = 'en') {
   let title = '';
   let author = '';
-  let language = 'en';
+
+  console.log('📊 BookBuilder: Using user-selected language:', userLanguage);
 
   // Simple approach: Look for title and author in any document
   documents.forEach(doc => {
@@ -135,35 +139,21 @@ function extractMetadata(documents) {
       }
     }
 
-    // Look for author (lines with "By" or "Por" or standalone names)
+    // Look for author (multilingual patterns based on user language)
     if (!author) {
       for (let line of lines) {
         line = line.trim();
-        // Spanish: "Por Juan Carlos" or English: "By John Smith"
-        const authorMatch = line.match(/^(by|por)\s+([a-záéíóúñü\s]+)$/i);
+        // Multilingual author patterns
+        const authorMatch = line.match(/^(by|por|par|von|di|door|przez|od|av|af|από|від|من|によって)\s+([a-záéíóúñüàèéêëîïôöùûüÿçñ\s]+)$/i);
         if (authorMatch && line.length < 50) {
           author = authorMatch[2].trim();
           break;
         }
-        // Standalone name pattern (two words, proper case)
-        if (line.match(/^[A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]+\s+[A-ZÁÉÍÓÚÑÜ][a-záéíóúñü]+$/) && line.length < 30) {
+        // Standalone name pattern (two words, proper case) - works for most languages
+        if (line.match(/^[A-ZÁÉÍÓÚÑÜÀÈÉÊËÎÏÔÖÙÛÜŸÇ][a-záéíóúñüàèéêëîïôöùûüÿç]+\s+[A-ZÁÉÍÓÚÑÜÀÈÉÊËÎÏÔÖÙÛÜŸÇ][a-záéíóúñüàèéêëîïôöùûüÿç]+$/) && line.length < 30) {
           author = line;
           break;
         }
-      }
-    }
-
-    // Simple language detection
-    if (doc.content.length > 50) {
-      const content = doc.content.toLowerCase();
-      if (content.includes('el ') || content.includes('la ') || content.includes('de ') || content.includes('que ')) {
-        language = 'es';
-      } else if (content.includes('le ') || content.includes('de ') || content.includes('et ')) {
-        language = 'fr';
-      } else if (content.includes('der ') || content.includes('die ') || content.includes('und ')) {
-        language = 'de';
-      } else if (content.includes('o ') || content.includes('a ') || content.includes('de ') || content.includes('que ')) {
-        language = 'pt';
       }
     }
   });
@@ -171,7 +161,7 @@ function extractMetadata(documents) {
   return {
     title: title || 'Untitled Book',
     author: author || 'Unknown Author',
-    language,
+    language: userLanguage, // Use user-selected language
     totalSections: documents.length
   };
 }
