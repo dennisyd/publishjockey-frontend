@@ -56,5 +56,70 @@
     "notifications": "Sanarwa",
     "account": "Asusu",
     "saveSettings": "Ajiye saitunan"
+  },
+  "bookBuilder": {
+    "title": "Shigo da BookBuilder",
+    "steps": {
+      "upload": "Loda ZIP",
+      "review": "Duba rarrabuwa",
+      "import": "Shigo da littafi"
+    },
+    "upload": {
+      "title": "Loda takardunka",
+      "dragDrop": "Ja ka sauke fayil ɗin ZIP a nan",
+      "orClick": "ko danna don neman fayiloli",
+      "chooseFile": "ZAƁI FAYIL",
+      "supportedFormats": "Ana goyan baya: Fayilolin ZIP masu ɗauke da takardun Word (.docx)",
+      "processing": "Ana sarrafa fayil ɗin ZIP...",
+      "extracting": "Ana fitar da takardu...",
+      "analyzing": "Ana nazarin abun ciki..."
+    },
+    "classification": {
+      "title": "Bincika rarraba takaddun",
+      "subtitle": "Ja sassan tsakanin nau'ikan don tsara tsarin littafinku",
+      "frontMatter": "Bangaren gaba",
+      "mainMatter": "Babban bangare",
+      "backMatter": "Bangaren baya",
+      "confidence": "Aminci",
+      "move": "MATSAR",
+      "sections": "sassa {{count}}",
+      "noSections": "Babu sassa a wannan nau'in",
+      "frontMatterDesc": "Shafin taken, haƙƙin mallaka, sadaukarwa, gabatarwa, teburin abun ciki",
+      "mainMatterDesc": "Surori, babban abun ciki, ainihin kayan",
+      "backMatterDesc": "Ƙarshe, ƙarshe, ƙari, ƙamus, fihirisa, nassoshi"
+    },
+    "import": {
+      "title": "Shigo da kammala",
+      "success": "An shigo da littafinku cikin nasara!",
+      "creating": "Ana ƙirƙirar tsarin littafi...",
+      "processing": "Ana sarrafa abun ciki...",
+      "finalizing": "Ana kammala shigowa..."
+    },
+    "messages": {
+      "importTip": "📝 Shawarar shigowa: Idan takaddun Word ɗinku sun ƙunshi abun ciki mai gauraye (taken, teburin abun ciki, bayanan marubucin, da sauransu), BookBuilder na iya ƙirƙirar ƙarin sassa. Bayan shigowa, za ku iya share sassan da ba ku so cikin sauƙi kuma ku matsar da abun ciki tsakanin Bangaren gaba, Babban bangare, da Bangaren baya kamar yadda ake bukata.",
+      "systemPages": "Shafin taken da Haƙƙin mallaka ana ƙirƙira su ta atomatik - duk wani shafin taken/haƙƙin mallaka da aka shigo da shi an tsallake shi.",
+      "languageNote": "Za a rarraba takaddun ta amfani da tsarin harshe na {{language}}."
+    },
+    "actions": {
+      "cancel": "SOKE",
+      "back": "Baya",
+      "next": "Na gaba",
+      "import": "Shigo da littafi",
+      "retry": "Sake gwadawa",
+      "selectFile": "Zaɓi fayil"
+    },
+    "validation": {
+      "noFile": "Da fatan za a zaɓi fayil ɗin ZIP don ɗora.",
+      "invalidFile": "Da fatan za a zaɓi ingantaccen fayil ɗin ZIP.",
+      "fileTooLarge": "Fayil ɗin ya yi girma sosai",
+      "noDocuments": "Ba a sami takardun Word ba",
+      "processingFailed": "Sarrafa takardun ya gaza",
+      "selectFile": "Da fatan za a zaɓi fayil ɗin ZIP",
+      "selectValidFile": "Da fatan za a zaɓi ingantaccen fayil ɗin ZIP",
+      "maxSize": "Mafi girman girma shine 50MB"
+    },
+    "detectedBookStructure": "📚 Tsarin littafin da aka gano",
+    "dragToReorder": "Ja sassa don sake tsarawa a cikin nau'ikan ko yi amfani da \"MATSAR\" dropdown don canza sassa tsakanin Bangaren gaba/Babban bangare/Bangaren baya",
+    "bookMetadata": "Metadata na littafi:"
   }
 }

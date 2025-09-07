@@ -1,0 +1,130 @@
+{
+  "common": {
+    "loading": "Carregant...",
+    "error": "Error",
+    "success": "Èxit",
+    "cancel": "Cancel·lar",
+    "save": "Desar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Afegir",
+    "close": "Tancar",
+    "back": "Enrere",
+    "next": "Següent",
+    "yes": "Sí",
+    "no": "No"
+  },
+  "navigation": {
+    "dashboard": "Tauler",
+    "projects": "Projectes",
+    "settings": "Configuració",
+    "logout": "Tancar sessió",
+    "login": "Iniciar sessió",
+    "register": "Registrar-se"
+  },
+  "dashboard": {
+    "welcome": "Benvingut",
+    "createNewBook": "Crear nou llibre",
+    "recentProjects": "Projectes recents",
+    "noProjects": "No tens projectes",
+    "startWriting": "Començar a escriure"
+  },
+  "bookStructure": {
+    "frontMatter": "Matèria preliminar",
+    "mainMatter": "Matèria principal",
+    "backMatter": "Matèria final",
+    "chapter": "Capítol",
+    "section": "Secció",
+    "title": "Títol",
+    "content": "Contingut"
+  },
+  "export": {
+    "exportBook": "Exportar llibre",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Idioma",
+    "font": "Tipus de lletra",
+    "includeToc": "Incloure índex",
+    "export": "Exportar",
+    "tableOfContents": "Índex"
+  },
+  "settings": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificacions",
+    "account": "Compte",
+    "saveSettings": "Desar configuració"
+  },
+  "bookBuilder": {
+    "title": "Importació BookBuilder",
+    "steps": {
+      "upload": "Pujar ZIP",
+      "review": "Revisar classificació",
+      "import": "Importar llibre"
+    },
+    "upload": {
+      "title": "Pugeu els vostres documents",
+      "dragDrop": "Arrossegueu i deixeu anar el fitxer ZIP aquí",
+      "orClick": "o feu clic per navegar pels fitxers",
+      "chooseFile": "TRIAR FITXER",
+      "supportedFormats": "Compatible: Fitxers ZIP que continguin documents Word (.docx)",
+      "processing": "Processant fitxer ZIP...",
+      "extracting": "Extraient documents...",
+      "analyzing": "Analitzant contingut..."
+    },
+    "actions": {
+      "cancel": "CANCEL·LAR",
+      "back": "Enrere",
+      "next": "Següent",
+      "import": "Importar llibre",
+      "retry": "Tornar a provar",
+      "selectFile": "Triar fitxer"
+    },
+    "import": {
+      "title": "Importació Completa",
+      "success": "El vostre llibre s'ha importat correctament!",
+      "creating": "Creant estructura del llibre...",
+      "processing": "Processant contingut...",
+      "finalizing": "Finalitzant importació..."
+    },
+    "messages": {
+      "importTip": "📝 Consell d'Importació: Si els vostres documents de Word contenen contingut mixt (títols, taula de continguts, informació de l'autor, etc.), BookBuilder pot crear seccions addicionals. Després de la importació, podeu eliminar fàcilment les seccions no desitjades i moure contingut entre Matèria Preliminar, Matèria Principal i Matèria Final segons sigui necessari.",
+      "systemPages": "La Pàgina de Títol i els Drets d'Autor es generen automàticament - qualsevol pàgina de títol/drets d'autor importada s'ha omès.",
+      "languageNote": "Els documents es classificaran utilitzant patrons de llengua {{language}}.",
+      "noContent": "No s'han detectat seccions de contingut - si us plau, comproveu el vostre fitxer ZIP.",
+      "duplicateSections": "S'han detectat noms de secció duplicats: {{sections}}",
+      "processingError": "Error processant el fitxer ZIP. Si us plau, comproveu el format del fitxer i torneu-ho a intentar.",
+      "emptyZip": "El fitxer ZIP sembla estar buit o no conté documents compatibles.",
+      "invalidFormat": "Format de fitxer no vàlid. Si us plau, pugeu un fitxer ZIP que contingui documents de Word."
+    },
+    "classification": {
+      "title": "Revisar Classificació de Documents",
+      "subtitle": "Arrossegueu seccions entre categories per organitzar l'estructura del vostre llibre",
+      "frontMatter": "Matèria preliminar",
+      "mainMatter": "Text principal",
+      "backMatter": "Matèria final",
+      "confidence": "Confiança",
+      "move": "MOURE",
+      "sections": "{{count}} seccions",
+      "noSections": "No hi ha seccions en aquesta categoria",
+      "frontMatterDesc": "Pàgina de títol, drets d'autor, dedicatòria, prefaci, taula de continguts",
+      "mainMatterDesc": "Capítols, contingut principal, material central",
+      "backMatterDesc": "Conclusió, epíleg, apèndix, glossari, índex, referències"
+    },
+    "validation": {
+      "noFile": "Si us plau, seleccioneu un fitxer ZIP per pujar.",
+      "invalidFile": "Si us plau, seleccioneu un fitxer ZIP vàlid.",
+      "fileTooLarge": "El fitxer és massa gran",
+      "noDocuments": "No s'han trobat documents de Word",
+      "processingFailed": "Ha fallat el processament dels documents",
+      "selectFile": "Si us plau, seleccioneu un fitxer ZIP",
+      "selectValidFile": "Si us plau, seleccioneu un fitxer ZIP vàlid",
+      "maxSize": "La mida màxima és de 50MB"
+    },
+    "detectedBookStructure": "📚 Estructura del Llibre Detectada",
+    "dragToReorder": "Arrossegueu seccions per reordenar dins de categories o utilitzeu el menú desplegable \"MOURE\" per canviar seccions entre Matèria Preliminar/Principal/Final",
+    "bookMetadata": "Metadades del Llibre:"
+  }
+}

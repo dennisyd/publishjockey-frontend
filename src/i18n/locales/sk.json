@@ -56,5 +56,70 @@
     "notifications": "Upozornenia",
     "account": "Účet",
     "saveSettings": "Uložiť nastavenia"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Nahrať ZIP",
+      "review": "Skontrolovať klasifikáciu",
+      "import": "Importovať knihu"
+    },
+    "upload": {
+      "title": "Nahrajte svoje dokumenty",
+      "dragDrop": "Pretiahnite ZIP súbor sem",
+      "orClick": "alebo kliknite na prehliadanie súborov",
+      "chooseFile": "VYBRAŤ SÚBOR",
+      "supportedFormats": "Podporované: ZIP súbory obsahujúce Word dokumenty (.docx)",
+      "processing": "Spracováva sa ZIP súbor...",
+      "extracting": "Extrahujú sa dokumenty...",
+      "analyzing": "Analyzuje sa obsah..."
+    },
+    "actions": {
+      "cancel": "ZRUŠIŤ",
+      "back": "Späť",
+      "next": "Ďalej",
+      "import": "Importovať knihu",
+      "retry": "Skúsiť znovu",
+      "selectFile": "Vybrať súbor"
+    },
+    "import": {
+      "title": "Import dokončený",
+      "success": "Vaša kniha bola úspešne importovaná!",
+      "creating": "Vytváranie štruktúry knihy...",
+      "processing": "Spracovanie obsahu...",
+      "finalizing": "Dokončovanie importu..."
+    },
+    "messages": {
+      "importTip": "📝 Tip pre import: Ak vaše Word dokumenty obsahujú zmiešaný obsah (tituly, obsah, informácie o autorovi atď.), BookBuilder môže vytvoriť dodatočné sekcie. Po importe môžete ľahko odstrániť nežiaduce sekcie a presúvať obsah medzi Úvodnou časťou, Hlavným textom a Záverečnou časťou.",
+      "systemPages": "Titulná strana a Autorské práva sú generované automaticky - importované titulné stránky/autorské práva boli preskočené.",
+      "languageNote": "Dokumenty budú klasifikované pomocou vzorov jazyka {{language}}."
+    },
+    "classification": {
+      "title": "Skontrolovať klasifikáciu dokumentov",
+      "subtitle": "Pretiahnite sekcie medzi kategóriami na organizáciu štruktúry vašej knihy",
+      "frontMatter": "Úvodná časť",
+      "mainMatter": "Hlavný text",
+      "backMatter": "Záverečná časť",
+      "confidence": "Dôvera",
+      "move": "PRESUNÚŤ",
+      "sections": "{{count}} sekcií",
+      "noSections": "Žiadne sekcie v tejto kategórii",
+      "frontMatterDesc": "Titulná stránka, autorské práva, venovanie, predhovor, obsah",
+      "mainMatterDesc": "Kapitoly, hlavný obsah, základný materiál",
+      "backMatterDesc": "Záver, epilóg, príloha, slovník, register, odkazy"
+    },
+    "validation": {
+      "noFile": "Prosím vyberte ZIP súbor na nahranie.",
+      "invalidFile": "Prosím vyberte platný ZIP súbor.",
+      "fileTooLarge": "Súbor je príliš veľký",
+      "noDocuments": "Nenašli sa žiadne Word dokumenty",
+      "processingFailed": "Spracovanie dokumentov zlyhalo",
+      "selectFile": "Prosím vyberte ZIP súbor",
+      "selectValidFile": "Prosím vyberte platný ZIP súbor",
+      "maxSize": "Maximálna veľkosť je 50MB"
+    },
+    "detectedBookStructure": "📚 Zistená Štruktúra Knihy",
+    "dragToReorder": "Presuňte sekcie na preusporiadanie v kategóriách alebo použite rozbaľovacie menu \"PRESUNÚŤ\" na zmenu sekcií medzi Prednou/Hlavnou/Zadnou Časťou",
+    "bookMetadata": "Metaúdaje Knihy:"
   }
 }

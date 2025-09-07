@@ -56,5 +56,72 @@
     "notifications": "Arifa",
     "account": "Akaunti",
     "saveSettings": "Hifadhi mipangilio"
+  },
+  "bookBuilder": {
+    "title": "Uagizaji wa BookBuilder",
+    "steps": {
+      "upload": "Pakia ZIP",
+      "review": "Kagua Uainishaji",
+      "import": "Agiza Kitabu"
+    },
+    "upload": {
+      "title": "Pakia Hati Zako",
+      "dragDrop": "Buruta na udondoshe faili lako la ZIP hapa",
+      "orClick": "au bofya ili uvinjari faili",
+      "chooseFile": "CHAGUA FAILI",
+      "supportedFormats": "Inategemezwa: Faili za ZIP zenye hati za Word (.docx)",
+      "processing": "Inachakata faili la ZIP...",
+      "extracting": "Inatoa hati...",
+      "analyzing": "Inachanganua maudhui..."
+    },
+    "classification": {
+      "title": "Kagua Uainishaji wa Hati",
+      "subtitle": "Buruta sehemu kati ya makundi ili kupanga muundo wa kitabu chako",
+      "frontMatter": "Mambo ya Mbele",
+      "mainMatter": "Mambo Makuu",
+      "backMatter": "Mambo ya Nyuma",
+      "confidence": "Uaminifu",
+      "move": "HAMISHA",
+      "sections": "sehemu {{count}}",
+      "noSections": "Hakuna sehemu katika kundi hili",
+      "frontMatterDesc": "Ukurasa wa kichwa, hakimiliki, utolewa, dibaji, jedwali la yaliyomo",
+      "mainMatterDesc": "Sura, maudhui makuu, nyenzo za msingi",
+      "backMatterDesc": "Hitimisho, tamko la mwisho, kiambatisho, kamusi, faharasa, marejeleo"
+    },
+    "actions": {
+      "cancel": "GHAIRI",
+      "back": "Nyuma",
+      "next": "Ifuatayo",
+      "import": "Agiza Kitabu",
+      "retry": "Jaribu Tena",
+      "selectFile": "Chagua Faili"
+    },
+    "import": {
+      "title": "Uingizaji umekamilika",
+      "success": "Kitabu chako kimeingizwa kwa mafanikio!",
+      "creating": "Kuunda muundo wa kitabu...",
+      "processing": "Kuchakata maudhui...",
+      "finalizing": "Kukamilisha uingizaji..."
+    },
+    "messages": {
+      "importTip": "📝 Kidokezo cha Uingizaji: Ikiwa hati zako za Word zina maudhui mchanganyiko (vichwa, jedwali la yaliyomo, maelezo ya mwandishi, n.k.), BookBuilder inaweza kuunda sehemu za ziada. Baada ya kuingiza, unaweza kufuta kwa urahisi sehemu zisizohitajika na kuhamisha maudhui kati ya Mambo ya Mbele, Mambo Makuu, na Mambo ya Nyuma kama inavyohitajika.",
+      "systemPages": "Ukurasa wa Kichwa na Hakimiliki vinazalishwa kiotomatiki - ukurasa wowote wa kichwa/hakimiliki ulioingizwa uliruhusu.",
+      "languageNote": "Hati zitaainishwa kwa kutumia mifumo ya lugha ya {{language}}.",
+      "noContent": "Hakuna sehemu za maudhui zilizogunduliwa - tafadhali angalia faili yako ya ZIP.",
+      "duplicateSections": "Majina ya sehemu yanayorudiwa yamegunduliwa: {{sections}}",
+      "processingError": "Hitilafu katika kuchakata faili ya ZIP. Tafadhali angalia muundo wa faili na ujaribu tena.",
+      "emptyZip": "Faili ya ZIP inaonekana tupu au haina hati zinazotumika.",
+      "invalidFormat": "Muundo wa faili si sahihi. Tafadhali pakia faili ya ZIP yenye hati za Word."
+    },
+    "validation": {
+      "noFile": "Tafadhali chagua faili ya ZIP kupakia.",
+      "invalidFile": "Tafadhali chagua faili halali ya ZIP.",
+      "fileTooLarge": "Faili ni kubwa sana. Ukubwa wa juu ni 50MB.",
+      "noDocuments": "Hakuna hati za Word zilizopatikana katika faili ya ZIP.",
+      "processingFailed": "Imeshindwa kuchakata hati. Tafadhali angalia muundo wa faili."
+    },
+    "detectedBookStructure": "📚 Muundo wa Kitabu Uliogunduliwa",
+    "dragToReorder": "Buruta sehemu ili kupanga upya ndani ya makundi au tumia menyu ya \"HAMISHA\" kubadilisha sehemu kati ya Mambo ya Mbele/Mambo Makuu/Mambo ya Nyuma",
+    "bookMetadata": "Metadata ya Kitabu:"
   }
 }

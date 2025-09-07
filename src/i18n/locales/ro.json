@@ -1,62 +1,125 @@
 {
-  "translation": {
-    "common": {
-      "save": "Salvează",
-      "cancel": "Anulează",
-      "delete": "Șterge",
-      "edit": "Editează",
-      "add": "Adaugă",
-      "close": "Închide",
-      "loading": "Se încarcă...",
-      "error": "Eroare",
-      "success": "Succes",
-      "confirm": "Confirmă",
+  "common": {
+    "save": "Salvează",
+    "cancel": "Anulează",
+    "delete": "Șterge",
+    "edit": "Editează",
+    "add": "Adaugă",
+    "close": "Închide",
+    "loading": "Se încarcă...",
+    "error": "Eroare",
+    "success": "Succes",
+    "confirm": "Confirmă",
+    "back": "Înapoi",
+    "next": "Următorul",
+    "previous": "Anterior"
+  },
+  "navigation": {
+    "dashboard": "Panou",
+    "projects": "Proiecte",
+    "settings": "Setări",
+    "logout": "Deconectare",
+    "login": "Conectare",
+    "register": "Înregistrare"
+  },
+  "dashboard": {
+    "welcome": "Bun venit",
+    "createNewBook": "Creează o carte nouă",
+    "recentProjects": "Proiecte recente",
+    "noProjects": "Nu ai proiecte",
+    "startWriting": "Începe să scrii"
+  },
+  "bookStructure": {
+    "frontMatter": "Prefață",
+    "mainMatter": "Partea principală",
+    "backMatter": "Postfață",
+    "chapter": "Capitol",
+    "section": "Secțiune",
+    "title": "Titlu",
+    "content": "Conținut"
+  },
+  "export": {
+    "exportBook": "Exportă cartea",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Limba",
+    "font": "Font",
+    "includeToc": "Include cuprinsul",
+    "export": "Exportă",
+    "tableOfContents": "Cuprins"
+  },
+  "settings": {
+    "language": "Limba",
+    "theme": "Tema",
+    "notifications": "Notificări",
+    "account": "Cont",
+    "saveSettings": "Salvează setările"
+  },
+  "bookBuilder": {
+    "title": "Importare BookBuilder",
+    "steps": {
+      "upload": "Încarcă ZIP",
+      "review": "Revizuiește Clasificarea",
+      "import": "Importă Cartea"
+    },
+    "upload": {
+      "title": "Încarcă Documentele Tale",
+      "dragDrop": "Trage și lasă fișierul ZIP aici",
+      "orClick": "sau fă clic pentru a răsfoi fișierele",
+      "chooseFile": "ALEGE FIȘIER",
+      "supportedFormats": "Suportat: Fișiere ZIP conținând documente Word (.docx)",
+      "processing": "Se procesează fișierul ZIP...",
+      "extracting": "Se extrag documentele...",
+      "analyzing": "Se analizează conținutul..."
+    },
+    "classification": {
+      "title": "Revizuiește clasificarea documentelor",
+      "subtitle": "Trage secțiunile între categorii pentru a organiza structura cărții tale",
+      "frontMatter": "Materie preliminară",
+      "mainMatter": "Text principal",
+      "backMatter": "Materie finală",
+      "confidence": "Încredere",
+      "move": "MUTĂ",
+      "sections": "{{count}} secțiuni",
+      "noSections": "Nicio secțiune în această categorie",
+      "frontMatterDesc": "Pagina de titlu, drepturi de autor, dedicație, prefață, cuprins",
+      "mainMatterDesc": "Capitole, conținut principal, material de bază",
+      "backMatterDesc": "Concluzie, epilog, anexă, glosar, index, referințe"
+    },
+    "import": {
+      "title": "Import finalizat",
+      "success": "Cartea ta a fost importată cu succes!",
+      "creating": "Se creează structura cărții...",
+      "processing": "Se procesează conținutul...",
+      "finalizing": "Se finalizează importul..."
+    },
+    "messages": {
+      "importTip": "📝 Sfat pentru import: Dacă documentele tale Word conțin conținut mixt (titluri, cuprins, informații despre autor, etc.), BookBuilder poate crea secțiuni suplimentare. După import, poți șterge cu ușurință secțiunile nedorite și muta conținutul între Materie preliminară, Text principal și Materie finală.",
+      "systemPages": "Pagina de titlu și Drepturile de autor sunt generate automat - paginile de titlu/drepturi de autor importate au fost omise.",
+      "languageNote": "Documentele vor fi clasificate folosind modele de limbă {{language}}."
+    },
+    "actions": {
+      "cancel": "ANULEAZĂ",
       "back": "Înapoi",
       "next": "Următorul",
-      "previous": "Anterior"
+      "import": "Importă Cartea",
+      "retry": "Încearcă Din Nou",
+      "selectFile": "Selectează Fișier"
     },
-    "navigation": {
-      "dashboard": "Panou",
-      "projects": "Proiecte",
-      "settings": "Setări",
-      "logout": "Deconectare",
-      "login": "Conectare",
-      "register": "Înregistrare"
+    "validation": {
+      "noFile": "Vă rugăm să selectați un fișier ZIP pentru încărcare.",
+      "invalidFile": "Vă rugăm să selectați un fișier ZIP valid.",
+      "fileTooLarge": "Fișierul este prea mare",
+      "noDocuments": "Nu s-au găsit documente Word",
+      "processingFailed": "Procesarea documentelor a eșuat",
+      "selectFile": "Vă rugăm să selectați un fișier ZIP",
+      "selectValidFile": "Vă rugăm să selectați un fișier ZIP valid",
+      "maxSize": "Dimensiunea maximă este 50MB"
     },
-    "dashboard": {
-      "welcome": "Bun venit",
-      "createNewBook": "Creează o carte nouă",
-      "recentProjects": "Proiecte recente",
-      "noProjects": "Nu ai proiecte",
-      "startWriting": "Începe să scrii"
-    },
-    "bookStructure": {
-      "frontMatter": "Prefață",
-      "mainMatter": "Partea principală",
-      "backMatter": "Postfață",
-      "chapter": "Capitol",
-      "section": "Secțiune",
-      "title": "Titlu",
-      "content": "Conținut"
-    },
-    "export": {
-      "exportBook": "Exportă cartea",
-      "format": "Format",
-      "pdf": "PDF",
-      "epub": "EPUB",
-      "docx": "Word",
-      "language": "Limba",
-      "font": "Font",
-      "includeToc": "Include cuprinsul",
-      "export": "Exportă",
-      "tableOfContents": "Cuprins"
-    },
-    "settings": {
-      "language": "Limba",
-      "theme": "Tema",
-      "notifications": "Notificări",
-      "account": "Cont",
-      "saveSettings": "Salvează setările"
-    }
+    "detectedBookStructure": "📚 Structura Cărții Detectată",
+    "dragToReorder": "Trageți secțiunile pentru a le reordona în categorii sau folosiți meniul derulant \"MUTARE\" pentru a schimba secțiunile între Materia Preliminară/Principală/Finală",
+    "bookMetadata": "Metadatele Cărții:"
   }
 }

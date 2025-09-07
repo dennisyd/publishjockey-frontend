@@ -56,5 +56,67 @@
     "notifications": "Iindaba",
     "account": "Iakhawunti",
     "saveSettings": "Gcina iisethingi"
+  },
+  "bookBuilder": {
+    "title": "Ukufaka BookBuilder",
+    "steps": {
+      "upload": "Ukufaka ZIP",
+      "review": "Ukujonga udidi",
+      "import": "Ukufaka incwadi"
+    },
+    "upload": {
+      "title": "Faka amaxwebhu akho",
+      "dragDrop": "Tsala uze ubeke ifayile ye-ZIP apha",
+      "orClick": "okanye cofa ukuze ukhangele iifayile",
+      "chooseFile": "KHETHA IFAYILE",
+      "supportedFormats": "Ixhaswa: Iifayile ze-ZIP ezinoxwebhu lwe-Word (.docx)",
+      "processing": "Ukusebenza ifayile ye-ZIP...",
+      "extracting": "Ukukhupha amaxwebhu...",
+      "analyzing": "Ukuhlalutya umxholo..."
+    },
+    "actions": {
+      "cancel": "RHOXISA",
+      "back": "Emva",
+      "next": "Okulandelayo",
+      "import": "Faka incwadi",
+      "retry": "Zama kwakhona",
+      "selectFile": "Khetha ifayile"
+    },
+    "import": {
+      "title": "Ukungenisa Kugqityiwe",
+      "success": "Incwadi yakho ingeniswe ngempumelelo!",
+      "creating": "Ukwakha isakhiwo sencwadi...",
+      "processing": "Ukucubungula umxholo...",
+      "finalizing": "Ukugqibezela ukungenisa..."
+    },
+    "messages": {
+      "importTip": "📝 Icebiso Lokungenisa: Ukuba amaxwebhu akho e-Word anomxholo oxubeneyo (izihloko, itafile yomxholo, ulwazi lombhali, njl.), i-BookBuilder inokwenza amacandelo ongezelelweyo. Emva kokungenisa, unokususa ngokulula amacandelo ongawafuniyo kwaye ushenxise umxholo phakathi kwe-Front Matter, Main Matter, ne-Back Matter njengoko kufuneka.",
+      "systemPages": "Iphepha Lesihloko kunye ne-Copyright ziyenziwa ngokuzenzekelayo - naliphi na iphepha lesihloko/copyright elingenisiweyo liye latsalwa.",
+      "languageNote": "Amaxwebhu aya kuhlulwa kusetyenziswa iipateni zolwimi {{language}}."
+    },
+    "classification": {
+      "title": "Phonononga Uhlulo Lwamaxwebhu",
+      "subtitle": "Rhuqa amacandelo phakathi kweendidi ukuze ulungelelanise isakhiwo sencwadi yakho",
+      "frontMatter": "Icandelo Langaphambili",
+      "mainMatter": "Icandelo Eliphambili",
+      "backMatter": "Icandelo Langemva",
+      "confidence": "Ukuzithemba",
+      "move": "SHENXISA",
+      "sections": "amacandelo {{count}}",
+      "noSections": "Akukho macandelo kolu didi",
+      "frontMatterDesc": "Iphepha lesihloko, ilungelo lokushicilela, ukuzinikela, isandulelo, ithebula lokuqukethwe",
+      "mainMatterDesc": "Izahluko, okuqukethwe okuyinhloko, izinto eziyisisekelo",
+      "backMatterDesc": "Isigqibo, isiphetho, isithasiselo, isichazi-magama, isalathiso, izinkomba"
+    },
+    "validation": {
+      "noFile": "Nceda ukhethe ifayile ye-ZIP ukuze uyilayishe.",
+      "invalidFile": "Nceda ukhethe ifayile ye-ZIP esebenzayo.",
+      "fileTooLarge": "Ifayile inkulu kakhulu. Ubungakanani obuphezulu ngu-50MB.",
+      "noDocuments": "Akukho maxwebhu e-Word afunyenweyo kwifayile ye-ZIP.",
+      "processingFailed": "Kusilele ukucubungula amaxwebhu. Nceda ujonge ifomati yefayile."
+    },
+    "detectedBookStructure": "📚 Isakhiwo Sencwadi Esifunyenweyo",
+    "dragToReorder": "Rhuqa amacandelo ukuze uwahlele kwakhona ngaphakathi kweendidi okanye usebenzise i-dropdown ethi \"SHENXISA\" ukuze utshintshe amacandelo phakathi kwe-Front/Main/Back Matter",
+    "bookMetadata": "I-Metadata Yencwadi:"
   }
 }

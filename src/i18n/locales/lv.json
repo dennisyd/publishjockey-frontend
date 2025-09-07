@@ -56,5 +56,70 @@
     "notifications": "Paziņojumi",
     "account": "Konts",
     "saveSettings": "Saglabāt iestatījumus"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Imports",
+    "steps": {
+      "upload": "Augšupielādēt ZIP",
+      "review": "Pārskatīt klasifikāciju",
+      "import": "Importēt grāmatu"
+    },
+    "upload": {
+      "title": "Augšupielādējiet savus dokumentus",
+      "dragDrop": "Velciet ZIP failu šeit",
+      "orClick": "vai noklikšķiniet, lai pārlūkotu failus",
+      "chooseFile": "IZVĒLĒTIES FAILU",
+      "supportedFormats": "Atbalstīts: ZIP faili, kas satur Word dokumentus (.docx)",
+      "processing": "Apstrādā ZIP failu...",
+      "extracting": "Izvelk dokumentus...",
+      "analyzing": "Analizē saturu..."
+    },
+    "actions": {
+      "cancel": "ATCELT",
+      "back": "Atpakaļ",
+      "next": "Nākamais",
+      "import": "Importēt grāmatu",
+      "retry": "Mēģināt vēlreiz",
+      "selectFile": "Izvēlēties failu"
+    },
+    "import": {
+      "title": "Imports pabeigts",
+      "success": "Jūsu grāmata ir veiksmīgi importēta!",
+      "creating": "Izveido grāmatas struktūru...",
+      "processing": "Apstrādā saturu...",
+      "finalizing": "Pabeidz importu..."
+    },
+    "messages": {
+      "importTip": "📝 Importa padoms: Ja jūsu Word dokumenti satur jauktu saturu (virsrakstus, satura rādītāju, autora informāciju u.c.), BookBuilder var izveidot papildu sadaļas. Pēc importa jūs varat viegli dzēst nevēlamas sadaļas un pārvietot saturu starp Priekšdaļu, Galveno tekstu un Aizmugurējo daļu pēc nepieciešamības.",
+      "systemPages": "Titullapa un Autortiesības tiek ģenerētas automātiski - visas importētās titullapas/autortiesību lapas tika izlaistas.",
+      "languageNote": "Dokumenti tiks klasificēti, izmantojot {{language}} valodas modeļus."
+    },
+    "classification": {
+      "title": "Pārskatīt dokumentu klasifikāciju",
+      "subtitle": "Velciet sadaļas starp kategorijām, lai organizētu grāmatas struktūru",
+      "frontMatter": "Priekšdaļa",
+      "mainMatter": "Galvenais teksts",
+      "backMatter": "Aizmugurējā daļa",
+      "confidence": "Uzticība",
+      "move": "PĀRVIETOT",
+      "sections": "{{count}} sadaļas",
+      "noSections": "Šajā kategorijā nav sadaļu",
+      "frontMatterDesc": "Titullapa, autortiesības, veltījums, priekšvārds, saturs",
+      "mainMatterDesc": "Nodaļas, galvenais saturs, pamatmateriāls",
+      "backMatterDesc": "Secinājums, epilogs, pielikums, vārdnīca, rādītājs, atsauces"
+    },
+    "validation": {
+      "noFile": "Lūdzu, izvēlieties ZIP failu augšupielādei.",
+      "invalidFile": "Lūdzu, izvēlieties derīgu ZIP failu.",
+      "fileTooLarge": "Fails ir pārāk liels",
+      "noDocuments": "Word dokumenti nav atrasti",
+      "processingFailed": "Dokumentu apstrāde neizdevās",
+      "selectFile": "Lūdzu, izvēlieties ZIP failu",
+      "selectValidFile": "Lūdzu, izvēlieties derīgu ZIP failu",
+      "maxSize": "Maksimālais izmērs ir 50MB"
+    },
+    "detectedBookStructure": "📚 Atklātā grāmatas struktūra",
+    "dragToReorder": "Velciet sadaļas, lai pārkārtotu kategorijās, vai izmantojiet \"PĀRVIETOT\" nolaižamo izvēlni, lai mainītu sadaļas starp Priekšdaļu/Galveno tekstu/Aizmugurējo daļu",
+    "bookMetadata": "Grāmatas metadati:"
   }
 }

@@ -56,5 +56,75 @@
     "notifications": "Ziviso",
     "account": "Akaundi",
     "saveSettings": "Chengeta zvishandiso"
+  },
+  "bookBuilder": {
+    "title": "Kuisa BookBuilder",
+    "steps": {
+      "upload": "Kuisa ZIP",
+      "review": "Kuona kurongedza",
+      "import": "Kuisa bhuku"
+    },
+    "upload": {
+      "title": "Kuisa zvinyorwa zvako",
+      "dragDrop": "Kwevedza uye uise faira ye ZIP pano",
+      "orClick": "kana tinya kuti utsvage mafaira",
+      "chooseFile": "SARUDZA FAIRA",
+      "supportedFormats": "Zvinotenderwa: Mafaira eZIP ane zvinyorwa zveWord (.docx)",
+      "processing": "Kugadzira faira yeZIP...",
+      "extracting": "Kubudisa zvinyorwa...",
+      "analyzing": "Kuongorora zviri mukati..."
+    },
+    "actions": {
+      "cancel": "KANZURA",
+      "back": "Dzoka shure",
+      "next": "Chinotevera",
+      "import": "Kuisa bhuku",
+      "retry": "Edza zvakare",
+      "selectFile": "Sarudza faira"
+    },
+    "import": {
+      "title": "Kupinza Kwapera",
+      "success": "Bhuku renyu rapinzwa zvakanaka!",
+      "creating": "Kugadzira chimiro chebhuku...",
+      "processing": "Kugadzirisa zvirimo...",
+      "finalizing": "Kupedzisa kupinza..."
+    },
+    "messages": {
+      "importTip": "📝 Zano Rekupinza: Kana magwaro enyu eWord aine zvirimo zvakasiyana (mazita, tafura yezvirimo, ruzivo rwemunyori, nezvimwe), BookBuilder inogona kugadzira zvikamu zvimwe. Mushure mekupinza, munogona kubvisa zvikamu zvisingadiwe uye kufambisa zvirimo pakati peZvinhu Zvekutanga, Zvinhu Zvikuru, neZvinhu Zvekupedzisira sezvinodiwa.",
+      "systemPages": "Peji Rezita neCopyright zvinogadzirwa zvega - chero peji yezita/copyright yakapinzwa yakasiyiwa.",
+      "languageNote": "Magwaro achatsanangurwa achishandisa maitiro emutauro we{{language}}.",
+      "noContent": "Hapana zvikamu zvezvirimo zvakaonekwa - ndapota tarisa faira yako yeZIP.",
+      "duplicateSections": "Mazita ezvikamu akaenzana akaonekwa: {{sections}}",
+      "processingError": "Kukanganisa mukugadzirisa faira yeZIP. Ndapota tarisa chimiro chefaira uye uyedze zvakare.",
+      "emptyZip": "Faira yeZIP inoita seyakashaya kana isina magwaro anotsigirwa.",
+      "invalidFormat": "Chimiro chefaira chisina kukodzera. Ndapota isa faira yeZIP ine magwaro eWord."
+    },
+    "classification": {
+      "title": "Ongorora Kutsanangura Magwaro",
+      "subtitle": "Kwenya zvikamu pakati pemapoka kuti uronge chimiro chebhuku rako",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} разделов",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Peji remusoro, kodzero dzemugwadi, kukumikidza, mashoko ekutanga, rondedzero yezvirimo",
+      "mainMatterDesc": "Zvitsauko, zviri mukati, zvinhu zvakakoshesa",
+      "backMatterDesc": "Mhedziso, mashoko ekupedzisira, zvakawedzerwa, duramazwi, rondedzero, mareferenzi"
+    },
+    "validation": {
+      "noFile": "Ndapota sarudza faira yeZIP yekuisa.",
+      "invalidFile": "Ndapota sarudza faira yeZIP chaiyo.",
+      "fileTooLarge": "Faira yakakura zvakanyanya",
+      "noDocuments": "Hapana magwaro eWord akawanikwa",
+      "processingFailed": "Kugadzirisa magwaro kwakundikana",
+      "selectFile": "Ndapota sarudza faira yeZIP",
+      "selectValidFile": "Ndapota sarudza faira yeZIP chaiyo",
+      "maxSize": "Saizi yakakura ndiye 50MB"
+    },
+    "detectedBookStructure": "📚 Chimiro Chebhuku Chakaonekwa",
+    "dragToReorder": "Kwenya zvikamu kuti uronge zvakare mukati memapoka kana shandisa \"FAMBISA\" dropdown kushandura zvikamu pakati peZvinhu Zvekutanga/Zvikuru/Zvekupedzisira",
+    "bookMetadata": "Metadata Yebhuku:"
   }
 }

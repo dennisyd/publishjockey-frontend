@@ -1,0 +1,119 @@
+{
+  "common": {
+    "loading": "Memuat...",
+    "error": "Kesalahan",
+    "success": "Berhasil",
+    "cancel": "Batal",
+    "save": "Simpan",
+    "delete": "Hapus",
+    "edit": "Edit",
+    "add": "Tambah",
+    "close": "Tutup",
+    "back": "Kembali",
+    "next": "Selanjutnya",
+    "yes": "Ya",
+    "no": "Tidak"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "createNewBook": "Create New Book",
+    "recentProjects": "Recent Projects",
+    "noProjects": "You have no projects",
+    "startWriting": "Start Writing"
+  },
+  "bookStructure": {
+    "frontMatter": "Front Matter",
+    "mainMatter": "Main Matter",
+    "backMatter": "Back Matter",
+    "chapter": "Chapter",
+    "section": "Section",
+    "title": "Title",
+    "content": "Content"
+  },
+  "export": {
+    "exportBook": "Export Book",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Language",
+    "font": "Font",
+    "includeToc": "Include Table of Contents",
+    "export": "Export",
+    "tableOfContents": "Table of Contents"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "account": "Account",
+    "saveSettings": "Save Settings"
+  },
+  "bookBuilder": {
+    "title": "Impor BookBuilder",
+    "steps": {
+      "upload": "Unggah ZIP",
+      "review": "Tinjau Klasifikasi",
+      "import": "Impor Buku"
+    },
+    "upload": {
+      "title": "Unggah Dokumen Anda",
+      "dragDrop": "Seret & lepas file ZIP Anda di sini",
+      "orClick": "atau klik untuk menjelajah file",
+      "chooseFile": "PILIH FILE"
+    },
+    "classification": {
+      "title": "Tinjau Klasifikasi Dokumen",
+      "subtitle": "Seret bagian antar kategori untuk mengatur struktur buku Anda",
+      "frontMatter": "Bagian Depan",
+      "mainMatter": "Bagian Utama",
+      "backMatter": "Bagian Belakang",
+      "confidence": "Kepercayaan",
+      "move": "PINDAH",
+      "sections": "{{count}} bagian",
+      "noSections": "Tidak ada bagian dalam kategori ini",
+      "frontMatterDesc": "Halaman judul, hak cipta, dedikasi, kata pengantar, daftar isi",
+      "mainMatterDesc": "Bab, konten utama, materi inti",
+      "backMatterDesc": "Kesimpulan, epilog, lampiran, glosarium, indeks, referensi"
+    },
+    "actions": {
+      "cancel": "BATAL",
+      "back": "Kembali",
+      "next": "Selanjutnya",
+      "import": "Impor Buku"
+    },
+    "import": {
+      "title": "Impor Selesai",
+      "success": "Buku Anda telah berhasil diimpor!",
+      "creating": "Membuat struktur buku...",
+      "processing": "Memproses konten...",
+      "finalizing": "Menyelesaikan impor..."
+    },
+    "messages": {
+      "importTip": "📝 Tips Impor: Jika dokumen Word Anda berisi konten campuran (judul, daftar isi, info penulis, dll.), BookBuilder mungkin membuat bagian tambahan. Setelah impor, Anda dapat dengan mudah menghapus bagian yang tidak diinginkan dan memindahkan konten antara Bagian Depan, Bagian Utama, dan Bagian Belakang sesuai kebutuhan.",
+      "systemPages": "Halaman Judul dan Hak Cipta dibuat secara otomatis - halaman judul/hak cipta yang diimpor dilewati.",
+      "languageNote": "Dokumen akan diklasifikasikan menggunakan pola bahasa {{language}}."
+    },
+    "validation": {
+      "noFile": "Silakan pilih file ZIP untuk diunggah.",
+      "invalidFile": "Silakan pilih file ZIP yang valid.",
+      "fileTooLarge": "File terlalu besar",
+      "noDocuments": "Tidak ditemukan dokumen Word",
+      "processingFailed": "Pemrosesan dokumen gagal",
+      "selectFile": "Silakan pilih file ZIP",
+      "selectValidFile": "Silakan pilih file ZIP yang valid",
+      "maxSize": "Ukuran maksimum adalah 50MB"
+    },
+    "detectedBookStructure": "📚 Struktur Buku Terdeteksi",
+    "dragToReorder": "Seret bagian untuk mengurutkan ulang dalam kategori atau gunakan dropdown \"PINDAH\" untuk mengubah bagian antara Materi Depan/Utama/Belakang",
+    "bookMetadata": "Metadata Buku:"
+  }
+}

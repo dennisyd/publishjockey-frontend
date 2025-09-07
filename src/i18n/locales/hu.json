@@ -56,5 +56,70 @@
     "notifications": "Értesítések",
     "account": "Fiók",
     "saveSettings": "Beállítások mentése"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Importálás",
+    "steps": {
+      "upload": "ZIP feltöltése",
+      "review": "Osztályozás áttekintése",
+      "import": "Könyv importálása"
+    },
+    "upload": {
+      "title": "Töltse fel dokumentumait",
+      "dragDrop": "Húzza ide a ZIP fájlt",
+      "orClick": "vagy kattintson a fájlok böngészéséhez",
+      "chooseFile": "FÁJL KIVÁLASZTÁSA",
+      "supportedFormats": "Támogatott: Word dokumentumokat (.docx) tartalmazó ZIP fájlok",
+      "processing": "ZIP fájl feldolgozása...",
+      "extracting": "Dokumentumok kibontása...",
+      "analyzing": "Tartalom elemzése..."
+    },
+    "actions": {
+      "cancel": "MÉGSE",
+      "back": "Vissza",
+      "next": "Következő",
+      "import": "Könyv importálása",
+      "retry": "Újra próbálkozás",
+      "selectFile": "Fájl kiválasztása"
+    },
+    "import": {
+      "title": "Import befejezve",
+      "success": "A könyve sikeresen importálva lett!",
+      "creating": "Könyv szerkezet létrehozása...",
+      "processing": "Tartalom feldolgozása...",
+      "finalizing": "Import befejezése..."
+    },
+    "messages": {
+      "importTip": "📝 Import tipp: Ha Word dokumentumai vegyes tartalmat tartalmaznak (címek, tartalomjegyzék, szerző információ stb.), a BookBuilder további szakaszokat hozhat létre. Az import után könnyedén törölheti a nem kívánt szakaszokat és áthelyezheti a tartalmat az Előrész, Főszöveg és Utórész között szükség szerint.",
+      "systemPages": "A címlap és a szerzői jog automatikusan generálódik - minden importált cím/szerzői jog oldal kihagyásra került.",
+      "languageNote": "A dokumentumok {{language}} nyelvi minták használatával lesznek osztályozva."
+    },
+    "classification": {
+      "title": "Dokumentum osztályozás áttekintése",
+      "subtitle": "Húzza a szakaszokat a kategóriák között könyve szerkezetének rendezéséhez",
+      "frontMatter": "Előrész",
+      "mainMatter": "Főszöveg",
+      "backMatter": "Utórész",
+      "confidence": "Bizalom",
+      "move": "ÁTHELYEZÉS",
+      "sections": "{{count}} szakasz",
+      "noSections": "Nincsenek szakaszok ebben a kategóriában",
+      "frontMatterDesc": "Címlap, szerzői jog, ajánlás, előszó, tartalomjegyzék",
+      "mainMatterDesc": "Fejezetek, fő tartalom, alapanyag",
+      "backMatterDesc": "Következtetés, epilógus, függelék, szószedet, index, hivatkozások"
+    },
+    "validation": {
+      "noFile": "Kérjük, válasszon egy ZIP fájlt a feltöltéshez.",
+      "invalidFile": "Kérjük, válasszon egy érvényes ZIP fájlt.",
+      "fileTooLarge": "A fájl túl nagy",
+      "noDocuments": "Nem találhatók Word dokumentumok",
+      "processingFailed": "A dokumentumok feldolgozása sikertelen",
+      "selectFile": "Kérjük, válasszon egy ZIP fájlt",
+      "selectValidFile": "Kérjük, válasszon egy érvényes ZIP fájlt",
+      "maxSize": "A maximális méret 50MB"
+    },
+    "detectedBookStructure": "📚 Észlelt könyv szerkezet",
+    "dragToReorder": "Húzza a szakaszokat a kategóriákon belüli átrendezéshez vagy használja az \"ÁTHELYEZÉS\" legördülő menüt a szakaszok Előrész/Főszöveg/Utórész közötti váltásához",
+    "bookMetadata": "Könyv metaadatok:"
   }
 }

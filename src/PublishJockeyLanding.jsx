@@ -768,7 +768,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                <strong>Word → Book</strong> (auto-split chapters) • Add images • CSV → Tables
+                <strong>Word/Google Docs/Markdown → Book</strong> (auto-split) • Images • CSV → Tables • Built-in Editor
               </Typography>
 
               {/* Language support - tighter spacing */}

@@ -56,5 +56,70 @@
     "notifications": "Ebikulira",
     "account": "Akawunti",
     "saveSettings": "Tereka enteekateeka"
+  },
+  "bookBuilder": {
+    "title": "Okuyingiza BookBuilder",
+    "steps": {
+      "upload": "Teeka ZIP",
+      "review": "Kebera okusengeka",
+      "import": "Yingiza ekitabo"
+    },
+    "upload": {
+      "title": "Teeka ebiwandiiko byo",
+      "dragDrop": "Sika ZIP file wano",
+      "orClick": "oba nyiga okunoonya files",
+      "chooseFile": "LONDA FILE",
+      "supportedFormats": "Ekikkirizibwa: ZIP files ezirimu Word documents (.docx)",
+      "processing": "Okukola ku ZIP file...",
+      "extracting": "Okuggyamu documents...",
+      "analyzing": "Okwekenneenya ebirimu..."
+    },
+    "actions": {
+      "cancel": "SAZAAMU",
+      "back": "Ddayo",
+      "next": "Eddako",
+      "import": "Yingiza ekitabo",
+      "retry": "Ddamu ogezaako",
+      "selectFile": "Londa file"
+    },
+    "import": {
+      "title": "Okuyingiza kuwedde",
+      "success": "Ekitabo kyo kiyingiziddwa obulungi!",
+      "creating": "Okukola ensengeka y'ekitabo...",
+      "processing": "Okukola ku bintu ebiri munda...",
+      "finalizing": "Okumaliriza okuyingiza..."
+    },
+    "messages": {
+      "importTip": "📝 Ekiragiro ky'okuyingiza: Singa ebiwandiiko byo ebya Word birina ebintu eby'enjawulo (emitwe, olukalala lw'ebiri munda, amawulire g'omuwandiisi, n'ebirala), BookBuilder eyinza okukola ebitundu ebirala. Oluvannyuma lw'okuyingiza, osobola okuggyawo ebitundu by'otoyagala n'osimbule ebintu wakati w'Ekitundu eky'omu maaso, Ekitundu ekikulu, n'Ekitundu eky'emabega nga bwe kyetaagisa.",
+      "systemPages": "Omuko gw'omutwe n'Obuyinza bw'omuwandiisi bikola byennyini - omuko gwonna gw'omutwe/obuyinza bw'omuwandiisi ogwayingiziddwa gwabuusiddwa.",
+      "languageNote": "Ebiwandiiko bijja kusengejjwa nga tukozesa enkola z'olulimi {{language}}."
+    },
+    "classification": {
+      "title": "Kebera okusengejja kw'ebiwandiiko",
+      "subtitle": "Sika ebitundu wakati w'ebika okutegeka ensengeka y'ekitabo kyo",
+      "frontMatter": "Ekitundu eky'omu maaso",
+      "mainMatter": "Ekitundu ekikulu",
+      "backMatter": "Ekitundu eky'emabega",
+      "confidence": "Obwesige",
+      "move": "SIMBULA",
+      "sections": "ebitundu {{count}}",
+      "noSections": "Tewali bitundu mu kika kino",
+      "frontMatterDesc": "Omuko gw'omutwe, obuyinza bw'omuwandiisi, okuwaayo, ebigambo eby'omu maaso, olukalala lw'ebiri mu kitabo",
+      "mainMatterDesc": "Essuula, ebiri mu kitabo, ebintu ebikulu",
+      "backMatterDesc": "Okumaliriza, ebigambo eby'oku nkomerero, ebyongerwako, olukalala lw'ebigambo, olukalala lw'ebintu, ebyafaayo"
+    },
+    "validation": {
+      "noFile": "Nsaba olonde fayiro ya ZIP okugitwala.",
+      "invalidFile": "Nsaba olonde fayiro ya ZIP etuufu.",
+      "fileTooLarge": "Fayiro nnene nnyo",
+      "noDocuments": "Tewali biwandiiko bya Word byazuuliddwa",
+      "processingFailed": "Okukola ku biwandiiko kulemeddwa",
+      "selectFile": "Nsaba olonde fayiro ya ZIP",
+      "selectValidFile": "Nsaba olonde fayiro ya ZIP etuufu",
+      "maxSize": "Obunene obusinga buli 50MB"
+    },
+    "detectedBookStructure": "📚 Ensengeka y'ekitabo ezuuliddwa",
+    "dragToReorder": "Sika ebitundu okuddamu okusengeka munda mu bika oba kozesa \"SIMBULA\" dropdown okukyusa ebitundu wakati w'Ekitundu eky'omu maaso/Ekitundu ekikulu/Ekitundu eky'emabega",
+    "bookMetadata": "Metadata y'ekitabo:"
   }
 }

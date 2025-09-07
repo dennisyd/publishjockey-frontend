@@ -56,5 +56,67 @@
     "notifications": "Iwifunni",
     "account": "Iroyin",
     "saveSettings": "Fi awọn iṣeto pamọ"
+  },
+  "bookBuilder": {
+    "title": "Gbigbe BookBuilder",
+    "steps": {
+      "upload": "Gbe ZIP",
+      "review": "Ṣayẹwo Ipin",
+      "import": "Gbe Iwe"
+    },
+    "upload": {
+      "title": "Gbe Awọn Iwe Rẹ",
+      "dragDrop": "Fa ki o si ju faili ZIP rẹ si ibi",
+      "orClick": "tabi tẹ lati wa awọn faili",
+      "chooseFile": "YAN FAILI",
+      "supportedFormats": "Ti a ṣe atilẹyin: Awọn faili ZIP ti o ni awọn iwe Word (.docx)",
+      "processing": "N ṣiṣẹ faili ZIP...",
+      "extracting": "N yo awọn iwe jade...",
+      "analyzing": "N ṣe itupalẹ akoonu..."
+    },
+    "classification": {
+      "title": "Ṣayẹwo Ipin Iwe",
+      "subtitle": "Fa awọn apakan laarin awọn ẹka lati ṣeto eto iwe rẹ",
+      "frontMatter": "Oro Iwaju",
+      "mainMatter": "Oro Aarin",
+      "backMatter": "Oro Ẹhin",
+      "confidence": "Igbẹkẹle",
+      "move": "GBE",
+      "sections": "awọn apakan {{count}}",
+      "noSections": "Ko si awọn apakan ninu ẹka yii",
+      "frontMatterDesc": "Ojú-ìwé àkọ́kọ́, ẹ́tọ́ onkọ̀wé, ìyàsọ́tọ́, ìṣáájú-ọ̀rọ̀, tábìlì àwọn nǹkan inú",
+      "mainMatterDesc": "Àwọn orí, àkóónú pàtàkì, ohun èlò pàtàkì",
+      "backMatterDesc": "Ìparí, ìparí-ọ̀rọ̀, àfikún, àtúmọ̀-ọ̀rọ̀, àtọ́ka, àwọn ìtọ́kasí"
+    },
+    "actions": {
+      "cancel": "FAGILEE",
+      "back": "Pada",
+      "next": "Itẹle",
+      "import": "Gbe Iwe",
+      "retry": "Gbiyanju Lẹẹkansi",
+      "selectFile": "Yan Faili"
+    },
+    "import": {
+      "title": "Gbigbe Wọle Ti Pari",
+      "success": "Iwe rẹ ti gbe wọle ni aṣeyọri!",
+      "creating": "Ṣiṣẹda eto iwe...",
+      "processing": "Ṣiṣe akoonu...",
+      "finalizing": "Ipari gbigbe wọle..."
+    },
+    "messages": {
+      "importTip": "📝 Imọran Gbigbe Wọle: Ti awọn iwe Word rẹ ba ni akoonu alapọpọ (awọn akọle, tabili akoonu, alaye onkọwe, ati bẹbẹ lọ), BookBuilder le ṣẹda awọn apakan afikun. Lẹhin gbigbe wọle, o le rọrun paarẹ awọn apakan ti o ko fẹ ki o si gbe akoonu laarin Oro Iwaju, Oro Aarin, ati Oro Ẹhin bi o ṣe nilo.",
+      "systemPages": "Oju-iwe Akọle ati Ẹtọ Onkọwe ni a ṣe laifọwọyi - eyikeyi oju-iwe akọle/ẹtọ onkọwe ti a gbe wọle ni a fọ.",
+      "languageNote": "Awọn iwe yoo pin nipa lilo awọn ilana ede {{language}}."
+    },
+    "validation": {
+      "noFile": "Jọwọ yan faili ZIP lati gbe soke.",
+      "invalidFile": "Jọwọ yan faili ZIP to dara.",
+      "fileTooLarge": "Faili tobi ju. Iwọn to ga julọ ni 50MB.",
+      "noDocuments": "Ko si awọn iwe Word ti a ri ninu faili ZIP.",
+      "processingFailed": "Kuna lati ṣe awọn iwe. Jọwọ ṣayẹwo ọna faili."
+    },
+    "detectedBookStructure": "📚 Eto Iwe Ti A Ri",
+    "dragToReorder": "Fa awọn apakan lati tun ṣe ni inu awọn ẹka tabi lo \"GBE\" dropdown lati yi awọn apakan pada laarin Oro Iwaju/Aarin/Ẹhin",
+    "bookMetadata": "Metadata Iwe:"
   }
 }

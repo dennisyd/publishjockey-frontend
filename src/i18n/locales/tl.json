@@ -1,0 +1,130 @@
+{
+  "common": {
+    "loading": "Naglo-load...",
+    "error": "Error",
+    "success": "Tagumpay",
+    "cancel": "Kanselahin",
+    "save": "I-save",
+    "delete": "Tanggalin",
+    "edit": "I-edit",
+    "add": "Idagdag",
+    "close": "Isara",
+    "back": "Bumalik",
+    "next": "Susunod",
+    "yes": "Oo",
+    "no": "Hindi"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "settings": "Settings",
+    "logout": "Logout",
+    "login": "Login",
+    "register": "Register"
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "createNewBook": "Create New Book",
+    "recentProjects": "Recent Projects",
+    "noProjects": "You have no projects",
+    "startWriting": "Start Writing"
+  },
+  "bookStructure": {
+    "frontMatter": "Front Matter",
+    "mainMatter": "Main Matter",
+    "backMatter": "Back Matter",
+    "chapter": "Chapter",
+    "section": "Section",
+    "title": "Title",
+    "content": "Content"
+  },
+  "export": {
+    "exportBook": "Export Book",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Language",
+    "font": "Font",
+    "includeToc": "Include Table of Contents",
+    "export": "Export",
+    "tableOfContents": "Table of Contents"
+  },
+  "settings": {
+    "language": "Language",
+    "theme": "Theme",
+    "notifications": "Notifications",
+    "account": "Account",
+    "saveSettings": "Save Settings"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "I-upload ang ZIP",
+      "review": "Suriin ang Klasipikasyon",
+      "import": "I-import ang Libro"
+    },
+    "upload": {
+      "title": "I-upload ang Inyong mga Dokumento",
+      "dragDrop": "I-drag at i-drop ang ZIP file dito",
+      "orClick": "o mag-click para mag-browse ng mga file",
+      "chooseFile": "PUMILI NG FILE",
+      "supportedFormats": "Suportado: ZIP files na naglalaman ng Word documents (.docx)",
+      "processing": "Pinoproseso ang ZIP file...",
+      "extracting": "Kinukuha ang mga dokumento...",
+      "analyzing": "Sinusuri ang nilalaman..."
+    },
+    "classification": {
+      "title": "Suriin ang Pagkakakategorya ng Dokumento",
+      "subtitle": "I-drag ang mga seksyon sa pagitan ng mga kategorya upang ayusin ang istraktura ng inyong libro",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} разделов",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Pahina ng pamagat, karapatan sa pagmamay-ari, pagkakahandog, paunang salita, talaan ng nilalaman",
+      "mainMatterDesc": "Mga kabanata, pangunahing nilalaman, pangunahing materyal",
+      "backMatterDesc": "Konklusyon, epilogo, apendiks, talasalitaan, indeks, mga sanggunian"
+    },
+    "actions": {
+      "cancel": "KANSELAHIN",
+      "back": "Bumalik",
+      "next": "Susunod",
+      "import": "I-import ang Libro",
+      "retry": "Subukan Muli",
+      "selectFile": "Pumili ng File"
+    },
+    "import": {
+      "title": "Tapos na ang Pag-import",
+      "success": "Matagumpay na na-import ang inyong libro!",
+      "creating": "Ginagawa ang istraktura ng libro...",
+      "processing": "Pinoproseso ang nilalaman...",
+      "finalizing": "Tinatapusin ang pag-import..."
+    },
+    "messages": {
+      "importTip": "📝 Tip sa Pag-import: Kung ang inyong mga Word document ay may halo-halong nilalaman (mga pamagat, talaan ng nilalaman, impormasyon ng may-akda, atbp.), maaaring gumawa ang BookBuilder ng mga karagdagang seksyon. Pagkatapos ng pag-import, madali ninyong matanggal ang mga hindi gustong seksyon at ilipat ang nilalaman sa pagitan ng Unang Bahagi, Pangunahing Bahagi, at Huling Bahagi kung kinakailangan.",
+      "systemPages": "Ang Pahina ng Pamagat at Copyright ay awtomatikong ginagawa - anumang na-import na pahina ng pamagat/copyright ay nilaktawan.",
+      "languageNote": "Ang mga dokumento ay ikakategorya gamit ang mga pattern ng wikang {{language}}.",
+      "noContent": "Walang nakitang mga seksyon ng nilalaman - pakisuri ang inyong ZIP file.",
+      "duplicateSections": "Nakita ang mga umuulit na pangalan ng seksyon: {{sections}}",
+      "processingError": "May error sa pagproseso ng ZIP file. Pakisuri ang format ng file at subukan muli.",
+      "emptyZip": "Ang ZIP file ay mukhang walang laman o walang suportadong mga dokumento.",
+      "invalidFormat": "Hindi wastong format ng file. Paki-upload ang ZIP file na may mga Word document."
+    },
+    "validation": {
+      "noFile": "Pakipili ang ZIP file na i-upload.",
+      "invalidFile": "Pakipili ang wastong ZIP file.",
+      "fileTooLarge": "Ang file ay masyadong malaki",
+      "noDocuments": "Walang nahanap na mga Word document",
+      "processingFailed": "Nabigo ang pagproseso ng mga dokumento",
+      "selectFile": "Pakipili ang ZIP file",
+      "selectValidFile": "Pakipili ang wastong ZIP file",
+      "maxSize": "Ang pinakamataas na laki ay 50MB"
+    },
+    "detectedBookStructure": "📚 Nakitang Istraktura ng Libro",
+    "dragToReorder": "I-drag ang mga seksyon para sa muling pag-aayos sa loob ng mga kategorya o gamitin ang \"ILIPAT\" dropdown para baguhin ang mga seksyon sa pagitan ng Unang/Pangunahing/Huling Bahagi",
+    "bookMetadata": "Metadata ng Libro:"
+  }
+}

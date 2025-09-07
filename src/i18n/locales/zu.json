@@ -56,5 +56,67 @@
     "notifications": "Izaziso",
     "account": "I-akhawunti",
     "saveSettings": "Londoloza izilungiselelo"
+  },
+  "bookBuilder": {
+    "title": "Ukungenisa kwe-BookBuilder",
+    "steps": {
+      "upload": "Layisha i-ZIP",
+      "review": "Buyekeza Ukuhlukanisa",
+      "import": "Ngenisa Incwadi"
+    },
+    "upload": {
+      "title": "Layisha Amadokhumenti Akho",
+      "dragDrop": "Hudula bese ushiya ifayela lakho le-ZIP lapha",
+      "orClick": "noma chofoza ukuze ubheke amafayela",
+      "chooseFile": "KHETHA IFAYELA",
+      "supportedFormats": "Kusekelwa: Amafayela e-ZIP anama-dokhumenti e-Word (.docx)",
+      "processing": "Kucutshungulwa ifayela le-ZIP...",
+      "extracting": "Kukhishwa amadokhumenti...",
+      "analyzing": "Kuhlaziwa okuqukethwe..."
+    },
+    "classification": {
+      "title": "Buyekeza Ukuhlukaniswa Kwamadokhumenti",
+      "subtitle": "Hudulela izingxenye phakathi kwezigaba ukuze uhlele isakhiwo sencwadi yakho",
+      "frontMatter": "Ingxenye Yangaphambili",
+      "mainMatter": "Ingxenye Eyinhloko",
+      "backMatter": "Ingxenye Yangemuva",
+      "confidence": "Ukuzethemba",
+      "move": "SUSA",
+      "sections": "izingxenye {{count}}",
+      "noSections": "Azikho izingxenye kulesi sigaba",
+      "frontMatterDesc": "Ikhasi lesihloko, ilungelo lokushicilela, ukuzinikela, isandulelo, ithebula lokuqukethwe",
+      "mainMatterDesc": "Izahluko, okuqukethwe okuyinhloko, izinto eziyisisekelo",
+      "backMatterDesc": "Isiphetho, isiphetho, isithasiselo, uhlu lwamagama, inkomba, izinkomba"
+    },
+    "actions": {
+      "cancel": "KHANSELA",
+      "back": "Emuva",
+      "next": "Okulandelayo",
+      "import": "Ngenisa Incwadi",
+      "retry": "Zama Futhi",
+      "selectFile": "Khetha Ifayela"
+    },
+    "import": {
+      "title": "Ukungenisa Kuqediwe",
+      "success": "Incwadi yakho ingeniswe ngempumelelo!",
+      "creating": "Yakha isakhiwo sencwadi...",
+      "processing": "Icubungula okuqukethwe...",
+      "finalizing": "Iqedela ukungenisa..."
+    },
+    "messages": {
+      "importTip": "📝 Iseluleko Sokungenisa: Uma amadokhumenti akho e-Word aqukethe okuqukethwe okuxubile (izihloko, ithebula lokuqukethwe, ulwazi lombhali, njll.), i-BookBuilder ingase yakhe izingxenye ezengeziwe. Ngemva kokungenisa, ungasusa kalula izingxenye ongazifuni futhi ususe okuqukethwe phakathi kwe-Front Matter, Main Matter, ne-Back Matter njengoba kudingeka.",
+      "systemPages": "Ikhasi Lesihloko ne-Copyright kuyakhiwa ngokuzenzakalela - noma yiliphi ikhasi lesihloko/copyright elingenisiwe liyeqiwe.",
+      "languageNote": "Amadokhumenti azohlukaniswa kusetshenziswa amaphethini olimi {{language}}."
+    },
+    "validation": {
+      "noFile": "Sicela ukhethe ifayela le-ZIP ukuze ulilayishe.",
+      "invalidFile": "Sicela ukhethe ifayela le-ZIP elivumelekile.",
+      "fileTooLarge": "Ifayela likhulu kakhulu. Usayizi omkhulu kakhulu ngu-50MB.",
+      "noDocuments": "Awatholakali amadokhumenti e-Word efayeleni le-ZIP.",
+      "processingFailed": "Kuhlulekile ukucubungula amadokhumenti. Sicela uhlole ifomethi yefayela."
+    },
+    "detectedBookStructure": "📚 Isakhiwo Sencwadi Esitholiwe",
+    "dragToReorder": "Hudulela izingxenye ukuze uzihlelele kabusha ngaphakathi kwezigaba noma sebenzisa i-dropdown ethi \"SUSA\" ukuze ushintshe izingxenye phakathi kwe-Front/Main/Back Matter",
+    "bookMetadata": "I-Metadata Yencwadi:"
   }
 }

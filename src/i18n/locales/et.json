@@ -56,5 +56,75 @@
     "notifications": "Teated",
     "account": "Konto",
     "saveSettings": "Salvesta seaded"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Laadi üles ZIP",
+      "review": "Vaata üle klassifikatsioon",
+      "import": "Impordi raamat"
+    },
+    "upload": {
+      "title": "Laadige üles oma dokumendid",
+      "dragDrop": "Lohistage ZIP fail siia",
+      "orClick": "või klõpsake failide sirvimiseks",
+      "chooseFile": "VALI FAIL",
+      "supportedFormats": "Toetatud: ZIP failid, mis sisaldavad Word dokumente (.docx)",
+      "processing": "ZIP faili töötlemine...",
+      "extracting": "Dokumentide väljavõtmine...",
+      "analyzing": "Sisu analüüsimine..."
+    },
+    "actions": {
+      "cancel": "TÜHISTA",
+      "back": "Tagasi",
+      "next": "Järgmine",
+      "import": "Impordi raamat",
+      "retry": "Proovi uuesti",
+      "selectFile": "Vali fail"
+    },
+    "import": {
+      "title": "Import Lõpetatud",
+      "success": "Teie raamat on edukalt imporditud!",
+      "creating": "Raamatu struktuuri loomine...",
+      "processing": "Sisu töötlemine...",
+      "finalizing": "Importimise lõpetamine..."
+    },
+    "messages": {
+      "importTip": "📝 Importimise Nõuanne: Kui teie Word dokumendid sisaldavad segasisu (pealkirjad, sisukord, autori info jne), võib BookBuilder luua lisasektsioone. Pärast importimist saate kergesti kustutada soovimatud sektsioonid ja liigutada sisu Eelaine, Põhiaine ja Järelaine vahel vastavalt vajadusele.",
+      "systemPages": "Tiitelleht ja Autoriõigused genereeritakse automaatselt - kõik imporditud tiitel/autoriõiguste leheküljed jäeti vahele.",
+      "languageNote": "Dokumente klassifitseeritakse kasutades {{language}} keele mustreid.",
+      "noContent": "Sisu sektsioone ei tuvastatud - palun kontrollige oma ZIP faili.",
+      "duplicateSections": "Tuvastati duplikaatsed sektsioonide nimed: {{sections}}",
+      "processingError": "Viga ZIP faili töötlemisel. Palun kontrollige faili vormingut ja proovige uuesti.",
+      "emptyZip": "ZIP fail tundub tühi või ei sisalda toetatud dokumente.",
+      "invalidFormat": "Kehtetu faili vorming. Palun laadige üles ZIP fail, mis sisaldab Word dokumente."
+    },
+    "classification": {
+      "title": "Dokumentide Klassifikatsiooni Ülevaade",
+      "subtitle": "Lohistage sektsioone kategooriate vahel, et korraldada oma raamatu struktuuri",
+      "frontMatter": "Eesosa",
+      "mainMatter": "Põhitekst",
+      "backMatter": "Tagaosa",
+      "confidence": "Usaldus",
+      "move": "LIIGUTA",
+      "sections": "{{count}} jaotist",
+      "noSections": "Selles kategoorias pole jaotisi",
+      "frontMatterDesc": "Tiitelleht, autoriõigus, pühendus, eessõna, sisukord",
+      "mainMatterDesc": "Peatükid, põhisisu, põhimaterjal",
+      "backMatterDesc": "Järeldus, epiloog, lisa, sõnastik, register, viited"
+    },
+    "validation": {
+      "noFile": "Palun valige üleslaadimiseks ZIP fail.",
+      "invalidFile": "Palun valige kehtiv ZIP fail.",
+      "fileTooLarge": "Fail on liiga suur",
+      "noDocuments": "Word dokumente ei leitud",
+      "processingFailed": "Dokumentide töötlemine ebaõnnestus",
+      "selectFile": "Palun valige ZIP fail",
+      "selectValidFile": "Palun valige kehtiv ZIP fail",
+      "maxSize": "Maksimaalne suurus on 50MB"
+    },
+    "detectedBookStructure": "📚 Tuvastatud Raamatu Struktuur",
+    "dragToReorder": "Lohistage sektsioone järjestuse muutmiseks kategooriate sees või kasutage \"LIIGUTA\" rippmenüüd sektsioonide muutmiseks Eelaine/Põhiaine/Järelaine vahel",
+    "bookMetadata": "Raamatu Metaandmed:"
   }
 }

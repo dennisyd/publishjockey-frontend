@@ -56,5 +56,70 @@
     "notifications": "Pranešimai",
     "account": "Paskyra",
     "saveSettings": "Išsaugoti nustatymus"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Importas",
+    "steps": {
+      "upload": "Įkelti ZIP",
+      "review": "Peržiūrėti klasifikaciją",
+      "import": "Importuoti knygą"
+    },
+    "upload": {
+      "title": "Įkelkite savo dokumentus",
+      "dragDrop": "Nuvilkite ZIP failą čia",
+      "orClick": "arba spustelėkite failų naršymui",
+      "chooseFile": "PASIRINKTI FAILĄ",
+      "supportedFormats": "Palaikoma: ZIP failai, kuriuose yra Word dokumentų (.docx)",
+      "processing": "Apdorojamas ZIP failas...",
+      "extracting": "Išskleidžiami dokumentai...",
+      "analyzing": "Analizuojamas turinys..."
+    },
+    "actions": {
+      "cancel": "ATŠAUKTI",
+      "back": "Atgal",
+      "next": "Kitas",
+      "import": "Importuoti knygą",
+      "retry": "Bandyti dar kartą",
+      "selectFile": "Pasirinkti failą"
+    },
+    "import": {
+      "title": "Importas baigtas",
+      "success": "Jūsų knyga sėkmingai importuota!",
+      "creating": "Kuriama knygos struktūra...",
+      "processing": "Apdorojamas turinys...",
+      "finalizing": "Baigiamas importas..."
+    },
+    "messages": {
+      "importTip": "📝 Importo patarimas: Jei jūsų Word dokumentai turi mišrų turinį (pavadinimus, turinių sąrašą, autoriaus informaciją ir kt.), BookBuilder gali sukurti papildomus skyrius. Po importo galite lengvai ištrinti nepageidaujamus skyrius ir perkelti turinį tarp Priekinės dalies, Pagrindinio teksto ir Galinės dalies pagal poreikį.",
+      "systemPages": "Titulinis puslapis ir Autorių teisės generuojami automatiškai - visi importuoti titulinio puslapio/autorių teisių puslapiai buvo praleisti.",
+      "languageNote": "Dokumentai bus klasifikuojami naudojant {{language}} kalbos šablonus."
+    },
+    "classification": {
+      "title": "Peržiūrėti dokumentų klasifikaciją",
+      "subtitle": "Vilkite skyrius tarp kategorijų, kad sutvarkytumėte savo knygos struktūrą",
+      "frontMatter": "Priekinė dalis",
+      "mainMatter": "Pagrindinis tekstas",
+      "backMatter": "Galinė dalis",
+      "confidence": "Pasitikėjimas",
+      "move": "PERKELTI",
+      "sections": "{{count}} skyriai",
+      "noSections": "Šioje kategorijoje nėra skyrių",
+      "frontMatterDesc": "Titulinis puslapis, autorių teisės, dedikacija, pratarmė, turinys",
+      "mainMatterDesc": "Skyriai, pagrindinis turinys, pagrindinė medžiaga",
+      "backMatterDesc": "Išvada, epilogas, priedas, žodynas, rodyklė, nuorodos"
+    },
+    "validation": {
+      "noFile": "Prašome pasirinkti ZIP failą įkėlimui.",
+      "invalidFile": "Prašome pasirinkti galiojantį ZIP failą.",
+      "fileTooLarge": "Failas per didelis",
+      "noDocuments": "Word dokumentų nerasta",
+      "processingFailed": "Dokumentų apdorojimas nepavyko",
+      "selectFile": "Prašome pasirinkti ZIP failą",
+      "selectValidFile": "Prašome pasirinkti galiojantį ZIP failą",
+      "maxSize": "Maksimalus dydis yra 50MB"
+    },
+    "detectedBookStructure": "📚 Aptikta knygos struktūra",
+    "dragToReorder": "Vilkite skyrius, kad pertvarkyti kategorijose, arba naudokite \"PERKELTI\" išskleidžiamąjį meniu, kad pakeisti skyrius tarp Priekinės dalies/Pagrindinio teksto/Galinės dalies",
+    "bookMetadata": "Knygos metaduomenys:"
   }
 }

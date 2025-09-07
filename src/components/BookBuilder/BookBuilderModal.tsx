@@ -73,7 +73,7 @@ interface ClassificationResult {
   };
 }
 
-const steps = ['Upload ZIP', 'Review Classification', 'Import Book'];
+// Steps will be translated in the component
 
 // Sortable item component
 interface SortableItemProps {
@@ -81,9 +81,10 @@ interface SortableItemProps {
   doc: any;
   matterType: 'front' | 'main' | 'back';
   onMoveToMatter: (docId: string, fromMatter: string, toMatter: string) => void;
+  t: (key: string) => string;
 }
 
-const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMoveToMatter }) => {
+const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMoveToMatter, t }) => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   
@@ -117,9 +118,9 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
 
   const getMatterOptions = () => {
     const options = [];
-    if (matterType !== 'front') options.push({ value: 'front', label: '📑 Front Matter', description: 'Title page, copyright, preface, etc.' });
-    if (matterType !== 'main') options.push({ value: 'main', label: '📚 Main Matter', description: 'Chapters and main content' });
-    if (matterType !== 'back') options.push({ value: 'back', label: '📝 Back Matter', description: 'Conclusion, appendix, index, etc.' });
+    if (matterType !== 'front') options.push({ value: 'front', label: `📑 ${t('bookBuilder.classification.frontMatter')}`, description: t('bookBuilder.classification.frontMatterDesc') });
+    if (matterType !== 'main') options.push({ value: 'main', label: `📚 ${t('bookBuilder.classification.mainMatter')}`, description: t('bookBuilder.classification.mainMatterDesc') });
+    if (matterType !== 'back') options.push({ value: 'back', label: `📝 ${t('bookBuilder.classification.backMatter')}`, description: t('bookBuilder.classification.backMatterDesc') });
     return options;
   };
 
@@ -143,7 +144,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
       </ListItemIcon>
       <ListItemText 
         primary={doc.title || doc.filename}
-        secondary={`Confidence: ${(doc.confidence * 100).toFixed(0)}%`}
+        secondary={`${t('bookBuilder.classification.confidence')}: ${(doc.confidence * 100).toFixed(0)}%`}
       />
       <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
         <Chip 
@@ -158,7 +159,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
           endIcon={<ArrowDropDownIcon />}
           sx={{ minWidth: 'auto', px: 1 }}
         >
-          MOVE
+          {t('bookBuilder.classification.move')}
         </Button>
         <Menu
           anchorEl={anchorEl}
@@ -196,7 +197,7 @@ const SortableItem: React.FC<SortableItemProps> = ({ id, doc, matterType, onMove
 };
 
 const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onImport }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [activeStep, setActiveStep] = useState(0);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -425,13 +426,13 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
         <input {...getInputProps()} />
         <UploadIcon sx={{ fontSize: 64, color: 'primary.main', mb: 2 }} />
         <Typography variant="h6" gutterBottom>
-          {isDragActive ? 'Drop your ZIP file here' : 'Drag & drop your ZIP file here'}
+          {isDragActive ? t('bookBuilder.upload.dragDrop') : t('bookBuilder.upload.dragDrop')}
         </Typography>
         <Typography variant="body2" color="text.secondary" gutterBottom>
-          or click to browse files
+          {t('bookBuilder.upload.orClick')}
         </Typography>
         <Button variant="outlined" sx={{ mt: 2 }}>
-          Choose File
+          {t('bookBuilder.upload.chooseFile')}
         </Button>
       </Box>
 
@@ -465,21 +466,20 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
           {/* Instructions */}
           <Alert severity="info" sx={{ mb: 3 }}>
             <Typography variant="subtitle2" gutterBottom>
-              📋 Review & Reorder Your Sections
+              {t('bookBuilder.classification.title')}
             </Typography>
             <Typography variant="body2">
-              Our AI has intelligently classified your documents with confidence percentages. 
-              <strong> Please review and move any documents to their correct sections before building your book.</strong>
+              {t('bookBuilder.classification.subtitle')}
             </Typography>
             <Box sx={{ mt: 1 }}>
               <Typography variant="caption" display="block">
-                • <strong>Front Matter:</strong> Title page, copyright, dedication, preface, table of contents
+                • <strong>{t('bookBuilder.classification.frontMatter')}:</strong> {t('bookBuilder.classification.frontMatterDesc')}
               </Typography>
               <Typography variant="caption" display="block">
-                • <strong>Main Matter:</strong> Chapters, main content, core material
+                • <strong>{t('bookBuilder.classification.mainMatter')}:</strong> {t('bookBuilder.classification.mainMatterDesc')}
               </Typography>
               <Typography variant="caption" display="block">
-                • <strong>Back Matter:</strong> Conclusion, epilogue, appendix, glossary, index, references
+                • <strong>{t('bookBuilder.classification.backMatter')}:</strong> {t('bookBuilder.classification.backMatterDesc')}
               </Typography>
             </Box>
           </Alert>
@@ -487,27 +487,30 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
           {/* Essential Pages Notice */}
           <Alert severity="success" sx={{ mb: 3 }}>
             <Typography variant="subtitle2" gutterBottom>
-              ✨ Essential Pages Auto-Generated
+              ✨ {t('bookBuilder.messages.systemPages')}
             </Typography>
             <Typography variant="body2">
-              <strong>Title Page</strong> and <strong>Copyright</strong> pages will be automatically added as the first two sections 
-              and localized to your selected language ({classification?.metadata?.language || 'English'}).
+              {t('bookBuilder.messages.languageNote', { language: classification?.metadata?.language || 'English' })}
             </Typography>
-            <Typography variant="body2" sx={{ mt: 1 }}>
-              💡 <strong>Tip:</strong> After importing, update your project metadata (title, author, description) to customize these pages.
+          </Alert>
+
+          {/* Import Tip */}
+          <Alert severity="info" sx={{ mb: 3 }}>
+            <Typography variant="body2">
+              {t('bookBuilder.messages.importTip')}
             </Typography>
           </Alert>
           
           <Typography variant="h6" gutterBottom>
-            📚 Detected Book Structure
+            {t('bookBuilder.detectedBookStructure')}
           </Typography>
           <Typography variant="body2" color="text.secondary" gutterBottom>
-            Drag sections to reorder within categories or use "MOVE" dropdown to change sections between Front/Main/Back Matter
+            {t('bookBuilder.dragToReorder')}
           </Typography>
         
         <Box sx={{ mb: 3 }}>
           <Typography variant="subtitle2" gutterBottom>
-            Book Metadata:
+            {t('bookBuilder.bookMetadata')}
           </Typography>
           <Chip label={`Title: ${classification.metadata.title}`} sx={{ mr: 1, mb: 1 }} />
           <Chip label={`Author: ${classification.metadata.author}`} sx={{ mr: 1, mb: 1 }} />
@@ -533,6 +536,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
                     doc={doc}
                     matterType="front"
                     onMoveToMatter={handleMoveToMatter}
+                    t={t}
                   />
                 ))}
               </List>
@@ -558,6 +562,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
                     doc={doc}
                     matterType="main"
                     onMoveToMatter={handleMoveToMatter}
+                    t={t}
                   />
                 ))}
               </List>
@@ -583,6 +588,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
                     doc={doc}
                     matterType="back"
                     onMoveToMatter={handleMoveToMatter}
+                    t={t}
                   />
                 ))}
               </List>
@@ -627,14 +633,18 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
     >
       <DialogTitle>
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-          📚 <Typography variant="h6">BookBuilder Import</Typography>
+          📚 <Typography variant="h6">{t('bookBuilder.title')}</Typography>
         </Box>
       </DialogTitle>
 
       <DialogContent>
         <Stepper activeStep={activeStep} sx={{ mb: 4 }}>
-          {steps.map((label) => (
-            <Step key={label}>
+          {[
+            t('bookBuilder.steps.upload'),
+            t('bookBuilder.steps.review'),
+            t('bookBuilder.steps.import')
+          ].map((label, index) => (
+            <Step key={index}>
               <StepLabel>{label}</StepLabel>
             </Step>
           ))}
@@ -646,13 +656,13 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
 
       <DialogActions>
         <Button onClick={handleClose}>
-          Cancel
+          {t('bookBuilder.actions.cancel')}
         </Button>
         
         {activeStep === 1 && (
           <>
             <Button onClick={() => setActiveStep(0)}>
-              Back
+              {t('bookBuilder.actions.back')}
             </Button>
             <Button 
               variant="contained" 
@@ -660,7 +670,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
               disabled={!validation?.isValid}
               startIcon={<CheckIcon />}
             >
-              Import Book
+              {t('bookBuilder.actions.import')}
             </Button>
           </>
         )}

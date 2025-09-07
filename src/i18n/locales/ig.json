@@ -56,5 +56,75 @@
     "notifications": "Ọkwa",
     "account": "Akaụntụ",
     "saveSettings": "Chekwaa ntọala"
+  },
+  "bookBuilder": {
+    "title": "Mbubata BookBuilder",
+    "steps": {
+      "upload": "Bulite ZIP",
+      "review": "Lelee nhazi",
+      "import": "Bubata akwụkwọ"
+    },
+    "upload": {
+      "title": "Bulite akwụkwọ gị",
+      "dragDrop": "Dọrọ ma tụba faịlụ ZIP ebe a",
+      "orClick": "ma ọ bụ pịa ka ị chọgharịa faịlụ",
+      "chooseFile": "HỌRỌ FAỊLỤ",
+      "supportedFormats": "Nkwado: Faịlụ ZIP nwere akwụkwọ Word (.docx)",
+      "processing": "Na-edozi faịlụ ZIP...",
+      "extracting": "Na-ewepụta akwụkwọ...",
+      "analyzing": "Na-enyocha ọdịnaya..."
+    },
+    "actions": {
+      "cancel": "KAGBUO",
+      "back": "Laghachi azụ",
+      "next": "Ọzọ",
+      "import": "Bubata akwụkwọ",
+      "retry": "Nwaa ọzọ",
+      "selectFile": "Họrọ faịlụ"
+    },
+    "import": {
+      "title": "Mbubata Zuru Oke",
+      "success": "Akwụkwọ gị abatala nke ọma!",
+      "creating": "Na-emepụta usoro akwụkwọ...",
+      "processing": "Na-ahazi ọdịnaya...",
+      "finalizing": "Na-emecha mbubata..."
+    },
+    "messages": {
+      "importTip": "📝 Ndụmọdụ Mbubata: Ọ bụrụ na akwụkwọ Word gị nwere ọdịnaya dị iche iche (isiokwu, tebụl nke ọdịnaya, ozi onye edemede, wdg), BookBuilder nwere ike mepụta akụkụ ndị ọzọ. Mgbe mbubata gasịrị, ị nwere ike ihichapụ akụkụ ndị na-achọghị na-adịghị mfe ma bufee ọdịnaya n'etiti Ihe Mbụ, Ihe Isi, na Ihe Ikpeazụ dị ka ọ dị mkpa.",
+      "systemPages": "Peeji Isiokwu na Copyright na-emepụta onwe ha - peeji isiokwu/copyright ọ bụla ebubatara ka ahapụrụ.",
+      "languageNote": "A ga-ekewa akwụkwọ ndị ahụ site na iji usoro asụsụ {{language}}.",
+      "noContent": "Achọpụtaghị akụkụ ọdịnaya - biko lelee faịlụ ZIP gị.",
+      "duplicateSections": "Achọpụtara aha akụkụ abụọ: {{sections}}",
+      "processingError": "Njehie na-ahazi faịlụ ZIP. Biko lelee usoro faịlụ ma nwaa ọzọ.",
+      "emptyZip": "Faịlụ ZIP yiri ka ọ tọgbọrọ chakoo ma ọ bụ enweghị akwụkwọ ndị akwadoro.",
+      "invalidFormat": "Usoro faịlụ na-adịghị mma. Biko bulite faịlụ ZIP nwere akwụkwọ Word."
+    },
+    "classification": {
+      "title": "Nyochaa Nkewa Akwụkwọ",
+      "subtitle": "Dọrọ akụkụ n'etiti ụdị iji hazie usoro akwụkwọ gị",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} разделов",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Peeji aha, ikike nweghachi, nraranye, okwu mmalite, ndepụta ihe dị n'ime",
+      "mainMatterDesc": "Isi akwụkwọ, isi ihe, ihe ndị bụ isi",
+      "backMatterDesc": "Nkwubi okwu, okwu ikpeazụ, mgbakwunye, nkọwa okwu, ndepụta, ntụaka"
+    },
+    "validation": {
+      "noFile": "Biko họrọ faịlụ ZIP ka ị bulite.",
+      "invalidFile": "Biko họrọ faịlụ ZIP ziri ezi.",
+      "fileTooLarge": "Faịlụ buru ibu",
+      "noDocuments": "Achọtaghị akwụkwọ Word",
+      "processingFailed": "Nhazi akwụkwọ dara ada",
+      "selectFile": "Biko họrọ faịlụ ZIP",
+      "selectValidFile": "Biko họrọ faịlụ ZIP ziri ezi",
+      "maxSize": "Nha kachasị bụ 50MB"
+    },
+    "detectedBookStructure": "📚 Usoro Akwụkwọ Achọpụtara",
+    "dragToReorder": "Dọrọ akụkụ iji hazie ọzọ n'ime ụdị ma ọ bụ jiri \"BUFEE\" dropdown gbanwee akụkụ n'etiti Ihe Mbụ/Isi/Ikpeazụ",
+    "bookMetadata": "Metadata Akwụkwọ:"
   }
 }

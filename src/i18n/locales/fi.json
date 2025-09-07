@@ -56,5 +56,72 @@
     "notifications": "Ilmoitukset",
     "account": "Tili",
     "saveSettings": "Tallenna asetukset"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Tuonti",
+    "steps": {
+      "upload": "Lataa ZIP",
+      "review": "Tarkista Luokittelu",
+      "import": "Tuo Kirja"
+    },
+    "upload": {
+      "title": "Lataa Dokumenttisi",
+      "dragDrop": "Vedä ja pudota ZIP-tiedosto tähän",
+      "orClick": "tai klikkaa selataksesi tiedostoja",
+      "chooseFile": "VALITSE TIEDOSTO",
+      "supportedFormats": "Tuettu: ZIP-tiedostot, jotka sisältävät Word-dokumentteja (.docx)",
+      "processing": "Käsitellään ZIP-tiedostoa...",
+      "extracting": "Puretaan dokumentteja...",
+      "analyzing": "Analysoidaan sisältöä..."
+    },
+    "classification": {
+      "title": "Tarkista asiakirjojen luokittelu",
+      "subtitle": "Vedä osioita kategorioiden välillä järjestääksesi kirjasi rakenteen",
+      "frontMatter": "Alkuosa",
+      "mainMatter": "Pääosa",
+      "backMatter": "Loppuosa",
+      "confidence": "Luottamus",
+      "move": "SIIRRÄ",
+      "noSections": "Tässä kategoriassa ei ole osioita",
+      "frontMatterDesc": "Otsikkosivu, tekijänoikeudet, omistus, esipuhe, sisällysluettelo",
+      "mainMatterDesc": "Luvut, pääsisältö, ydinsisältö",
+      "backMatterDesc": "Johtopäätös, epilogi, liite, sanasto, hakemisto, viitteet"
+    },
+    "import": {
+      "title": "Tuonti valmis",
+      "success": "Kirjasi on tuotu onnistuneesti!",
+      "creating": "Luodaan kirjan rakennetta...",
+      "processing": "Käsitellään sisältöä...",
+      "finalizing": "Viimeistellään tuontia..."
+    },
+    "messages": {
+      "importTip": "📝 Tuontivinkki: Jos Word-asiakirjasi sisältävät sekoitettua sisältöä (otsikot, sisällysluettelo, tekijätiedot jne.), BookBuilder saattaa luoda ylimääräisiä osioita. Tuonnin jälkeen voit helposti poistaa ei-toivotut osiot ja siirtää sisältöä Alkuosan, Pääosan ja Loppuosan välillä tarpeen mukaan.",
+      "systemPages": "Otsikkosivu ja tekijänoikeudet luodaan automaattisesti - kaikki tuodut otsikko-/tekijänoikeussivut ohitettiin.",
+      "languageNote": "Asiakirjat luokitellaan käyttäen {{language}} kielimalleja.",
+      "noContent": "Sisältöosioita ei havaittu - tarkista ZIP-tiedostosi.",
+      "duplicateSections": "Päällekkäisiä osioiden nimiä havaittu: {{sections}}",
+      "processingError": "Virhe ZIP-tiedoston käsittelyssä. Tarkista tiedostomuoto ja yritä uudelleen.",
+      "emptyZip": "ZIP-tiedosto vaikuttaa tyhjältä tai ei sisällä tuettuja asiakirjoja.",
+      "invalidFormat": "Virheellinen tiedostomuoto. Lataa ZIP-tiedosto, joka sisältää Word-asiakirjoja."
+    },
+    "actions": {
+      "cancel": "PERUUTA",
+      "back": "Takaisin",
+      "next": "Seuraava",
+      "import": "Tuo Kirja",
+      "retry": "Yritä Uudelleen",
+      "selectFile": "Valitse Tiedosto"
+    },
+    "validation": {
+      "noFile": "Valitse ladattava ZIP-tiedosto.",
+      "invalidFile": "Valitse kelvollinen ZIP-tiedosto.",
+      "fileTooLarge": "Tiedosto on liian suuri. Enimmäiskoko on 50Mt.",
+      "noDocuments": "ZIP-tiedostosta ei löytynyt Word-asiakirjoja.",
+      "processingFailed": "Asiakirjojen käsittely epäonnistui. Tarkista tiedostomuoto."
+    },
+    "detectedBookStructure": "📚 Havaittu kirjan rakenne",
+    "dragToReorder": "Vedä osioita järjestääksesi ne uudelleen kategorioiden sisällä tai käytä \"SIIRRÄ\" pudotusvalikkoa vaihtaaksesi osioita Alkuosan/Pääosan/Loppuosan välillä",
+    "bookMetadata": "Kirjan metatiedot:",
+    "sections": "{{count}} osiota"
   }
 }

@@ -56,5 +56,75 @@
     "notifications": "Litsebiso",
     "account": "Akhaonto",
     "saveSettings": "Boloka litlhophiso"
+  },
+  "bookBuilder": {
+    "title": "Go tsenya BookBuilder",
+    "steps": {
+      "upload": "Go tsenya ZIP",
+      "review": "Go leba karolo",
+      "import": "Go tsenya buka"
+    },
+    "upload": {
+      "title": "Tsenya dikwalo tsa gago",
+      "dragDrop": "Gogela o behe faele ya ZIP mo",
+      "orClick": "kgotsa tobetsa go batla difaele",
+      "chooseFile": "TLHOPHA FAELE",
+      "supportedFormats": "E amogelwa: Difaele tsa ZIP tse di nang le dikwalo tsa Word (.docx)",
+      "processing": "Go dira ka faele ya ZIP...",
+      "extracting": "Go ntsha dikwalo...",
+      "analyzing": "Go sekaseka diteng..."
+    },
+    "actions": {
+      "cancel": "KHANSELA",
+      "back": "Morago",
+      "next": "E e latelang",
+      "import": "Tsenya buka",
+      "retry": "Leka gape",
+      "selectFile": "Tlhopha faele"
+    },
+    "import": {
+      "title": "Go tsenya go fedile",
+      "success": "Buka ya gago e tsentswe ka katlego!",
+      "creating": "Go dira popego ya buka...",
+      "processing": "Go baakanya diteng...",
+      "finalizing": "Go fedisa go tsenya..."
+    },
+    "messages": {
+      "importTip": "📝 Kaelo ya go Tsenya: Fa ditokomane tsa gago tsa Word di na le diteng tse di tswakaneng (melaetsa, tafole ya diteng, tshedimosetso ya mokwadi, jj.), BookBuilder e ka dira dikarolo tse dingwe. Morago ga go tsenya, o ka phimola dikarolo tse o sa di batleng ka bonolo le go fetisa diteng magareng ga Taba ya Pele, Taba e Kgolo, le Taba ya Bofelo jaaka go tlhokagala.",
+      "systemPages": "Tsebe ya Setlhogo le Ditshwanelo di dirwa ka go itiragalela - tsebe epe ya setlhogo/ditshwanelo e e tsentseng e ne ya tlogela.",
+      "languageNote": "Ditokomane di tla arolwa ka go dirisa mekgwa ya puo ya {{language}}.",
+      "noContent": "Ga go na dikarolo tsa diteng tse di bonweng - tsweetswee tlhola faele ya gago ya ZIP.",
+      "duplicateSections": "Maina a dikarolo a a tshwanang a bonwe: {{sections}}",
+      "processingError": "Phoso mo go baakanyang faele ya ZIP. Tsweetswee tlhola mokgwa wa faele o leke gape.",
+      "emptyZip": "Faele ya ZIP e bonala e se na sepe kgotsa ga e na ditokomane tse di tshegetsiwang.",
+      "invalidFormat": "Mokgwa wa faele o sa siame. Tsweetswee tsenya faele ya ZIP e e nang le ditokomane tsa Word."
+    },
+    "classification": {
+      "title": "Sekaseka Karolo ya Ditokomane",
+      "subtitle": "Gogela dikarolo magareng ga mefuta go rulaganya popego ya buka ya gago",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} разделов",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Tsebe ya setlhogo, ditshwanelo tsa mokwadi, tlhomamiso, mafoko a simololo, lenaane la diteng",
+      "mainMatterDesc": "Dikgaolo, diteng tse dikgolo, didirisiwa tse bohlokwa",
+      "backMatterDesc": "Phetho, mafoko a bofelo, tlatsetso, bukantswe ya mafoko, tshupiso, ditshupiso"
+    },
+    "validation": {
+      "noFile": "Tsweetswee tlhopha faele ya ZIP ya go laetsa.",
+      "invalidFile": "Tsweetswee tlhopha faele ya ZIP e e nepahetseng.",
+      "fileTooLarge": "Faele e kgolo thata",
+      "noDocuments": "Ga go na ditokomane tsa Word tse di bonweng",
+      "processingFailed": "Go baakanya ditokomane go paletse",
+      "selectFile": "Tsweetswee tlhopha faele ya ZIP",
+      "selectValidFile": "Tsweetswee tlhopha faele ya ZIP e e nepahetseng",
+      "maxSize": "Bogolo jo bogolo ke 50MB"
+    },
+    "detectedBookStructure": "📚 Popego ya Buka e e Bonweng",
+    "dragToReorder": "Gogela dikarolo go di rulaganya gape mo mefuteng kgotsa dirisa \"FETISA\" go fetola dikarolo magareng ga Taba ya Pele/Taba e Kgolo/Taba ya Bofelo",
+    "bookMetadata": "Tshedimosetso ya Buka:"
   }
 }

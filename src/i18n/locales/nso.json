@@ -1,0 +1,125 @@
+{
+  "common": {
+    "loading": "E a laetša...",
+    "error": "Phošo",
+    "success": "Katlego",
+    "cancel": "Khansela",
+    "save": "Boloka",
+    "delete": "Phumula",
+    "edit": "Rulaganya",
+    "add": "Oketša",
+    "close": "Tswalela",
+    "back": "Morago",
+    "next": "E latelago",
+    "yes": "Ee",
+    "no": "Aowa"
+  },
+  "navigation": {
+    "dashboard": "Boto ya taolo",
+    "projects": "Diprotšeke",
+    "settings": "Dipeakanyo",
+    "logout": "Tswa",
+    "login": "Tsena",
+    "register": "Ngwadišo"
+  },
+  "dashboard": {
+    "welcome": "O amogelwa",
+    "createNewBook": "Hlola puku ye mpsha",
+    "recentProjects": "Diprotšeke tša moragorago",
+    "noProjects": "Ga o na diprotšeke",
+    "startWriting": "Thoma go ngwala"
+  },
+  "bookStructure": {
+    "frontMatter": "Karolo ya pele",
+    "mainMatter": "Karolo ye kgolo",
+    "backMatter": "Karolo ya mafelelo",
+    "chapter": "Kgaolo",
+    "section": "Karolo",
+    "title": "Thaetlele",
+    "content": "Diteng"
+  },
+  "export": {
+    "exportBook": "Romela puku",
+    "format": "Sebopego",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Polelo",
+    "font": "Mohuta wa ditlhaka",
+    "includeToc": "Akaretša tafoleng ya diteng",
+    "export": "Romela",
+    "tableOfContents": "Tafola ya diteng"
+  },
+  "settings": {
+    "language": "Polelo",
+    "theme": "Setlhogo",
+    "notifications": "Dikitsišo",
+    "account": "Akhaonte",
+    "saveSettings": "Boloka dipeakanyo"
+  },
+  "bookBuilder": {
+    "title": "Go tsenya BookBuilder",
+    "steps": {
+      "upload": "Go tsenya ZIP",
+      "review": "Go leba karolo",
+      "import": "Go tsenya puku"
+    },
+    "upload": {
+      "title": "Tsenya dikwalo tša gago",
+      "dragDrop": "Gogela o behe faele ya ZIP mo",
+      "orClick": "goba tobetsa go nyaka difaele",
+      "chooseFile": "KGETHA FAELE",
+      "supportedFormats": "E amogelwa: Difaele tša ZIP tše di nago le dikwalo tša Word (.docx)",
+      "processing": "Go šoma ka faele ya ZIP...",
+      "extracting": "Go ntšha dikwalo...",
+      "analyzing": "Go sekaseka diteng..."
+    },
+    "actions": {
+      "cancel": "KHANSELA",
+      "back": "Morago",
+      "next": "E latelago",
+      "import": "Tsenya puku",
+      "retry": "Leka gape",
+      "selectFile": "Kgetha faele"
+    },
+    "import": {
+      "title": "Go tsenya go phethilwe",
+      "success": "Buka ya gago e tsentswe ka katlego!",
+      "creating": "Go hlama sebopego sa buka...",
+      "processing": "Go šoma diteng...",
+      "finalizing": "Go phetha go tsenya..."
+    },
+    "messages": {
+      "importTip": "📝 Kakanyo ya go tsenya: Ge ditokomane tša gago tša Word di na le diteng tše di tswakantšwego (dihlogo, tafola ya diteng, tshedimošo ya mongwadi, bjalobjalo), BookBuilder e ka hlama dikarolo tše dingwe. Ka morago ga go tsenya, o ka phumula dikarolo tšeo o sa di nyakego ka bonolo gomme o šuthiše diteng gare ga Karolo ya pele, Karolo ye kgolo, le Karolo ya morago bjalo ka ge go nyakega.",
+      "systemPages": "Letlakala la sehlogo le Tokelo ya mongwadi di hlangwa ka go itiragalela - letlakala lefe goba la le la sehlogo/tokelo ya mongwadi leo le tsentsitšwego le ile la tlogwa.",
+      "languageNote": "Ditokomane di tla arolwa ka go šomiša mekgwa ya polelo ya {{language}}."
+    },
+    "classification": {
+      "title": "Hlahloba karolo ya ditokomane",
+      "subtitle": "Gogela dikarolo gare ga mekgwa go rulaganya sebopego sa buka ya gago",
+      "frontMatter": "Karolo ya pele",
+      "mainMatter": "Karolo ye kgolo",
+      "backMatter": "Karolo ya morago",
+      "confidence": "Tshepo",
+      "move": "ŠUTHIŠA",
+      "sections": "dikarolo {{count}}",
+      "noSections": "Ga go na dikarolo mokgweng wo",
+      "frontMatterDesc": "Letlakala la thaetlele, ditokelo tša mongwadi, nehelano, matseno, lenane la diteng",
+      "mainMatterDesc": "Dikgaolo, diteng tše dikgolo, didirišwa tše bohlokwa",
+      "backMatterDesc": "Phetho, bofelelo, tlatsetšo, pukuntšu ya mantšu, tšhupetšo, ditsopolelo"
+    },
+    "validation": {
+      "noFile": "Hle kgetha faele ya ZIP ya go laetša.",
+      "invalidFile": "Hle kgetha faele ya ZIP ye e nepagetšego.",
+      "fileTooLarge": "Faele e kgolo kudu",
+      "noDocuments": "Ga go na ditokomane tša Word tšeo di humanwego",
+      "processingFailed": "Go šoma ga ditokomane go paletše",
+      "selectFile": "Hle kgetha faele ya ZIP",
+      "selectValidFile": "Hle kgetha faele ya ZIP ye e nepagetšego",
+      "maxSize": "Bogolo bjo bogolo ke 50MB"
+    },
+    "detectedBookStructure": "📚 Sebopego sa buka seo se hweditšwego",
+    "dragToReorder": "Gogela dikarolo go di rulaganya gape ka gare ga mekgwa goba šomiša \"ŠUTHIŠA\" dropdown go fetoša dikarolo gare ga Karolo ya pele/Karolo ye kgolo/Karolo ya morago",
+    "bookMetadata": "Metadata ya buka:"
+  }
+}

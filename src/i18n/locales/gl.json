@@ -56,5 +56,75 @@
     "notifications": "Notificacións",
     "account": "Conta",
     "saveSettings": "Gardar configuración"
+  },
+  "bookBuilder": {
+    "title": "Importación BookBuilder",
+    "steps": {
+      "upload": "Subir ZIP",
+      "review": "Revisar clasificación",
+      "import": "Importar libro"
+    },
+    "upload": {
+      "title": "Sube os teus documentos",
+      "dragDrop": "Arrastra e solta o arquivo ZIP aquí",
+      "orClick": "ou fai clic para explorar arquivos",
+      "chooseFile": "ESCOLLER ARQUIVO",
+      "supportedFormats": "Compatible: Arquivos ZIP que conteñan documentos Word (.docx)",
+      "processing": "Procesando arquivo ZIP...",
+      "extracting": "Extraendo documentos...",
+      "analyzing": "Analizando contido..."
+    },
+    "actions": {
+      "cancel": "CANCELAR",
+      "back": "Atrás",
+      "next": "Seguinte",
+      "import": "Importar libro",
+      "retry": "Tentar de novo",
+      "selectFile": "Escoller arquivo"
+    },
+    "import": {
+      "title": "Importación Completa",
+      "success": "O voso libro foi importado con éxito!",
+      "creating": "Creando estrutura do libro...",
+      "processing": "Procesando contido...",
+      "finalizing": "Finalizando importación..."
+    },
+    "messages": {
+      "importTip": "📝 Consello de Importación: Se os vosos documentos de Word conteñen contido mixto (títulos, táboa de contidos, información do autor, etc.), BookBuilder pode crear seccións adicionais. Despois da importación, podedes eliminar facilmente as seccións non desexadas e mover contido entre Materia Preliminar, Materia Principal e Materia Final segundo sexa necesario.",
+      "systemPages": "A Páxina de Título e os Dereitos de Autor xéranse automaticamente - calquera páxina de título/dereitos de autor importada foi omitida.",
+      "languageNote": "Os documentos clasificaranse utilizando patróns de lingua {{language}}.",
+      "noContent": "Non se detectaron seccións de contido - por favor, comprobade o voso ficheiro ZIP.",
+      "duplicateSections": "Detectáronse nomes de sección duplicados: {{sections}}",
+      "processingError": "Erro procesando o ficheiro ZIP. Por favor, comprobade o formato do ficheiro e tentádeo de novo.",
+      "emptyZip": "O ficheiro ZIP parece estar baleiro ou non contén documentos compatibles.",
+      "invalidFormat": "Formato de ficheiro non válido. Por favor, subide un ficheiro ZIP que conteña documentos de Word."
+    },
+    "classification": {
+      "title": "Revisar Clasificación de Documentos",
+      "subtitle": "Arrastrade seccións entre categorías para organizar a estrutura do voso libro",
+      "frontMatter": "Materia preliminar",
+      "mainMatter": "Texto principal",
+      "backMatter": "Materia final",
+      "confidence": "Confianza",
+      "move": "MOVER",
+      "sections": "{{count}} seccións",
+      "noSections": "Non hai seccións nesta categoría",
+      "frontMatterDesc": "Páxina de título, dereitos de autor, dedicatoria, prefacio, táboa de contidos",
+      "mainMatterDesc": "Capítulos, contido principal, material central",
+      "backMatterDesc": "Conclusión, epílogo, apéndice, glosario, índice, referencias"
+    },
+    "validation": {
+      "noFile": "Por favor, seleccionade un ficheiro ZIP para subir.",
+      "invalidFile": "Por favor, seleccionade un ficheiro ZIP válido.",
+      "fileTooLarge": "O ficheiro é demasiado grande",
+      "noDocuments": "Non se atoparon documentos de Word",
+      "processingFailed": "Fallou o procesamento de documentos",
+      "selectFile": "Por favor, seleccionade un ficheiro ZIP",
+      "selectValidFile": "Por favor, seleccionade un ficheiro ZIP válido",
+      "maxSize": "O tamaño máximo é de 50MB"
+    },
+    "detectedBookStructure": "📚 Estrutura do Libro Detectada",
+    "dragToReorder": "Arrastrade seccións para reordenar dentro de categorías ou usade o menú despregable \"MOVER\" para cambiar seccións entre Materia Preliminar/Principal/Final",
+    "bookMetadata": "Metadatos do Libro:"
   }
 }

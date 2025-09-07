@@ -56,5 +56,72 @@
     "notifications": "Pemberitahuan",
     "account": "Akaun",
     "saveSettings": "Simpan Tetapan"
+  },
+  "bookBuilder": {
+    "title": "Import BookBuilder",
+    "steps": {
+      "upload": "Muat naik ZIP",
+      "review": "Semak pengelasan",
+      "import": "Import buku"
+    },
+    "upload": {
+      "title": "Muat naik dokumen anda",
+      "dragDrop": "Seret dan lepas fail ZIP di sini",
+      "orClick": "atau klik untuk melayari fail",
+      "chooseFile": "PILIH FAIL",
+      "supportedFormats": "Disokong: Fail ZIP yang mengandungi dokumen Word (.docx)",
+      "processing": "Memproses fail ZIP...",
+      "extracting": "Mengekstrak dokumen...",
+      "analyzing": "Menganalisis kandungan..."
+    },
+    "actions": {
+      "cancel": "BATAL",
+      "back": "Kembali",
+      "next": "Seterusnya",
+      "import": "Import buku",
+      "retry": "Cuba lagi",
+      "selectFile": "Pilih fail"
+    },
+    "import": {
+      "title": "Import selesai",
+      "success": "Buku anda telah berjaya diimport!",
+      "creating": "Mencipta struktur buku...",
+      "processing": "Memproses kandungan...",
+      "finalizing": "Menyelesaikan import..."
+    },
+    "messages": {
+      "importTip": "📝 Petua Import: Jika dokumen Word anda mengandungi kandungan campuran (tajuk, senarai kandungan, maklumat pengarang, dll.), BookBuilder mungkin mencipta bahagian tambahan. Selepas import, anda boleh dengan mudah memadam bahagian yang tidak diingini dan memindahkan kandungan antara Bahagian Hadapan, Bahagian Utama, dan Bahagian Belakang mengikut keperluan.",
+      "systemPages": "Halaman Tajuk dan Hak Cipta dijana secara automatik - mana-mana halaman tajuk/hak cipta yang diimport telah dilangkau.",
+      "languageNote": "Dokumen akan diklasifikasikan menggunakan corak bahasa {{language}}.",
+      "noContent": "Tiada bahagian kandungan dikesan - sila periksa fail ZIP anda.",
+      "duplicateSections": "Nama bahagian pendua dikesan: {{sections}}",
+      "processingError": "Ralat memproses fail ZIP. Sila periksa format fail dan cuba lagi.",
+      "emptyZip": "Fail ZIP kelihatan kosong atau tidak mengandungi dokumen yang disokong.",
+      "invalidFormat": "Format fail tidak sah. Sila muat naik fail ZIP yang mengandungi dokumen Word."
+    },
+    "classification": {
+      "title": "Semak pengelasan dokumen",
+      "subtitle": "Seret bahagian antara kategori untuk mengatur struktur buku anda",
+      "frontMatter": "Bahagian Hadapan",
+      "mainMatter": "Bahagian Utama",
+      "backMatter": "Bahagian Belakang",
+      "confidence": "Keyakinan",
+      "move": "PINDAH",
+      "sections": "{{count}} bahagian",
+      "noSections": "Tiada bahagian dalam kategori ini",
+      "frontMatterDesc": "Muka surat tajuk, hak cipta, dedikasi, kata pengantar, senarai kandungan",
+      "mainMatterDesc": "Bab, kandungan utama, bahan teras",
+      "backMatterDesc": "Kesimpulan, epilog, lampiran, glosari, indeks, rujukan"
+    },
+    "validation": {
+      "noFile": "Sila pilih fail ZIP untuk dimuat naik.",
+      "invalidFile": "Sila pilih fail ZIP yang sah.",
+      "fileTooLarge": "Fail terlalu besar. Saiz maksimum ialah 50MB.",
+      "noDocuments": "Tiada dokumen Word ditemui dalam fail ZIP.",
+      "processingFailed": "Gagal memproses dokumen. Sila periksa format fail."
+    },
+    "detectedBookStructure": "📚 Struktur Buku yang Dikesan",
+    "dragToReorder": "Seret bahagian untuk menyusun semula dalam kategori atau gunakan dropdown \"PINDAH\" untuk menukar bahagian antara Bahagian Hadapan/Utama/Belakang",
+    "bookMetadata": "Metadata Buku:"
   }
 }

@@ -38,5 +38,72 @@
     "about": "Über",
     "privacy": "Datenschutz",
     "terms": "Nutzungsbedingungen"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "ZIP hochladen",
+      "review": "Klassifizierung überprüfen",
+      "import": "Buch importieren"
+    },
+    "upload": {
+      "title": "Laden Sie Ihre Dokumente hoch",
+      "dragDrop": "Ziehen Sie Ihre ZIP-Datei hierher",
+      "orClick": "oder klicken Sie, um Dateien zu durchsuchen",
+      "chooseFile": "DATEI WÄHLEN",
+      "supportedFormats": "Unterstützt: ZIP-Dateien mit Word-Dokumenten (.docx)",
+      "processing": "ZIP-Datei wird verarbeitet...",
+      "extracting": "Dokumente werden extrahiert...",
+      "analyzing": "Inhalt wird analysiert..."
+    },
+    "classification": {
+      "title": "Dokumentklassifizierung überprüfen",
+      "subtitle": "Ziehen Sie Abschnitte zwischen Kategorien, um Ihre Buchstruktur zu organisieren",
+      "frontMatter": "Vorspann",
+      "mainMatter": "Hauptteil",
+      "backMatter": "Nachspann",
+      "confidence": "Vertrauen",
+      "move": "VERSCHIEBEN",
+      "sections": "{{count}} Abschnitte",
+      "noSections": "Keine Abschnitte in dieser Kategorie",
+      "frontMatterDesc": "Titelseite, Urheberrecht, Widmung, Vorwort, Inhaltsverzeichnis",
+      "mainMatterDesc": "Kapitel, Hauptinhalt, Kernmaterial",
+      "backMatterDesc": "Fazit, Epilog, Anhang, Glossar, Index, Referenzen"
+    },
+    "actions": {
+      "cancel": "ABBRECHEN",
+      "back": "Zurück",
+      "next": "Weiter",
+      "import": "Buch importieren",
+      "retry": "Erneut versuchen",
+      "selectFile": "Datei auswählen"
+    },
+    "import": {
+      "title": "Import abgeschlossen",
+      "success": "Ihr Buch wurde erfolgreich importiert!",
+      "creating": "Buchstruktur wird erstellt...",
+      "processing": "Inhalt wird verarbeitet...",
+      "finalizing": "Import wird abgeschlossen..."
+    },
+    "messages": {
+      "importTip": "📝 Import-Tipp: Wenn Ihre Word-Dokumente gemischte Inhalte enthalten (Titel, Inhaltsverzeichnis, Autoreninfo usw.), kann BookBuilder zusätzliche Abschnitte erstellen. Nach dem Import können Sie unerwünschte Abschnitte einfach löschen und Inhalte zwischen Vorspann, Hauptteil und Nachspann verschieben.",
+      "systemPages": "Titelseite und Urheberrecht werden automatisch generiert - importierte Titel-/Urheberrechtsseiten wurden übersprungen.",
+      "languageNote": "Dokumente werden mit {{language}}-Sprachmustern klassifiziert.",
+      "noContent": "Keine Inhaltsabschnitte erkannt - bitte überprüfen Sie Ihre ZIP-Datei.",
+      "duplicateSections": "Doppelte Abschnittsnamen erkannt: {{sections}}",
+      "processingError": "Fehler beim Verarbeiten der ZIP-Datei. Bitte überprüfen Sie das Dateiformat und versuchen Sie es erneut.",
+      "emptyZip": "ZIP-Datei scheint leer zu sein oder enthält keine unterstützten Dokumente.",
+      "invalidFormat": "Ungültiges Dateiformat. Bitte laden Sie eine ZIP-Datei mit Word-Dokumenten hoch."
+    },
+    "validation": {
+      "noFile": "Bitte wählen Sie eine ZIP-Datei zum Hochladen aus.",
+      "invalidFile": "Bitte wählen Sie eine gültige ZIP-Datei aus.",
+      "fileTooLarge": "Datei ist zu groß. Maximale Größe ist 50MB.",
+      "noDocuments": "Keine Word-Dokumente in ZIP-Datei gefunden.",
+      "processingFailed": "Verarbeitung der Dokumente fehlgeschlagen. Bitte überprüfen Sie das Dateiformat."
+    },
+    "detectedBookStructure": "📚 Erkannte Buchstruktur",
+    "dragToReorder": "Ziehen Sie Abschnitte, um sie innerhalb von Kategorien neu zu ordnen, oder verwenden Sie das \"VERSCHIEBEN\"-Dropdown, um Abschnitte zwischen Vor-/Haupt-/Nachspann zu ändern",
+    "bookMetadata": "Buchmetadaten:"
   }
 }

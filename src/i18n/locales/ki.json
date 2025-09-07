@@ -56,5 +56,70 @@
     "notifications": "Arifa",
     "account": "Akaunti",
     "saveSettings": "Hifadhi mipangilio"
+  },
+  "bookBuilder": {
+    "title": "Gũtonyia BookBuilder",
+    "steps": {
+      "upload": "Haicia ZIP",
+      "review": "Rora gĩgayano",
+      "import": "Tonyia ibuku"
+    },
+    "upload": {
+      "title": "Haicia marũa maku",
+      "dragDrop": "Guuria na ũikie faili ya ZIP haha",
+      "orClick": "kana hũũra nĩguo ũrore maili",
+      "chooseFile": "THUURA FAILI",
+      "supportedFormats": "Ĩtĩkĩrĩtwo: Maili ma ZIP marĩ na marũa ma Word (.docx)",
+      "processing": "Gũthondeka faili ya ZIP...",
+      "extracting": "Gũruta marũa...",
+      "analyzing": "Gũtuĩria mũthemba..."
+    },
+    "actions": {
+      "cancel": "TIGA",
+      "back": "Cooka",
+      "next": "Ũrĩa ũngĩ",
+      "import": "Tonyia ibuku",
+      "retry": "Geria rĩngĩ",
+      "selectFile": "Thuura faili"
+    },
+    "import": {
+      "title": "Gũtoonya nĩkũrĩkĩte",
+      "success": "Ibuku rĩaku nĩrĩtoonyeretwo wega!",
+      "creating": "Gũthondeka mũthemba wa ibuku...",
+      "processing": "Gũthugunda mwandĩko...",
+      "finalizing": "Gũthia gũtoonya..."
+    },
+    "messages": {
+      "importTip": "📝 Kĩbagĩ kĩa gũtoonya: Angĩkorwo marũa maku ma Word marĩ na mwandĩko wa mĩthemba mĩingĩ (mĩtwe, gĩtabũ kĩa mwandĩko, ũhoro wa mwandĩki, na maũndũ mangĩ), BookBuilder no ũthondeke icunjĩ ingĩ. Thuutha wa gũtoonya, no ũhote gũtharia icunjĩ iria ũtendaga na ũthiĩrie mwandĩko gatagatĩ ka Kĩhĩtũk kĩa mbere, Kĩhĩtũk kĩa gatagatĩ, na Kĩhĩtũk kĩa mũthia o ta ũrĩa ũbataire.",
+      "systemPages": "Rũrĩrĩ rwa mũtwe na Kĩhooto kĩa mwandĩki nĩithondekagio na mwene - rũrĩrĩ ruothe rwa mũtwe/kĩhooto kĩa mwandĩki rũrĩa rwatoonyeretwo nĩrwatiganĩirio.",
+      "languageNote": "Marũa nĩmakũũranirio na gũtũmĩra mĩthemba ya rũthiomi rwa {{language}}."
+    },
+    "classification": {
+      "title": "Rora gĩkũũrania kĩa marũa",
+      "subtitle": "Kururia icunjĩ gatagatĩ ka mĩthemba nĩguo ũhaarĩrie mũthemba wa ibuku rĩaku",
+      "frontMatter": "Kĩhĩtũk kĩa mbere",
+      "mainMatter": "Kĩhĩtũk kĩa gatagatĩ",
+      "backMatter": "Kĩhĩtũk kĩa mũthia",
+      "confidence": "Wĩhoko",
+      "move": "THIĨ",
+      "sections": "icunjĩ {{count}}",
+      "noSections": "Gũtirĩ icunjĩ mũthemba-inĩ ũyũ",
+      "frontMatterDesc": "Rũrĩrĩ rwa mũtwe, kĩhooto kĩa mwandĩki, kũheana, mbere ya ibuku, gĩtabũ kĩa mwandĩko",
+      "mainMatterDesc": "Ibuku, mwandĩko wa mũtũũrĩre, indo cia mũtũũrĩre",
+      "backMatterDesc": "Mũthia, mũthia wa ibuku, kĩongerera, gĩtabũ kĩa ciugo, gĩtabũ kĩa kũrora, mahoya"
+    },
+    "validation": {
+      "noFile": "Ndagũthaitha thuura fayili ya ZIP ya gũtwara.",
+      "invalidFile": "Ndagũthaitha thuura fayili ya ZIP ĩrĩa njega.",
+      "fileTooLarge": "Fayili ĩno nĩ nene mũno",
+      "noDocuments": "Gũtirĩ marũa ma Word moneka",
+      "processingFailed": "Gũthondeka marũa gũtiagĩire",
+      "selectFile": "Ndagũthaitha thuura fayili ya ZIP",
+      "selectValidFile": "Ndagũthaitha thuura fayili ya ZIP ĩrĩa njega",
+      "maxSize": "Ũnene mũingĩ nĩ 50MB"
+    },
+    "detectedBookStructure": "📚 Mũthemba wa ibuku ũrĩa wonekete",
+    "dragToReorder": "Kururia icunjĩ nĩguo ũciandĩke rĩngĩ thĩinĩ wa mĩthemba kana ũtũmĩre \"THIĨ\" dropdown gũgarũra icunjĩ gatagatĩ ka Kĩhĩtũk kĩa mbere/Kĩhĩtũk kĩa gatagatĩ/Kĩhĩtũk kĩa mũthia",
+    "bookMetadata": "Metadata ya ibuku:"
   }
 }

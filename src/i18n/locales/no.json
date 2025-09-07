@@ -56,5 +56,70 @@
     "notifications": "Varsler",
     "account": "Konto",
     "saveSettings": "Lagre innstillinger"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Last opp ZIP",
+      "review": "Gjennomgå klassifisering",
+      "import": "Importer bok"
+    },
+    "upload": {
+      "title": "Last opp dokumentene dine",
+      "dragDrop": "Dra og slipp ZIP-filen her",
+      "orClick": "eller klikk for å bla gjennom filer",
+      "chooseFile": "VELG FIL",
+      "supportedFormats": "Støttet: ZIP-filer som inneholder Word-dokumenter (.docx)",
+      "processing": "Behandler ZIP-fil...",
+      "extracting": "Trekker ut dokumenter...",
+      "analyzing": "Analyserer innhold..."
+    },
+    "actions": {
+      "cancel": "AVBRYT",
+      "back": "Tilbake",
+      "next": "Neste",
+      "import": "Importer bok",
+      "retry": "Prøv igjen",
+      "selectFile": "Velg fil"
+    },
+    "import": {
+      "title": "Import fullført",
+      "success": "Boken din har blitt importert!",
+      "creating": "Oppretter bokstruktur...",
+      "processing": "Behandler innhold...",
+      "finalizing": "Fullfører import..."
+    },
+    "messages": {
+      "importTip": "📝 Importtips: Hvis Word-dokumentene dine inneholder blandet innhold (titler, innholdsfortegnelse, forfatterinformasjon, etc.), kan BookBuilder opprette ekstra seksjoner. Etter import kan du enkelt slette uønskede seksjoner og flytte innhold mellom Forord, Hovedtekst og Etterord.",
+      "systemPages": "Tittelside og Copyright genereres automatisk - importerte tittel/copyright-sider ble hoppet over.",
+      "languageNote": "Dokumenter vil bli klassifisert ved hjelp av {{language}} språkmønstre."
+    },
+    "classification": {
+      "title": "Gjennomgå dokumentklassifisering",
+      "subtitle": "Dra seksjoner mellom kategorier for å organisere bokstrukturen din",
+      "frontMatter": "Forord",
+      "mainMatter": "Hovedtekst",
+      "backMatter": "Etterord",
+      "confidence": "Tillit",
+      "move": "FLYTT",
+      "sections": "{{count}} seksjoner",
+      "noSections": "Ingen seksjoner i denne kategorien",
+      "frontMatterDesc": "Tittelside, opphavsrett, dedikasjon, forord, innholdsfortegnelse",
+      "mainMatterDesc": "Kapitler, hovedinnhold, kjernestoff",
+      "backMatterDesc": "Konklusjon, epilog, vedlegg, ordliste, indeks, referanser"
+    },
+    "validation": {
+      "noFile": "Vennligst velg en ZIP-fil å laste opp.",
+      "invalidFile": "Vennligst velg en gyldig ZIP-fil.",
+      "fileTooLarge": "Filen er for stor",
+      "noDocuments": "Ingen Word-dokumenter funnet",
+      "processingFailed": "Behandling av dokumenter mislyktes",
+      "selectFile": "Vennligst velg en ZIP-fil",
+      "selectValidFile": "Vennligst velg en gyldig ZIP-fil",
+      "maxSize": "Maksimal størrelse er 50MB"
+    },
+    "detectedBookStructure": "📚 Oppdaget Bokstruktur",
+    "dragToReorder": "Dra seksjoner for å omorganisere innenfor kategorier eller bruk \"FLYTT\" nedtrekksmeny for å endre seksjoner mellom For-/Hoved-/Etterstoff",
+    "bookMetadata": "Bok Metadata:"
   }
 }

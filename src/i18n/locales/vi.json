@@ -56,5 +56,70 @@
     "notifications": "Thông báo",
     "account": "Tài khoản",
     "saveSettings": "Lưu cài đặt"
+  },
+  "bookBuilder": {
+    "title": "Nhập BookBuilder",
+    "steps": {
+      "upload": "Tải lên ZIP",
+      "review": "Xem xét phân loại",
+      "import": "Nhập sách"
+    },
+    "upload": {
+      "title": "Tải lên tài liệu của bạn",
+      "dragDrop": "Kéo và thả tệp ZIP vào đây",
+      "orClick": "hoặc nhấp để duyệt tệp",
+      "chooseFile": "CHỌN TỆP",
+      "supportedFormats": "Hỗ trợ: Tệp ZIP chứa tài liệu Word (.docx)",
+      "processing": "Đang xử lý tệp ZIP...",
+      "extracting": "Đang trích xuất tài liệu...",
+      "analyzing": "Đang phân tích nội dung..."
+    },
+    "actions": {
+      "cancel": "HỦY",
+      "back": "Quay lại",
+      "next": "Tiếp theo",
+      "import": "Nhập sách",
+      "retry": "Thử lại",
+      "selectFile": "Chọn tệp"
+    },
+    "import": {
+      "title": "Nhập hoàn tất",
+      "success": "Sách của bạn đã được nhập thành công!",
+      "creating": "Đang tạo cấu trúc sách...",
+      "processing": "Đang xử lý nội dung...",
+      "finalizing": "Đang hoàn thiện việc nhập..."
+    },
+    "messages": {
+      "importTip": "📝 Mẹo nhập: Nếu tài liệu Word của bạn chứa nội dung hỗn hợp (tiêu đề, mục lục, thông tin tác giả, v.v.), BookBuilder có thể tạo các phần bổ sung. Sau khi nhập, bạn có thể dễ dàng xóa các phần không mong muốn và di chuyển nội dung giữa Phần đầu, Phần chính và Phần cuối khi cần thiết.",
+      "systemPages": "Trang tiêu đề và Bản quyền được tạo tự động - bất kỳ trang tiêu đề/bản quyền nào được nhập đều bị bỏ qua.",
+      "languageNote": "Tài liệu sẽ được phân loại bằng các mẫu ngôn ngữ {{language}}."
+    },
+    "classification": {
+      "title": "Xem xét phân loại tài liệu",
+      "subtitle": "Kéo các phần giữa các danh mục để tổ chức cấu trúc sách của bạn",
+      "frontMatter": "Phần đầu",
+      "mainMatter": "Phần chính",
+      "backMatter": "Phần cuối",
+      "confidence": "Độ tin cậy",
+      "move": "DI CHUYỂN",
+      "sections": "{{count}} phần",
+      "noSections": "Không có phần nào trong danh mục này",
+      "frontMatterDesc": "Trang tiêu đề, bản quyền, lời cảm ơn, lời nói đầu, mục lục",
+      "mainMatterDesc": "Các chương, nội dung chính, tài liệu cốt lõi",
+      "backMatterDesc": "Kết luận, lời kết, phụ lục, từ điển thuật ngữ, chỉ mục, tài liệu tham khảo"
+    },
+    "validation": {
+      "noFile": "Vui lòng chọn tệp ZIP để tải lên.",
+      "invalidFile": "Vui lòng chọn tệp ZIP hợp lệ.",
+      "fileTooLarge": "Tệp quá lớn",
+      "noDocuments": "Không tìm thấy tài liệu Word",
+      "processingFailed": "Xử lý tài liệu thất bại",
+      "selectFile": "Vui lòng chọn tệp ZIP",
+      "selectValidFile": "Vui lòng chọn tệp ZIP hợp lệ",
+      "maxSize": "Kích thước tối đa là 50MB"
+    },
+    "detectedBookStructure": "📚 Cấu Trúc Sách Được Phát Hiện",
+    "dragToReorder": "Kéo các phần để sắp xếp lại trong danh mục hoặc sử dụng menu thả xuống \"DI CHUYỂN\" để thay đổi các phần giữa Phần Đầu/Chính/Cuối",
+    "bookMetadata": "Siêu Dữ Liệu Sách:"
   }
 }

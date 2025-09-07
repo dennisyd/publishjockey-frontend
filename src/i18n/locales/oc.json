@@ -1,0 +1,125 @@
+{
+  "common": {
+    "loading": "Cargament...",
+    "error": "Error",
+    "success": "Succès",
+    "cancel": "Anullar",
+    "save": "Enregistrar",
+    "delete": "Suprimir",
+    "edit": "Modificar",
+    "add": "Apondre",
+    "close": "Tampar",
+    "back": "Tornar",
+    "next": "Seguent",
+    "yes": "Òc",
+    "no": "Non"
+  },
+  "navigation": {
+    "dashboard": "Tablèu de bòrd",
+    "projects": "Projèctes",
+    "settings": "Paramètres",
+    "logout": "Se desconnectar",
+    "login": "Se connectar",
+    "register": "S'inscriure"
+  },
+  "dashboard": {
+    "welcome": "Benvengut",
+    "createNewBook": "Crear un libre novèl",
+    "recentProjects": "Projèctes recents",
+    "noProjects": "Avètz pas cap de projècte",
+    "startWriting": "Començar d'escriure"
+  },
+  "bookStructure": {
+    "frontMatter": "Matèria preliminara",
+    "mainMatter": "Matèria principala",
+    "backMatter": "Matèria finala",
+    "chapter": "Capítol",
+    "section": "Seccion",
+    "title": "Títol",
+    "content": "Contengut"
+  },
+  "export": {
+    "exportBook": "Exportar lo libre",
+    "format": "Format",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Lenga",
+    "font": "Poliça",
+    "includeToc": "Inclure la taula de las matèrias",
+    "export": "Exportar",
+    "tableOfContents": "Taula de las matèrias"
+  },
+  "settings": {
+    "language": "Lenga",
+    "theme": "Tèma",
+    "notifications": "Notificacions",
+    "account": "Compte",
+    "saveSettings": "Enregistrar los paramètres"
+  },
+  "bookBuilder": {
+    "title": "Importacion BookBuilder",
+    "steps": {
+      "upload": "Cargar ZIP",
+      "review": "Revisar classificacion",
+      "import": "Importar libre"
+    },
+    "upload": {
+      "title": "Cargatz vòstres documents",
+      "dragDrop": "Lisatz e depausatz vòstre fichièr ZIP aicí",
+      "orClick": "o clicatz per percórrer los fichièrs",
+      "chooseFile": "CAUSIR FICHIÈR",
+      "supportedFormats": "Suportat: Fichièrs ZIP que contenon documents Word (.docx)",
+      "processing": "Tractament del fichièr ZIP...",
+      "extracting": "Extraccion dels documents...",
+      "analyzing": "Analisi del contengut..."
+    },
+    "actions": {
+      "cancel": "ANULLAR",
+      "back": "Tornar",
+      "next": "Seguent",
+      "import": "Importar libre",
+      "retry": "Tornar ensajar",
+      "selectFile": "Causir fichièr"
+    },
+    "import": {
+      "title": "Importacion acabada",
+      "success": "Vòstre libre es estat importat amb succès!",
+      "creating": "Creacion de l'estructura del libre...",
+      "processing": "Tractament del contengut...",
+      "finalizing": "Finalizacion de l'importacion..."
+    },
+    "messages": {
+      "importTip": "📝 Conselh d'importacion: Se vòstres documents Word contenon de contengut mesclat (títols, taula de las matèrias, informacions de l'autor, etc.), BookBuilder pòt crear de seccions suplementàrias. Après l'importacion, podètz suprimir facilament las seccions pas desejadas e desplaçar lo contengut entre la Matèria preliminara, lo Tèxte principal e la Matèria finala segon lo besonh.",
+      "systemPages": "La pagina de títol e los Dreches d'autor son generats automaticament - totas las paginas de títol/dreches d'autor importadas son estadas ignoradas.",
+      "languageNote": "Los documents seràn classificats en utilizant los modèls de lenga {{language}}."
+    },
+    "classification": {
+      "title": "Revisar la classificacion de documents",
+      "subtitle": "Tirar las seccions entre las categorias per organizar l'estructura de vòstre libre",
+      "frontMatter": "Matèria preliminara",
+      "mainMatter": "Tèxte principal",
+      "backMatter": "Matèria finala",
+      "confidence": "Fisança",
+      "move": "DESPLAÇAR",
+      "sections": "{{count}} seccions",
+      "noSections": "Pas cap de seccion dins aquesta categoria",
+      "frontMatterDesc": "Pagina de títol, dreches d'autor, dedicatòria, prefaci, taula de contenguts",
+      "mainMatterDesc": "Capítols, contengut principal, material central",
+      "backMatterDesc": "Conclusion, epilòg, apèndix, glossari, indèx, referéncias"
+    },
+    "validation": {
+      "noFile": "Mercés de causir un fichièr ZIP de cargar.",
+      "invalidFile": "Mercés de causir un fichièr ZIP valid.",
+      "fileTooLarge": "Lo fichièr es tròp gròs",
+      "noDocuments": "Cap de document Word pas trobat",
+      "processingFailed": "Lo tractament dels documents a fracassat",
+      "selectFile": "Mercés de causir un fichièr ZIP",
+      "selectValidFile": "Mercés de causir un fichièr ZIP valid",
+      "maxSize": "La talha maximala es de 50MB"
+    },
+    "detectedBookStructure": "📚 Estructura del libre detectada",
+    "dragToReorder": "Tirar las seccions per las reordenar dins las categorias o utilizar lo menú desenrotlant \"DESPLAÇAR\" per cambiar las seccions entre Matèria preliminara/Tèxte principal/Matèria finala",
+    "bookMetadata": "Metadonadas del libre:"
+  }
+}

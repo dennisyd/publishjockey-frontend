@@ -56,5 +56,70 @@
     "notifications": "Meldingen",
     "account": "Account",
     "saveSettings": "Instellingen opslaan"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "ZIP uploaden",
+      "review": "Classificatie beoordelen",
+      "import": "Boek importeren"
+    },
+    "upload": {
+      "title": "Upload uw documenten",
+      "dragDrop": "Sleep uw ZIP-bestand hierheen",
+      "orClick": "of klik om bestanden te bladeren",
+      "chooseFile": "BESTAND KIEZEN",
+      "supportedFormats": "Ondersteund: ZIP-bestanden met Word-documenten (.docx)",
+      "processing": "ZIP-bestand verwerken...",
+      "extracting": "Documenten extraheren...",
+      "analyzing": "Inhoud analyseren..."
+    },
+    "classification": {
+      "title": "Documentclassificatie controleren",
+      "subtitle": "Sleep secties tussen categorieën om uw boekstructuur te organiseren",
+      "frontMatter": "Voorwerk",
+      "mainMatter": "Hoofdtekst",
+      "backMatter": "Nawerk",
+      "confidence": "Vertrouwen",
+      "move": "VERPLAATSEN",
+      "sections": "{{count}} secties",
+      "noSections": "Geen secties in deze categorie",
+      "frontMatterDesc": "Titelpagina, copyright, opdracht, voorwoord, inhoudsopgave",
+      "mainMatterDesc": "Hoofdstukken, hoofdinhoud, kernmateriaal",
+      "backMatterDesc": "Conclusie, epiloog, bijlage, woordenlijst, index, referenties"
+    },
+    "actions": {
+      "cancel": "ANNULEREN",
+      "back": "Terug",
+      "next": "Volgende",
+      "import": "Boek importeren",
+      "retry": "Opnieuw proberen",
+      "selectFile": "Bestand selecteren"
+    },
+    "import": {
+      "title": "Import voltooid",
+      "success": "Uw boek is succesvol geïmporteerd!",
+      "creating": "Boekstructuur wordt aangemaakt...",
+      "processing": "Inhoud wordt verwerkt...",
+      "finalizing": "Import wordt afgerond..."
+    },
+    "messages": {
+      "importTip": "📝 Import tip: Als uw Word-documenten gemengde inhoud bevatten (titels, inhoudsopgave, auteursinformatie, enz.), kan BookBuilder extra secties maken. Na import kunt u eenvoudig ongewenste secties verwijderen en inhoud verplaatsen tussen Voorwerk, Hoofdtekst en Nawerk.",
+      "systemPages": "Titelpagina en Copyright worden automatisch gegenereerd - geïmporteerde titel/copyright pagina's zijn overgeslagen.",
+      "languageNote": "Documenten worden geclassificeerd met {{language}} taalpatronen."
+    },
+    "validation": {
+      "noFile": "Selecteer alstublieft een ZIP-bestand om te uploaden.",
+      "invalidFile": "Selecteer alstublieft een geldig ZIP-bestand.",
+      "fileTooLarge": "Het bestand is te groot",
+      "noDocuments": "Geen Word-documenten gevonden",
+      "processingFailed": "Verwerking van documenten mislukt",
+      "selectFile": "Selecteer alstublieft een ZIP-bestand",
+      "selectValidFile": "Selecteer alstublieft een geldig ZIP-bestand",
+      "maxSize": "De maximale grootte is 50MB"
+    },
+    "detectedBookStructure": "📚 Gedetecteerde Boekstructuur",
+    "dragToReorder": "Sleep secties om te herordenen binnen categorieën of gebruik de \"VERPLAATS\" dropdown om secties te wijzigen tussen Voor-/Hoofd-/Achterstof",
+    "bookMetadata": "Boek Metadata:"
   }
 }

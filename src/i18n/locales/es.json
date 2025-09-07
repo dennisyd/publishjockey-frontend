@@ -38,5 +38,70 @@
     "about": "Acerca de",
     "privacy": "Política de privacidad",
     "terms": "Términos de servicio"
+  },
+  "bookBuilder": {
+    "title": "Importar BookBuilder",
+    "steps": {
+      "upload": "Subir ZIP",
+      "review": "Revisar Clasificación",
+      "import": "Importar Libro"
+    },
+    "upload": {
+      "title": "Sube Tus Documentos",
+      "dragDrop": "Arrastra y suelta tu archivo ZIP aquí",
+      "orClick": "o haz clic para buscar archivos",
+      "chooseFile": "ELEGIR ARCHIVO",
+      "supportedFormats": "Compatible: Archivos ZIP que contengan documentos de Word (.docx)",
+      "processing": "Procesando archivo ZIP...",
+      "extracting": "Extrayendo documentos...",
+      "analyzing": "Analizando contenido..."
+    },
+    "classification": {
+      "title": "Revisar clasificación de documentos",
+      "subtitle": "Arrastra secciones entre categorías para organizar la estructura de tu libro",
+      "frontMatter": "Materia preliminar",
+      "mainMatter": "Texto principal",
+      "backMatter": "Materia final",
+      "confidence": "Confianza",
+      "move": "MOVER",
+      "sections": "{{count}} secciones",
+      "noSections": "No hay secciones en esta categoría",
+      "frontMatterDesc": "Página de título, derechos de autor, dedicatoria, prefacio, tabla de contenidos",
+      "mainMatterDesc": "Capítulos, contenido principal, material central",
+      "backMatterDesc": "Conclusión, epílogo, apéndice, glosario, índice, referencias"
+    },
+    "import": {
+      "title": "Importación completada",
+      "success": "¡Tu libro ha sido importado exitosamente!",
+      "creating": "Creando estructura del libro...",
+      "processing": "Procesando contenido...",
+      "finalizing": "Finalizando importación..."
+    },
+    "messages": {
+      "importTip": "📝 Consejo de importación: Si tus documentos de Word contienen contenido mixto (títulos, tabla de contenidos, información del autor, etc.), BookBuilder puede crear secciones adicionales. Después de la importación, puedes eliminar fácilmente las secciones no deseadas y mover contenido entre Materia preliminar, Texto principal y Materia final.",
+      "systemPages": "La página de título y los Derechos de autor se generan automáticamente - las páginas de título/derechos de autor importadas fueron omitidas.",
+      "languageNote": "Los documentos serán clasificados usando patrones de idioma {{language}}."
+    },
+    "actions": {
+      "cancel": "CANCELAR",
+      "back": "Atrás",
+      "next": "Siguiente",
+      "import": "Importar Libro",
+      "retry": "Intentar de Nuevo",
+      "selectFile": "Seleccionar Archivo"
+    },
+    "validation": {
+      "noFile": "Por favor, selecciona un archivo ZIP para subir.",
+      "invalidFile": "Por favor, selecciona un archivo ZIP válido.",
+      "fileTooLarge": "El archivo es demasiado grande",
+      "noDocuments": "No se encontraron documentos de Word",
+      "processingFailed": "Falló el procesamiento de documentos",
+      "selectFile": "Por favor, selecciona un archivo ZIP",
+      "selectValidFile": "Por favor, selecciona un archivo ZIP válido",
+      "maxSize": "El tamaño máximo es de 50MB"
+    },
+    "detectedBookStructure": "📚 Estructura del Libro Detectada",
+    "dragToReorder": "Arrastra secciones para reordenar dentro de categorías o usa el menú \"MOVER\" para cambiar secciones entre Materia Frontal/Principal/Posterior",
+    "bookMetadata": "Metadatos del Libro:"
   }
 }

@@ -56,5 +56,70 @@
     "notifications": "Obvestila",
     "account": "Račun",
     "saveSettings": "Shrani nastavitve"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Uvoz",
+    "steps": {
+      "upload": "Naloži ZIP",
+      "review": "Preglej klasifikacijo",
+      "import": "Uvozi knjigo"
+    },
+    "upload": {
+      "title": "Naložite svoje dokumente",
+      "dragDrop": "Povlecite ZIP datoteko sem",
+      "orClick": "ali kliknite za brskanje datotek",
+      "chooseFile": "IZBERI DATOTEKO",
+      "supportedFormats": "Podprto: ZIP datoteke z Word dokumenti (.docx)",
+      "processing": "Obdelava ZIP datoteke...",
+      "extracting": "Izvlačenje dokumentov...",
+      "analyzing": "Analiza vsebine..."
+    },
+    "actions": {
+      "cancel": "PREKLIČI",
+      "back": "Nazaj",
+      "next": "Naprej",
+      "import": "Uvozi knjigo",
+      "retry": "Poskusi znova",
+      "selectFile": "Izberi datoteko"
+    },
+    "import": {
+      "title": "Uvoz končan",
+      "success": "Tvoja knjiga je bila uspešno uvožena!",
+      "creating": "Ustvarjanje strukture knjige...",
+      "processing": "Obdelava vsebine...",
+      "finalizing": "Zaključevanje uvoza..."
+    },
+    "messages": {
+      "importTip": "📝 Nasvet za uvoz: Če tvoji Word dokumenti vsebujejo mešano vsebino (naslovi, kazalo, informacije o avtorju itd.), lahko BookBuilder ustvari dodatne odseke. Po uvozu lahko enostavno izbrišeš nezaželene odseke in premikaš vsebino med Prednjim delom, Glavnim besedilom in Zadnjim delom.",
+      "systemPages": "Naslovna stran in Avtorske pravice se ustvarijo samodejno - uvožene naslovne strani/avtorske pravice so bile preskočene.",
+      "languageNote": "Dokumenti bodo klasificirani z uporabo vzorcev jezika {{language}}."
+    },
+    "classification": {
+      "title": "Preglej klasifikacijo dokumentov",
+      "subtitle": "Povleci odseke med kategorijami za organizacijo strukture tvoje knjige",
+      "frontMatter": "Prednji del",
+      "mainMatter": "Glavno besedilo",
+      "backMatter": "Zadnji del",
+      "confidence": "Zaupanje",
+      "move": "PREMAKNI",
+      "sections": "{{count}} odsekov",
+      "noSections": "Ni odsekov v tej kategoriji",
+      "frontMatterDesc": "Naslovna stran, avtorske pravice, posvetilo, predgovor, kazalo",
+      "mainMatterDesc": "Poglavja, glavna vsebina, osnovno gradivo",
+      "backMatterDesc": "Sklep, epilog, dodatek, slovar, kazalo, reference"
+    },
+    "validation": {
+      "noFile": "Prosimo, izberite ZIP datoteko za nalaganje.",
+      "invalidFile": "Prosimo, izberite veljavno ZIP datoteko.",
+      "fileTooLarge": "Datoteka je prevelika",
+      "noDocuments": "Ni najdenih Word dokumentov",
+      "processingFailed": "Obdelava dokumentov ni uspela",
+      "selectFile": "Prosimo, izberite ZIP datoteko",
+      "selectValidFile": "Prosimo, izberite veljavno ZIP datoteko",
+      "maxSize": "Največja velikost je 50MB"
+    },
+    "detectedBookStructure": "📚 Zaznana Struktura Knjige",
+    "dragToReorder": "Povlecite razdelke za preureditev znotraj kategorij ali uporabite spustni meni \"PREMAKNI\" za spreminjanje razdelkov med Sprednjo/Glavno/Zadnjo Snovjo",
+    "bookMetadata": "Metapodatki Knjige:"
   }
 }

@@ -56,5 +56,75 @@
     "notifications": "Fampahafantarana",
     "account": "Kaonty",
     "saveSettings": "Tehirizo ny safidy"
+  },
+  "bookBuilder": {
+    "title": "Fampidirana BookBuilder",
+    "steps": {
+      "upload": "Ampidiro ZIP",
+      "review": "Jereo ny Fanasokajiana",
+      "import": "Ampidiro ny Boky"
+    },
+    "upload": {
+      "title": "Ampidiro ny Antontan-taratranao",
+      "dragDrop": "Tariho ary alefaso eto ny rakitra ZIP",
+      "orClick": "na tsindrio mba hijery rakitra",
+      "chooseFile": "FIDIO NY RAKITRA",
+      "supportedFormats": "Raisina: Rakitra ZIP misy antontan-taratra Word (.docx)",
+      "processing": "Manodina rakitra ZIP...",
+      "extracting": "Mamoaka antontan-taratra...",
+      "analyzing": "Mamakafaka votoaty..."
+    },
+    "classification": {
+      "title": "Jereo ny Fanasokajiana Antontan-taratra",
+      "subtitle": "Tariho ny fizarana eo anelanelan'ny sokajy mba handaminana ny firafitry ny bokinao",
+      "frontMatter": "Teny fampidirana",
+      "mainMatter": "Teny fototra",
+      "backMatter": "Teny famaranana",
+      "confidence": "Fahatokiana",
+      "move": "AFINDRAO",
+      "sections": "fizarana {{count}}",
+      "noSections": "Tsy misy fizarana amin'ity sokajy ity",
+      "frontMatterDesc": "Pejin'ny lohateny, zo ara-dalàna, fanomezana, teny fampidirana, lisitry ny atiny",
+      "mainMatterDesc": "Toko, votoaty fototra, fitaovana fototra",
+      "backMatterDesc": "Famaranana, epilôga, fanampin-kevitra, rakibolana, fanondroana, fanovozan-kevitra"
+    },
+    "import": {
+      "title": "Vita ny Fampidirana",
+      "success": "Vita soa aman-tsara ny fampidirana ny bokinao!",
+      "creating": "Mamorona firafitry ny boky...",
+      "processing": "Manodina votoaty...",
+      "finalizing": "Mamita ny fampidirana..."
+    },
+    "messages": {
+      "importTip": "📝 Torohevitra Fampidirana: Raha misy votoaty mifangaro ny antontan-taratra Word-nao (lohateny, tabilao votoaty, mombamomba ny mpanoratra, sns.), dia mety hamorona fizarana fanampiny ny BookBuilder. Aorian'ny fampidirana dia azonao atao mora foana ny mamafa ny fizarana tsy ilaina ary mamindra votoaty eo anelanelan'ny Teny fampidirana, Teny fototra ary Teny famaranana araka izay ilaina.",
+      "systemPages": "Ny Pejy Lohateny sy ny Zon'ny mpanoratra dia voaforona ho azy - ny pejy lohateny/zon'ny mpanoratra nampidirina dia nesorina.",
+      "languageNote": "Ny antontan-taratra dia hosokajiana amin'ny fampiasana ny maodely fiteny {{language}}.",
+      "noContent": "Tsy hita fizarana votoaty - jereo ny rakitra ZIP-nao.",
+      "duplicateSections": "Hita anarana fizarana mitovy: {{sections}}",
+      "processingError": "Nisy olana tamin'ny fanodinana rakitra ZIP. Jereo ny endrika rakitra ary andramo indray.",
+      "emptyZip": "Toa foana na tsy misy antontan-taratra raisina ny rakitra ZIP.",
+      "invalidFormat": "Endrika rakitra tsy mety. Ampidiro rakitra ZIP misy antontan-taratra Word."
+    },
+    "actions": {
+      "cancel": "AOKA IHANY",
+      "back": "Miverina",
+      "next": "Manaraka",
+      "import": "Ampidiro ny Boky",
+      "retry": "Andramo Indray",
+      "selectFile": "Fidio Rakitra"
+    },
+    "validation": {
+      "noFile": "Fidio rakitra ZIP hampidirina.",
+      "invalidFile": "Fidio rakitra ZIP mety.",
+      "fileTooLarge": "Lehibe loatra ny rakitra. 50MB no fetra ambony indrindra.",
+      "noDocuments": "Tsy hita antontan-taratra Word ao amin'ny rakitra ZIP.",
+      "processingFailed": "Tsy nahomby ny fanodinana antontan-taratra. Jereo ny endrika rakitra."
+    },
+    "detectedBookStructure": "Firafitry ny Boky Hita",
+    "dragToReorder": "Tariho ny fizarana mba handaminana ao anatin'ny sokajy na ampiasao ny \"AFINDRAO\" dropdown mba hanovana ny fizarana eo anelanelan'ny Teny fampidirana/Teny fototra/Teny famaranana",
+    "bookMetadata": "Metadata ny Boky",
+    "frontMatterDescription": "Pejy lohateny, zon'ny mpanoratra, fanokafana, teny fampidirana, tabilao votoaty",
+    "mainMatterDescription": "Toko, votoaty fototra, fitaovana fototra",
+    "backMatterDescription": "Fehin-kevitra, epilogue, appendix, rakibolana, index, references"
   }
 }

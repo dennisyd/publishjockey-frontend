@@ -133,7 +133,7 @@
     }
   },
   "dashboard": {
-    "welcome": "Welcome back",
+    "welcome": "Welcome",
     "stats": {
       "totalProjects": "Total Projects",
       "activeProjects": "Active Projects",
@@ -144,9 +144,7 @@
     "quickActions": "Quick Actions",
     "createProject": "Create New Project",
     "importDocument": "Import Document",
-    "welcome": "Welcome",
     "createNewBook": "Create New Book",
-    "recentProjects": "Recent Projects",
     "noProjects": "You have no projects",
     "startWriting": "Start Writing"
   },
@@ -343,5 +341,72 @@
     "notifications": "Notifications",
     "account": "Account",
     "saveSettings": "Save Settings"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Upload ZIP",
+      "review": "Review Classification",
+      "import": "Import Book"
+    },
+    "upload": {
+      "title": "Upload Your Documents",
+      "dragDrop": "Drag & drop your ZIP file here",
+      "orClick": "or click to browse files",
+      "chooseFile": "CHOOSE FILE",
+      "supportedFormats": "Supported: ZIP files containing Word documents (.docx)",
+      "processing": "Processing ZIP file...",
+      "extracting": "Extracting documents...",
+      "analyzing": "Analyzing content..."
+    },
+    "classification": {
+      "title": "Review Document Classification",
+      "subtitle": "Drag sections between categories to organize your book structure",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} sections",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Title page, copyright, dedication, preface, table of contents",
+      "mainMatterDesc": "Chapters, main content, core material",
+      "backMatterDesc": "Conclusion, epilogue, appendix, glossary, index, references"
+    },
+    "import": {
+      "title": "Import Complete",
+      "success": "Your book has been successfully imported!",
+      "creating": "Creating book structure...",
+      "processing": "Processing content...",
+      "finalizing": "Finalizing import..."
+    },
+    "messages": {
+      "importTip": "📝 Import Tip: If your Word documents contain mixed content (titles, table of contents, author info, etc.), BookBuilder may create extra sections. After import, you can easily delete unwanted sections and move content between Front Matter, Main Matter, and Back Matter as needed.",
+      "systemPages": "Title Page and Copyright are automatically generated - any imported title/copyright pages were skipped.",
+      "languageNote": "Documents will be classified using {{language}} language patterns.",
+      "noContent": "No content sections detected - please check your ZIP file.",
+      "duplicateSections": "Duplicate section names detected: {{sections}}",
+      "processingError": "Error processing ZIP file. Please check the file format and try again.",
+      "emptyZip": "ZIP file appears to be empty or contains no supported documents.",
+      "invalidFormat": "Invalid file format. Please upload a ZIP file containing Word documents."
+    },
+    "actions": {
+      "cancel": "CANCEL",
+      "back": "Back",
+      "next": "Next",
+      "import": "Import Book",
+      "retry": "Try Again",
+      "selectFile": "Select File"
+    },
+    "validation": {
+      "noFile": "Please select a ZIP file to upload.",
+      "invalidFile": "Please select a valid ZIP file.",
+      "fileTooLarge": "File is too large. Maximum size is 50MB.",
+      "noDocuments": "No Word documents found in ZIP file.",
+      "processingFailed": "Failed to process documents. Please check file format."
+    },
+    "detectedBookStructure": "📚 Detected Book Structure",
+    "dragToReorder": "Drag sections to reorder within categories or use \"MOVE\" dropdown to change sections between Front/Main/Back Matter",
+    "bookMetadata": "Book Metadata:"
   }
 }

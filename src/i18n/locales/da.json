@@ -56,5 +56,72 @@
     "notifications": "Meddelelser",
     "account": "Konto",
     "saveSettings": "Gem indstillinger"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Upload ZIP",
+      "review": "Gennemgå klassifikation",
+      "import": "Importér bog"
+    },
+    "upload": {
+      "title": "Upload dine dokumenter",
+      "dragDrop": "Træk og slip din ZIP-fil her",
+      "orClick": "eller klik for at gennemse filer",
+      "chooseFile": "VÆLG FIL",
+      "supportedFormats": "Understøttet: ZIP-filer indeholdende Word-dokumenter (.docx)",
+      "processing": "Behandler ZIP-fil...",
+      "extracting": "Udtrækker dokumenter...",
+      "analyzing": "Analyserer indhold..."
+    },
+    "actions": {
+      "cancel": "ANNULLER",
+      "back": "Tilbage",
+      "next": "Næste",
+      "import": "Importér bog",
+      "retry": "Prøv igen",
+      "selectFile": "Vælg fil"
+    },
+    "import": {
+      "title": "Import fuldført",
+      "success": "Din bog er blevet importeret med succes!",
+      "creating": "Opretter bogstruktur...",
+      "processing": "Behandler indhold...",
+      "finalizing": "Afslutter import..."
+    },
+    "messages": {
+      "importTip": "📝 Import tip: Hvis dine Word-dokumenter indeholder blandet indhold (titler, indholdsfortegnelse, forfatterinfo osv.), kan BookBuilder oprette ekstra sektioner. Efter import kan du nemt slette uønskede sektioner og flytte indhold mellem Forord, Hovedindhold og Efterord efter behov.",
+      "systemPages": "Titelside og Copyright genereres automatisk - eventuelle importerede titel-/copyright-sider blev sprunget over.",
+      "languageNote": "Dokumenter vil blive klassificeret ved hjælp af {{language}} sprogmønstre.",
+      "noContent": "Ingen indholdssektioner opdaget - kontroller venligst din ZIP-fil.",
+      "duplicateSections": "Duplikerede sektionsnavne opdaget: {{sections}}",
+      "processingError": "Fejl ved behandling af ZIP-fil. Kontroller venligst filformatet og prøv igen.",
+      "emptyZip": "ZIP-filen ser ud til at være tom eller indeholder ingen understøttede dokumenter.",
+      "invalidFormat": "Ugyldigt filformat. Upload venligst en ZIP-fil indeholdende Word-dokumenter."
+    },
+    "classification": {
+      "title": "Gennemgå dokumentklassifikation",
+      "subtitle": "Træk sektioner mellem kategorier for at organisere din bogstruktur",
+      "frontMatter": "Forord",
+      "mainMatter": "Hovedindhold",
+      "backMatter": "Efterord",
+      "confidence": "Tillid",
+      "move": "FLYT",
+      "noSections": "Ingen sektioner i denne kategori",
+      "frontMatterDesc": "Titelside, copyright, dedikation, forord, indholdsfortegnelse",
+      "mainMatterDesc": "Kapitler, hovedindhold, kernestof",
+      "backMatterDesc": "Konklusion, epilog, appendiks, ordliste, indeks, referencer"
+    },
+    "validation": {
+      "noFile": "Vælg venligst en ZIP-fil at uploade.",
+      "invalidFile": "Vælg venligst en gyldig ZIP-fil.",
+      "fileTooLarge": "Filen er for stor. Maksimal størrelse er 50MB.",
+      "noDocuments": "Ingen Word-dokumenter fundet i ZIP-filen.",
+      "processingFailed": "Kunne ikke behandle dokumenter. Kontroller venligst filformatet."
+    },
+    "detectedBookStructure": "📚 Opdaget bogstruktur",
+    "dragToReorder": "Træk sektioner for at ændre rækkefølge inden for kategorier eller brug \"FLYT\" dropdown for at ændre sektioner mellem Forord/Hovedindhold/Efterord",
+    "bookMetadata": "Bogmetadata:",
+    "sections": "{{count}} sektioner"
   }
 }

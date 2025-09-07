@@ -56,5 +56,70 @@
     "notifications": "Tilkynningar",
     "account": "Reikningur",
     "saveSettings": "Vista stillingar"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Innflutningur",
+    "steps": {
+      "upload": "Hlaða upp ZIP",
+      "review": "Yfirfara flokkun",
+      "import": "Flytja inn bók"
+    },
+    "upload": {
+      "title": "Hladdu upp skjölunum þínum",
+      "dragDrop": "Dragðu ZIP skrána hingað",
+      "orClick": "eða smelltu til að vafra um skrár",
+      "chooseFile": "VELJA SKRÁ",
+      "supportedFormats": "Stutt: ZIP skrár sem innihalda Word skjöl (.docx)",
+      "processing": "Vinnur úr ZIP skrá...",
+      "extracting": "Dregur út skjöl...",
+      "analyzing": "Greinir efni..."
+    },
+    "actions": {
+      "cancel": "HÆTTA VIÐ",
+      "back": "Til baka",
+      "next": "Næsta",
+      "import": "Flytja inn bók",
+      "retry": "Reyna aftur",
+      "selectFile": "Velja skrá"
+    },
+    "import": {
+      "title": "Innflutningi lokið",
+      "success": "Bókin þín hefur verið flutt inn með góðum árangri!",
+      "creating": "Býr til bókaruppbyggingu...",
+      "processing": "Vinnur úr efni...",
+      "finalizing": "Lýkur innflutningi..."
+    },
+    "messages": {
+      "importTip": "📝 Innflutningsábending: Ef Word skjölin þín innihalda blandað efni (titla, efnisyfirlit, höfundarupplýsingar o.s.frv.), getur BookBuilder búið til viðbótarkafla. Eftir innflutning geturðu auðveldlega eytt óæskilegum köflum og fært efni á milli Formála, Aðaltexta og Eftirmála eftir þörfum.",
+      "systemPages": "Titilsíða og Höfundarréttur eru sjálfkrafa búin til - öll innflutt titil/höfundarréttarsíður voru sleppt.",
+      "languageNote": "Skjöl verða flokkuð með því að nota {{language}} tungumálamynstur."
+    },
+    "classification": {
+      "title": "Fara yfir flokkun skjala",
+      "subtitle": "Dragðu kafla á milli flokka til að skipuleggja uppbyggingu bókarinnar þinnar",
+      "frontMatter": "Formáli",
+      "mainMatter": "Aðaltexti",
+      "backMatter": "Eftirmáli",
+      "confidence": "Traust",
+      "move": "FÆRA",
+      "sections": "{{count}} kaflar",
+      "noSections": "Engir kaflar í þessum flokki",
+      "frontMatterDesc": "Titilsíða, höfundarréttur, tileinkun, formáli, efnisyfirlit",
+      "mainMatterDesc": "Kaflar, aðalefni, kjarnaefni",
+      "backMatterDesc": "Niðurstaða, eftirmáli, viðauki, orðalisti, atriðisorðaskrá, tilvísanir"
+    },
+    "validation": {
+      "noFile": "Vinsamlegast veldu ZIP skrá til að hlaða upp.",
+      "invalidFile": "Vinsamlegast veldu gilda ZIP skrá.",
+      "fileTooLarge": "Skráin er of stór",
+      "noDocuments": "Engin Word skjöl fundust",
+      "processingFailed": "Vinnsla skjala mistókst",
+      "selectFile": "Vinsamlegast veldu ZIP skrá",
+      "selectValidFile": "Vinsamlegast veldu gilda ZIP skrá",
+      "maxSize": "Hámarksstærð er 50MB"
+    },
+    "detectedBookStructure": "📚 Greind bókaruppbygging",
+    "dragToReorder": "Dragðu kafla til að endurraða innan flokka eða notaðu \"FÆRA\" fellivalmynd til að breyta köflum á milli Formála/Aðaltexta/Eftirmála",
+    "bookMetadata": "Lýsigögn bókar:"
   }
 }

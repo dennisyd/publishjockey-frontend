@@ -56,5 +56,75 @@
     "notifications": "Obavijesti",
     "account": "Račun",
     "saveSettings": "Spremi postavke"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Uvoz",
+    "steps": {
+      "upload": "Učitaj ZIP",
+      "review": "Pregled klasifikacije",
+      "import": "Uvezi knjugu"
+    },
+    "upload": {
+      "title": "Učitajte svoje dokumente",
+      "dragDrop": "Povucite i ispustite ZIP datoteku ovdje",
+      "orClick": "ili kliknite za pregledavanje datoteka",
+      "chooseFile": "ODABERI DATOTEKU",
+      "supportedFormats": "Podržano: ZIP datoteke koje sadrže Word dokumente (.docx)",
+      "processing": "Obrađuje se ZIP datoteka...",
+      "extracting": "Izdvajanje dokumenata...",
+      "analyzing": "Analiza sadržaja..."
+    },
+    "actions": {
+      "cancel": "OTKAŽI",
+      "back": "Natrag",
+      "next": "Sljedeće",
+      "import": "Uvezi knjugu",
+      "retry": "Pokušaj ponovno",
+      "selectFile": "Odaberi datoteku"
+    },
+    "import": {
+      "title": "Uvoz Završen",
+      "success": "Vaša knjiga je uspješno uvezena!",
+      "creating": "Stvaranje strukture knjige...",
+      "processing": "Obrada sadržaja...",
+      "finalizing": "Završavanje uvoza..."
+    },
+    "messages": {
+      "importTip": "📝 Savjet za Uvoz: Ako vaši Word dokumenti sadrže miješani sadržaj (naslove, sadržaj, informacije o autoru, itd.), BookBuilder može stvoriti dodatne odjeljke. Nakon uvoza, možete lako obrisati neželjene odjeljke i premjestiti sadržaj između Prednje Materije, Glavne Materije i Stražnje Materije prema potrebi.",
+      "systemPages": "Naslovna Stranica i Autorska Prava se automatski generiraju - sve uvezene naslovne/autorske stranice su preskočene.",
+      "languageNote": "Dokumenti će biti klasificirani koristeći {{language}} jezične uzorke.",
+      "noContent": "Nisu otkriveni odjeljci sadržaja - molimo provjerite vašu ZIP datoteku.",
+      "duplicateSections": "Otkriveni duplikati naziva odjeljaka: {{sections}}",
+      "processingError": "Greška pri obradi ZIP datoteke. Molimo provjerite format datoteke i pokušajte ponovno.",
+      "emptyZip": "ZIP datoteka izgleda prazna ili ne sadrži podržane dokumente.",
+      "invalidFormat": "Neispravan format datoteke. Molimo učitajte ZIP datoteku koja sadrži Word dokumente."
+    },
+    "classification": {
+      "title": "Pregled Klasifikacije Dokumenata",
+      "subtitle": "Povucite odjeljke između kategorija da organizirate strukturu vaše knjige",
+      "frontMatter": "Prednji dio",
+      "mainMatter": "Glavni tekst",
+      "backMatter": "Stražnji dio",
+      "confidence": "Povjerenje",
+      "move": "PREMJESTI",
+      "sections": "{{count}} odjeljaka",
+      "noSections": "Nema odjeljaka u ovoj kategoriji",
+      "frontMatterDesc": "Naslovna stranica, autorska prava, posveta, predgovor, sadržaj",
+      "mainMatterDesc": "Poglavlja, glavni sadržaj, osnovni materijal",
+      "backMatterDesc": "Zaključak, epilog, dodatak, rječnik, kazalo, reference"
+    },
+    "validation": {
+      "noFile": "Molimo odaberite ZIP datoteku za učitavanje.",
+      "invalidFile": "Molimo odaberite valjanu ZIP datoteku.",
+      "fileTooLarge": "Datoteka je prevelika",
+      "noDocuments": "Nisu pronađeni Word dokumenti",
+      "processingFailed": "Obrada dokumenata neuspješna",
+      "selectFile": "Molimo odaberite ZIP datoteku",
+      "selectValidFile": "Molimo odaberite valjanu ZIP datoteku",
+      "maxSize": "Maksimalna veličina je 50MB"
+    },
+    "detectedBookStructure": "📚 Otkrivena Struktura Knjige",
+    "dragToReorder": "Povucite odjeljke za preraspoređivanje unutar kategorija ili koristite \"PREMJESTI\" padajući izbornik za promjenu odjeljaka između Prednje/Glavne/Stražnje Materije",
+    "bookMetadata": "Metapodaci Knjige:"
   }
 }

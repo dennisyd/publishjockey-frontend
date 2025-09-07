@@ -1,62 +1,125 @@
 {
-  "translation": {
-    "common": {
-      "save": "Salvar",
-      "cancel": "Cancelar",
-      "delete": "Excluir",
-      "edit": "Editar",
-      "add": "Adicionar",
-      "close": "Fechar",
-      "loading": "Carregando...",
-      "error": "Erro",
-      "success": "Sucesso",
-      "confirm": "Confirmar",
+  "common": {
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "add": "Adicionar",
+    "close": "Fechar",
+    "loading": "Carregando...",
+    "error": "Erro",
+    "success": "Sucesso",
+    "confirm": "Confirmar",
+    "back": "Voltar",
+    "next": "Próximo",
+    "previous": "Anterior"
+  },
+  "navigation": {
+    "dashboard": "Painel",
+    "projects": "Projetos",
+    "settings": "Configurações",
+    "logout": "Sair",
+    "login": "Entrar",
+    "register": "Registrar"
+  },
+  "dashboard": {
+    "welcome": "Bem-vindo",
+    "createNewBook": "Criar novo livro",
+    "recentProjects": "Projetos recentes",
+    "noProjects": "Você não tem projetos",
+    "startWriting": "Comece a escrever"
+  },
+  "bookStructure": {
+    "frontMatter": "Prefácio",
+    "mainMatter": "Parte principal",
+    "backMatter": "Posfácio",
+    "chapter": "Capítulo",
+    "section": "Seção",
+    "title": "Título",
+    "content": "Conteúdo"
+  },
+  "export": {
+    "exportBook": "Exportar livro",
+    "format": "Formato",
+    "pdf": "PDF",
+    "epub": "EPUB",
+    "docx": "Word",
+    "language": "Idioma",
+    "font": "Fonte",
+    "includeToc": "Incluir sumário",
+    "export": "Exportar",
+    "tableOfContents": "Sumário"
+  },
+  "settings": {
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificações",
+    "account": "Conta",
+    "saveSettings": "Salvar configurações"
+  },
+  "bookBuilder": {
+    "title": "Importação BookBuilder",
+    "steps": {
+      "upload": "Carregar ZIP",
+      "review": "Revisar Classificação",
+      "import": "Importar Livro"
+    },
+    "upload": {
+      "title": "Carregue Seus Documentos",
+      "dragDrop": "Arraste e solte seu arquivo ZIP aqui",
+      "orClick": "ou clique para procurar arquivos",
+      "chooseFile": "ESCOLHER ARQUIVO",
+      "supportedFormats": "Suportado: Arquivos ZIP contendo documentos Word (.docx)",
+      "processing": "Processando arquivo ZIP...",
+      "extracting": "Extraindo documentos...",
+      "analyzing": "Analisando conteúdo..."
+    },
+    "classification": {
+      "title": "Revisar classificação de documentos",
+      "subtitle": "Arraste seções entre categorias para organizar a estrutura do seu livro",
+      "frontMatter": "Matéria preliminar",
+      "mainMatter": "Texto principal",
+      "backMatter": "Matéria final",
+      "confidence": "Confiança",
+      "move": "MOVER",
+      "sections": "{{count}} seções",
+      "noSections": "Nenhuma seção nesta categoria",
+      "frontMatterDesc": "Página de título, direitos autorais, dedicatória, prefácio, sumário",
+      "mainMatterDesc": "Capítulos, conteúdo principal, material central",
+      "backMatterDesc": "Conclusão, epílogo, apêndice, glossário, índice, referências"
+    },
+    "actions": {
+      "cancel": "CANCELAR",
       "back": "Voltar",
       "next": "Próximo",
-      "previous": "Anterior"
+      "import": "Importar Livro",
+      "retry": "Tentar Novamente",
+      "selectFile": "Selecionar Arquivo"
     },
-    "navigation": {
-      "dashboard": "Painel",
-      "projects": "Projetos",
-      "settings": "Configurações",
-      "logout": "Sair",
-      "login": "Entrar",
-      "register": "Registrar"
+    "import": {
+      "title": "Importação concluída",
+      "success": "Seu livro foi importado com sucesso!",
+      "creating": "Criando estrutura do livro...",
+      "processing": "Processando conteúdo...",
+      "finalizing": "Finalizando importação..."
     },
-    "dashboard": {
-      "welcome": "Bem-vindo",
-      "createNewBook": "Criar novo livro",
-      "recentProjects": "Projetos recentes",
-      "noProjects": "Você não tem projetos",
-      "startWriting": "Comece a escrever"
+    "messages": {
+      "importTip": "📝 Dica de importação: Se seus documentos Word contêm conteúdo misto (títulos, índice, informações do autor, etc.), o BookBuilder pode criar seções extras. Após a importação, você pode facilmente excluir seções indesejadas e mover conteúdo entre Matéria preliminar, Texto principal e Matéria final.",
+      "systemPages": "A página de título e os Direitos autorais são gerados automaticamente - páginas de título/direitos autorais importadas foram ignoradas.",
+      "languageNote": "Os documentos serão classificados usando padrões de idioma {{language}}."
     },
-    "bookStructure": {
-      "frontMatter": "Prefácio",
-      "mainMatter": "Parte principal",
-      "backMatter": "Posfácio",
-      "chapter": "Capítulo",
-      "section": "Seção",
-      "title": "Título",
-      "content": "Conteúdo"
+    "validation": {
+      "noFile": "Por favor, selecione um arquivo ZIP para enviar.",
+      "invalidFile": "Por favor, selecione um arquivo ZIP válido.",
+      "fileTooLarge": "O arquivo é muito grande",
+      "noDocuments": "Nenhum documento Word encontrado",
+      "processingFailed": "Processamento de documentos falhou",
+      "selectFile": "Por favor, selecione um arquivo ZIP",
+      "selectValidFile": "Por favor, selecione um arquivo ZIP válido",
+      "maxSize": "O tamanho máximo é 50MB"
     },
-    "export": {
-      "exportBook": "Exportar livro",
-      "format": "Formato",
-      "pdf": "PDF",
-      "epub": "EPUB",
-      "docx": "Word",
-      "language": "Idioma",
-      "font": "Fonte",
-      "includeToc": "Incluir sumário",
-      "export": "Exportar",
-      "tableOfContents": "Sumário"
-    },
-    "settings": {
-      "language": "Idioma",
-      "theme": "Tema",
-      "notifications": "Notificações",
-      "account": "Conta",
-      "saveSettings": "Salvar configurações"
-    }
+    "detectedBookStructure": "📚 Estrutura do Livro Detectada",
+    "dragToReorder": "Arraste seções para reordenar dentro das categorias ou use o menu \"MOVER\" para alterar seções entre Matéria Frontal/Principal/Posterior",
+    "bookMetadata": "Metadados do Livro:"
   }
 }

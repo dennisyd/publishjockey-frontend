@@ -56,5 +56,72 @@
     "notifications": "Oznámení",
     "account": "Účet",
     "saveSettings": "Uložit nastavení"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Nahrát ZIP",
+      "review": "Zkontrolovat klasifikaci",
+      "import": "Importovat knihu"
+    },
+    "upload": {
+      "title": "Nahrajte své dokumenty",
+      "dragDrop": "Přetáhněte ZIP soubor sem",
+      "orClick": "nebo klikněte pro procházení souborů",
+      "chooseFile": "VYBRAT SOUBOR",
+      "supportedFormats": "Podporováno: ZIP soubory obsahující Word dokumenty (.docx)",
+      "processing": "Zpracování ZIP souboru...",
+      "extracting": "Extrakce dokumentů...",
+      "analyzing": "Analýza obsahu..."
+    },
+    "actions": {
+      "cancel": "ZRUŠIT",
+      "back": "Zpět",
+      "next": "Další",
+      "import": "Importovat knihu",
+      "retry": "Zkusit znovu",
+      "selectFile": "Vybrat soubor"
+    },
+    "import": {
+      "title": "Import dokončen",
+      "success": "Vaše kniha byla úspěšně importována!",
+      "creating": "Vytváření struktury knihy...",
+      "processing": "Zpracování obsahu...",
+      "finalizing": "Dokončování importu..."
+    },
+    "messages": {
+      "importTip": "📝 Tip pro import: Pokud vaše Word dokumenty obsahují smíšený obsah (názvy, obsah, informace o autorovi atd.), BookBuilder může vytvořit další sekce. Po importu můžete snadno smazat nežádoucí sekce a přesunout obsah mezi Úvodní částí, Hlavní částí a Závěrečnou částí podle potřeby.",
+      "systemPages": "Titulní stránka a Copyright jsou generovány automaticky - všechny importované titulní/copyright stránky byly přeskočeny.",
+      "languageNote": "Dokumenty budou klasifikovány pomocí vzorů jazyka {{language}}.",
+      "noContent": "Nebyly zjištěny žádné obsahové sekce - zkontrolujte prosím váš ZIP soubor.",
+      "duplicateSections": "Zjištěny duplicitní názvy sekcí: {{sections}}",
+      "processingError": "Chyba při zpracování ZIP souboru. Zkontrolujte prosím formát souboru a zkuste to znovu.",
+      "emptyZip": "ZIP soubor se zdá být prázdný nebo neobsahuje podporované dokumenty.",
+      "invalidFormat": "Neplatný formát souboru. Nahrajte prosím ZIP soubor obsahující Word dokumenty."
+    },
+    "classification": {
+      "title": "Kontrola klasifikace dokumentů",
+      "subtitle": "Přetáhněte sekce mezi kategoriemi pro uspořádání struktury vaší knihy",
+      "frontMatter": "Úvodní část",
+      "mainMatter": "Hlavní část",
+      "backMatter": "Závěrečná část",
+      "confidence": "Spolehlivost",
+      "move": "PŘESUNOUT",
+      "noSections": "V této kategorii nejsou žádné sekce",
+      "frontMatterDesc": "Titulní stránka, copyright, věnování, předmluva, obsah",
+      "mainMatterDesc": "Kapitoly, hlavní obsah, základní materiál",
+      "backMatterDesc": "Závěr, epilog, příloha, glosář, rejstřík, odkazy"
+    },
+    "validation": {
+      "noFile": "Vyberte prosím ZIP soubor k nahrání.",
+      "invalidFile": "Vyberte prosím platný ZIP soubor.",
+      "fileTooLarge": "Soubor je příliš velký. Maximální velikost je 50MB.",
+      "noDocuments": "V ZIP souboru nebyly nalezeny žádné Word dokumenty.",
+      "processingFailed": "Nepodařilo se zpracovat dokumenty. Zkontrolujte prosím formát souboru."
+    },
+    "detectedBookStructure": "📚 Zjištěná struktura knihy",
+    "dragToReorder": "Přetáhněte sekce pro změnu pořadí v kategoriích nebo použijte rozbalovací nabídku \"PŘESUNOUT\" pro změnu sekcí mezi Úvodní/Hlavní/Závěrečnou částí",
+    "bookMetadata": "Metadata knihy:",
+    "sections": "{{count}} sekcí"
   }
 }

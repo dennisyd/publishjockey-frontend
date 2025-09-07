@@ -38,5 +38,70 @@
     "about": "Informazioni",
     "privacy": "Privacy",
     "terms": "Termini di servizio"
+  },
+  "bookBuilder": {
+    "title": "Importazione BookBuilder",
+    "steps": {
+      "upload": "Carica ZIP",
+      "review": "Rivedi Classificazione",
+      "import": "Importa Libro"
+    },
+    "upload": {
+      "title": "Carica i Tuoi Documenti",
+      "dragDrop": "Trascina e rilascia il tuo file ZIP qui",
+      "orClick": "o clicca per sfogliare i file",
+      "chooseFile": "SCEGLI FILE",
+      "supportedFormats": "Supportato: File ZIP contenenti documenti Word (.docx)",
+      "processing": "Elaborazione file ZIP...",
+      "extracting": "Estrazione documenti...",
+      "analyzing": "Analisi contenuto..."
+    },
+    "classification": {
+      "title": "Rivedi classificazione documenti",
+      "subtitle": "Trascina le sezioni tra le categorie per organizzare la struttura del tuo libro",
+      "frontMatter": "Materia preliminare",
+      "mainMatter": "Testo principale",
+      "backMatter": "Materia finale",
+      "confidence": "Fiducia",
+      "move": "SPOSTA",
+      "sections": "{{count}} sezioni",
+      "noSections": "Nessuna sezione in questa categoria",
+      "frontMatterDesc": "Pagina del titolo, copyright, dedica, prefazione, indice",
+      "mainMatterDesc": "Capitoli, contenuto principale, materiale centrale",
+      "backMatterDesc": "Conclusione, epilogo, appendice, glossario, indice, riferimenti"
+    },
+    "actions": {
+      "cancel": "ANNULLA",
+      "back": "Indietro",
+      "next": "Avanti",
+      "import": "Importa Libro",
+      "retry": "Riprova",
+      "selectFile": "Seleziona File"
+    },
+    "import": {
+      "title": "Importazione completata",
+      "success": "Il tuo libro è stato importato con successo!",
+      "creating": "Creazione struttura libro...",
+      "processing": "Elaborazione contenuto...",
+      "finalizing": "Finalizzazione importazione..."
+    },
+    "messages": {
+      "importTip": "📝 Suggerimento importazione: Se i tuoi documenti Word contengono contenuto misto (titoli, indice, informazioni autore, ecc.), BookBuilder potrebbe creare sezioni aggiuntive. Dopo l'importazione, puoi facilmente eliminare le sezioni indesiderate e spostare il contenuto tra Materia preliminare, Testo principale e Materia finale.",
+      "systemPages": "La pagina del titolo e il Copyright vengono generati automaticamente - le pagine titolo/copyright importate sono state saltate.",
+      "languageNote": "I documenti saranno classificati utilizzando i pattern della lingua {{language}}."
+    },
+    "validation": {
+      "noFile": "Si prega di selezionare un file ZIP da caricare.",
+      "invalidFile": "Si prega di selezionare un file ZIP valido.",
+      "fileTooLarge": "Il file è troppo grande",
+      "noDocuments": "Nessun documento Word trovato",
+      "processingFailed": "Elaborazione dei documenti fallita",
+      "selectFile": "Si prega di selezionare un file ZIP",
+      "selectValidFile": "Si prega di selezionare un file ZIP valido",
+      "maxSize": "La dimensione massima è 50MB"
+    },
+    "detectedBookStructure": "📚 Struttura del Libro Rilevata",
+    "dragToReorder": "Trascina le sezioni per riordinarle all'interno delle categorie o usa il menu \"SPOSTA\" per cambiare sezioni tra Materia Iniziale/Principale/Finale",
+    "bookMetadata": "Metadati del Libro:"
   }
 }

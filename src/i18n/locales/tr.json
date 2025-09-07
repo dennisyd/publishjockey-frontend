@@ -56,5 +56,75 @@
     "notifications": "Bildirimler",
     "account": "Hesap",
     "saveSettings": "Ayarları Kaydet"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder İçe Aktarma",
+    "steps": {
+      "upload": "ZIP Yükle",
+      "review": "Sınıflandırmayı Gözden Geçir",
+      "import": "Kitabı İçe Aktar"
+    },
+    "upload": {
+      "title": "Belgelerinizi Yükleyin",
+      "dragDrop": "ZIP dosyanızı buraya sürükleyip bırakın",
+      "orClick": "veya dosyalara göz atmak için tıklayın",
+      "chooseFile": "DOSYA SEÇ",
+      "supportedFormats": "Desteklenen: Word belgeleri (.docx) içeren ZIP dosyaları",
+      "processing": "ZIP dosyası işleniyor...",
+      "extracting": "Belgeler çıkarılıyor...",
+      "analyzing": "İçerik analiz ediliyor..."
+    },
+    "classification": {
+      "title": "Belge Sınıflandırmasını İncele",
+      "subtitle": "Kitap yapınızı düzenlemek için bölümleri kategoriler arasında sürükleyin",
+      "frontMatter": "Ön Kısım",
+      "mainMatter": "Ana Kısım",
+      "backMatter": "Arka Kısım",
+      "confidence": "Güven",
+      "move": "TAŞI",
+      "sections": "{{count}} bölüm",
+      "noSections": "Bu kategoride bölüm yok",
+      "frontMatterDesc": "Başlık sayfası, telif hakkı, ithaf, önsöz, içindekiler",
+      "mainMatterDesc": "Bölümler, ana içerik, temel materyal",
+      "backMatterDesc": "Sonuç, epilog, ek, sözlük, dizin, kaynaklar"
+    },
+    "actions": {
+      "cancel": "İPTAL",
+      "back": "Geri",
+      "next": "İleri",
+      "import": "Kitabı İçe Aktar",
+      "retry": "Tekrar Dene",
+      "selectFile": "Dosya Seç"
+    },
+    "import": {
+      "title": "İçe Aktarma Tamamlandı",
+      "success": "Kitabınız başarıyla içe aktarıldı!",
+      "creating": "Kitap yapısı oluşturuluyor...",
+      "processing": "İçerik işleniyor...",
+      "finalizing": "İçe aktarma tamamlanıyor..."
+    },
+    "messages": {
+      "importTip": "📝 İçe Aktarma İpucu: Word belgeleriniz karışık içerik (başlıklar, içindekiler tablosu, yazar bilgisi vb.) içeriyorsa, BookBuilder ek bölümler oluşturabilir. İçe aktarma sonrasında, istenmeyen bölümleri kolayca silebilir ve gerektiğinde içeriği Ön Kısım, Ana Kısım ve Arka Kısım arasında taşıyabilirsiniz.",
+      "systemPages": "Başlık Sayfası ve Telif Hakkı otomatik olarak oluşturulur - içe aktarılan herhangi bir başlık/telif hakkı sayfası atlandı.",
+      "languageNote": "Belgeler {{language}} dil kalıpları kullanılarak sınıflandırılacak.",
+      "noContent": "İçerik bölümleri tespit edilmedi - lütfen ZIP dosyanızı kontrol edin.",
+      "duplicateSections": "Yinelenen bölüm adları tespit edildi: {{sections}}",
+      "processingError": "ZIP dosyası işlenirken hata oluştu. Lütfen dosya formatını kontrol edin ve tekrar deneyin.",
+      "emptyZip": "ZIP dosyası boş görünüyor veya desteklenen belgeler içermiyor.",
+      "invalidFormat": "Geçersiz dosya formatı. Lütfen Word belgeleri içeren bir ZIP dosyası yükleyin."
+    },
+    "validation": {
+      "noFile": "Lütfen yüklemek için bir ZIP dosyası seçin.",
+      "invalidFile": "Lütfen geçerli bir ZIP dosyası seçin.",
+      "fileTooLarge": "Dosya çok büyük",
+      "noDocuments": "Word belgesi bulunamadı",
+      "processingFailed": "Belge işleme başarısız",
+      "selectFile": "Lütfen bir ZIP dosyası seçin",
+      "selectValidFile": "Lütfen geçerli bir ZIP dosyası seçin",
+      "maxSize": "Maksimum boyut 50MB"
+    },
+    "detectedBookStructure": "📚 Tespit Edilen Kitap Yapısı",
+    "dragToReorder": "Kategoriler içinde yeniden sıralamak için bölümleri sürükleyin veya Ön/Ana/Arka Kısım arasında bölümleri değiştirmek için \"TAŞI\" açılır menüsünü kullanın",
+    "bookMetadata": "Kitap Meta Verileri:"
   }
 }

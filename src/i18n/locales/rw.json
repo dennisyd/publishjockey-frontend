@@ -56,5 +56,72 @@
     "notifications": "Ubutumwa",
     "account": "Konti",
     "saveSettings": "Bika igenamiterere"
+  },
+  "bookBuilder": {
+    "title": "Kwinjiza BookBuilder",
+    "steps": {
+      "upload": "Kuraguza ZIP",
+      "review": "Gusuzuma icyiciro",
+      "import": "Kwinjiza igitabo"
+    },
+    "upload": {
+      "title": "Kuraguza inyandiko zawe",
+      "dragDrop": "Kurura no gushira dosiye ya ZIP hano",
+      "orClick": "canke ukande kugira ngo ushakishe amadosiye",
+      "chooseFile": "HITAMO DOSIYE",
+      "supportedFormats": "Byemewe: Amadosiye ya ZIP arimo inyandiko za Word (.docx)",
+      "processing": "Gutegura dosiye ya ZIP...",
+      "extracting": "Gukuramo inyandiko...",
+      "analyzing": "Gusesengura ibiri mo..."
+    },
+    "actions": {
+      "cancel": "KURAGUZA",
+      "back": "Gusubira inyuma",
+      "next": "Ikurikira",
+      "import": "Kwinjiza igitabo",
+      "retry": "Ongera ugerageze",
+      "selectFile": "Hitamo dosiye"
+    },
+    "import": {
+      "title": "Kwinjiza Byarangiye",
+      "success": "Igitabo cyawe cyinjijwe neza!",
+      "creating": "Gukora imiterere y'igitabo...",
+      "processing": "Gutegura ibiri mo...",
+      "finalizing": "Kurangiza kwinjiza..."
+    },
+    "messages": {
+      "importTip": "📝 Inama yo Kwinjiza: Niba inyandiko zawe za Word zirimo ibintu bivanze (imitwe, urutonde rw'ibiri, amakuru y'umwanditsi, n'ibindi), BookBuilder ishobora gukora ibice byongeyeho. Nyuma yo kwinjiza, urashobora gusiba byoroshye ibice udashaka no kwimura ibiri hagati y'Intangiriro, Igice Gikomeye, n'Iherezo nk'uko bikenewe.",
+      "systemPages": "Urupapuro rw'Umutwe n'Uburenganzira byakozwe ku buryo bwikora - urupapuro rwose rw'umutwe/uburenganzira rwinjijwe rwaretswe.",
+      "languageNote": "Inyandiko zizashyirwa mu byiciro hakoreshejwe imiterere y'ururimi {{language}}.",
+      "noContent": "Nta bice by'ibiri byabonetse - nyamuneka suzuma dosiye yawe ya ZIP.",
+      "duplicateSections": "Amazina y'ibice bingana yabonetse: {{sections}}",
+      "processingError": "Ikosa mu gutegura dosiye ya ZIP. Nyamuneka suzuma uburyo bw'idosiye ugerageze ukundi.",
+      "emptyZip": "Dosiye ya ZIP isa nkaho ari ubusa cyangwa idafite inyandiko zemewe.",
+      "invalidFormat": "Uburyo bw'idosiye si bwo. Nyamuneka kuraguza dosiye ya ZIP irimo inyandiko za Word."
+    },
+    "classification": {
+      "title": "Gusuzuma Icyiciro cy'Inyandiko",
+      "subtitle": "Kurura ibice hagati y'ibyiciro kugira ngo utegure imiterere y'igitabo cyawe",
+      "frontMatter": "Intangiriro",
+      "mainMatter": "Igice Gikomeye",
+      "backMatter": "Iherezo",
+      "confidence": "Kwizera",
+      "move": "KWIMURA",
+      "sections": "ibice {{count}}",
+      "noSections": "Nta bice biri muri iki cyiciro",
+      "frontMatterDesc": "Urupapuro rw'umutwe, uburenganzira bw'umwanditsi, kwicuza, intangiriro, urutonde rw'ibiri",
+      "mainMatterDesc": "Ibice, ibintu by'ingenzi, ibikoresho by'ingenzi",
+      "backMatterDesc": "Umwanzuro, ijambo ry'imperuka, inyongera, inkoranya y'amagambo, urutonde, indango"
+    },
+    "validation": {
+      "noFile": "Nyamuneka hitamo dosiye ya ZIP yo kuraguza.",
+      "invalidFile": "Nyamuneka hitamo dosiye ya ZIP yemewe.",
+      "fileTooLarge": "Dosiye ni nini cyane. Ubunini bwikuze ni 50MB.",
+      "noDocuments": "Nta nyandiko za Word zabonetse muri dosiye ya ZIP.",
+      "processingFailed": "Byanze gutegura inyandiko. Nyamuneka suzuma uburyo bw'idosiye."
+    },
+    "detectedBookStructure": "📚 Imiterere y'Igitabo Yabonetse",
+    "dragToReorder": "Kurura ibice kugira ngo ubisubiremo mu byiciro cyangwa ukoreshe menu ya \"KWIMURA\" kugira ngo uhindure ibice hagati y'Intangiriro/Igice Gikomeye/Iherezo",
+    "bookMetadata": "Amakuru y'Igitabo:"
   }
 }

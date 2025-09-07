@@ -56,5 +56,70 @@
     "notifications": "Aviseringar",
     "account": "Konto",
     "saveSettings": "Spara inställningar"
+  },
+  "bookBuilder": {
+    "title": "BookBuilder Import",
+    "steps": {
+      "upload": "Ladda upp ZIP",
+      "review": "Granska klassificering",
+      "import": "Importera bok"
+    },
+    "upload": {
+      "title": "Ladda upp dina dokument",
+      "dragDrop": "Dra och släpp din ZIP-fil här",
+      "orClick": "eller klicka för att bläddra bland filer",
+      "chooseFile": "VÄLJ FIL",
+      "supportedFormats": "Stöds: ZIP-filer som innehåller Word-dokument (.docx)",
+      "processing": "Bearbetar ZIP-fil...",
+      "extracting": "Extraherar dokument...",
+      "analyzing": "Analyserar innehåll..."
+    },
+    "classification": {
+      "title": "Granska dokumentklassificering",
+      "subtitle": "Dra avsnitt mellan kategorier för att organisera din bokstruktur",
+      "frontMatter": "Förord",
+      "mainMatter": "Huvudtext",
+      "backMatter": "Efterord",
+      "confidence": "Förtroende",
+      "move": "FLYTTA",
+      "sections": "{{count}} avsnitt",
+      "noSections": "Inga avsnitt i denna kategori",
+      "frontMatterDesc": "Titelsida, upphovsrätt, dedikation, förord, innehållsförteckning",
+      "mainMatterDesc": "Kapitel, huvudinnehåll, kärnmaterial",
+      "backMatterDesc": "Slutsats, epilog, bilaga, ordlista, index, referenser"
+    },
+    "actions": {
+      "cancel": "AVBRYT",
+      "back": "Tillbaka",
+      "next": "Nästa",
+      "import": "Importera bok",
+      "retry": "Försök igen",
+      "selectFile": "Välj fil"
+    },
+    "import": {
+      "title": "Import slutförd",
+      "success": "Din bok har importerats framgångsrikt!",
+      "creating": "Skapar bokstruktur...",
+      "processing": "Bearbetar innehåll...",
+      "finalizing": "Slutför import..."
+    },
+    "messages": {
+      "importTip": "📝 Importtips: Om dina Word-dokument innehåller blandat innehåll (titlar, innehållsförteckning, författarinformation, etc.), kan BookBuilder skapa extra avsnitt. Efter import kan du enkelt ta bort oönskade avsnitt och flytta innehåll mellan Förord, Huvudtext och Efterord.",
+      "systemPages": "Titelsida och Copyright genereras automatiskt - importerade titel/copyright-sidor hoppades över.",
+      "languageNote": "Dokument kommer att klassificeras med {{language}} språkmönster."
+    },
+    "validation": {
+      "noFile": "Vänligen välj en ZIP-fil att ladda upp.",
+      "invalidFile": "Vänligen välj en giltig ZIP-fil.",
+      "fileTooLarge": "Filen är för stor",
+      "noDocuments": "Inga Word-dokument hittades",
+      "processingFailed": "Bearbetning av dokument misslyckades",
+      "selectFile": "Vänligen välj en ZIP-fil",
+      "selectValidFile": "Vänligen välj en giltig ZIP-fil",
+      "maxSize": "Maximal storlek är 50MB"
+    },
+    "detectedBookStructure": "📚 Upptäckt Bokstruktur",
+    "dragToReorder": "Dra sektioner för att omordna inom kategorier eller använd \"FLYTTA\" rullgardinsmenyn för att ändra sektioner mellan För-/Huvud-/Eftermaterial",
+    "bookMetadata": "Bok Metadata:"
   }
 }

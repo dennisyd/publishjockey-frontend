@@ -38,5 +38,70 @@
     "about": "À propos",
     "privacy": "Politique de confidentialité",
     "terms": "Conditions d'utilisation"
+  },
+  "bookBuilder": {
+    "title": "Importation BookBuilder",
+    "steps": {
+      "upload": "Téléverser ZIP",
+      "review": "Réviser Classification",
+      "import": "Importer Livre"
+    },
+    "upload": {
+      "title": "Téléversez Vos Documents",
+      "dragDrop": "Glissez-déposez votre fichier ZIP ici",
+      "orClick": "ou cliquez pour parcourir les fichiers",
+      "chooseFile": "CHOISIR FICHIER",
+      "supportedFormats": "Compatible : Fichiers ZIP contenant des documents Word (.docx)",
+      "processing": "Traitement du fichier ZIP...",
+      "extracting": "Extraction des documents...",
+      "analyzing": "Analyse du contenu..."
+    },
+    "classification": {
+      "title": "Examiner la classification des documents",
+      "subtitle": "Faites glisser les sections entre les catégories pour organiser la structure de votre livre",
+      "frontMatter": "Matière liminaire",
+      "mainMatter": "Corps du texte",
+      "backMatter": "Matière finale",
+      "confidence": "Confiance",
+      "move": "DÉPLACER",
+      "sections": "{{count}} разделов",
+      "noSections": "Aucune section dans cette catégorie",
+      "frontMatterDesc": "Page de titre, droits d'auteur, dédicace, préface, table des matières",
+      "mainMatterDesc": "Chapitres, contenu principal, matériel de base",
+      "backMatterDesc": "Conclusion, épilogue, annexe, glossaire, index, références"
+    },
+    "import": {
+      "title": "Import terminé",
+      "success": "Votre livre a été importé avec succès !",
+      "creating": "Création de la structure du livre...",
+      "processing": "Traitement du contenu...",
+      "finalizing": "Finalisation de l'import..."
+    },
+    "messages": {
+      "importTip": "📝 Conseil d'importation : Si vos documents Word contiennent du contenu mixte (titres, table des matières, informations sur l'auteur, etc.), BookBuilder peut créer des sections supplémentaires. Après l'import, vous pouvez facilement supprimer les sections indésirables et déplacer le contenu entre la Matière liminaire, le Corps du texte et la Matière finale.",
+      "systemPages": "La page de titre et le Copyright sont générés automatiquement - les pages de titre/copyright importées ont été ignorées.",
+      "languageNote": "Les documents seront classifiés en utilisant les modèles de langue {{language}}."
+    },
+    "actions": {
+      "cancel": "ANNULER",
+      "back": "Retour",
+      "next": "Suivant",
+      "import": "Importer Livre",
+      "retry": "Réessayer",
+      "selectFile": "Sélectionner Fichier"
+    },
+    "validation": {
+      "noFile": "Veuillez sélectionner un fichier ZIP à télécharger.",
+      "invalidFile": "Veuillez sélectionner un fichier ZIP valide.",
+      "fileTooLarge": "Le fichier est trop volumineux",
+      "noDocuments": "Aucun document Word trouvé",
+      "processingFailed": "Échec du traitement des documents",
+      "selectFile": "Veuillez sélectionner un fichier ZIP",
+      "selectValidFile": "Veuillez sélectionner un fichier ZIP valide",
+      "maxSize": "La taille maximale est de 50MB"
+    },
+    "detectedBookStructure": "📚 Structure du Livre Détectée",
+    "dragToReorder": "Faites glisser les sections pour les réorganiser dans les catégories ou utilisez le menu \"DÉPLACER\" pour changer les sections entre Matière Avant/Principale/Arrière",
+    "bookMetadata": "Métadonnées du Livre:"
   }
 }

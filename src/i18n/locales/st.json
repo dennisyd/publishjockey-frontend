@@ -56,5 +56,75 @@
     "notifications": "Litsebiso",
     "account": "Akhaonto",
     "saveSettings": "Boloka litlhophiso"
+  },
+  "bookBuilder": {
+    "title": "Ho kenya BookBuilder",
+    "steps": {
+      "upload": "Ho kenya ZIP",
+      "review": "Ho sheba sehlopha",
+      "import": "Ho kenya buka"
+    },
+    "upload": {
+      "title": "Kenya litokomane tsa hao",
+      "dragDrop": "Hula u behe faele ya ZIP mona",
+      "orClick": "kapa tobetsa ho batla lifaele",
+      "chooseFile": "KHETHA FAELE",
+      "supportedFormats": "E amohelehile: Lifaele tsa ZIP tse nang le litokomane tsa Word (.docx)",
+      "processing": "Ho sebetsa faele ya ZIP...",
+      "extracting": "Ho ntsha litokomane...",
+      "analyzing": "Ho hlahloba litaba..."
+    },
+    "actions": {
+      "cancel": "HLAKOLA",
+      "back": "Morao",
+      "next": "E latelang",
+      "import": "Kenya buka",
+      "retry": "Leka hape",
+      "selectFile": "Khetha faele"
+    },
+    "import": {
+      "title": "Ho kenya ho phethiloe",
+      "success": "Buka ya hao e kentswe hantle!",
+      "creating": "Ho theha sebopeho sa buka...",
+      "processing": "Ho sebetsana le dikahare...",
+      "finalizing": "Ho qetella ho kenya..."
+    },
+    "messages": {
+      "importTip": "📝 Keletso ya ho Kenya: Haeba ditokomane tsa hao tsa Word di na le dikahare tse tsoakaneng (dihlooho, tafole ya dikahare, tlhahisoleseding ya mongodi, joalo-joalo), BookBuilder e ka theha dikarolo tse ding. Ka mora ho kenya, o ka hlakola dikarolo tseo o sa di batleng habonolo mme o fetise dikahare pakeng tsa Ntho ya Pele, Ntho e Kholo, le Ntho ya ho Qetella ha ho hlokahala.",
+      "systemPages": "Leqephe la Sehlooho le Tokelo ya Mongodi di etsoa ka bo tsona - leqephe lefe kapa lefe la sehlooho/tokelo ya mongodi le kentseng le tloheliloe.",
+      "languageNote": "Ditokomane di tla aroloa ka ho sebedisa mekhoa ya puo ya {{language}}.",
+      "noContent": "Ha ho dikarolo tsa dikahare tse fumaneng - ka kopo hlahloba faele ya hao ya ZIP.",
+      "duplicateSections": "Mabitso a dikarolo a tshwanang a fumanwe: {{sections}}",
+      "processingError": "Phoso ho sebetsana le faele ya ZIP. Ka kopo hlahloba sebopeho sa faele mme o leke hape.",
+      "emptyZip": "Faele ya ZIP e bonala e se na letho kapa ha e na ditokomane tse tshehetsiwang.",
+      "invalidFormat": "Sebopeho sa faele se sa nepahalang. Ka kopo kenya faele ya ZIP e nang le ditokomane tsa Word."
+    },
+    "classification": {
+      "title": "Hlahloba Karollo ya Ditokomane",
+      "subtitle": "Hula dikarolo pakeng tsa mefuta ho hlophisa sebopeho sa buka ya hao",
+      "frontMatter": "Front Matter",
+      "mainMatter": "Main Matter",
+      "backMatter": "Back Matter",
+      "confidence": "Confidence",
+      "move": "MOVE",
+      "sections": "{{count}} разделов",
+      "noSections": "No sections in this category",
+      "frontMatterDesc": "Leqephe la sehlooho, ditokelo tsa mongodi, ho nehelana, mantsoe a qaleho, lenane la ditaba",
+      "mainMatterDesc": "Dikgaolo, ditaba tse kholo, thepa ea motheo",
+      "backMatterDesc": "Qetello, mantsoe a qetello, tlatsetso, bukantswe ea mantsoe, lenane, ditshupo"
+    },
+    "validation": {
+      "noFile": "Ka kopo khetha faele ya ZIP ya ho kenya.",
+      "invalidFile": "Ka kopo khetha faele ya ZIP e nepahetseng.",
+      "fileTooLarge": "Faele e kgolo haholo",
+      "noDocuments": "Ha ho ditokomane tsa Word tse fumanoeng",
+      "processingFailed": "Ho sebetsana le ditokomane ho hloleha",
+      "selectFile": "Ka kopo khetha faele ya ZIP",
+      "selectValidFile": "Ka kopo khetha faele ya ZIP e nepahetseng",
+      "maxSize": "Boholo bo boholo ke 50MB"
+    },
+    "detectedBookStructure": "📚 Sebopeho sa Buka se Fumanweng",
+    "dragToReorder": "Hula dikarolo ho hlophisa hape ka har'a mefuta kapa sebedisa \"FETISA\" dropdown ho fetola dikarolo pakeng tsa Ntho ya Pele/e Kholo/ya ho Qetella",
+    "bookMetadata": "Metadata ya Buka:"
   }
 }
