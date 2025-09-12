@@ -944,9 +944,9 @@ const ExportModal: React.FC<ExportModalProps> = ({
               </>
             )}
 
+            {/* Document Language - Show for PDF and EPUB */}
             {(settings.format === 'pdf' || settings.format === 'epub') && (
               <>
-                {/* Document Language */}
                 <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
                 <FormControl fullWidth sx={{ mb: 2 }}>
                   <Select value={settings.language} onChange={e => handleLanguageChange(e.target.value as string)}>
@@ -957,91 +957,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     ))}
                   </Select>
                 </FormControl>
-
-                                 {/* Font Family - Show for all languages */}
-                 {(
-                  <>
-                                         <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                                          <FormControl fullWidth sx={{ mb: 2 }}>
-                        <Select 
-                          value={settings.fontFamily || ''} 
-                          onChange={e => {
-                            console.log(`Font changed to: ${e.target.value}`);
-                            setSettings({ ...settings, fontFamily: e.target.value });
-                          }}
-                          displayEmpty
-                          renderValue={(selected) => {
-                            console.log(`Select renderValue called with: "${selected}"`);
-                            return selected || 'Select a font...';
-                          }}
-                                                 >
-                                                  {(() => {
-                            const language = settings.language || 'en';
-                            const format = settings.format;
-                            console.log(`Rendering font options for language: ${language}, format: ${format}`);
-                            
-                            const availableFonts = getAvailableFonts(language, format);
-                            
-                            return availableFonts.map(font => (
-                              <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                            ));
-                                                  })()}
-                       </Select>
-                    </FormControl>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                      {(() => {
-                        const language = settings.language || 'en';
-                        const format = settings.format;
-                        
-                                                 if (format === 'epub') {
-                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                             return '💡 Choose your preferred EPUB-compatible font for Latin-based languages. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ru') {
-                             return '💡 Choose your preferred Cyrillic font for Russian (EPUB-compatible). Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ta') {
-                             return '💡 Choose your preferred Tamil font (EPUB-compatible). Keep the selected font or choose your preferred font.';
-                           } else if (language === 'hi') {
-                             return '💡 Choose your preferred Devanagari font for Hindi (EPUB-compatible). Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ar') {
-                             return '💡 Choose your preferred Arabic font (EPUB-compatible). Keep the selected font or choose your preferred font.';
-                           } else if (language === 'he' || language === 'yi') {
-                             return '💡 Choose your preferred Hebrew font (EPUB-compatible). Keep the selected font or choose your preferred font.';
-                           }
-                         } else if (format === 'pdf') {
-                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                             return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ru') {
-                             return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ta') {
-                             return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'hi') {
-                             return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ar') {
-                             return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'he' || language === 'yi') {
-                             return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
-                           }
-                                                  } else {
-                           if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                             return '💡 Choose your preferred font for Latin-based languages. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ru') {
-                             return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ta') {
-                             return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'hi') {
-                             return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'ar') {
-                             return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
-                           } else if (language === 'he' || language === 'yi') {
-                             return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
-                           }
-                         }
-                        
-                        return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
-                      })()}
-                    </Typography>
-                  </>
-                )}
 
                 {/* General Language Support Notice */}
                 <Alert severity="info" sx={{ mb: 2 }}>
@@ -1073,8 +988,60 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     </Typography>
                   </Alert>
                 )}
+              </>
+            )}
 
-
+            {/* Font Family - PDF only */}
+            {settings.format === 'pdf' && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select 
+                    value={settings.fontFamily || ''} 
+                    onChange={e => {
+                      console.log(`Font changed to: ${e.target.value}`);
+                      setSettings({ ...settings, fontFamily: e.target.value });
+                    }}
+                    displayEmpty
+                    renderValue={(selected) => {
+                      console.log(`Select renderValue called with: "${selected}"`);
+                      return selected || 'Select a font...';
+                    }}
+                  >
+                    {(() => {
+                      const language = settings.language || 'en';
+                      const format = settings.format;
+                      console.log(`Rendering font options for language: ${language}, format: ${format}`);
+                      
+                      const availableFonts = getAvailableFonts(language, format);
+                      
+                      return availableFonts.map(font => (
+                        <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                      ));
+                    })()}
+                  </Select>
+                </FormControl>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                  {(() => {
+                    const language = settings.language || 'en';
+                    
+                    if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                      return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
+                    } else if (language === 'ru') {
+                      return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
+                    } else if (language === 'ta') {
+                      return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
+                    } else if (language === 'hi') {
+                      return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
+                    } else if (language === 'ar') {
+                      return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
+                    } else if (language === 'he' || language === 'yi') {
+                      return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
+                    }
+                    
+                    return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
+                  })()}
+                </Typography>
               </>
             )}
 

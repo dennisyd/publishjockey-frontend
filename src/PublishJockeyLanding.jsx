@@ -704,7 +704,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '500px'
                 }}
               >
-                Publish a Bookstore-Quality Book—today.
+                Publish Bookstore-Quality Books in Minutes.
               </Typography>
 
               {/* Subtitle - tighter spacing */}
@@ -721,6 +721,22 @@ const Hero = ({ handleRegister }) => {
                 }}
               >
                 From manuscript to polished, print-ready in minutes—no formatting headaches.
+              </Typography>
+
+              {/* Registration info - more prominent */}
+              <Typography 
+                variant="body2" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '0.95rem' },
+                  fontWeight: 600,
+                  color: '#d32f2f', // Red color for attention
+                  display: 'block',
+                  mt: 1.5,
+                  mb: 1.5,
+                  maxWidth: '450px'
+                }}
+              >
+                Registered Users print 12 pages FREE!
               </Typography>
 
               {/* Feature highlight - tighter spacing */}
@@ -768,7 +784,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                <strong>Word/Google Docs/Markdown → Book</strong> (auto-split) • Images • CSV → Tables • Built-in Editor
+                <strong>Word/Google Docs/Markdown → Book</strong> (auto-split) • Images • Tables • Built-in Editor
               </Typography>
 
               {/* Language support - tighter spacing */}
@@ -811,7 +827,7 @@ const Hero = ({ handleRegister }) => {
                     }
                   }}
                 >
-                  Register Today
+                  Publish Now!
                 </Button>
                 <Button 
                   href="#how-it-works" 
@@ -838,17 +854,6 @@ const Hero = ({ handleRegister }) => {
                 </Button>
               </Box>
 
-              {/* Bottom note - moved closer to buttons */}
-              <Typography 
-                variant="caption" 
-                sx={{ 
-                  fontSize: '0.85rem',
-                  opacity: 0.7,
-                  display: 'block'
-                }}
-              >
-                Registered users can print 12 pages free.
-              </Typography>
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>
