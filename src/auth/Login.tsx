@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import GoogleAnalyticsService from '../services/GoogleAnalyticsService';
 import {
   Box,
   Button,
@@ -51,6 +52,9 @@ const Login: React.FC = () => {
       
       // Call the login function
       await login(email, password);
+      
+      // Track successful login
+      GoogleAnalyticsService.trackLogin();
       
       console.log('Login successful - redirecting to dashboard');
       navigate('/dashboard');

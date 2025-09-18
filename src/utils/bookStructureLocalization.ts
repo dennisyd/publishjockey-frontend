@@ -1155,7 +1155,242 @@ export function getLocalizedSectionNamesObject(language?: string): {
   
   // Language-specific labels
   const localizedLabels: Record<string, { frontMatter: string; mainMatter: string; backMatter: string }> = {
-      pt: {
+    // English
+    en: {
+      frontMatter: 'Front Matter',
+      mainMatter: 'Main Matter',
+      backMatter: 'Back Matter'
+    },
+    // African Languages
+    ha: {
+      frontMatter: 'Farkon Littafi',
+      mainMatter: 'Babban Littafi',
+      backMatter: 'Karshen Littafi'
+    },
+    ig: {
+      frontMatter: 'Ihe Mbụ',
+      mainMatter: 'Isi Akwụkwọ',
+      backMatter: 'Ihe Ikpeazụ'
+    },
+    ki: {
+      frontMatter: 'Kĩambĩrĩria',
+      mainMatter: 'Mũtwe wa Kĩbuku',
+      backMatter: 'Kĩrĩkĩrĩro'
+    },
+    rw: {
+      frontMatter: 'Intangiriro',
+      mainMatter: 'Igice Nyamukuru',
+      backMatter: 'Umwanzuro'
+    },
+    rn: {
+      frontMatter: 'Intangiriro',
+      mainMatter: 'Igice Gikomeye',
+      backMatter: 'Impera'
+    },
+    lg: {
+      frontMatter: 'Entandikwa',
+      mainMatter: 'Omubiri gw\'Ekitabo',
+      backMatter: 'Enkomerero'
+    },
+    mg: {
+      frontMatter: 'Ampandrefany',
+      mainMatter: 'Vatan\'ny Boky',
+      backMatter: 'Ambodiany'
+    },
+    sn: {
+      frontMatter: 'Chitangiriro',
+      mainMatter: 'Muviri weBhuku',
+      backMatter: 'Kumashure'
+    },
+    sw: {
+      frontMatter: 'Mambo ya Awali',
+      mainMatter: 'Maudhui Makuu',
+      backMatter: 'Mambo ya Mwisho'
+    },
+    tn: {
+      frontMatter: 'Tshimologo',
+      mainMatter: 'Setlhogo sa Buka',
+      backMatter: 'Bofelo'
+    },
+    xh: {
+      frontMatter: 'Izinto Zokuqala',
+      mainMatter: 'Umzimba weeNcwadi',
+      backMatter: 'Izinto Zokugqibela'
+    },
+    yo: {
+      frontMatter: 'Àkòkò Ìbẹ̀rẹ̀',
+      mainMatter: 'Àkòkò Àárin',
+      backMatter: 'Àkòkò Ìparí'
+    },
+    zu: {
+      frontMatter: 'Izinto Zokuqala',
+      mainMatter: 'Umzimba weeNcwadi',
+      backMatter: 'Izinto Zokugqibela'
+    },
+    // European Languages  
+    hr: {
+      frontMatter: 'Prednji Dio',
+      mainMatter: 'Glavni Dio',
+      backMatter: 'Stražnji Dio'
+    },
+    cs: {
+      frontMatter: 'Úvodní Část',
+      mainMatter: 'Hlavní Část',
+      backMatter: 'Závěrečná Část'
+    },
+    da: {
+      frontMatter: 'Forsag',
+      mainMatter: 'Hoveddel',
+      backMatter: 'Eftersag'
+    },
+    nl: {
+      frontMatter: 'Voorzaken',
+      mainMatter: 'Hoofdinhoud',
+      backMatter: 'Achterkant'
+    },
+    et: {
+      frontMatter: 'Eesosa',
+      mainMatter: 'Põhiosa',
+      backMatter: 'Tagaosa'
+    },
+    fi: {
+      frontMatter: 'Alkuosa',
+      mainMatter: 'Pääosa',
+      backMatter: 'Loppuosa'
+    },
+    gl: {
+      frontMatter: 'Materia Preliminar',
+      mainMatter: 'Materia Principal',
+      backMatter: 'Materia Final'
+    },
+    el: {
+      frontMatter: 'Πρόλογος',
+      mainMatter: 'Κύριο Κείμενο',
+      backMatter: 'Επίλογος'
+    },
+    hu: {
+      frontMatter: 'Elő Rész',
+      mainMatter: 'Fő Rész',
+      backMatter: 'Hátsó Rész'
+    },
+    is: {
+      frontMatter: 'Formáli',
+      mainMatter: 'Aðalefni',
+      backMatter: 'Eftirmáli'
+    },
+    lv: {
+      frontMatter: 'Priekšvārds',
+      mainMatter: 'Galvenā Daļa',
+      backMatter: 'Pēcvārds'
+    },
+    lt: {
+      frontMatter: 'Priekinė Dalis',
+      mainMatter: 'Pagrindinė Dalis',
+      backMatter: 'Galinė Dalis'
+    },
+    mk: {
+      frontMatter: 'Воведен Дел',
+      mainMatter: 'Главен Дел',
+      backMatter: 'Завршен Дел'
+    },
+    no: {
+      frontMatter: 'Forord',
+      mainMatter: 'Hoveddel',
+      backMatter: 'Etterord'
+    },
+    pl: {
+      frontMatter: 'Część Wstępna',
+      mainMatter: 'Część Główna',
+      backMatter: 'Część Końcowa'
+    },
+    ro: {
+      frontMatter: 'Partea Introductivă',
+      mainMatter: 'Partea Principală',
+      backMatter: 'Partea Finală'
+    },
+    sr: {
+      frontMatter: 'Уводни Део',
+      mainMatter: 'Главни Део',
+      backMatter: 'Завршни Део'
+    },
+    sk: {
+      frontMatter: 'Úvodná Časť',
+      mainMatter: 'Hlavná Časť',
+      backMatter: 'Záverečná Časť'
+    },
+    sl: {
+      frontMatter: 'Uvodni Del',
+      mainMatter: 'Glavni Del',
+      backMatter: 'Zaključni Del'
+    },
+    sv: {
+      frontMatter: 'Inledning',
+      mainMatter: 'Huvuddel',
+      backMatter: 'Avslutning'
+    },
+    tr: {
+      frontMatter: 'Ön Kısım',
+      mainMatter: 'Ana Kısım',
+      backMatter: 'Arka Kısım'
+    },
+    // Asian Languages
+    id: {
+      frontMatter: 'Bagian Depan',
+      mainMatter: 'Bagian Utama',
+      backMatter: 'Bagian Belakang'
+    },
+    ms: {
+      frontMatter: 'Bahagian Hadapan',
+      mainMatter: 'Bahagian Utama',
+      backMatter: 'Bahagian Belakang'
+    },
+    vi: {
+      frontMatter: 'Phần Đầu',
+      mainMatter: 'Phần Chính',
+      backMatter: 'Phần Cuối'
+    },
+    bn: {
+      frontMatter: 'প্রারম্ভিক অংশ',
+      mainMatter: 'মূল অংশ',
+      backMatter: 'সমাপনী অংশ'
+    },
+    gu: {
+      frontMatter: 'શરૂઆતનો ભાગ',
+      mainMatter: 'મુખ્ય ભાગ',
+      backMatter: 'અંતિમ ભાગ'
+    },
+    te: {
+      frontMatter: 'మొదటి భాగం',
+      mainMatter: 'ప్రధాన భాగం',
+      backMatter: 'చివరి భాగం'
+    },
+    kn: {
+      frontMatter: 'ಮುಂಭಾಗ',
+      mainMatter: 'ಮುಖ್ಯ ಭಾಗ',
+      backMatter: 'ಹಿಂಭಾಗ'
+    },
+    ml: {
+      frontMatter: 'മുൻഭാഗം',
+      mainMatter: 'മുഖ്യഭാഗം',
+      backMatter: 'പിൻഭാഗം'
+    },
+    pa: {
+      frontMatter: 'ਸ਼ੁਰੂਆਤੀ ਹਿੱਸਾ',
+      mainMatter: 'ਮੁੱਖ ਹਿੱਸਾ',
+      backMatter: 'ਅੰਤਿਮ ਹਿੱਸਾ'
+    },
+    or: {
+      frontMatter: 'ଆଗ ଭାଗ',
+      mainMatter: 'ମୁଖ୍ୟ ଭାଗ',
+      backMatter: 'ପଛ ଭାଗ'
+    },
+    tl: {
+      frontMatter: 'Unahan Bahagi',
+      mainMatter: 'Pangunahing Bahagi',
+      backMatter: 'Huling Bahagi'
+    },
+    // Portuguese variants
+    pt: {
     frontMatter: 'Matéria Preliminar',
     mainMatter: 'Matéria Principal',
     backMatter: 'Matéria Final'
@@ -1382,7 +1617,7 @@ export function getLocalizedChapterName(
   if (structure?.main?.length) {
     const first = structure.main[0];
     // capture leading letters/marks/spaces across scripts
-    const match = first.match(/^[\p{L}\p{M}\s]+/u);
+    const match = first.match(/^[A-Za-zÀ-ÿĀ-žА-я\u4e00-\u9fff\u0600-\u06ff\u0900-\u097f\s]+/);
     if (match) defaultPrefix = match[0].trim();
   }
   const prefix = options?.prefixOverride || defaultPrefix;

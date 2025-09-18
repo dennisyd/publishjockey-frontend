@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'; // Yancy Dennis
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
+import GoogleAnalyticsService from '../services/GoogleAnalyticsService';
 import {
   Box,
   Button,
@@ -137,6 +138,7 @@ const Register: React.FC = () => {
         
         // Registration was successful, show success message
         setRegistrationSuccess(true);
+        GoogleAnalyticsService.trackSignUp();
         
         // Don't redirect yet, let user see the success message
         console.log('Registration successful - staying on page to show success message');

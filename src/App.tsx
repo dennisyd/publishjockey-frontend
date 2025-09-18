@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'; // Yancy Dennis
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import TrackingService from './services/TrackingService';
+import GoogleAnalyticsService from './services/GoogleAnalyticsService';
 import {
   CssBaseline, ThemeProvider, createTheme, Box
 } from '@mui/material';
@@ -54,6 +55,7 @@ import Footer from './components/Footer';
 
 // Import export timing manager
 import ExportTimingManager from './components/ExportTimingManager';
+import GoogleAnalyticsTracker from './components/GoogleAnalyticsTracker';
 
 // Import icons for navigation
 import DashboardIcon from '@mui/icons-material/Dashboard';
@@ -93,8 +95,9 @@ function ProjectWorkspaceWrapper() {
 function App() {
   // Initialize tracking and handle referral clicks
   useEffect(() => {
-    // Initialize tracking service
+    // Initialize tracking services
     TrackingService.initialize();
+    GoogleAnalyticsService.initialize();
     
     // Check for referral parameters in URL
     const referralData = TrackingService.getReferralFromURL();
@@ -117,6 +120,7 @@ function App() {
       <CssBaseline />
       <ExportTimingManager>
         <Router>
+          <GoogleAnalyticsTracker />
           <AuthProvider>
             <SettingsProvider>
               <Box sx={{ 

@@ -752,7 +752,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                <strong>Instant Preview</strong> • PDF 26.7s • EPUB 6.6s • DOCX 1.8s¹
+                <strong>Instant Preview</strong> • PDF 26.7s • EPUB 5s • DOCX 5s¹
               </Typography>
 
               {/* Speed verification footnote - much closer to speed metrics */}
@@ -800,7 +800,7 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                Publish in <strong>55+ languages</strong> • Publisher-grade typesetting
+                Publish in <strong>80+ languages</strong> • Publisher-grade typesetting
               </Typography>
 
               {/* CTA Buttons */}
@@ -1239,8 +1239,8 @@ const Hero = ({ handleRegister }) => {
                   }
                   const selectedLanguages = shuffled.slice(0, 5);
                   
-                  // Always show English first, then 5 random languages, then "+50 more"
-                  const displayItems = ['English', ...selectedLanguages, '+50 more'];
+                  // Always show English first, then 5 random languages, then "+75 more"
+                  const displayItems = ['English', ...selectedLanguages, '+75 more'];
                   
                   return displayItems.map((lang, index) => (
                     <Box 
@@ -3669,7 +3669,7 @@ const FAQ = () => {
         {
           id: "competitor-comparison",
           question: "How does PublishJockey compare to other publishing platforms?",
-          answer: "We've created a detailed comparison showing how PublishJockey outperforms the competition in features, pricing, and speed:<br><br><div style='text-align: center; margin: 20px 0;'><img src='/publishing_platform_comparison.svg' alt='PublishJockey vs Competitors Comparison Table' style='max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);' /></div><br>Key advantages that set us apart:<br><br><ul style='padding-left: 20px;'><li><strong>55+ Languages:</strong> We support Hindi, Tamil, Bengali, African languages, and more—while competitors typically support only 1-10 languages.</li><li><strong>Unbeatable Value:</strong> All 3 formats (PDF, EPUB, Word) for $63 promo vs competitors charging $147-$349.</li><li><strong>Lightning Speed:</strong> EPUB and Word exports in 5 seconds, PDF in ~30 seconds vs competitors taking minutes to days.</li><li><strong>Complete Toolkit:</strong> Built-in editor, CSV table import, Word import, and cover generation—features competitors charge extra for or don't offer.</li><li><strong>Bookstore-Quality Formatting:</strong> Professional formatting technology that makes your book look like it belongs on the shelves at Barnes & Noble or any major bookstore.</li></ul>"
+          answer: "We've created a detailed comparison showing how PublishJockey outperforms the competition in features, pricing, and speed:<br><br><div style='text-align: center; margin: 20px 0;'><img src='/publishing_platform_comparison.svg' alt='PublishJockey vs Competitors Comparison Table' style='max-width: 100%; height: auto; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);' /></div><br>Key advantages that set us apart:<br><br><ul style='padding-left: 20px;'><li><strong>80+ Languages:</strong> We support Hindi, Tamil, Bengali, African languages, and more—while other platforms typically support only 1-10 languages.</li><li><strong>Unbeatable Value:</strong> All 3 formats (PDF, EPUB, Word) for $63 promo vs other services charging $147-$349.</li><li><strong>Lightning Speed:</strong> EPUB and Word exports in 5 seconds, PDF in ~30 seconds vs other platforms taking minutes to days.</li><li><strong>Complete Toolkit:</strong> Built-in editor, CSV table import, Word import, and cover generation—features competitors charge extra for or don't offer.</li><li><strong>Bookstore-Quality Formatting:</strong> Professional formatting technology that makes your book look like it belongs on the shelves at Barnes & Noble or any major bookstore.</li></ul>"
         },
         {
           id: "panel2",
@@ -3710,7 +3710,7 @@ const FAQ = () => {
         {
           id: "panel16",
           question: "How long does it take to generate my professional manuscript?",
-          answer: "After you make your final edits in the PublishJockey system, your manuscript is generated almost instantly. PDF files typically take less than 60 seconds, while EPUB and Word documents are usually ready in under 2 seconds. Unlike other services, PublishJockey lets you immediately view your polished manuscript—so you know exactly what you're getting before you publish."
+                  answer: "After you make your final edits in the PublishJockey system, your manuscript is generated almost instantly. PDF files typically take less than 60 seconds, while EPUB and Word documents are usually ready in under 5 seconds. Unlike other services, PublishJockey lets you immediately view your polished manuscript—so you know exactly what you're getting before you publish."
         },
         {
           id: "panel15",
@@ -3760,7 +3760,7 @@ const FAQ = () => {
         {
           id: "panel13",
           question: "Can I use PublishJockey to publish textbooks or academic materials?",
-          answer: "Not at this time. While PublishJockey is great for general book formatting, publishing textbooks—especially those with complex mathematical equations, footnotes, and academic references—requires additional functionality. However, if there is enough demand, we may consider expanding the application to support these features in the future."
+          answer: "We're actively developing enhanced academic publishing features! While our current platform excels at general book formatting, we recognize the unique needs of academic publishing. Enhanced support for thesis, dissertations, and textbooks—including complex mathematical equations, advanced footnoting, bibliography management, and academic citation styles—is currently in development. Stay tuned for these exciting new capabilities!"
         },
         {
           id: "image-caption",
@@ -3845,7 +3845,7 @@ const FAQ = () => {
         {
           id: "future-features",
           question: "Are you planning to add more features (e.g., audiobook support, advanced templates, more import/export formats)?",
-          answer: "Yes! We're constantly improving based on user feedback. Share your suggestions with us—your vote matters!"
+          answer: "Yes! We're constantly improving based on user feedback. Currently in development: enhanced support for thesis and dissertation formatting with advanced academic features including bibliography management, citation styles, and complex document structures. Share your suggestions with us—your vote matters!"
         }
       ]
     },
