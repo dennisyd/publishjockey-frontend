@@ -104,6 +104,23 @@ function App() {
     if (referralData.code) {
       TrackingService.trackReferralClick(referralData.code, referralData.source || 'direct');
     }
+    
+    // Fix aria-hidden accessibility issue with Material-UI modals
+    const handleAriaHiddenFix = () => {
+      const rootElement = document.getElementById('root');
+      if (rootElement && rootElement.getAttribute('aria-hidden') === 'true') {
+        // Remove aria-hidden if no modal is actually open
+        const openModals = document.querySelectorAll('.MuiModal-root[style*="display: block"], .MuiDialog-root[style*="display: block"]');
+        if (openModals.length === 0) {
+          rootElement.removeAttribute('aria-hidden');
+        }
+      }
+    };
+    
+    // Check periodically to fix any aria-hidden issues
+    const intervalId = setInterval(handleAriaHiddenFix, 1000);
+    
+    return () => clearInterval(intervalId);
   }, []);
 
   // Define navigation items
