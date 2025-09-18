@@ -51,7 +51,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedBookStructure, getLocalizedMetadata, generateCopyrightNotice, getLocalizedSectionNamesObject } from '../utils/bookStructureLocalization';
+import { getLocalizedBookStructure, getLocalizedMetadata, generateCopyrightNotice, getLocalizedSectionNamesObject, getLocalizedUI } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -151,6 +151,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // NOTE: Now using UI language (i18n.language) instead of separate documentLanguage setting
   // Get localized section names based on current language
   const sectionNames = getLocalizedSectionNamesObject(i18n.language);
+  
+  // Get localized UI text for editor interface
+  const uiText = getLocalizedUI(i18n.language);
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
@@ -2591,7 +2594,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }}>
           {/* Left side - Section title */}
           <Typography variant="h6" sx={{ fontWeight: 'medium' }}>
-            {selected && structureLoaded && structure[selected.area]?.[selected.idx] ? structure[selected.area][selected.idx] : "No section selected"}
+            {selected && structureLoaded && structure[selected.area]?.[selected.idx] ? structure[selected.area][selected.idx] : uiText.noSectionSelected}
           </Typography>
 
           {/* Right side - View mode and action buttons */}
@@ -2629,17 +2632,17 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               />
             </Box>
             
-            <Tooltip title="Import">
+            <Tooltip title={uiText.import}>
               <Button 
                 variant="text" 
                 startIcon={<ImportExportIcon />}
                 onClick={() => setImportOpen(true)}
                 sx={{ mr: 1 }}
               >
-                Import
+                {uiText.import}
               </Button>
             </Tooltip>
-            <Tooltip title="Manual Save">
+            <Tooltip title={uiText.manualSave}>
               <Button 
                 variant="text" 
                 startIcon={<CloudUploadIcon />}
@@ -2697,13 +2700,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 }}
                 sx={{ mr: 1 }}
               >
-                Save
+                {uiText.save}
               </Button>
             </Tooltip>
             <Tooltip title={
               userSubscription?.startsWith('e') && isOverWordLimit 
                 ? "Export disabled: Ebook subscriptions limited to 10,000 words" 
-                : "Export"
+                : uiText.exportTooltip
             }>
               <span>
                 <Button 
@@ -2723,7 +2726,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     })
                   }}
                 >
-                  Export
+                  {uiText.export}
                 </Button>
               </span>
             </Tooltip>
@@ -2888,7 +2891,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 })
               }}>
                 <TextField
-                  label={selected ? `Editing: ${structure[selected.area][selected.idx]}` : "No section selected"}
+                  label={selected ? `${uiText.editing}: ${structure[selected.area][selected.idx]}` : uiText.noSectionSelected}
                   multiline
                   fullWidth
                   minRows={20}
@@ -2985,7 +2988,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         ) : (
           <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}>
             <Typography variant="body1" color="text.secondary">
-              Select a section to edit
+              {uiText.selectSectionToEdit}
             </Typography>
           </Box>
         )}

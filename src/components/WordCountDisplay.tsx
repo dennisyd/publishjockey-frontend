@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Box, Typography, LinearProgress, Button } from '@mui/material';
 import { http } from '../services/http';
+import { useTranslation } from 'react-i18next';
+import { getLocalizedUI } from '../utils/bookStructureLocalization';
 
 interface WordCountDisplayProps {
   projectId: string | null;
@@ -28,6 +30,8 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
   onWordLimitStatusChange,
   refreshTrigger = 0
 }) => {
+  const { i18n } = useTranslation();
+  const uiText = getLocalizedUI(i18n.language);
   const [wordData, setWordData] = useState<WordCountData | null>(null);
   const [loading, setLoading] = useState(false);
 
@@ -75,7 +79,7 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
     return (
       <Box>
         <Typography variant="body2" color="text.secondary">
-          Counting words...
+          {uiText.countingWords}
         </Typography>
       </Box>
     );
@@ -95,7 +99,7 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
     <Box>
       {!compact && (
         <Typography variant="subtitle2" color="text.secondary" gutterBottom>
-          Word Count
+          {uiText.wordCount}
         </Typography>
       )}
       
@@ -106,9 +110,9 @@ const WordCountDisplay: React.FC<WordCountDisplayProps> = ({
           sx={{ fontWeight: isOverLimit ? 600 : 400 }}
         >
           {hasWordLimit ? (
-            `${wordData.wordCount.toLocaleString()} / ${wordData.wordLimit?.toLocaleString()} words`
+            `${wordData.wordCount.toLocaleString()} / ${wordData.wordLimit?.toLocaleString()} ${uiText.words}`
           ) : (
-            `${wordData.wordCount.toLocaleString()} words`
+            `${wordData.wordCount.toLocaleString()} ${uiText.words}`
           )}
         </Typography>
         

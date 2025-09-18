@@ -1127,6 +1127,180 @@ export function getLocalizedSectionNames(language?: string): string[] {
  * Get section names as an object with frontMatter, mainMatter, and backMatter properties.
  * This is used by the ProjectWorkspace component for sidebar display.
  */
+// UI translations for editor interface
+const uiTranslations: Record<string, {
+  noSectionSelected: string;
+  selectSectionToEdit: string;
+  editing: string;
+  import: string;
+  save: string;
+  export: string;
+  manualSave: string;
+  exportTooltip: string;
+  words: string;
+  wordCount: string;
+  countingWords: string;
+}> = {
+  en: {
+    noSectionSelected: "No section selected",
+    selectSectionToEdit: "Select a section to edit",
+    editing: "Editing",
+    import: "Import",
+    save: "Save",
+    export: "Export",
+    manualSave: "Manual Save",
+    exportTooltip: "Export",
+    words: "words",
+    wordCount: "Word Count",
+    countingWords: "Counting words..."
+  },
+  es: {
+    noSectionSelected: "Ninguna sección seleccionada",
+    selectSectionToEdit: "Selecciona una sección para editar",
+    editing: "Editando",
+    import: "Importar",
+    save: "Guardar",
+    export: "Exportar",
+    manualSave: "Guardado Manual",
+    exportTooltip: "Exportar",
+    words: "palabras",
+    wordCount: "Recuento de Palabras",
+    countingWords: "Contando palabras..."
+  },
+  fr: {
+    noSectionSelected: "Aucune section sélectionnée",
+    selectSectionToEdit: "Sélectionnez une section à modifier",
+    editing: "Modification",
+    import: "Importer",
+    save: "Enregistrer",
+    export: "Exporter",
+    manualSave: "Sauvegarde Manuelle",
+    exportTooltip: "Exporter",
+    words: "mots",
+    wordCount: "Nombre de Mots",
+    countingWords: "Comptage des mots..."
+  },
+  de: {
+    noSectionSelected: "Kein Abschnitt ausgewählt",
+    selectSectionToEdit: "Wählen Sie einen Abschnitt zum Bearbeiten",
+    editing: "Bearbeitung",
+    import: "Importieren",
+    save: "Speichern",
+    export: "Exportieren",
+    manualSave: "Manuelles Speichern",
+    exportTooltip: "Exportieren",
+    words: "Wörter",
+    wordCount: "Wortzahl",
+    countingWords: "Wörter zählen..."
+  },
+  ru: {
+    noSectionSelected: "Раздел не выбран",
+    selectSectionToEdit: "Выберите раздел для редактирования",
+    editing: "Редактирование",
+    import: "Импорт",
+    save: "Сохранить",
+    export: "Экспорт",
+    manualSave: "Ручное Сохранение",
+    exportTooltip: "Экспорт",
+    words: "слов",
+    wordCount: "Подсчет Слов",
+    countingWords: "Подсчет слов..."
+  },
+  pt: {
+    noSectionSelected: "Nenhuma seção selecionada",
+    selectSectionToEdit: "Selecione uma seção para editar",
+    editing: "Editando",
+    import: "Importar",
+    save: "Salvar",
+    export: "Exportar",
+    manualSave: "Salvamento Manual",
+    exportTooltip: "Exportar",
+    words: "palavras",
+    wordCount: "Contagem de Palavras",
+    countingWords: "Contando palavras..."
+  },
+  'pt-BR': {
+    noSectionSelected: "Nenhuma seção selecionada",
+    selectSectionToEdit: "Selecione uma seção para editar",
+    editing: "Editando",
+    import: "Importar",
+    save: "Salvar",
+    export: "Exportar",
+    manualSave: "Salvamento Manual",
+    exportTooltip: "Exportar",
+    words: "palavras",
+    wordCount: "Contagem de Palavras",
+    countingWords: "Contando palavras..."
+  },
+  zh: {
+    noSectionSelected: "未选择章节",
+    selectSectionToEdit: "选择要编辑的章节",
+    editing: "编辑中",
+    import: "导入",
+    save: "保存",
+    export: "导出",
+    manualSave: "手动保存",
+    exportTooltip: "导出",
+    words: "字",
+    wordCount: "字数统计",
+    countingWords: "正在统计字数..."
+  },
+  ja: {
+    noSectionSelected: "セクションが選択されていません",
+    selectSectionToEdit: "編集するセクションを選択",
+    editing: "編集中",
+    import: "インポート",
+    save: "保存",
+    export: "エクスポート",
+    manualSave: "手動保存",
+    exportTooltip: "エクスポート",
+    words: "語",
+    wordCount: "語数カウント",
+    countingWords: "語数を数えています..."
+  },
+  ar: {
+    noSectionSelected: "لم يتم تحديد قسم",
+    selectSectionToEdit: "حدد قسمًا للتحرير",
+    editing: "تحرير",
+    import: "استيراد",
+    save: "حفظ",
+    export: "تصدير",
+    manualSave: "حفظ يدوي",
+    exportTooltip: "تصدير",
+    words: "كلمات",
+    wordCount: "عدد الكلمات",
+    countingWords: "جاري عد الكلمات..."
+  },
+  hi: {
+    noSectionSelected: "कोई अनुभाग चयनित नहीं",
+    selectSectionToEdit: "संपादित करने के लिए अनुभाग चुनें",
+    editing: "संपादन",
+    import: "आयात",
+    save: "सेव",
+    export: "निर्यात",
+    manualSave: "मैन्युअल सेव",
+    exportTooltip: "निर्यात",
+    words: "शब्द",
+    wordCount: "शब्द गिनती",
+    countingWords: "शब्द गिन रहे हैं..."
+  }
+};
+
+/**
+ * Get localized UI translations for the editor interface.
+ */
+export function getLocalizedUI(language?: string) {
+  // First try exact match (e.g., pt-BR)
+  const exactLanguage = language?.toLowerCase();
+  if (exactLanguage && uiTranslations[exactLanguage]) {
+    return uiTranslations[exactLanguage];
+  }
+  
+  // Then try normalized (e.g., pt)
+  const normalizedLanguage = normalizeLang(language);
+  return uiTranslations[normalizedLanguage] || uiTranslations.en;
+}
+
 export function getLocalizedSectionNamesObject(language?: string): {
   frontMatter: string;
   mainMatter: string;
