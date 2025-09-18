@@ -15,8 +15,8 @@
  * @returns {Object} Classification result with proper matter distribution
  */
 function classifyDocuments(documents, userLanguage = 'en') {
-  console.log('🔍 BookBuilder: Starting classification of', documents.length, 'documents');
-  console.log('🌍 BookBuilder: Using user-selected language:', userLanguage);
+  // Debug removed
+  // Debug removed
   
   const result = {
     frontMatter: [],
@@ -32,15 +32,15 @@ function classifyDocuments(documents, userLanguage = 'en') {
 
   // Extract metadata first (with user-selected language)
   result.metadata = extractMetadata(documents, userLanguage);
-  console.log('📊 BookBuilder: Extracted metadata:', result.metadata);
+  // Debug removed
 
   // Process each document
   documents.forEach((doc, index) => {
-    console.log(`📄 Processing document ${index + 1}:`, doc.filename);
+    // Debug removed
     
     const extractedTitle = extractSectionTitle(doc.content);
-    console.log(`📝 Extracted title: "${extractedTitle}"`);
-    console.log(`📝 Content preview: "${doc.content.substring(0, 100)}..."`);
+    // Debug removed
+    // Debug removed}..."`);
     
     const processedDoc = {
       ...doc,
@@ -70,7 +70,7 @@ function classifyDocuments(documents, userLanguage = 'en') {
         title === 'title' ||
         title === 'título' ||
         title === 'titulo') {
-      console.log(`🚫 SKIPPED system page: ${extractedTitle} (will be auto-generated)`);
+      // Debug removed`);
       return; // Skip this document entirely
     }
     
@@ -109,31 +109,27 @@ function classifyDocuments(documents, userLanguage = 'en') {
     };
 
     const langPatterns = getLanguagePatterns(userLanguage);
-    console.log(`🌍 Using language patterns for "${userLanguage}":`, langPatterns);
+    // Debug removed
     
     // Check if title matches front matter patterns for the current language ONLY
     const isFrontMatter = langPatterns.front.some(pattern => title.includes(pattern));
     const isBackMatter = langPatterns.back.some(pattern => title.includes(pattern));
     
     if (isFrontMatter) {
-      console.log(`📋 Classified as FRONT matter: ${extractedTitle} (matched ${userLanguage} patterns)`);
+      // Debug removed`);
       result.frontMatter.push(processedDoc);
     }
     else if (isBackMatter) {
-      console.log(`📋 Classified as BACK matter: ${extractedTitle} (matched ${userLanguage} patterns)`);
+      // Debug removed`);
       result.backMatter.push(processedDoc);
     }
     else {
-      console.log(`📋 Classified as MAIN matter: ${extractedTitle} (no ${userLanguage} pattern match)`);
+      // Debug removed`);
       result.mainMatter.push(processedDoc);
     }
   });
 
-  console.log('✅ BookBuilder: Classification complete:', {
-    front: result.frontMatter.length,
-    main: result.mainMatter.length,
-    back: result.backMatter.length
-  });
+  // BookBuilder: Classification complete
 
   return result;
 }
@@ -151,7 +147,7 @@ function extractMetadata(documents, userLanguage = 'en') {
   let title = '';
   let author = '';
 
-  console.log('📊 BookBuilder: Using user-selected language:', userLanguage);
+  // Debug removed
 
   // Simple approach: Look for title and author in any document
   documents.forEach(doc => {
@@ -236,20 +232,16 @@ function parseZipStructure(fileList) {
  * @returns {Object} Book structure compatible with existing system
  */
 function convertToBookStructure(classificationResult) {
-  console.log('🔄 BookBuilder: Converting to book structure...');
+  // Debug removed
   const { frontMatter, mainMatter, backMatter, metadata } = classificationResult;
 
   // Get localized structure ONLY for the pinned system pages (Title Page and Copyright)
   const { getLocalizedBookStructure } = require('./bookStructureLocalization');
   const localizedStructure = getLocalizedBookStructure(metadata.language || 'en');
   
-  console.log('🌍 BookBuilder DEBUG: Using language:', metadata.language);
-  console.log('🌍 BookBuilder DEBUG: Full localized structure:', localizedStructure);
-  console.log('📋 BookBuilder DEBUG: System pages:', {
-    titlePage: localizedStructure.front[0],
-    copyright: localizedStructure.front[1],
-    fullFrontArray: localizedStructure.front
-  });
+  // Debug removed
+  // Debug removed
+  // BookBuilder DEBUG: System pages
 
   // Create front matter with ONLY the 2 pinned system pages + imported content
   const frontSections = [];
@@ -261,19 +253,14 @@ function convertToBookStructure(classificationResult) {
   frontSections.push(titlePageName);
   frontSections.push(copyrightName);
   
-  console.log('📌 BookBuilder DEBUG: Added pinned system pages:', frontSections);
-  console.log('📄 BookBuilder DEBUG: Imported frontMatter documents:', frontMatter.map(doc => ({
-    filename: doc.filename,
-    title: doc.title,
-    extractedTitle: extractSectionTitle(doc.content),
-    contentPreview: doc.content.substring(0, 100) + '...'
-  })));
+  // Debug removed
+  // BookBuilder DEBUG: Imported frontMatter documents
   
   // Add ONLY imported front matter sections (no default template sections)
   frontMatter.forEach(doc => {
     const sectionTitle = doc.title || extractSectionTitle(doc.content);
     frontSections.push(sectionTitle);
-    console.log('📄 BookBuilder DEBUG: Added imported front matter:', sectionTitle);
+    // Debug removed
   });
 
   // Create structure with pinned sections
@@ -283,7 +270,7 @@ function convertToBookStructure(classificationResult) {
     back: backMatter.map(doc => doc.title || extractSectionTitle(doc.content))
   };
 
-  console.log('📋 BookBuilder: Created structure with pinned sections:', structure);
+  // Debug removed
 
   const content = {};
 
@@ -295,7 +282,7 @@ function convertToBookStructure(classificationResult) {
     const sectionName = doc.title || extractSectionTitle(doc.content);
     const contentKey = `front:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added front matter: "${sectionName}" (${doc.content.length} chars)`);
+    // Debug removed`);
   });
 
   // Add all main matter content
@@ -303,7 +290,7 @@ function convertToBookStructure(classificationResult) {
     const sectionName = structure.main[index];
     const contentKey = `main:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added main matter: "${sectionName}" (${doc.content.length} chars)`);
+    // Debug removed`);
   });
 
   // Add all back matter content
@@ -311,7 +298,7 @@ function convertToBookStructure(classificationResult) {
     const sectionName = structure.back[index];
     const contentKey = `back:${sectionName}`;
     content[contentKey] = doc.content;
-    console.log(`📝 Added back matter: "${sectionName}" (${doc.content.length} chars)`);
+    // Debug removed`);
   });
 
   const result = {
@@ -325,17 +312,10 @@ function convertToBookStructure(classificationResult) {
     createdVia: 'book-builder' // Important: Mark as BookBuilder import
   };
 
-  console.log('✅ BookBuilder DEBUG: Conversion complete. Total content keys:', Object.keys(content).length);
-  console.log('🏷️ BookBuilder DEBUG: Content keys:', Object.keys(content));
-  console.log('📌 BookBuilder DEBUG: Pinned sections: Title Page and Copyright at top of front matter');
-  console.log('🔍 BookBuilder DEBUG: Final front sections breakdown:', {
-    totalFrontSections: structure.front.length,
-    sections: structure.front.map((section, index) => ({
-      index,
-      name: section,
-      type: index < 2 ? 'PINNED_SYSTEM' : 'IMPORTED_USER'
-    }))
-  });
+  // Debug removed.length);
+  // Debug removed);
+  // Debug removed
+  // BookBuilder DEBUG: Final front sections breakdown
 
   return result;
 }

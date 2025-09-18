@@ -424,11 +424,11 @@ const ExportModal: React.FC<ExportModalProps> = ({
   
   // Get available fonts for a given language and format
   const getAvailableFonts = (language: string, format: string) => {
-    console.log(`getAvailableFonts called with language: "${language}", format: "${format}", platform: "${exportPlatform}"`);
+    // Getting available fonts for language and format
     
     // Use language-specific font recommendations
     const recommendedFonts = getFontRecommendations(language);
-    console.log(`[FONT] Using curated recommendations for ${language}:`, recommendedFonts.map(f => f.value));
+    // Using curated font recommendations
     
     return recommendedFonts;
   };
@@ -437,12 +437,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
 
   // Get recommended font for a given language (first recommendation)
   const getRecommendedFont = (language: string, format: string = 'pdf'): string => {
-    console.log(`getRecommendedFont called with language: "${language}", format: "${format}"`);
+    // Getting recommended font
     
     const recommendedFonts = getFontRecommendations(language);
     const topRecommendation = recommendedFonts[0]?.value || 'Linux Libertine O';
     
-    console.log(`Top font recommendation for ${language}: "${topRecommendation}"`);
+    // Top font recommendation selected
     return topRecommendation;
   };
 
@@ -473,7 +473,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
      if (isOpen) {
        const language = i18n.language || 'en';
        const format = 'pdf'; // Default format for initialization
-       console.log(`Initialization effect - i18n.language: "${i18n.language}", final language: "${language}", format: "${format}"`);
+       // Initializing with detected language and format
        
        const recommendedFont = getRecommendedFont(language, format);
        const userFont = userSettings.exportFontFamily;
@@ -485,7 +485,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
        // Use user's saved font if it's valid, otherwise use recommended font
        const initialFont = isUserFontValid ? userFont : recommendedFont;
        
-       console.log(`Initializing ExportModal - Language: ${language}, User font: ${userFont}, Is valid: ${isUserFontValid}, Recommended: ${recommendedFont}, Final: ${initialFont}`);
+       // Initializing ExportModal with font settings
        
        setSettings(prev => ({
          ...prev,
@@ -742,7 +742,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const handleLanguageChange = (language: string) => {
     const format = settings.format;
     const recommendedFont = getRecommendedFont(language, format);
-    console.log(`Language changed to ${language}, format: ${format}, setting font to ${recommendedFont}`);
+    // Language changed, updating font recommendation
     setSettings(prev => ({
       ...prev,
       language,
@@ -1011,7 +1011,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     {(() => {
                       const language = settings.language || 'en';
                       const format = settings.format;
-                      console.log(`Rendering font options for language: ${language}, format: ${format}`);
+                      // Rendering font options
                       
                       const availableFonts = getAvailableFonts(language, format);
                       

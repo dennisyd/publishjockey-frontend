@@ -51,7 +51,7 @@ import { useLocation } from 'react-router-dom';
 import { useAuth } from '../contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 import tokenManager from '../utils/tokenManager';
-import { getLocalizedBookStructure, getLocalizedMetadata, generateCopyrightNotice } from '../utils/bookStructureLocalization';
+import { getLocalizedBookStructure, getLocalizedMetadata, generateCopyrightNotice, getLocalizedSectionNamesObject } from '../utils/bookStructureLocalization';
 import Papa from 'papaparse';
 
 import ExportModal, { ExportSettings } from './ExportModal';
@@ -124,13 +124,13 @@ const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-e
 
 // Define ProjectWorkspace component properly
 const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElement => {
-  console.log('🔍 PROJECT WORKSPACE RENDER:', { projectId });
+  // ProjectWorkspace rendered
   
   // Track component lifecycle
   useEffect(() => {
-    console.log('🔍 PROJECT WORKSPACE MOUNTED:', { projectId });
+    // ProjectWorkspace mounted
     return () => {
-      console.log('🔍 PROJECT WORKSPACE UNMOUNTED:', { projectId });
+      // ProjectWorkspace unmounted
     };
   }, [projectId]);
   
@@ -141,41 +141,16 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Yancy Dennis - Portuguese localization fix: Use UI language instead of separate documentLanguage
   const sidebarLanguage = i18n.language || 'en';
   
-  // DEBUG: Log the language being used for sidebar
-  console.log('🔍 [SIDEBAR DEBUG] i18n.language (UI):', i18n.language);
-  console.log('🔍 [SIDEBAR DEBUG] Using for sidebar:', sidebarLanguage);
+  // Using UI language for sidebar localization
   
-  // BROWSER LANGUAGE DETECTION DEBUG
-  console.log('🌐 [BROWSER DEBUG] navigator.language:', navigator.language);
-  console.log('🌐 [BROWSER DEBUG] navigator.languages:', navigator.languages);
-  console.log('🌐 [BROWSER DEBUG] Detected browser languages:', navigator.languages?.join(', '));
-  
-  // Debug for Portuguese variants
-  if (sidebarLanguage?.includes('pt')) {
-    console.log('🔍 [PORTUGUESE DEBUG] Portuguese variant detected:', sidebarLanguage);
-    console.log('🔍 [PORTUGUESE DEBUG] Structure should contain:', getLocalizedBookStructure(sidebarLanguage));
-  }
-  
-  // Debug for Catalan and Occitan
-  if (sidebarLanguage === 'ca') {
-    console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Catalan detected! Should show Catalan section names.');
-    console.log('🏴󠁥󠁳󠁣󠁴󠁿 [CATALAN DEBUG] Structure should contain:', getLocalizedBookStructure('ca'));
-  }
-  if (sidebarLanguage === 'oc') {
-    console.log('🇫🇷 [OCCITAN DEBUG] Occitan detected! Should show Occitan section names.');
-    console.log('🇫🇷 [OCCITAN DEBUG] Structure should contain:', getLocalizedBookStructure('oc'));
-  }
+  // Language-specific debugging removed for performance
   
   // Get section names for sidebar headers - use simple English labels for now
   // Yancy Dennis - Portuguese localization fix: Individual section names now display in Portuguese
   // Programs to push: frontend, export-backend
   // NOTE: Now using UI language (i18n.language) instead of separate documentLanguage setting
-  // This eliminates conflicts between Dashboard and Settings language selectors
-  const sectionNames = {
-    frontMatter: 'Front Matter',
-    mainMatter: 'Main Matter',
-    backMatter: 'Back Matter'
-  };
+  // Get localized section names based on current language
+  const sectionNames = getLocalizedSectionNamesObject(i18n.language);
   
   // Approach 2: No system-generated content after book creation
   // This function is no longer needed as we don't modify structure after loading
@@ -184,14 +159,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   const [structure, setStructure] = useState(() => {
     // Initialize with the current language's structure
     const initialStructure = getLocalizedBookStructure(sidebarLanguage);
-    console.log('🔍 INITIAL STRUCTURE SET:', {
-      language: sidebarLanguage,
-      structure: initialStructure,
-      frontSections: initialStructure?.front
-    });
+    // Initial structure set
     // Ensure structure is valid
     if (!initialStructure || !initialStructure.front || !initialStructure.main || !initialStructure.back) {
-      console.warn('🔍 INVALID INITIAL STRUCTURE, USING FALLBACK');
+      // Invalid structure, using fallback
       return getLocalizedBookStructure('en');
     }
     return initialStructure;
@@ -346,12 +317,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   useEffect(() => {
     // DON'T override structure if we've already loaded one from the database
     if (structureLoaded) {
-      console.log('🔍 [LANGUAGE CHANGE] Skipping structure update - database structure already loaded');
+      // Skipping structure update - database structure loaded
       return;
     }
     
     const newLocalizedStructure = getLocalizedBookStructure(sidebarLanguage);
-    console.log('🔍 [LANGUAGE CHANGE] Updating structure for language:', sidebarLanguage, 'New structure:', newLocalizedStructure);
+    // Updating structure for new language
     setStructure(newLocalizedStructure);
   }, [sidebarLanguage, structureLoaded]); // Yancy Dennis - Portuguese localization fix: Removed i18n.language from fetchProject dependencies
   
@@ -381,14 +352,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   
   useEffect(() => {
     async function fetchProject() {
-      console.log('🔍 FETCH PROJECT FUNCTION CALLED');
+      // Fetching project data
       setLoadingProject(true);
 
       try {
         // Use token from context instead of localStorage
         const res = await http.get<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`);
         
-        console.log('Project data from API:', res.data);
+        // Project data received
         
         // Handle different API response structures (data vs project property)
         const projectData = res.data.project || res.data.data || res.data;
@@ -410,26 +381,16 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         // Load content from backend if available
         if (projectData.content) {
-          console.log('Loading content from backend:', Object.keys(projectData.content).length, 'sections');
-          console.log('🔍 CONTENT LOAD DEBUG:', {
-            contentKeys: Object.keys(projectData.content),
-            contentPreview: JSON.stringify(projectData.content).substring(0, 300)
-          });
-          
+          // Loading content from backend
           // Approach 2: Use content exactly as stored in backend - no filtering
           setContent(projectData.content);
         } else {
-          console.log('No content found in project data');
+          // No content found in project data
         }
         
         // Load structure from backend if available
         if (projectData.structure) {
-          console.log('Loading structure from backend:', JSON.stringify(projectData.structure, null, 2));
-          console.log('🔍 PROJECT DATA DEBUG:', {
-            createdVia: projectData.createdVia,
-            hasCreatedVia: 'createdVia' in projectData,
-            allKeys: Object.keys(projectData)
-          });
+          // Loading structure from backend
           
           // Check if this is a BookBuilder project (has createdVia field OR non-default section names)
           const isBookBuilderImport = projectData.createdVia === 'book-builder';
@@ -443,21 +404,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           );
           
           const isBookBuilderFallback = isBookBuilderImport || hasSpanishSections;
-          console.log('🔍 IS BOOKBUILDER PROJECT?', {
-            byCreatedVia: isBookBuilderImport,
-            bySpanishSections: hasSpanishSections,
-            finalDecision: isBookBuilderFallback
-          });
+          // Checking if BookBuilder project
           
           if (isBookBuilderFallback) {
-            console.log('🔍 BOOKBUILDER PROJECT DETECTED - PRESERVING IMPORTED STRUCTURE:', {
-              backendStructure: projectData.structure,
-              frontSections: projectData.structure?.front
-            });
+            // BookBuilder project detected - preserving imported structure
             
             // Always use the backend structure for BookBuilder projects
             // This preserves the actual imported section names
-            console.log('📌 SETTING BOOKBUILDER STRUCTURE:', projectData.structure);
             setStructure(projectData.structure);
           } else {
             // For regular projects, use the existing logic
@@ -473,15 +426,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             
             // Only use backend structure if it has MORE sections than the localized template
             if (backendSectionCount > localizedSectionCount) {
-              console.log('🔍 USING BACKEND STRUCTURE (contains custom sections):', {
-                backendSectionCount,
-                localizedSectionCount,
-                backendStructure: projectData.structure
-              });
+              // Using backend structure (contains custom sections)
               setStructure(projectData.structure);
             } else {
-              console.log('🔍 BACKEND STRUCTURE IS DEFAULT SIZE, USING LOCALIZED STRUCTURE FOR LANGUAGE:', documentLanguage);
-              console.log('🔍 LOCALIZED STRUCTURE:', currentLocalizedStructure);
               // Keep the localized structure that was set during initialization
             }
           }
@@ -489,17 +436,9 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           setStructureLoaded(true);
           
           // Debug: Check what structure is actually set after BookBuilder processing
-          setTimeout(() => {
-            console.log('🏁 STRUCTURE STATE AFTER BOOKBUILDER PROCESSING:', {
-              isBookBuilder: isBookBuilderFallback,
-              currentStructure: structure,
-              currentFrontSections: structure?.front
-            });
-          }, 100);
+          // Structure processing completed
         } else {
-          console.log('🔍 NO STRUCTURE IN BACKEND, KEEPING DEFAULT:', {
-            currentStructure: structure
-          });
+          // No structure in backend, keeping default
           setStructureLoaded(true);
         }
         
@@ -514,25 +453,13 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         setLoadingProject(false);
       }
     }
-    console.log('🔍 FETCH PROJECT EFFECT:', {
-      projectId,
-      hasToken: !!token,
-      willFetch: !!(projectId && token),
-      currentUser: !!currentUser
-    });
+    // Fetch project effect
     if (projectId && token) fetchProject();
   }, [projectId, token, currentUser]);
 
   // Debug structure changes
   useEffect(() => {
-    console.log('🔍 STRUCTURE STATE CHANGED:', {
-      structure,
-      sections: {
-        front: structure.front?.length || 0,
-        main: structure.main?.length || 0,
-        back: structure.back?.length || 0
-      }
-    });
+    // Structure state changed
   }, [structure]);
 
   // Yancy Dennis - Fixed missing categories and duplicate entries with comprehensive solution:
@@ -584,12 +511,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Create a function to handle the actual save
     const saveContent = async () => {
       try {
-        console.log('Executing autosave for content with', Object.keys(content).length, 'sections');
+        // Executing autosave for content sections
         
         // Track autosave start time for performance monitoring
         const startTime = Date.now();
-        
-
         
         const response = await http.put<ProjectApiResponse>(`${ENV.API_URL}/projects/${projectId}`, {
           title: projectTitle,
@@ -602,12 +527,6 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         
         // Calculate save duration
         const duration = Date.now() - startTime;
-        
-        console.log(`Autosave successful (${duration}ms):`, {
-          projectId,
-          sections: Object.keys(content).length,
-          responseData: response.data
-        });
         
         // Verify the save was truly successful by checking returned data
         if (response.data.project && response.data.project.content) {
@@ -773,25 +692,24 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Check if copyright section exists in structure
     const copyrightExists = structure.front.includes(copyrightSectionName);
     if (!copyrightExists) {
-      console.log('Copyright section not found in structure for language:', documentLanguage);
+      // Copyright section not found
       return;
     }
 
     // For BookBuilder imports, always generate copyright in the detected language
     // This ensures proper localized copyright even for imported books
     if (isBookBuilderProject) {
-      console.log('📚 BookBuilder project detected - will generate localized copyright');
+
     }
     
     const currentCopyright = content[copyrightKey] || '';
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
-    console.log('🔍 DEBUG: projectAuthor:', projectAuthor, 'authorName:', authorName);
+    // Debug: author information
     
     // Use document language for copyright generation (not UI language)
     // This ensures copyright is generated in the language of the book being written
     const copyrightLanguage = documentLanguage || 'en';
-    console.log('🎯 [SIMPLE COPYRIGHT] Using document language:', copyrightLanguage, 'for copyright generation (not UI language:', i18n.language, ')');
-    console.log('🔍 DEBUG: Structure sections:', structure?.front);
+    // Using document language for copyright generation
     
     // Initialize copyright conditions
     const hasPlaceholders = currentCopyright.includes('{year}') || currentCopyright.includes('{author}') || currentCopyright.includes('[Author Name]');
@@ -802,7 +720,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     let shouldRegenerate;
     if (isBookBuilderProject) {
       shouldRegenerate = !currentCopyright.trim(); // Only if no copyright exists
-      console.log('📚 BookBuilder: Will generate copyright in detected language:', copyrightLanguage);
+
     } else {
       // Only regenerate if:
       // 1. No copyright exists (new project)
@@ -811,10 +729,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       shouldRegenerate = !currentCopyright.trim() || hasPlaceholders || hasEnglishCopyright;
     }
     
-    console.log('🔍 DEBUG: shouldRegenerate?', shouldRegenerate, 'isBookBuilder:', isBookBuilderProject);
+
     
     if (!shouldRegenerate) {
-      console.log('🚫 Skipping copyright regeneration - conditions not met');
+
       return;
     }
     
@@ -822,23 +740,23 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     
     if (authorName) {
       // Generate localized copyright notice with author (includes full text)
-      console.log('🔍 DEBUG: About to call generateCopyrightNotice with author:', `"${authorName}"`);
-      console.log('🔍 DEBUG: Author length:', authorName.length);
+
+
       defaultCopyright = generateCopyrightNotice(copyrightLanguage, authorName);
-      console.log('🎯 Generating copyright with author for language:', copyrightLanguage, 'author:', authorName);
-      console.log('🔍 DEBUG: Generated copyright:', defaultCopyright);
+
+
     } else {
       // Generate placeholder copyright for new projects without author
       const metadata = getLocalizedMetadata(copyrightLanguage);
-      console.log('🔍 DEBUG: metadata for', copyrightLanguage, ':', metadata);
+
       const placeholderCopyrightLine = metadata.copyright
         .replace('{year}', new Date().getFullYear().toString())
         .replace('{author}', '[Author Name]');
       const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
       defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
-      console.log('🎯 Generating placeholder copyright for new project in language:', copyrightLanguage);
-      console.log('🔍 DEBUG: placeholderCopyrightLine:', placeholderCopyrightLine);
-      console.log('🔍 DEBUG: copyrightFull:', copyrightFull);
+
+
+
     }
     
     setContent(prev => ({
@@ -888,7 +806,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     // Check if copyright section exists in structure
     const copyrightExists = structure.front.includes(copyrightSectionName);
     if (!copyrightExists) {
-      console.log('🚫 Copyright section not found in structure for regeneration');
+
       return;
     }
     
@@ -896,15 +814,15 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     const copyrightLanguage = i18n.language || 'en';
     const authorName = projectAuthor && projectAuthor.trim() ? projectAuthor : '';
     
-    console.log('🔄 [REGENERATE COPYRIGHT] Using dashboard language:', copyrightLanguage);
-    console.log('🔍 Author:', `"${authorName}"`);
+
+
     
     let defaultCopyright = '';
     
     if (authorName) {
       // Generate localized copyright notice with author (includes full text)
       defaultCopyright = generateCopyrightNotice(copyrightLanguage, authorName);
-      console.log('🎯 Generated copyright with author for language:', copyrightLanguage, 'author:', authorName);
+
     } else {
       // Generate placeholder copyright for new projects without author
       const metadata = getLocalizedMetadata(copyrightLanguage);
@@ -913,7 +831,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         .replace('{author}', '[Author Name]');
       const copyrightFull = metadata.copyrightFull || 'No part of this book may be reproduced in any form or by any electronic or mechanical means, including information storage and retrieval systems, without written permission from the author, except for the use of brief quotations in a book review.';
       defaultCopyright = `${placeholderCopyrightLine}\n\n${copyrightFull}`;
-      console.log('🎯 Generated placeholder copyright for language:', copyrightLanguage);
+
     }
     
     setContent(prev => ({
@@ -949,7 +867,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       setSelected({ area, idx: newIdx });
       
       // Immediately save both structure and content to the backend in a single request
-      console.log('Saving new section and content to backend:', contentKey);
+
       
       // Show saving notification
       setNotification({
@@ -968,7 +886,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         isbn: projectIsbn
       })
       .then(response => {
-        console.log('New section saved successfully:', response.data);
+
         setNotification({
           open: true,
           message: `New section "${newSectionName.trim()}" added and saved.`,
@@ -1031,7 +949,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
   // Handle section reordering within the same matter area
   const handleReorder = (area: Area, newSections: string[]) => {
-    console.log(`🔄 Reordering ${area} matter:`, newSections);
+
     
     // Create updated structure
     const updatedStructure = { ...structure };
@@ -1081,11 +999,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Markdown editor handlers
   const handleContentChange = (area: Area, section: string, value: string) => {
     // Log more detailed information for debugging
-    console.log(`Content changed for ${area}:${section}`, {
-      contentLength: value.length,
-      preview: value.substring(0, 50) + '...',
-      key: `${area}:${section}`
-    });
+    // Content changed for section
     
     setContent(prev => {
       // Create a new content object with the updated value
@@ -1098,7 +1012,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       
       // Double check that the content was actually updated
       if (prev[`${area}:${section}`] !== value) {
-        console.log(`Content differs - saving changes for ${area}:${section}`);
+
         
         debouncedSave.current = setTimeout(() => {
           // Show a brief "Saving..." notification
@@ -1110,14 +1024,10 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           
           // Create a backup of the content first
           const contentBackup = JSON.stringify(newContent);
-          console.log(`Content backup size: ${contentBackup.length} bytes`);
+
           
           // Debug: Log what we're sending
-          console.log('🔍 FRONTEND DEBUG - Sending content:', {
-            contentType: typeof newContent,
-            contentKeys: Object.keys(newContent),
-            contentPreview: JSON.stringify(newContent).substring(0, 200)
-          });
+          // Sending content to backend
 
           // Call the autosave function directly using the new content
           http.put(`${ENV.API_URL}/projects/${projectId}`, {
@@ -1130,11 +1040,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             // Add a timestamp to ensure the request is unique
             _timestamp: Date.now()
           }).then(response => {
-            console.log('Content saved successfully:', {
-              responseStatus: response.status,
-              responseData: response.data ? 'Data received' : 'No data',
-              contentCount: Object.keys(newContent).length
-            });
+            // Content saved successfully
             
             setNotification({
               open: true,
@@ -1161,7 +1067,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           });
         }, 1500); // Slightly shorter debounce (1.5 seconds)
       } else {
-        console.log('Content unchanged - no save needed');
+
       }
       
       return newContent;
@@ -1173,14 +1079,14 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
 
   // Handle export from modal
   const handleExportModalSubmit = (settings: ExportSettings) => {
-    console.log('Export modal submitted with settings:', settings);
+
     // Call the main export function with the format from settings
     handleExport(settings.format, settings);
   };
 
   // Enhanced export handler with special title page handling
   const handleExport = async (format: string, settings: ExportSettings) => {
-    console.log('Starting export process for format:', format);
+
     
     setExportLoading(true);
     setExportProgress('Preparing export...');
@@ -1213,7 +1119,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           _timestamp: Date.now()
         });
         
-        console.log('Successfully saved all content before export');
+
       } catch (saveError: any) {
         console.error('Error saving content before export:', saveError);
         
@@ -1318,8 +1224,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         });
       });
       
-      console.log(`Exporting project to ${format} with ${project.sections.length} sections`);
-      console.log('Export sections in order:', project.sections.map(s => s.title));
+
+
       
       // Export the project using the ExportService
       try {
@@ -1334,7 +1240,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
           isbn: projectIsbn || ''
         });
         
-        console.log('Export successful, file URL:', fileUrl);
+
         
       } catch (error: any) {
         console.error('Export service error:', error);
@@ -1412,8 +1318,8 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     }
     
     // Debug log
-    console.log(`Parsed ${sections.length} sections from imported markdown`);
-    sections.forEach((s, i) => console.log(`Section ${i+1}: "${s.title}" (${s.content.length} bytes)`));
+
+
     
     // Create index-based map of all sections in the structure for ordered lookup
     // This preserves the correct order from the structure
@@ -1455,7 +1361,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       });
     });
     
-    console.log('Section structure for matching:', Object.keys(orderedSectionMap).length, 'mappings created');
+
     
     // Create an array to hold matched sections with their ordering info
     const matchedSections: Array<{
@@ -1487,7 +1393,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             matched: true
           });
           matched = true;
-          console.log(`Matched "${sectionTitle}" to "${area}:${name}" (exact match)`);
+
           return;
         }
         
@@ -1524,7 +1430,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   matched: true
                 });
                 matched = true;
-                console.log(`Matched "${sectionTitle}" to "front:${name}" (front matter match)`);
+
                 break;
               }
             }
@@ -1551,7 +1457,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 matched: true
               });
               matched = true;
-              console.log(`Matched "${sectionTitle}" to "main:${matchingSection}" (chapter match)`);
+
             }
           }
         }
@@ -1583,7 +1489,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   matched: true
                 });
                 matched = true;
-                console.log(`Matched "${sectionTitle}" to "back:${name}" (back matter match)`);
+
                 break;
               }
             }
@@ -1605,7 +1511,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             order: orderBase + idx,
             matched: false
           });
-          console.log(`Assigned unmatched section "${sectionTitle}" to selected section "${area}:${sectionName}"`);
+
         }
       }
     });
@@ -1618,7 +1524,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       result[key] = content;
     });
     
-    console.log(`Processed ${Object.keys(result).length} sections for import in correct order`);
+
     
     return result;
   };
@@ -2172,7 +2078,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             constructed += `\n\nISBN: ${projectIsbn}`;
           }
           
-          console.log('🎯 Auto-generating title page for language:', documentLanguage, 'section:', titlePageName);
+
           setContent(prev => ({ ...prev, [key]: constructed }));
         }
       }
@@ -2271,7 +2177,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       }
     });
     
-    console.log('Cleaned structure:', cleanedStructure);
+
     return cleanedStructure;
   };
 
@@ -2303,7 +2209,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
     });
     
     if (modified) {
-      console.log('Structure was repaired during validation');
+
     }
     
     return validatedStructure;
@@ -2326,7 +2232,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         }
       );
       
-      console.log('Structure saved successfully:', response.data);
+
     } catch (err) {
       console.error('Error saving structure:', err);
     }
@@ -2357,7 +2263,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
       
       // Only run cleanup if invalid entries are detected
       if (hasInvalidEntries) {
-        console.log('Found invalid entries in structure, cleaning up...');
+
         const cleanedStructure = cleanupStructure(structure);
         
         // Use a ref to track if we've already done this cleanup to prevent infinite loops
@@ -2381,12 +2287,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   useEffect(() => {
     // Only run this after the structure is loaded from the backend and we're not loading
     if (!loadingProject && Object.keys(structure).length > 0) {
-      console.log('Validating book structure after load');
+
       const validatedStructure = validateAndRepairStructure(structure);
       
       // Only update if changes were made to avoid infinite loops
       if (JSON.stringify(validatedStructure) !== JSON.stringify(structure)) {
-        console.log('Structure was modified during validation, updating state');
+
         setStructure(validatedStructure);
         
         // Save the validated structure to backend
@@ -2412,19 +2318,19 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
   // Add an effect to verify content is properly loaded
   useEffect(() => {
     if (!loadingProject && Object.keys(content).length > 0) {
-      console.log('==== CONTENT VERIFICATION LOG ====');
-      console.log(`Project ID: ${projectId}`);
-      console.log(`Total sections in content: ${Object.keys(content).length}`);
-      console.log(`Structure sections: ${Object.values(structure).flat().length}`);
+
+
+
+
       
       // Log all sections with their content size
-      console.log('Content map:');
+
       Object.entries(content).forEach(([key, value]) => {
-        console.log(`${key}: ${(value || '').length} chars ${value ? '✓' : '⚠️ EMPTY'}`);
+
       });
       
       // Check if there are any sections in structure not in content
-      console.log('Structure check:');
+
       ['front', 'main', 'back'].forEach(area => {
         structure[area as Area].forEach(sectionName => {
           const key = `${area}:${sectionName}`;
@@ -2436,7 +2342,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
         });
       });
       
-      console.log('================================');
+
     }
   }, [loadingProject, content, structure, projectId]);
   
@@ -2480,7 +2386,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     subtitle: projectSubtitle,
                     isbn: projectIsbn
                   }).then(response => {
-                    console.log('Project title saved successfully:', response.data);
+
                   }).catch(err => {
                     console.error('Failed to save project title:', err);
                   });
@@ -2499,7 +2405,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                       subtitle: projectSubtitle,
                       isbn: projectIsbn
                     }).then(response => {
-                      console.log('Project title saved successfully:', response.data);
+
                     }).catch(err => {
                       console.error('Failed to save project title:', err);
                     });
@@ -2760,7 +2666,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     subtitle: projectSubtitle,
                     isbn: projectIsbn
                   }).then(response => {
-                    console.log('Manual save successful:', response.data);
+
                     setNotification({
                       open: true,
                       message: 'All changes saved successfully!',
@@ -2989,12 +2895,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                   value={selected ? (() => {
                     const contentKey = `${selected.area}:${structure[selected.area][selected.idx]}`;
                     const contentValue = content[contentKey] || '';
-                    console.log('🔍 EDITOR DISPLAY DEBUG:', {
-                      selected,
-                      contentKey,
-                      contentValue: contentValue.substring(0, 50),
-                      contentValueLength: contentValue.length
-                    });
+                    // Editor display debug
                     return contentValue;
                   })() : ''}
                   onChange={(e) => {
@@ -3192,7 +3093,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               subtitle: projectSubtitle,
               isbn: projectIsbn
             }).then(response => {
-              console.log('Metadata saved on dialog close:', response.data);
+
             }).catch(err => {
               console.error('Failed to save metadata on dialog close:', err);
             });
@@ -3230,7 +3131,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
             label={getLocalizedMetadata(documentLanguage).author}
             value={projectAuthor}
             onChange={e => {
-              console.log('🔍 [METADATA] Author input changed to:', `"${e.target.value}"`);
+
               setProjectAuthor(e.target.value);
             }}
             required
@@ -3361,12 +3262,12 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 // Use realImageService for proper image upload tracking
                 realImageService.uploadImage(file)
                 .then(data => {
-                  console.log('Image upload response:', data);
+
                   setUploading(false);
                   if (data.success) {
                     // Use the URL from the upload response
                     const imageUrl = data.url || data.path || '';
-                    console.log('Setting uploaded image path:', imageUrl);
+
                     setUploadedImagePath(imageUrl);
                     setImageCaption(file.name.replace(/\.[^/.]+$/, ""));
                     
@@ -3467,7 +3368,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
               
               // Create image tag
               const imageTag = `![${imageCaption || ''}](${uploadedImagePath})<!-- scale:${imageScale} -->`;
-              console.log('Creating image tag:', imageTag);
+
               
               // Insert at cursor position
               if (selected) {
@@ -3476,7 +3377,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                 const currentContent = content[`${area}:${sectionName}`] || '';
                 const textarea = editorRef.current;
                 
-                console.log('Inserting image into:', { area, sectionName, currentContentLength: currentContent.length });
+
                 
                 if (textarea) {
                   const start = textarea.selectionStart || 0;
@@ -3488,7 +3389,7 @@ const ProjectWorkspace = ({ projectId }: ProjectWorkspaceProps): React.ReactElem
                     imageTag + 
                     currentContent.substring(end);
                   
-                  console.log('Updated content length:', updatedContent.length);
+
                   
                   // Update content
                   handleContentChange(area, sectionName, updatedContent);

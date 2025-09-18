@@ -1,5 +1,6 @@
 import React, { useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
+import { getLocalizedSectionNamesObject } from '../../utils/bookStructureLocalization';
 import {
   Dialog,
   DialogTitle,
@@ -292,11 +293,11 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
       setDocuments(extractedDocuments);
       
       // Classify the documents using user-selected language
-      console.log('Classifying documents...');
+      // Classifying documents
       const userLanguage = i18n.language || 'en';
-      console.log('📍 BookBuilder: Using dashboard language:', userLanguage);
+      // Using dashboard language for classification
       const classificationResult = classifyDocuments(extractedDocuments, userLanguage);
-      console.log('Classification result:', classificationResult);
+      // Classification completed
       setClassification(classificationResult);
 
       // Convert to book structure
@@ -522,7 +523,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
         {classification.frontMatter.length > 0 && (
           <Paper sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle1" gutterBottom>
-              📖 Front Matter ({classification.frontMatter.length} sections)
+              📖 {getLocalizedSectionNamesObject(i18n.language).frontMatter} ({classification.frontMatter.length} sections)
             </Typography>
             <SortableContext 
               items={classification.frontMatter.map(doc => doc.filename)}
@@ -548,7 +549,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
         {classification.mainMatter.length > 0 && (
           <Paper sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle1" gutterBottom>
-              📚 Main Matter ({classification.mainMatter.length} sections)
+              📚 {getLocalizedSectionNamesObject(i18n.language).mainMatter} ({classification.mainMatter.length} sections)
             </Typography>
             <SortableContext 
               items={classification.mainMatter.map(doc => doc.filename)}
@@ -574,7 +575,7 @@ const BookBuilderModal: React.FC<BookBuilderModalProps> = ({ open, onClose, onIm
         {classification.backMatter.length > 0 && (
           <Paper sx={{ p: 2, mb: 2 }}>
             <Typography variant="subtitle1" gutterBottom>
-              📝 Back Matter ({classification.backMatter.length} sections)
+              📝 {getLocalizedSectionNamesObject(i18n.language).backMatter} ({classification.backMatter.length} sections)
             </Typography>
             <SortableContext 
               items={classification.backMatter.map(doc => doc.filename)}

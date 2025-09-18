@@ -1085,8 +1085,6 @@ export { localizedStructures };
 export function normalizeLang(language?: string): string {
   if (!language || typeof language !== "string") return "en";
   const normalized = language.split("-")[0].toLowerCase();
-  console.log('[NORMALIZE] Input language:', language, 'Normalized:', normalized);
-  
   return normalized;
 }
 
@@ -1095,7 +1093,6 @@ const RTL_LANGS = new Set(["ar", "fa", "ur", "he", "yi"]);
 export function isRTL(language?: string): boolean {
   const normalized = normalizeLang(language);
   const rtl = RTL_LANGS.has(normalized);
-  console.log('[RTL CHECK] Input language:', language, 'Normalized:', normalized, 'Is RTL?', rtl);
   return rtl;
 }
 
@@ -1104,20 +1101,14 @@ export function isRTL(language?: string): boolean {
  * Returns {front, main, back}.
  */
 export function getLocalizedBookStructure(language?: string) {
-  console.log('[BOOK STRUCTURE] Input language:', language);
-  
   // First try exact match (e.g., pt-BR, pt-PT)
   if (language && (localizedStructures as any)[language]) {
-    console.log('[BOOK STRUCTURE] Found exact match for:', language);
     return (localizedStructures as any)[language];
   }
   
   // Then try normalized version (e.g., pt-BR -> pt)
   const normalizedLanguage = normalizeLang(language);
-  console.log('[BOOK STRUCTURE] Normalized:', normalizedLanguage);
-  
   const structure = (localizedStructures as any)[normalizedLanguage] || (localizedStructures as any)["en"];
-  console.log('[BOOK STRUCTURE] Returning structure for:', normalizedLanguage, structure);
   
   return structure;
 }
@@ -1127,10 +1118,8 @@ export function getLocalizedBookStructure(language?: string) {
  */
 export function getLocalizedSectionNames(language?: string): string[] {
   const normalizedLanguage = normalizeLang(language);
-  console.log('[SECTION NAMES] Input language:', language, 'Normalized:', normalizedLanguage);
   const structure = getLocalizedBookStructure(normalizedLanguage);
   const names = [...(structure.front || []), ...(structure.main || []), ...(structure.back || [])];
-  console.log('[SECTION NAMES] Returning', names.length, 'names');
   return names;
 }
 
@@ -1143,8 +1132,8 @@ export function getLocalizedSectionNamesObject(language?: string): {
   mainMatter: string;
   backMatter: string;
 } {
-  const normalizedLanguage = normalizeLang(language);
-  console.log('[SECTION NAMES OBJECT] Input language:', language, 'Normalized:', normalizedLanguage);
+  // First try exact match (e.g., pt-BR, pt-PT)
+  const exactLanguage = language?.toLowerCase();
   
   // Default English labels
   const defaultLabels = {
@@ -1592,8 +1581,14 @@ export function getLocalizedSectionNamesObject(language?: string): {
     }
   };
   
-  const result = localizedLabels[normalizedLanguage] || defaultLabels;
-  console.log('[SECTION NAMES OBJECT] Returning labels for:', normalizedLanguage, result);
+  // First try exact match, then try normalized
+  let result = exactLanguage && localizedLabels[exactLanguage] ? localizedLabels[exactLanguage] : null;
+  
+  if (!result) {
+    const normalizedLanguage = normalizeLang(language);
+    result = localizedLabels[normalizedLanguage] || defaultLabels;
+  }
+  
   return result;
 }
 
@@ -1610,7 +1605,6 @@ export function getLocalizedChapterName(
 
   // Normalize language code
   const normalizedLanguage = normalizeLang(language);
-  console.log('[CHAPTER NAME] Input:', index, 'Language:', language, 'Normalized:', normalizedLanguage);
 
   const structure = getLocalizedBookStructure(normalizedLanguage);
   let defaultPrefix = "Chapter";
@@ -1650,7 +1644,6 @@ export function getLocalizedChapterName(
   }
 
   const result = `${prefix} ${numeral}`;
-  console.log('[CHAPTER NAME] Result:', result);
   return result;
 }
 
@@ -2618,10 +2611,6 @@ export const localizedMetadata = {
 // Helper function to get localized metadata labels
 export const getLocalizedMetadata = (languageCode: string) => {
   const normalizedLang = normalizeLang(languageCode);
-  
-  console.log('🔍 [getLocalizedMetadata] Input language:', languageCode);
-  console.log('🔍 [getLocalizedMetadata] Normalized language:', normalizedLang);
-  console.log('🔍 [getLocalizedMetadata] Available keys:', Object.keys(localizedMetadata));
   
   // Try exact match first, then normalized, then fallback to English
   const result = localizedMetadata[languageCode] || 
