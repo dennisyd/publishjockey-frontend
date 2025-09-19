@@ -1,4 +1,4 @@
-// Yancy Dennis
+// Yancy D Dennis
 
 const localizedStructures = {
   en: {
