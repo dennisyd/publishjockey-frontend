@@ -3063,7 +3063,7 @@ const Pricing = ({ handleRegister }) => {
     const fullServicePlans = [
       {
         title: '🎨 Full Service',
-        subtitle: 'Complete publishing package with custom cover designs (3-year validity).',
+        subtitle: 'Complete publishing package with custom cover designs (Final PDF and eBook delivery within 72 hours of cover approval).',
         oneTime: true,
         price: 499,
         perBookCost: 499,
@@ -3086,7 +3086,7 @@ const Pricing = ({ handleRegister }) => {
       },
       {
         title: '🎨 Full Service Plus',
-        subtitle: 'Complete package with custom covers and KDP setup guidance (3-year validity).',
+        subtitle: 'Complete package with custom covers and KDP setup guidance (Final PDF and eBook delivery within 72 hours of cover approval).',
         oneTime: true,
         price: 599,
         perBookCost: 599,

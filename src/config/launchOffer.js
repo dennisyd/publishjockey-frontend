@@ -283,7 +283,7 @@ export const LAUNCH_OFFER_CONFIG = {
         { title: 'Word document splitting by H1 sections', included: true },
         { title: '11 images included', included: true },
         { title: '3 custom cover designs', included: true },
-        { title: '3-year validity', included: true }
+        { title: 'Final PDF and eBook delivery within 72 hours of cover approval', included: true }
       ],
       buttonText: 'Get Full Service — $449',
       buttonVariant: 'contained',
@@ -305,7 +305,7 @@ export const LAUNCH_OFFER_CONFIG = {
         { title: '11 images included', included: true },
         { title: '3 custom cover designs', included: true },
         { title: '30-minute guided KDP Amazon setup session', included: true },
-        { title: '3-year validity', included: true }
+        { title: 'Final PDF and eBook delivery within 72 hours of cover approval', included: true }
       ],
       buttonText: 'Get Full Service Plus — $549',
       buttonVariant: 'contained',
