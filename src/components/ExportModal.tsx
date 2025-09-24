@@ -319,6 +319,8 @@ export interface ExportSettings {
   tocDepth?: number; // Add this line
   fontFamily?: string; // Add this line
   language?: string; // Language for export (auto-detected from i18n)
+  titleStyle?: string; // Fancy title style (classic-literature, modern-minimalist, etc.)
+  dropCapStyle?: string; // Drop cap style (none, traditional, raised, decorated)
   t?: any; // Translation function - using any to accommodate i18n.t signature
 }
 
@@ -370,6 +372,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
   const [wordLimit, setWordLimit] = useState<number | null>(null);
   const [isOverWordLimit, setIsOverWordLimit] = useState<boolean>(false);
 
+  // State for fancy titles
+  const [titleStyle, setTitleStyle] = useState<string>('standard');
+  const [dropCapStyle, setDropCapStyle] = useState<string>('none');
+  const [availableTitleStyles, setAvailableTitleStyles] = useState<any>({});
+  const [titleStylesLoading, setTitleStylesLoading] = useState<boolean>(false);
+
   // State for export settings
   const [settings, setSettings] = useState<ExportSettings>({
     format: 'pdf',
@@ -393,7 +401,10 @@ const ExportModal: React.FC<ExportModalProps> = ({
          // Language and font settings - use current interface language from Dashboard as default
      language: i18n.language || 'en',
            fontFamily: 'Liberation Serif', // Default font for server/Linux systems
-     tocDepth: 1
+     tocDepth: 1,
+     // Fancy titles settings
+     titleStyle: titleStyle,
+     dropCapStyle: dropCapStyle
   });
 
   // State for cover image (EPUB only)
@@ -419,6 +430,33 @@ const ExportModal: React.FC<ExportModalProps> = ({
   });
 
   const [instructionsOpen, setInstructionsOpen] = useState(false);
+
+  // Load available title styles from API
+  useEffect(() => {
+    const loadTitleStyles = async () => {
+      setTitleStylesLoading(true);
+      try {
+        const exportApiUrl = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
+        const response = await fetch(`${exportApiUrl}/api/fancy-titles/styles`);
+        const data = await response.json();
+        
+        if (data.success) {
+          setAvailableTitleStyles(data.styles);
+          console.log('[FANCY TITLES] Loaded styles:', Object.keys(data.styles));
+        } else {
+          console.error('[FANCY TITLES] Failed to load styles:', data.error);
+        }
+      } catch (error) {
+        console.error('[FANCY TITLES] Error loading styles:', error);
+      } finally {
+        setTitleStylesLoading(false);
+      }
+    };
+
+    if (isOpen) {
+      loadTitleStyles();
+    }
+  }, [isOpen]);
 
   const API_URL = process.env.REACT_APP_EXPORT_API_URL || 'https://publishjockey-export.onrender.com';
   
@@ -738,6 +776,15 @@ const ExportModal: React.FC<ExportModalProps> = ({
     }
   }, [settings.format]);
 
+  // Update settings when fancy titles options change
+  useEffect(() => {
+    setSettings(prev => ({
+      ...prev,
+      titleStyle: titleStyle,
+      dropCapStyle: dropCapStyle
+    }));
+  }, [titleStyle, dropCapStyle]);
+
   // Handle language change and auto-select appropriate font
   const handleLanguageChange = (language: string) => {
     const format = settings.format;
@@ -1042,6 +1089,51 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
                   })()}
                 </Typography>
+              </>
+            )}
+
+            {/* Fancy Titles (PDF only) */}
+            {settings.format === 'pdf' && (
+              <>
+                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Title Style</Typography>
+                <FormControl fullWidth sx={{ mb: 2 }}>
+                  <Select 
+                    value={titleStyle} 
+                    onChange={(e) => setTitleStyle(e.target.value)}
+                    disabled={titleStylesLoading}
+                  >
+                    <MenuItem value="standard">Standard</MenuItem>
+                    {Object.entries(availableTitleStyles).map(([styleName, styleInfo]: [string, any]) => (
+                      <MenuItem key={styleName} value={styleName}>
+                        {styleInfo.name} {styleInfo.inspiration && `(${styleInfo.inspiration})`}
+                      </MenuItem>
+                    ))}
+                  </Select>
+                </FormControl>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                  🎨 Choose from 8 publisher-inspired title styles including Classic Literature, Modern Minimalist, and Academic Press
+                </Typography>
+
+                {/* Drop Caps (only for supported languages) */}
+                {['en', 'fr', 'it', 'es', 'pt', 'de'].includes(settings.language || 'en') && (
+                  <>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Drop Caps</Typography>
+                    <FormControl fullWidth sx={{ mb: 2 }}>
+                      <Select 
+                        value={dropCapStyle} 
+                        onChange={(e) => setDropCapStyle(e.target.value)}
+                      >
+                        <MenuItem value="none">None</MenuItem>
+                        <MenuItem value="traditional">Traditional</MenuItem>
+                        <MenuItem value="raised">Raised</MenuItem>
+                        <MenuItem value="decorated">Decorated</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
+                      ✨ Add elegant drop caps to chapter openings (supported in English, French, Italian, Spanish, Portuguese, German)
+                    </Typography>
+                  </>
+                )}
               </>
             )}
 
