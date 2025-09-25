@@ -874,7 +874,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
         ) : (
           <Box component="form" noValidate>
             {isFreePlan && (
-              <Alert severity="info" sx={{ mb: 2 }}>
+              <Alert severity="info" sx={{ mb: 3 }}>
                 <Box>
                   <Typography variant="body2" color="text.primary">
                     Free plan: 12-page export, 2 images.
@@ -909,103 +909,250 @@ const ExportModal: React.FC<ExportModalProps> = ({
                 </Box>
               </Alert>
             )}
-            {/* Format */}
-            <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Format</Typography>
-            <FormControl fullWidth sx={{ mb: 2 }}>
-              <Select value={settings.format} onChange={handleFormatChange}>
-                <MenuItem value="pdf">PDF (Print)</MenuItem>
-                <MenuItem value="epub">EPUB (eBook)</MenuItem>
-                <MenuItem value="docx">Word (DOCX)</MenuItem>
-              </Select>
-            </FormControl>
+            
+            {/* 2-Column Grid Layout */}
+            <Box 
+              sx={{ 
+                display: 'grid',
+                gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+                gap: 3,
+                alignItems: 'start'
+              }}
+            >
+              {/* LEFT COLUMN */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                {/* Format */}
+                <Box>
+                  <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Format</Typography>
+                  <FormControl fullWidth>
+                    <Select value={settings.format} onChange={handleFormatChange}>
+                      <MenuItem value="pdf">PDF (Print)</MenuItem>
+                      <MenuItem value="epub">EPUB (eBook)</MenuItem>
+                      <MenuItem value="docx">Word (DOCX)</MenuItem>
+                    </Select>
+                  </FormControl>
+                </Box>
 
-            {/* Cover Image (EPUB only) */}
-            {settings.format === 'epub' && (
-              <Box sx={{ mb: 2 }}>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
-                  Cover Image (EPUB)
-                </Typography>
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-                  15 MB Max • Supported formats: JPEG, PNG
-                </Typography>
-                <Button
-                  variant="outlined"
-                  component="label"
-                  disabled={coverUploading}
-                  sx={{ mb: 1 }}
-                >
-                  {coverImageFilename ? 'Change Cover Image' : 'Upload Cover Image'}
-                  <input
-                    type="file"
-                    accept="image/png, image/jpeg"
-                    hidden
-                    onChange={handleCoverImageChange}
+                {/* Cover Image (EPUB only) */}
+                {settings.format === 'epub' && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>
+                      Cover Image (EPUB)
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                      15 MB Max • Supported formats: JPEG, PNG
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      component="label"
+                      disabled={coverUploading}
+                      sx={{ mb: 1 }}
+                    >
+                      {coverImageFilename ? 'Change Cover Image' : 'Upload Cover Image'}
+                      <input
+                        type="file"
+                        accept="image/png, image/jpeg"
+                        hidden
+                        onChange={handleCoverImageChange}
+                      />
+                    </Button>
+                    {coverUploading && (
+                      <Typography variant="body2" color="text.secondary">
+                        Uploading cover image...
+                      </Typography>
+                    )}
+                    {coverImageFilename && (
+                      <Typography variant="body2" color="success.main">
+                        Cover image uploaded: {coverImageFilename}
+                      </Typography>
+                    )}
+                    {coverUploadError && (
+                      <Typography variant="body2" color="error">
+                        {coverUploadError}
+                      </Typography>
+                    )}
+                    {coverRequiredError && (
+                      <Typography variant="body2" color="error">
+                        {coverRequiredError}
+                      </Typography>
+                    )}
+                  </Box>
+                )}
+
+                {/* Book Size (PDF only) */}
+                {settings.format === 'pdf' && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
+                    <FormControl fullWidth>
+                      <Select value={settings.bookSize} onChange={handleBookSizeChange}>
+                        {getBookSizes().map(size => (
+                          <MenuItem key={size.value} value={size.value}>{size.label}</MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                )}
+
+                {/* Binding (PDF only) */}
+                {settings.format === 'pdf' && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Binding</Typography>
+                    <FormControl fullWidth>
+                      <Select value={settings.bindingType} onChange={handleBindingTypeChange}>
+                        <MenuItem value="paperback">Paperback</MenuItem>
+                        <MenuItem value="hardcover">Hardcover</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
+                )}
+
+                {/* TOC */}
+                <Box>
+                  <FormControlLabel
+                    control={<Switch checked={settings.includeToc} onChange={handleTocToggle} />}
+                    label="Include Table of Contents"
+                    sx={{ ml: 0 }}
                   />
-                </Button>
-                {coverUploading && (
-                  <Typography variant="body2" color="text.secondary">
-                    Uploading cover image...
-                  </Typography>
-                )}
-                {coverImageFilename && (
-                  <Typography variant="body2" color="success.main">
-                    Cover image uploaded: {coverImageFilename}
-                  </Typography>
-                )}
-                {coverUploadError && (
-                  <Typography variant="body2" color="error">
-                    {coverUploadError}
-                  </Typography>
-                )}
-                {coverRequiredError && (
-                  <Typography variant="body2" color="error">
-                    {coverRequiredError}
-                  </Typography>
+                </Box>
+
+                {/* TOC Depth (PDF only, if TOC enabled) */}
+                {settings.format === 'pdf' && settings.includeToc && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>TOC Depth</Typography>
+                    <FormControl fullWidth>
+                      <Select value={tocDepth} onChange={e => setTocDepth(Number(e.target.value))}>
+                        <MenuItem value={1}>Level 1 (Chapters only)</MenuItem>
+                        <MenuItem value={2}>Level 2 (Chapters & Sections)</MenuItem>
+                        <MenuItem value={3}>Level 3 (Chapters, Sections & Subsections)</MenuItem>
+                      </Select>
+                    </FormControl>
+                  </Box>
                 )}
               </Box>
-            )}
 
-            {/* Book Size (PDF only) */}
-            {settings.format === 'pdf' && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Book Size</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.bookSize} onChange={handleBookSizeChange}>
-                    {getBookSizes().map(size => (
-                      <MenuItem key={size.value} value={size.value}>{size.label}</MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-              </>
-            )}
+              {/* RIGHT COLUMN */}
+              <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
 
-            {/* Binding (PDF only) */}
-            {settings.format === 'pdf' && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Binding</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.bindingType} onChange={handleBindingTypeChange}>
-                    <MenuItem value="paperback">Paperback</MenuItem>
-                    <MenuItem value="hardcover">Hardcover</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
-            )}
+                {/* Document Language - Show for PDF and EPUB */}
+                {(settings.format === 'pdf' || settings.format === 'epub') && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
+                    <FormControl fullWidth>
+                      <Select value={settings.language} onChange={e => handleLanguageChange(e.target.value as string)}>
+                        {languageOptions.map(lang => (
+                          <MenuItem key={lang.value} value={lang.value}>
+                            {lang.label}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                  </Box>
+                )}
 
-            {/* Document Language - Show for PDF and EPUB */}
+                {/* Font Family - PDF only */}
+                {settings.format === 'pdf' && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
+                    <FormControl fullWidth>
+                      <Select 
+                        value={settings.fontFamily || ''} 
+                        onChange={e => {
+                          console.log(`Font changed to: ${e.target.value}`);
+                          setSettings({ ...settings, fontFamily: e.target.value });
+                        }}
+                        displayEmpty
+                        renderValue={(selected) => {
+                          console.log(`Select renderValue called with: "${selected}"`);
+                          return selected || 'Select a font...';
+                        }}
+                      >
+                        {(() => {
+                          const language = settings.language || 'en';
+                          const format = settings.format;
+                          // Rendering font options
+                          
+                          const availableFonts = getAvailableFonts(language, format);
+                          
+                          return availableFonts.map(font => (
+                            <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
+                          ));
+                        })()}
+                      </Select>
+                    </FormControl>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                      {(() => {
+                        const language = settings.language || 'en';
+                        
+                        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
+                          return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
+                        } else if (language === 'ru') {
+                          return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
+                        } else if (language === 'ta') {
+                          return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
+                        } else if (language === 'hi') {
+                          return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
+                        } else if (language === 'ar') {
+                          return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
+                        } else if (language === 'he' || language === 'yi') {
+                          return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
+                        }
+                        
+                        return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
+                      })()}
+                    </Typography>
+                  </Box>
+                )}
+
+                {/* Fancy Titles (PDF only) */}
+                {settings.format === 'pdf' && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Title Style</Typography>
+                    <FormControl fullWidth>
+                      <Select 
+                        value={titleStyle} 
+                        onChange={(e) => setTitleStyle(e.target.value)}
+                        disabled={titleStylesLoading}
+                      >
+                        <MenuItem value="standard">Standard</MenuItem>
+                        {Object.entries(availableTitleStyles).map(([styleName, styleInfo]: [string, any]) => (
+                          <MenuItem key={styleName} value={styleName}>
+                            {styleInfo.name} {styleInfo.inspiration && `(${styleInfo.inspiration})`}
+                          </MenuItem>
+                        ))}
+                      </Select>
+                    </FormControl>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                      🎨 Choose from 10 publisher-inspired title styles including Classic Literature, Modern Minimalist, and Academic Press
+                    </Typography>
+                  </Box>
+                )}
+
+                {/* Drop Caps (only for supported languages) */}
+                {settings.format === 'pdf' && ['en', 'fr', 'it', 'es', 'pt', 'de'].includes(settings.language || 'en') && (
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Drop Caps</Typography>
+                    <FormControl fullWidth>
+                      <Select 
+                        value={dropCapStyle} 
+                        onChange={(e) => setDropCapStyle(e.target.value)}
+                      >
+                        <MenuItem value="none">None</MenuItem>
+                        <MenuItem value="traditional">Traditional</MenuItem>
+                        <MenuItem value="raised">Raised</MenuItem>
+                        <MenuItem value="decorated">Decorated</MenuItem>
+                      </Select>
+                    </FormControl>
+                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
+                      ✨ Add elegant drop caps to chapter openings (supported in English, French, Italian, Spanish, Portuguese, German)
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
+            </Box>
+
+            {/* Language Support Notices (Full Width Below Grid) */}
             {(settings.format === 'pdf' || settings.format === 'epub') && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Document Language</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={settings.language} onChange={e => handleLanguageChange(e.target.value as string)}>
-                    {languageOptions.map(lang => (
-                      <MenuItem key={lang.value} value={lang.value}>
-                        {lang.label}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-
+              <Box sx={{ mt: 3 }}>
                 {/* General Language Support Notice */}
                 <Alert severity="info" sx={{ mb: 2 }}>
                   <Typography variant="body2" color="text.primary" sx={{ fontWeight: 600, mb: 1 }}>
@@ -1036,127 +1183,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                     </Typography>
                   </Alert>
                 )}
-              </>
-            )}
-
-            {/* Font Family - PDF only */}
-            {settings.format === 'pdf' && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Font Family</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select 
-                    value={settings.fontFamily || ''} 
-                    onChange={e => {
-                      console.log(`Font changed to: ${e.target.value}`);
-                      setSettings({ ...settings, fontFamily: e.target.value });
-                    }}
-                    displayEmpty
-                    renderValue={(selected) => {
-                      console.log(`Select renderValue called with: "${selected}"`);
-                      return selected || 'Select a font...';
-                    }}
-                  >
-                    {(() => {
-                      const language = settings.language || 'en';
-                      const format = settings.format;
-                      // Rendering font options
-                      
-                      const availableFonts = getAvailableFonts(language, format);
-                      
-                      return availableFonts.map(font => (
-                        <MenuItem key={font.value} value={font.value}>{font.label}</MenuItem>
-                      ));
-                    })()}
-                  </Select>
-                </FormControl>
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  {(() => {
-                    const language = settings.language || 'en';
-                    
-                    if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                      return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
-                    } else if (language === 'ru') {
-                      return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
-                    } else if (language === 'ta') {
-                      return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
-                    } else if (language === 'hi') {
-                      return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
-                    } else if (language === 'ar') {
-                      return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
-                    } else if (language === 'he' || language === 'yi') {
-                      return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
-                    }
-                    
-                    return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
-                  })()}
-                </Typography>
-              </>
-            )}
-
-            {/* Fancy Titles (PDF only) */}
-            {settings.format === 'pdf' && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Title Style</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select 
-                    value={titleStyle} 
-                    onChange={(e) => setTitleStyle(e.target.value)}
-                    disabled={titleStylesLoading}
-                  >
-                    <MenuItem value="standard">Standard</MenuItem>
-                    {Object.entries(availableTitleStyles).map(([styleName, styleInfo]: [string, any]) => (
-                      <MenuItem key={styleName} value={styleName}>
-                        {styleInfo.name} {styleInfo.inspiration && `(${styleInfo.inspiration})`}
-                      </MenuItem>
-                    ))}
-                  </Select>
-                </FormControl>
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                  🎨 Choose from 8 publisher-inspired title styles including Classic Literature, Modern Minimalist, and Academic Press
-                </Typography>
-
-                {/* Drop Caps (only for supported languages) */}
-                {['en', 'fr', 'it', 'es', 'pt', 'de'].includes(settings.language || 'en') && (
-                  <>
-                    <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Drop Caps</Typography>
-                    <FormControl fullWidth sx={{ mb: 2 }}>
-                      <Select 
-                        value={dropCapStyle} 
-                        onChange={(e) => setDropCapStyle(e.target.value)}
-                      >
-                        <MenuItem value="none">None</MenuItem>
-                        <MenuItem value="traditional">Traditional</MenuItem>
-                        <MenuItem value="raised">Raised</MenuItem>
-                        <MenuItem value="decorated">Decorated</MenuItem>
-                      </Select>
-                    </FormControl>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2 }}>
-                      ✨ Add elegant drop caps to chapter openings (supported in English, French, Italian, Spanish, Portuguese, German)
-                    </Typography>
-                  </>
-                )}
-              </>
-            )}
-
-            {/* TOC */}
-            <FormControlLabel
-              control={<Switch checked={settings.includeToc} onChange={handleTocToggle} />}
-              label="Include Table of Contents"
-              sx={{ mb: 2, ml: 0 }}
-            />
-
-            {/* TOC Depth (PDF only, if TOC enabled) */}
-            {settings.format === 'pdf' && settings.includeToc && (
-              <>
-                <Typography variant="subtitle2" sx={{ mb: 0.5 }}>TOC Depth</Typography>
-                <FormControl fullWidth sx={{ mb: 2 }}>
-                  <Select value={tocDepth} onChange={e => setTocDepth(Number(e.target.value))}>
-                    <MenuItem value={1}>Level 1 (Chapters only)</MenuItem>
-                    <MenuItem value={2}>Level 2 (Chapters & Sections)</MenuItem>
-                    <MenuItem value={3}>Level 3 (Chapters, Sections & Subsections)</MenuItem>
-                  </Select>
-                </FormControl>
-              </>
+              </Box>
             )}
 
             {/* Advanced Options */}
