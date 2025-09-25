@@ -1125,7 +1125,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                       </Select>
                     </FormControl>
                     <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                      ✨ Add elegant drop caps to chapter openings (supported in English, French, Italian, Spanish, Portuguese, German)
+                      ✨ Add elegant drop caps to chapter openings
                     </Typography>
                   </Box>
                 )}

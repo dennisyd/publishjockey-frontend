@@ -3771,6 +3771,16 @@ const FAQ = () => {
           id: "image-resize",
           question: "How do I resize an image in my book?",
           answer: "To resize an image, set the scale factor to a value less than 1 (for example, 0.7 to make it 70% of the original size). The default scale is 1, but this may be too large for some books. You can adjust the scale factor at any time—there's no need to re-import your image. We recommend exporting and reviewing your book to ensure images appear as intended, and adjusting the scale as needed for best print results."
+        },
+        {
+          id: "fancy-title-styles",
+          question: "What are the fancy title style options for my book?",
+          answer: "Publish Jockey offers 10 publisher-inspired title styles to give your chapters a professional, elegant appearance:<br><br><ul style='padding-left: 20px;'><li><strong>Standard:</strong> Clean, simple chapter headers</li><li><strong>Classic Literature:</strong> Traditional book styling inspired by literary classics</li><li><strong>Modern Minimalist:</strong> Contemporary, clean design</li><li><strong>Academic Press:</strong> Professional academic formatting</li><li><strong>Classical Ornate:</strong> Elegant decorative styling</li><li><strong>Technical Programming:</strong> Clean, code-friendly formatting</li><li><strong>Magazine Style:</strong> Modern publication design</li><li><strong>Luxury Fashion:</strong> Sophisticated, high-end styling</li><li><strong>Small Caps Elegance:</strong> Refined small capitals design</li><li><strong>Decorative Script:</strong> Artistic script-style headers</li></ul><br>These styles automatically format your chapter titles with professional typography, spacing, and design elements that match the aesthetic of major publishing houses."
+        },
+        {
+          id: "drop-caps",
+          question: "What are drop caps and which languages support them?",
+          answer: "Drop caps are large decorative letters that begin the first paragraph of a chapter, creating an elegant, traditional book appearance. Publish Jockey offers 4 drop cap styles:<br><br><ul style='padding-left: 20px;'><li><strong>None:</strong> Standard paragraph opening</li><li><strong>Traditional:</strong> Classic large letter design</li><li><strong>Raised:</strong> Elevated letter above the baseline</li><li><strong>Decorated:</strong> Ornamental styling with embellishments</li></ul><br><strong>Supported Languages:</strong> Drop caps are currently available for English, French, Italian, Spanish, Portuguese, and German. These languages have been specifically tested and optimized for proper drop cap rendering with our XeLaTeX publishing system.<br><br>Drop caps add a sophisticated, professional touch that's commonly seen in high-quality published books and literary works."
         }
       ]
     },
