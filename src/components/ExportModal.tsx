@@ -804,12 +804,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
     <Dialog
       open={isOpen}
       onClose={onClose}
-      maxWidth="sm"
+      maxWidth="lg"
       fullWidth
       PaperProps={{
         sx: {
           borderRadius: 2,
-          boxShadow: '0 4px 20px rgba(0,0,0,0.1)'
+          boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+          maxWidth: '875px' // 75% wider than default 'sm' (600px * 1.75 ≈ 875px)
         }
       }}
     >
