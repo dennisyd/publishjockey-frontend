@@ -1080,25 +1080,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                       </Select>
                     </FormControl>
                     <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                      {(() => {
-                        const language = settings.language || 'en';
-                        
-                        if (['en', 'es', 'fr', 'de', 'it', 'id'].includes(language)) {
-                          return '💡 Choose your preferred font for Latin-based languages (includes professional book fonts). Keep the selected font or choose your preferred font.';
-                        } else if (language === 'ru') {
-                          return '💡 Choose your preferred Cyrillic font for Russian. Keep the selected font or choose your preferred font.';
-                        } else if (language === 'ta') {
-                          return '💡 Choose your preferred Tamil font. Keep the selected font or choose your preferred font.';
-                        } else if (language === 'hi') {
-                          return '💡 Choose your preferred Devanagari font for Hindi. Keep the selected font or choose your preferred font.';
-                        } else if (language === 'ar') {
-                          return '💡 Choose your preferred Arabic font. Keep the selected font or choose your preferred font.';
-                        } else if (language === 'he' || language === 'yi') {
-                          return '💡 Choose your preferred Hebrew font. Keep the selected font or choose your preferred font.';
-                        }
-                        
-                        return '💡 The optimal font for your selected language is automatically chosen for best rendering.';
-                      })()}
+                      💡 Keep the selected font or choose your preferred font.
                     </Typography>
                   </Box>
                 )}
@@ -1122,7 +1104,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
                       </Select>
                     </FormControl>
                     <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                      🎨 Choose from 10 publisher-inspired title styles including Classic Literature, Modern Minimalist, and Academic Press
+                      🎨 Choose from 10 publisher-inspired title styles
                     </Typography>
                   </Box>
                 )}
