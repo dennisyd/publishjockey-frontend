@@ -1109,8 +1109,8 @@ const ExportModal: React.FC<ExportModalProps> = ({
                   </Box>
                 )}
 
-                {/* Drop Caps (only for supported languages) */}
-                {settings.format === 'pdf' && ['en', 'fr', 'it', 'es', 'pt', 'de'].includes((settings.language || 'en').split('-')[0]) && (
+                {/* Drop Caps (English only) */}
+                {settings.format === 'pdf' && (settings.language || 'en').split('-')[0] === 'en' && (
                   <Box>
                     <Typography variant="subtitle2" sx={{ mb: 0.5 }}>Drop Caps</Typography>
                     <FormControl fullWidth>
