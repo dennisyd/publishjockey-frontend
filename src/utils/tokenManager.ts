@@ -1,49 +1,91 @@
 /**
  * Secure Token Manager
- * Stores tokens in memory only to prevent XSS attacks
+ * Stores tokens in sessionStorage with memory cache for performance
+ * sessionStorage is cleared when tab closes (more secure than localStorage)
  */
 
 class TokenManager {
   private accessToken: string | null = null;
   private refreshToken: string | null = null;
   private refreshPromise: Promise<void> | null = null;
+  private readonly ACCESS_TOKEN_KEY = 'pj_access_token';
+  private readonly REFRESH_TOKEN_KEY = 'pj_refresh_token';
+
+  constructor() {
+    // Initialize from sessionStorage on creation
+    this.loadFromStorage();
+  }
 
   /**
-   * Set tokens in memory (not localStorage)
+   * Load tokens from sessionStorage to memory
+   */
+  private loadFromStorage(): void {
+    try {
+      this.accessToken = sessionStorage.getItem(this.ACCESS_TOKEN_KEY);
+      this.refreshToken = sessionStorage.getItem(this.REFRESH_TOKEN_KEY);
+    } catch (error) {
+      console.error('Failed to load tokens from storage:', error);
+    }
+  }
+
+  /**
+   * Set tokens in memory and sessionStorage
    */
   setTokens(access: string, refresh: string): void {
     this.accessToken = access;
     this.refreshToken = refresh;
+    
+    try {
+      sessionStorage.setItem(this.ACCESS_TOKEN_KEY, access);
+      sessionStorage.setItem(this.REFRESH_TOKEN_KEY, refresh);
+    } catch (error) {
+      console.error('Failed to save tokens to storage:', error);
+    }
   }
 
   /**
-   * Get access token from memory
+   * Get access token from memory (with fallback to sessionStorage)
    */
   getAccessToken(): string | null {
+    if (!this.accessToken) {
+      this.loadFromStorage();
+    }
     return this.accessToken;
   }
 
   /**
-   * Get refresh token from memory
+   * Get refresh token from memory (with fallback to sessionStorage)
    */
   getRefreshToken(): string | null {
+    if (!this.refreshToken) {
+      this.loadFromStorage();
+    }
     return this.refreshToken;
   }
 
   /**
-   * Clear all tokens from memory
+   * Clear all tokens from memory and sessionStorage
    */
   clearTokens(): void {
     this.accessToken = null;
     this.refreshToken = null;
     this.refreshPromise = null;
+    
+    try {
+      sessionStorage.removeItem(this.ACCESS_TOKEN_KEY);
+      sessionStorage.removeItem(this.REFRESH_TOKEN_KEY);
+    } catch (error) {
+      console.error('Failed to clear tokens from storage:', error);
+    }
   }
 
   /**
    * Check if user has valid tokens
    */
   hasTokens(): boolean {
-    return !!(this.accessToken && this.refreshToken);
+    const access = this.getAccessToken();
+    const refresh = this.getRefreshToken();
+    return !!(access && refresh);
   }
 
   /**

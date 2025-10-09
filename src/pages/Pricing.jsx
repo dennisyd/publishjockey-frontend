@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../contexts/AuthContext';
 import { isLaunchOfferActive, LAUNCH_OFFER_CONFIG } from '../config/launchOffer';
+import tokenManager from '../utils/tokenManager';
+import { http } from '../services/http';
 import {
   Box,
   Container,
@@ -194,8 +196,11 @@ const Pricing = () => {
       return;
     }
 
+    console.log('🔍 PRICING - Current User:', currentUser);
+    
     // Check if user is authenticated
     if (!currentUser) {
+      console.log('🔍 PRICING - User not authenticated, redirecting to login');
       navigate('/login', { state: { from: '/pricing' } });
       return;
     }
@@ -204,20 +209,23 @@ const Pricing = () => {
     setError(null);
 
     try {
-      const response = await fetch('/api/stripe/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('token')}`
-        },
-        body: JSON.stringify({
-          planId: plan.planId,
-          successUrl: `${window.location.origin}/dashboard?success=true`,
-          cancelUrl: `${window.location.origin}/pricing?canceled=true`
-        })
+      // Get token from tokenManager (not localStorage)
+      const token = tokenManager.getAccessToken();
+      
+      if (!token) {
+        console.error('🔍 PRICING - No token found, redirecting to login');
+        navigate('/login', { state: { from: '/pricing' } });
+        return;
+      }
+
+      // Use http service which automatically adds security headers (nonce, timestamp, CSRF)
+      const response = await http.post('/stripe/create-checkout-session', {
+        planId: plan.planId,
+        successUrl: `${window.location.origin}/dashboard?success=true`,
+        cancelUrl: `${window.location.origin}/pricing?canceled=true`
       });
 
-      const data = await response.json();
+      const data = response.data;
 
       if (data.success && data.url) {
         window.location.href = data.url;
