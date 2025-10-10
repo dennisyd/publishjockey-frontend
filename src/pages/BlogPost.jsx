@@ -632,20 +632,109 @@ const blogPostsData = {
   }
 };
 
+// Helper function to render markdown inline styles (bold, italic)
+const renderMarkdownText = (text) => {
+  const parts = [];
+  let currentIndex = 0;
+  const boldRegex = /\*\*(.*?)\*\*/g;
+  const italicRegex = /\*(.*?)\*/g;
+  
+  // First handle bold
+  text = text.replace(boldRegex, '<<BOLD>>$1<</BOLD>>');
+  // Then handle italic
+  text = text.replace(italicRegex, '<<ITALIC>>$1<</ITALIC>>');
+  
+  const segments = text.split(/(<<BOLD>>|<</BOLD>>|<<ITALIC>>|<</ITALIC>>)/);
+  let isBold = false;
+  let isItalic = false;
+  
+  return segments.map((segment, index) => {
+    if (segment === '<<BOLD>>') {
+      isBold = true;
+      return null;
+    }
+    if (segment === '<</BOLD>>') {
+      isBold = false;
+      return null;
+    }
+    if (segment === '<<ITALIC>>') {
+      isItalic = true;
+      return null;
+    }
+    if (segment === '<</ITALIC>>') {
+      isItalic = false;
+      return null;
+    }
+    
+    if (isBold) {
+      return <strong key={index}>{segment}</strong>;
+    }
+    if (isItalic) {
+      return <em key={index}>{segment}</em>;
+    }
+    return segment;
+  });
+};
+
 const BlogPost = () => {
   const { postId } = useParams();
   const navigate = useNavigate();
-  const post = blogPostsData[postId];
+  const [post, setPost] = React.useState(null);
+  const [loading, setLoading] = React.useState(true);
   
   useEffect(() => {
     // Scroll to top when post loads
     window.scrollTo(0, 0);
     
-    // Redirect to blog page if post not found
-    if (!post) {
-      navigate('/blog');
-    }
-  }, [postId, post, navigate]);
+    const fetchPost = async () => {
+      // First check if it's a hardcoded post
+      if (blogPostsData[postId]) {
+        setPost(blogPostsData[postId]);
+        setLoading(false);
+        return;
+      }
+      
+      // Otherwise, fetch from backend API
+      try {
+        const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+        const response = await fetch(`${apiBaseUrl}/blog/${postId}`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          // Transform API data to component format
+          const apiPost = {
+            title: result.data.title,
+            excerpt: result.data.excerpt || result.data.description,
+            imageUrl: result.data.imageUrl || 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?auto=format&fit=crop&w=1170&q=80',
+            date: new Date(result.data.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+            author: result.data.author,
+            authorAvatar: result.data.authorAvatar || 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=100&q=80',
+            category: result.data.category,
+            readTime: result.data.readTime || '5 min read',
+            content: result.data.content ? [{ type: 'markdown', text: result.data.content }] : []
+          };
+          setPost(apiPost);
+        } else {
+          navigate('/blog');
+        }
+      } catch (error) {
+        console.error('Error fetching blog post:', error);
+        navigate('/blog');
+      } finally {
+        setLoading(false);
+      }
+    };
+    
+    fetchPost();
+  }, [postId, navigate]);
+  
+  if (loading) {
+    return (
+      <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <Typography>Loading...</Typography>
+      </Box>
+    );
+  }
   
   if (!post) return null;
 
@@ -753,6 +842,181 @@ const BlogPost = () => {
           mb: 5
         }}>
           {post.content.map((section, index) => {
+            if (section.type === 'markdown') {
+              // Render markdown content - convert to paragraphs and headings
+              const lines = section.text.split('\n');
+              const elements = [];
+              let tableLines = [];
+              let inTable = false;
+              
+              lines.forEach((line, lineIndex) => {
+                // Detect table rows
+                if (line.trim().startsWith('|') && line.trim().endsWith('|')) {
+                  inTable = true;
+                  tableLines.push(line);
+                  return;
+                } else if (inTable) {
+                  // Table ended, render it
+                  if (tableLines.length > 0) {
+                    const tableRows = tableLines.filter(l => !l.includes('---')); // Remove separator row
+                    const headerRow = tableRows[0];
+                    const bodyRows = tableRows.slice(1);
+                    
+                    const headers = headerRow.split('|').filter(h => h.trim()).map(h => h.trim());
+                    const rows = bodyRows.map(row => 
+                      row.split('|').filter(c => c.trim()).map(c => c.trim())
+                    );
+                    
+                    elements.push(
+                      <Box key={`table-${lineIndex}`} sx={{ overflowX: 'auto', my: 3 }}>
+                        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.95rem' }}>
+                          <thead>
+                            <tr style={{ backgroundColor: '#f3f4f6' }}>
+                              {headers.map((header, i) => (
+                                <th key={i} style={{ 
+                                  border: '1px solid #e5e7eb', 
+                                  padding: '12px', 
+                                  textAlign: 'left',
+                                  fontWeight: 600 
+                                }}>
+                                  {renderMarkdownText(header)}
+                                </th>
+                              ))}
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {rows.map((row, rowIndex) => (
+                              <tr key={rowIndex}>
+                                {row.map((cell, cellIndex) => (
+                                  <td key={cellIndex} style={{ 
+                                    border: '1px solid #e5e7eb', 
+                                    padding: '12px' 
+                                  }}>
+                                    {renderMarkdownText(cell)}
+                                  </td>
+                                ))}
+                              </tr>
+                            ))}
+                          </tbody>
+                        </table>
+                      </Box>
+                    );
+                  }
+                  tableLines = [];
+                  inTable = false;
+                }
+                
+                // Skip if we're still collecting table lines
+                if (inTable) return;
+                
+                // Skip empty lines
+                if (!line.trim()) return;
+                
+                // Heading 1
+                if (line.startsWith('# ')) {
+                  elements.push(
+                    <Typography 
+                      key={lineIndex} 
+                      variant="h3" 
+                      component="h1" 
+                      sx={{ fontWeight: 700, mt: 4, mb: 3 }}
+                    >
+                      {renderMarkdownText(line.substring(2))}
+                    </Typography>
+                  );
+                  return;
+                }
+                
+                // Heading 2
+                if (line.startsWith('## ')) {
+                  elements.push(
+                    <Typography 
+                      key={lineIndex} 
+                      variant="h4" 
+                      component="h2" 
+                      sx={{ fontWeight: 700, mt: 4, mb: 2 }}
+                    >
+                      {renderMarkdownText(line.substring(3))}
+                    </Typography>
+                  );
+                  return;
+                }
+                
+                // Heading 3
+                if (line.startsWith('### ')) {
+                  elements.push(
+                    <Typography 
+                      key={lineIndex} 
+                      variant="h5" 
+                      component="h3" 
+                      sx={{ fontWeight: 600, mt: 3, mb: 2 }}
+                    >
+                      {renderMarkdownText(line.substring(4))}
+                    </Typography>
+                  );
+                  return;
+                }
+                
+                // Bullet points
+                if (line.startsWith('- ') || line.startsWith('* ')) {
+                  elements.push(
+                    <Box key={lineIndex} sx={{ display: 'flex', alignItems: 'flex-start', mb: 1 }}>
+                      <CheckCircleOutlineIcon sx={{ mr: 1, mt: 0.5, fontSize: '1.2rem', color: 'primary.main' }} />
+                      <Typography variant="body1" sx={{ flex: 1, lineHeight: 1.7 }}>
+                        {renderMarkdownText(line.substring(2))}
+                      </Typography>
+                    </Box>
+                  );
+                  return;
+                }
+                
+                // Blockquote
+                if (line.startsWith('> ')) {
+                  elements.push(
+                    <Box 
+                      key={lineIndex} 
+                      sx={{ 
+                        borderLeft: 4, 
+                        borderColor: 'primary.main',
+                        pl: 3, 
+                        py: 2,
+                        my: 3,
+                        bgcolor: 'rgba(99, 102, 241, 0.05)',
+                        borderRadius: '0 8px 8px 0'
+                      }}
+                    >
+                      <Typography variant="h6" sx={{ fontStyle: 'italic', fontWeight: 500 }}>
+                        {renderMarkdownText(line.substring(2))}
+                      </Typography>
+                    </Box>
+                  );
+                  return;
+                }
+                
+                // Horizontal rule
+                if (line === '---') {
+                  elements.push(<Box key={lineIndex} component="hr" sx={{ my: 4, border: 'none', borderTop: '1px solid #ddd' }} />);
+                  return;
+                }
+                
+                // Regular paragraph
+                if (line.trim()) {
+                  elements.push(
+                    <Typography 
+                      key={lineIndex} 
+                      variant="body1" 
+                      paragraph 
+                      sx={{ mb: 2, fontSize: '1.1rem', lineHeight: 1.7 }}
+                    >
+                      {renderMarkdownText(line)}
+                    </Typography>
+                  );
+                }
+              });
+              
+              return <Box key={index}>{elements}</Box>;
+            }
+            
             if (section.type === 'paragraph') {
               // If the text contains a table, render as HTML
               if (section.text.includes('<table')) {
