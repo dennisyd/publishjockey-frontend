@@ -3658,13 +3658,76 @@ const Pricing = ({ handleRegister }) => {
 const FAQ = () => {
   const [expanded, setExpanded] = React.useState('panel1');
   const [searchTerm, setSearchTerm] = React.useState('');
+  const [faqData, setFaqData] = React.useState([]);
+  const [loading, setLoading] = React.useState(true);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
   };
 
-  // FAQ data organized by categories - Yancy Dennis
-  const faqCategories = [
+  // Category icon mapping
+  const categoryIcons = {
+    'General': <AutoStoriesIcon />,
+    'Getting Started': <AutoStoriesIcon />,
+    'Product Comparison': <TimelineIcon />,
+    'Quality & Validation': <CheckCircleOutlineIcon />,
+    'Features': <SettingsIcon />,
+    'Customization & Features': <SettingsIcon />,
+    'Technical': <CodeIcon />,
+    'Integration & Technical': <CodeIcon />,
+    'Pricing': <AttachMoneyIcon />,
+    'Pricing & Plans': <AttachMoneyIcon />,
+    'Process': <ImportExportIcon />,
+    'Publishing & Exporting': <ImportExportIcon />,
+    'Common Issues': <SecurityIcon />,
+    'Support': <EmailIcon />,
+    'Support & Resources': <EmailIcon />
+  };
+
+  // Fetch FAQ data from backend
+  React.useEffect(() => {
+    const fetchFaqData = async () => {
+      try {
+        const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+        const response = await fetch(`${apiBaseUrl}/faq`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          setFaqData(result.data);
+          // Set first question as expanded by default
+          if (result.data.length > 0) {
+            setExpanded(result.data[0].id);
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching FAQ data:', error);
+        // Keep the component functional even if fetch fails
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchFaqData();
+  }, []);
+
+  // Group FAQ data by category
+  const groupedFaqData = React.useMemo(() => {
+    const groups = {};
+    faqData.forEach(faq => {
+      if (!groups[faq.category]) {
+        groups[faq.category] = {
+          category: faq.category,
+          icon: categoryIcons[faq.category] || <AutoStoriesIcon />,
+          questions: []
+        };
+      }
+      groups[faq.category].questions.push(faq);
+    });
+    return Object.values(groups);
+  }, [faqData]);
+
+  // Use grouped data or fallback to hardcoded data
+  const faqCategories = groupedFaqData.length > 0 ? groupedFaqData : [
     {
       category: "Getting Started",
       icon: <AutoStoriesIcon />,
