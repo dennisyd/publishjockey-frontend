@@ -131,15 +131,15 @@ const ImageUsageDisplay: React.FC<ImageUsageDisplayProps> = ({
             onClick={onUpgradeClick}
             disabled={!onUpgradeClick}
           >
-            {usage.allowed <= 2 && !isAtLimit ? 'Upgrade for 10+ Images' : 
-             usage.additional === 0 ? 'Get 100 more images ($25)' : 'Add more images ($10/100)'}
+            {usage.allowed <= 2 && !isAtLimit ? 'ADD 100 IMAGES' : 
+             usage.additional === 0 ? 'ADD 100 IMAGES ($25)' : 'ADD 100 IMAGES ($25)'}
           </Button>
         </Box>
       )}
 
       <Box sx={{ mt: 1 }}>
         <Typography variant="caption" color="textSecondary">
-          Cover images don't count toward your limit
+          ePub Cover images don't count toward your limit
         </Typography>
       </Box>
     </Box>

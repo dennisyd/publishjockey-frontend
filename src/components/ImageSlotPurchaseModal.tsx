@@ -136,7 +136,7 @@ const ImageSlotPurchaseModal: React.FC<ImageSlotPurchaseModalProps> = ({
 
         <Alert severity="info" sx={{ mt: 2 }}>
           <Typography variant="body2">
-            <strong>Note:</strong> Cover images don't count toward your limit. Only content images are tracked.
+            <strong>Note:</strong> ePub Cover images don't count toward your limit. Only content images are tracked.
           </Typography>
         </Alert>
       </DialogContent>
