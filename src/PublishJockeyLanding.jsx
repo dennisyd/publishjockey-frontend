@@ -36,9 +36,12 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import PublishJockeyLogo from './publishjockey_logo.png';
 import Testimonials from './components/Testimonials';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useAuth } from './contexts/AuthContext';
 import { LAUNCH_OFFER_CONFIG, isLaunchOfferActive } from './config/launchOffer';
 import LaunchOfferCountdown from './components/LaunchOfferCountdown';
+import { http } from './services/http';
+import { tokenManager } from './utils/tokenManager';
 
 
 
@@ -2740,6 +2743,96 @@ const Pricing = ({ handleRegister }) => {
   // Use launch offer if active
   const launchOfferActive = isLaunchOfferActive();
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
+  const [loadingPlanId, setLoadingPlanId] = useState(null);
+
+  // Handle plan selection and Stripe checkout
+  const handlePlanSelect = async (plan) => {
+    // Free plan - just register
+    if (plan.free || plan.title === 'Free') {
+      handleRegister();
+      return;
+    }
+
+    // Custom plan - go to contact
+    if (plan.title === 'Custom Plan') {
+      navigate('/contact');
+      return;
+    }
+
+    // Check if user is authenticated
+    if (!currentUser) {
+      navigate('/login', { state: { from: '/' } });
+      return;
+    }
+
+    setLoadingPlanId(plan.title);
+
+    try {
+      // Get token
+      const token = tokenManager.getAccessToken();
+      
+      if (!token) {
+        navigate('/login', { state: { from: '/' } });
+        return;
+      }
+
+      // Determine planId for Stripe
+      let planId;
+      if (plan.launchOffer) {
+        // For launch offer plans, find the key in LAUNCH_OFFER_CONFIG.pricing
+        const planEntry = Object.entries(LAUNCH_OFFER_CONFIG.pricing).find(
+          ([key, p]) => p.title === plan.title
+        );
+        planId = planEntry ? planEntry[0] : null;
+      } else {
+        // For regular plans, map title to planId
+        const planMapping = {
+          '✍️ Single Book': 'single',
+          '5 Book Pack': 'bundle5',
+          '10 Book Pack': 'bundle10',
+          '20 Book Pack': 'bundle20',
+          'Power User': 'poweruser',
+          'Agency': 'agency',
+          '📖 Ebook Single': 'eSingle',
+          '📖 Ebook 5 Pack': 'ebundle5',
+          '📖 Ebook 10 Pack': 'ebundle10',
+          '📖 Ebook 20 Pack': 'ebundle20',
+          'Ebook Power User': 'epoweruser',
+          'Ebook Agency': 'eagency',
+          '🎨 Full Service': 'fullService',
+          '🎨 Full Service Plus': 'fullServicePlus',
+          'Additional Books': 'additional',
+          'Image Upgrade': 'images_addon_100'
+        };
+        planId = planMapping[plan.title] || null;
+      }
+
+      if (!planId) {
+        console.error('Invalid plan selected');
+        return;
+      }
+
+      // Create checkout session
+      const response = await http.post('/stripe/create-checkout-session', {
+        planId,
+        successUrl: `${window.location.origin}/dashboard?success=true`,
+        cancelUrl: `${window.location.origin}/?canceled=true`
+      });
+
+      const data = response.data;
+
+      if (data.success && data.url) {
+        window.location.href = data.url;
+      } else {
+        console.error(data.message || 'Failed to create checkout session');
+      }
+    } catch (err) {
+      console.error('Error creating checkout session:', err);
+    } finally {
+      setLoadingPlanId(null);
+    }
+  };
 
   // Define pricing data
   let pricingPlans = [
@@ -3593,7 +3686,8 @@ const Pricing = ({ handleRegister }) => {
                       fullWidth
                       variant={plan.buttonVariant}
                       color="primary"
-                      href={plan.title === 'Custom Plan' ? "/contact" : "/register"}
+                      onClick={() => handlePlanSelect(plan)}
+                      disabled={loadingPlanId === plan.title}
                       size="large"
                       sx={{
                         py: 1.5,
@@ -3608,7 +3702,7 @@ const Pricing = ({ handleRegister }) => {
                         })
                       }}
                     >
-                      {plan.buttonText}
+                      {loadingPlanId === plan.title ? 'Processing...' : plan.buttonText}
                     </Button>
                   </Box>
                 </Card>
