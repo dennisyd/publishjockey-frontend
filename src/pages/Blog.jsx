@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Box, 
   Container, 
@@ -11,70 +11,73 @@ import {
   Breadcrumbs,
   Link,
   Divider,
-  Avatar
+  Avatar,
+  CircularProgress
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import PublishJockeyLogo from '../publishjockey_logo.png';
 
 const Blog = () => {
-  // Blog post data
-  const blogPosts = [
-    {
-      id: 'manuscript-to-print-ready',
-      title: 'How to Turn Your Manuscript Into a Print-Ready Book in Minutes',
-      excerpt: 'A step-by-step guide to transforming your raw manuscript into a professionally formatted book using PublishJockey.',
-      imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-      date: 'May  9, 2025',
-      author: 'The PublishJockey Team',
-      authorAvatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
-      category: 'Publishing Tips',
-      readTime: '5 min read'
-    },
-    {
-      id: 'ai-covers-for-kdp',
-      title: 'Creating KDP-Ready Book Covers with AI: No Designer Needed',
-      excerpt: 'Learn how to create professional book covers using AI tools like ChatGPT and upscale them for Amazon KDP using PublishJockey\'s ImageMagic utility.',
-      imageUrl: 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
-      date: 'June 15, 2024',
-      author: 'The PublishJockey Team',
-      authorAvatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
-      category: 'Cover Design',
-      readTime: '6 min read'
-    },
-    {
-      id: 'book-formatting-truth',
-      title: 'The Truth About Book Formatting: What Self-Publishers Need to Know',
-      excerpt: 'Discover the hidden challenges of book formatting and why modern tools are transforming the self-publishing landscape.',
-      imageUrl: 'https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
-      date: 'January 28, 2025',
-      author: 'Emma Richardson',
-      authorAvatar: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
-      category: 'Publishing Insights',
-      readTime: '8 min read'
-    },
-    {
-      id: 'markdown-for-authors',
-      title: 'Markdown for Authors: Why It\'s Simpler Than You Think',
-      excerpt: 'Demystifying Markdown for non-technical writers and showing why it\'s the perfect tool for modern book creation.',
-      imageUrl: 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1170&q=80',
-      date: 'May 1, 2025',
-      author: 'The PublishJockey Team',
-      authorAvatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
-      category: 'Writing Tools',
-      readTime: '6 min read'
-    },
-    {
-      id: 'pdf-epub-docx-formats',
-      title: 'PDF, EPUB, DOCX: Which Format Do You Really Need?',
-      excerpt: 'A clear guide to the most common publishing formats—what they are, when to use them, and how to choose the right one for your book.',
-      imageUrl: 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80',
-      date: 'May 2, 2025',
-      author: 'The PublishJockey Team',
-      authorAvatar: 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80',
-      category: 'Publishing Formats',
-      readTime: '7 min read'
-    }
-  ];
+  const [blogPosts, setBlogPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  // Default images for blog posts
+  const defaultImages = {
+    'Publishing Tips': 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    'Cover Design': 'https://images.unsplash.com/photo-1544947950-fa07a98d237f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80',
+    'Publishing Insights': 'https://images.unsplash.com/photo-1554415707-6e8cfc93fe23?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+    'Writing Tools': 'https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1170&q=80',
+    'Publishing Formats': 'https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80'
+  };
+
+  const defaultAuthorAvatar = 'https://images.unsplash.com/photo-1568602471122-7832951cc4c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=100&q=80';
+
+  // Fetch blog posts from backend
+  useEffect(() => {
+    const fetchBlogPosts = async () => {
+      try {
+        const apiBaseUrl = process.env.REACT_APP_API_URL || 'http://localhost:3001/api';
+        const response = await fetch(`${apiBaseUrl}/blog`);
+        const result = await response.json();
+        
+        if (result.success && result.data) {
+          // Transform backend data to match frontend format
+          const transformedPosts = result.data.map(post => ({
+            id: post.slug || post.id,
+            title: post.title,
+            excerpt: post.excerpt || post.description,
+            imageUrl: post.imageUrl || defaultImages[post.category] || defaultImages['Publishing Tips'],
+            date: new Date(post.publishDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+            author: post.author,
+            authorAvatar: post.authorAvatar || defaultAuthorAvatar,
+            category: post.category,
+            readTime: post.readTime || '5 min read'
+          }));
+          setBlogPosts(transformedPosts);
+        }
+      } catch (error) {
+        console.error('Error fetching blog posts:', error);
+        // Fallback to hardcoded data if fetch fails
+        setBlogPosts([
+          {
+            id: 'manuscript-to-print-ready',
+            title: 'How to Turn Your Manuscript Into a Print-Ready Book in Minutes',
+            excerpt: 'A step-by-step guide to transforming your raw manuscript into a professionally formatted book using PublishJockey.',
+            imageUrl: 'https://images.unsplash.com/photo-1457369804613-52c61a468e7d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80',
+            date: 'May  9, 2025',
+            author: 'The PublishJockey Team',
+            authorAvatar: defaultAuthorAvatar,
+            category: 'Publishing Tips',
+            readTime: '5 min read'
+          }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchBlogPosts();
+  }, []);
 
   // Always show the anchor article on top, others below
   const anchorId = 'manuscript-to-print-ready';
@@ -108,7 +111,12 @@ const Blog = () => {
 
       {/* Blog Posts Section */}
       <Container maxWidth="lg" sx={{ py: 6 }}>
-        <Grid container spacing={4}>
+        {loading ? (
+          <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '400px' }}>
+            <CircularProgress />
+          </Box>
+        ) : (
+          <Grid container spacing={4}>
           {/* Featured Anchor Article */}
           {anchorArticle && (
             <Grid item xs={12}>
@@ -210,10 +218,12 @@ const Blog = () => {
               </Card>
             </Grid>
           ))}
-        </Grid>
+          </Grid>
+        )}
 
         {/* Newsletter Signup */}
-        <Box sx={{ 
+        {!loading && (
+          <Box sx={{ 
           mt: 8, 
           bgcolor: 'white', 
           borderRadius: 3, 
@@ -261,7 +271,8 @@ const Blog = () => {
               </Box>
             </Grid>
           </Grid>
-        </Box>
+          </Box>
+        )}
       </Container>
 
       {/* Footer */}
