@@ -2739,6 +2739,7 @@ const HowItWorks = () => {
 const Pricing = ({ handleRegister }) => {
   // Use launch offer if active
   const launchOfferActive = isLaunchOfferActive();
+  const { currentUser } = useAuth();
 
   // Define pricing data
   let pricingPlans = [
@@ -3111,10 +3112,16 @@ const Pricing = ({ handleRegister }) => {
     ];
 
     // Add add-ons
-    const addOnPlans = [
-      {
+    const addOnPlans = [];
+    
+    // Only show "Additional Books" option if user has an active paid subscription
+    const userSubscription = currentUser?.subscription || 'free';
+    const hasPaidSubscription = userSubscription !== 'free' && userSubscription !== 'beta';
+    
+    if (hasPaidSubscription) {
+      addOnPlans.push({
         title: 'Additional Books',
-        subtitle: 'Add more books to your account at a great value.',
+        subtitle: 'Add more books to your account at a great value. Only available to users with an active paid subscription.',
         price: 37,
         booksIncluded: 1,
         perBookCost: 37,
@@ -3131,24 +3138,25 @@ const Pricing = ({ handleRegister }) => {
         ],
         buttonText: 'Add Book',
         buttonVariant: 'outlined'
-      },
-      {
-        title: 'Image Upgrade',
-        subtitle: 'Add 100 images to your allowance.',
-        price: 25,
-        booksIncluded: 0,
-        perBookCost: 25,
-        noRefunds: true,
-        features: [
-          { title: '+100 additional images', included: true },
-          { title: 'Works with any plan', included: true },
-          { title: 'No expiration', included: true },
-          { title: 'Immediate activation', included: true }
-        ],
-        buttonText: 'Add 100 Images',
-        buttonVariant: 'outlined'
-      }
-    ];
+      });
+    }
+    
+    addOnPlans.push({
+      title: 'Image Upgrade',
+      subtitle: 'Add 100 images to your allowance.',
+      price: 25,
+      booksIncluded: 0,
+      perBookCost: 25,
+      noRefunds: true,
+      features: [
+        { title: '+100 additional images', included: true },
+        { title: 'Works with any plan', included: true },
+        { title: 'No expiration', included: true },
+        { title: 'Immediate activation', included: true }
+      ],
+      buttonText: 'Add 100 Images',
+      buttonVariant: 'outlined'
+    });
 
     pricingPlans.push(...regularPlans, ...ebookPlans, ...premiumPlans, ...ebookPremiumPlans, ...fullServicePlans, ...addOnPlans);
   }

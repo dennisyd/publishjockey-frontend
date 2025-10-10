@@ -18,6 +18,8 @@ import {
 } from '@mui/material';
 import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import PreviewIcon from '@mui/icons-material/Preview';
+import DropCapsPreview from './DropCapsPreview';
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';
 import { useTranslation } from 'react-i18next';
@@ -375,6 +377,7 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // State for fancy titles
   const [titleStyle, setTitleStyle] = useState<string>('standard');
   const [dropCapStyle, setDropCapStyle] = useState<string>('none');
+  const [dropCapsPreviewOpen, setDropCapsPreviewOpen] = useState<boolean>(false);
   const [availableTitleStyles, setAvailableTitleStyles] = useState<any>({});
   const [titleStylesLoading, setTitleStylesLoading] = useState<boolean>(false);
 
@@ -1124,9 +1127,19 @@ const ExportModal: React.FC<ExportModalProps> = ({
                         <MenuItem value="decorated">Decorated</MenuItem>
                       </Select>
                     </FormControl>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                      ✨ Add elegant drop caps to chapter openings
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                      <Button
+                        size="small"
+                        startIcon={<PreviewIcon />}
+                        onClick={() => setDropCapsPreviewOpen(true)}
+                        sx={{ mr: 1 }}
+                      >
+                        Preview
+                      </Button>
+                      <Typography variant="caption" color="text.secondary">
+                        ✨ Add elegant drop caps to chapter openings
+                      </Typography>
+                    </Box>
                   </Box>
                 )}
               </Box>
@@ -1234,6 +1247,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
         open={instructionsOpen}
         onClose={() => setInstructionsOpen(false)}
         initialTab={settings.format}
+      />
+
+      <DropCapsPreview
+        open={dropCapsPreviewOpen}
+        onClose={() => setDropCapsPreviewOpen(false)}
+        selectedStyle={dropCapStyle}
+        language={settings.language || 'en'}
       />
     </Dialog>
   );
