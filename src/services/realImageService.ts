@@ -58,7 +58,13 @@ export const realImageService = {
     return res.data;
   },
   async purchaseImageSlots(quantity: number) {
-    const res = await http.post(`${API_BASE_URL}/api/images/purchase-slots`, { quantity });
+    // Use the same Stripe checkout flow as the main pricing page
+    const planId = 'images_addon_100'; // This matches the backend configuration
+    const res = await http.post('/stripe/create-checkout-session', {
+      planId,
+      successUrl: `${window.location.origin}/dashboard?success=true&addon=images`,
+      cancelUrl: `${window.location.origin}/dashboard?canceled=true`
+    });
     return res.data;
   }
 };

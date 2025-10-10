@@ -51,20 +51,21 @@ const ImageSlotPurchaseModal: React.FC<ImageSlotPurchaseModalProps> = ({
       setError(null);
 
       const quantity = parseInt(selectedOption);
-      
-      // For now, we'll just call the backend to update the user's slots
-      // In a real implementation, this would integrate with Stripe
+
+      // Use Stripe checkout flow - this will redirect to Stripe
       const result = await realImageService.purchaseImageSlots(quantity);
-      
-      console.log('Purchase successful:', result);
-      
-      if (onSuccess) {
-        onSuccess();
+
+      console.log('Stripe checkout initiated:', result);
+
+      // The Stripe checkout will redirect to success/cancel URLs
+      if (result.success && result.url) {
+        window.location.href = result.url;
+      } else {
+        setError(result.message || 'Failed to create checkout session');
       }
-      
-      onClose();
     } catch (err: any) {
-      setError(err.message || 'Failed to purchase image slots');
+      console.error('Purchase error:', err);
+      setError(err.message || 'Failed to initiate purchase');
     } finally {
       setLoading(false);
     }
