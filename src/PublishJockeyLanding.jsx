@@ -3659,7 +3659,6 @@ const FAQ = () => {
   const [expanded, setExpanded] = React.useState('panel1');
   const [searchTerm, setSearchTerm] = React.useState('');
   const [faqData, setFaqData] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
 
   const handleChange = (panel) => (event, newExpanded) => {
     setExpanded(newExpanded ? panel : false);
@@ -3702,8 +3701,6 @@ const FAQ = () => {
       } catch (error) {
         console.error('Error fetching FAQ data:', error);
         // Keep the component functional even if fetch fails
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -3724,7 +3721,7 @@ const FAQ = () => {
       groups[faq.category].questions.push(faq);
     });
     return Object.values(groups);
-  }, [faqData]);
+  }, [faqData, categoryIcons]);
 
   // Use grouped data or fallback to hardcoded data
   const faqCategories = groupedFaqData.length > 0 ? groupedFaqData : [

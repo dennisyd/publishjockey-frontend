@@ -15,7 +15,6 @@ import {
   CircularProgress
 } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
-import PublishJockeyLogo from '../publishjockey_logo.png';
 
 const Blog = () => {
   const [blogPosts, setBlogPosts] = useState([]);
@@ -77,7 +76,7 @@ const Blog = () => {
     };
 
     fetchBlogPosts();
-  }, []);
+  }, [defaultImages]);
 
   // Always show the anchor article on top, others below
   const anchorId = 'manuscript-to-print-ready';
@@ -274,80 +273,6 @@ const Blog = () => {
           </Box>
         )}
       </Container>
-
-      {/* Footer */}
-      <Box sx={{ bgcolor: '#1f2937', color: 'white', py: 4, mt: 6 }}>
-        <Container maxWidth="lg">
-          <Grid container spacing={2}>
-            <Grid item xs={12} md={4}>
-              <Box component="img" src={PublishJockeyLogo} alt="Publish Jockey Logo" sx={{ height: '50px', mb: 2 }} />
-              <Typography variant="body2" sx={{ opacity: 0.7, maxWidth: '300px' }}>
-                From manuscript to masterpiece—with clarity, simplicity, and freedom.
-              </Typography>
-            </Grid>
-            <Grid item xs={12} md={8}>
-              <Grid container spacing={2}>
-                <Grid item xs={6} sm={3}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
-                    Product
-                  </Typography>
-                  <Box component="nav">
-                    <Typography component={RouterLink} to="/#features" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Features
-                    </Typography>
-                    <Typography component={RouterLink} to="/pricing" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Pricing
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
-                    Company
-                  </Typography>
-                  <Box component="nav">
-                    <Typography component={RouterLink} to="/about" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      About
-                    </Typography>
-                    <Typography component={RouterLink} to="/blog" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Blog
-                    </Typography>
-                    <Typography component={RouterLink} to="/contact" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Contact
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
-                    Resources
-                  </Typography>
-                  <Box component="nav">
-                    <Typography component="a" href="#" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Help Center
-                    </Typography>
-                  </Box>
-                </Grid>
-                <Grid item xs={6} sm={3}>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600, mb: 2 }}>
-                    Legal
-                  </Typography>
-                  <Box component="nav">
-                    <Typography component="a" href="/privacy" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Privacy
-                    </Typography>
-                    <Typography component="a" href="/terms" sx={{ display: 'block', color: 'rgba(255,255,255,0.7)', mb: 1, textDecoration: 'none', '&:hover': { color: 'white' } }}>
-                      Terms
-                    </Typography>
-                  </Box>
-                </Grid>
-              </Grid>
-            </Grid>
-          </Grid>
-          <Divider sx={{ my: 3, borderColor: 'rgba(255,255,255,0.1)' }} />
-          <Typography variant="body2" sx={{ opacity: 0.7, textAlign: 'center' }}>
-            © {new Date().getFullYear()} PublishJockey. All rights reserved.
-          </Typography>
-        </Container>
-      </Box>
     </Box>
   );
 };
