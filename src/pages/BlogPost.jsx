@@ -644,7 +644,7 @@ const renderMarkdownText = (text) => {
   // Then handle italic
   text = text.replace(italicRegex, '<<ITALIC>>$1<</ITALIC>>');
   
-  const segments = text.split(/(<<BOLD>>|<</BOLD>>|<<ITALIC>>|<</ITALIC>>)/);
+  const segments = text.split(/(<<BOLD>>|<<\/BOLD>>|<<ITALIC>>|<<\/ITALIC>>)/);
   let isBold = false;
   let isItalic = false;
   
