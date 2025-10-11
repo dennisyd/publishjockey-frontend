@@ -1681,19 +1681,31 @@ const ComparisonTable = () => {
           sx={{
             textAlign: 'center',
             mb: 8,
-            p: 6,
-            bgcolor: 'white',
+            p: { xs: 4, md: 6 },
+            bgcolor: '#fff9f9',
             borderRadius: 3,
-            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
-            border: '2px solid #fee',
+            boxShadow: '0 12px 40px rgba(201, 42, 42, 0.15)',
+            border: '3px solid #fee2e2',
+            position: 'relative',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '6px',
+              background: 'linear-gradient(90deg, #c92a2a 0%, #e03131 100%)',
+              borderRadius: '3px 3px 0 0'
+            }
           }}
         >
           <Typography
             variant="h3"
             sx={{
               fontWeight: 700,
-              mb: 4,
-              color: '#c92a2a'
+              mb: 2,
+              color: '#c92a2a',
+              fontSize: { xs: '1.75rem', md: '2.5rem' }
             }}
           >
             What Word-to-PDF Actually Creates
@@ -1702,62 +1714,95 @@ const ComparisonTable = () => {
             variant="h5"
             sx={{
               fontWeight: 600,
-              mb: 4,
-              color: 'text.secondary'
+              mb: 5,
+              color: '#7c2d2d',
+              fontSize: { xs: '1.25rem', md: '1.5rem' }
             }}
           >
             The 7 Amateur Tells
           </Typography>
           
-          <Grid container spacing={3} sx={{ mb: 4 }}>
-            <Grid item xs={12} md={6}>
-              <Box sx={{ textAlign: 'left' }}>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ "Error! Bookmark not defined" everywhere
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ Pages numbered 1, 2, 3 all the way through
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ No drop caps (large first letters)
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ Cramped edge-to-edge text
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid item xs={12} md={6}>
-              <Box sx={{ textAlign: 'left' }}>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ Generic copyright page
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ Inconsistent chapter layouts
-                </Typography>
-                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-                  ❌ Overall "made in Word" feel
-                </Typography>
-              </Box>
-            </Grid>
-          </Grid>
-
+          {/* Problem List with Better Visual Hierarchy */}
           <Box
             sx={{
-              p: 3,
-              bgcolor: '#e7f5ff',
+              bgcolor: 'white',
               borderRadius: 2,
-              border: '2px solid #4361ee'
+              p: 4,
+              mb: 4,
+              boxShadow: '0 4px 12px rgba(0,0,0,0.08)',
+              border: '1px solid #fee'
             }}
           >
-            <Typography variant="h5" sx={{ fontWeight: 700, color: '#4361ee', mb: 1 }}>
+            <Grid container spacing={3}>
+              <Grid item xs={12} md={6}>
+                <Box sx={{ textAlign: 'left' }}>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2.5, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">"Error! Bookmark not defined" everywhere</Box>
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2.5, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">Pages numbered 1, 2, 3 all the way through</Box>
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2.5, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">No drop caps (large first letters)</Box>
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: { xs: 2.5, md: 0 }, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">Cramped edge-to-edge text</Box>
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid item xs={12} md={6}>
+                <Box sx={{ textAlign: 'left' }}>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2.5, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">Generic copyright page</Box>
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2.5, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">Inconsistent chapter layouts</Box>
+                  </Typography>
+                  <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, display: 'flex', alignItems: 'center', gap: 1.5, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+                    <Box component="span" sx={{ fontSize: '1.3rem' }}>❌</Box>
+                    <Box component="span">Overall "made in Word" feel</Box>
+                  </Typography>
+                </Box>
+              </Grid>
+            </Grid>
+          </Box>
+
+          {/* Solution Box with Enhanced Styling */}
+          <Box
+            sx={{
+              p: 4,
+              bgcolor: '#e7f5ff',
+              borderRadius: 2,
+              border: '3px solid #4361ee',
+              boxShadow: '0 8px 24px rgba(67, 97, 238, 0.25)',
+              position: 'relative',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '4px',
+                background: 'linear-gradient(90deg, #4361ee 0%, #3f37c9 100%)',
+                borderRadius: '2px 2px 0 0'
+              }
+            }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#4361ee', mb: 1.5, fontSize: { xs: '1.25rem', md: '1.5rem' } }}>
               ✅ PublishJockey fixes all 7 automatically
             </Typography>
-            <Typography variant="h6" sx={{ color: 'text.secondary' }}>
-              Just upload your Word doc → Professional book in 26 seconds
+            <Typography variant="h6" sx={{ color: 'text.secondary', fontSize: { xs: '1rem', md: '1.15rem' } }}>
+              Just upload your Word doc → Professional book in ~30 seconds
             </Typography>
           </Box>
 
-          <Typography variant="h6" sx={{ mt: 4, color: 'text.secondary', fontWeight: 600 }}>
+          <Typography variant="h6" sx={{ mt: 5, color: 'text.secondary', fontWeight: 600, fontSize: { xs: '1rem', md: '1.15rem' } }}>
             ↓ See Full Comparison Below ↓
           </Typography>
         </Box>
@@ -2035,7 +2080,7 @@ const ComparisonTable = () => {
               <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>⚡ Speed</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>5-10 minutes</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
-                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ 26 seconds</Typography>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ ~30 seconds</Typography>
                 <Typography variant="caption" color="text.secondary">(PDF ready)</Typography>
               </Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>5-10 minutes</Grid>
@@ -2123,11 +2168,11 @@ const ComparisonTable = () => {
 
         {/* CTA */}
         <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
-            Skip the amateur mistakes and expensive alternatives
+          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2, fontSize: { xs: '1.75rem', md: '2rem' } }}>
+            Your Book Deserves Random House Quality
           </Typography>
-          <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4 }}>
-            Start with professional quality. Upload your Word document and get a Random House-quality book in 26 seconds.
+          <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4, fontSize: { xs: '1rem', md: '1.15rem' } }}>
+            Start with professional quality. Upload your Word document and get a Random House-quality book in ~30 seconds.
           </Typography>
           <Button
             variant="contained"
