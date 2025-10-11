@@ -1676,6 +1676,92 @@ const ComparisonTable = () => {
       }}
     >
       <Container maxWidth="lg">
+        {/* 7 Amateur Tells Section */}
+        <Box
+          sx={{
+            textAlign: 'center',
+            mb: 8,
+            p: 6,
+            bgcolor: 'white',
+            borderRadius: 3,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+            border: '2px solid #fee',
+          }}
+        >
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              mb: 4,
+              color: '#c92a2a'
+            }}
+          >
+            What Word-to-PDF Actually Creates
+          </Typography>
+          <Typography
+            variant="h5"
+            sx={{
+              fontWeight: 600,
+              mb: 4,
+              color: 'text.secondary'
+            }}
+          >
+            The 7 Amateur Tells
+          </Typography>
+          
+          <Grid container spacing={3} sx={{ mb: 4 }}>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ textAlign: 'left' }}>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ "Error! Bookmark not defined" everywhere
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ Pages numbered 1, 2, 3 all the way through
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ No drop caps (large first letters)
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ Cramped edge-to-edge text
+                </Typography>
+              </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Box sx={{ textAlign: 'left' }}>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ Generic copyright page
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ Inconsistent chapter layouts
+                </Typography>
+                <Typography variant="h6" sx={{ color: '#c92a2a', fontWeight: 600, mb: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
+                  ❌ Overall "made in Word" feel
+                </Typography>
+              </Box>
+            </Grid>
+          </Grid>
+
+          <Box
+            sx={{
+              p: 3,
+              bgcolor: '#e7f5ff',
+              borderRadius: 2,
+              border: '2px solid #4361ee'
+            }}
+          >
+            <Typography variant="h5" sx={{ fontWeight: 700, color: '#4361ee', mb: 1 }}>
+              ✅ PublishJockey fixes all 7 automatically
+            </Typography>
+            <Typography variant="h6" sx={{ color: 'text.secondary' }}>
+              Just upload your Word doc → Professional book in 26 seconds
+            </Typography>
+          </Box>
+
+          <Typography variant="h6" sx={{ mt: 4, color: 'text.secondary', fontWeight: 600 }}>
+            ↓ See Full Comparison Below ↓
+          </Typography>
+        </Box>
+
         {/* Header */}
         <Box sx={{ textAlign: 'center', mb: 6 }}>
           <Typography
@@ -1701,17 +1787,6 @@ const ComparisonTable = () => {
             }}
           >
             From DIY to Professional – What You Actually Get
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              color: 'text.secondary',
-              maxWidth: '900px',
-              mx: 'auto',
-              fontSize: '1.1rem'
-            }}
-          >
-            Most authors start with Word-to-PDF (it's free!), then realize why professional publishers never use Microsoft Word for book production...
           </Typography>
         </Box>
 
@@ -1853,8 +1928,11 @@ const ComparisonTable = () => {
                 <Typography variant="caption" display="block" color="text.secondary">(Large first letter)</Typography>
               </Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ None</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ 11 elegant styles</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Manual setup</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>
+                <Typography sx={{ fontWeight: 700 }}>✅ Automatic elegant drop caps</Typography>
+                <Typography variant="caption" color="text.secondary">11 professional styles</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Manual setup required</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Automatic</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Custom</Grid>
             </Grid>
@@ -1863,8 +1941,16 @@ const ComparisonTable = () => {
             <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
               <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📐 Typography & Spacing</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Cramped edge-to-edge</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Publisher-grade spacing</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'left', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 700, mb: 1 }}>✅ Publisher-grade</Typography>
+                <Typography variant="caption" component="div" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
+                  • Drop caps automatic<br/>
+                  • Roman numerals (ii, iii)<br/>
+                  • Optical spacing<br/>
+                  • 7 professional elements
+                </Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Good (basic)</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
                 <Typography sx={{ color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Typography>
                 <Typography variant="caption" color="text.secondary">(Mac only)</Typography>
@@ -1970,6 +2056,25 @@ const ComparisonTable = () => {
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Any device</Grid>
             </Grid>
 
+            {/* Word Count Limit */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📏 Word Count Limit</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography>Unlimited</Typography>
+                <Typography variant="caption" color="text.secondary">(but looks bad at any length)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 700 }}>✅ Unlimited - any size</Typography>
+                <Typography variant="caption" color="text.secondary">50k to 500k words = same $63</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Unlimited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Unlimited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ color: '#c92a2a', fontWeight: 600 }}>❌ Charges more for longer</Typography>
+                <Typography variant="caption" color="text.secondary">$2,500 for 50k → $5,000 for 200k</Typography>
+              </Grid>
+            </Grid>
+
             {/* Revisions */}
             <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
               <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>✏️ Revisions</Grid>
@@ -1983,17 +2088,17 @@ const ComparisonTable = () => {
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>$$$ per edit</Grid>
             </Grid>
 
-            {/* Overall Result */}
-            <Grid container sx={{ '&:hover': { bgcolor: '#f8f9fa' } }}>
-              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>👁️ Overall Result</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ "Looks self-published"</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ "Random House quality"</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ "Good quality"</Grid>
+            {/* Overall Result - EMPHASIZED */}
+            <Grid container sx={{ '&:hover': { bgcolor: '#f8f9fa' }, bgcolor: '#fafafa' }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 700, fontSize: '1.1rem' }}>👁️ Overall Result</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 700, fontSize: '1.1rem' }}>❌ "Looks self-published"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#e7f5ff', color: '#2b8a3e', fontWeight: 700, fontSize: '1.1rem', border: '2px solid #4361ee' }}>✅ "Random House quality"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 700, fontSize: '1.1rem' }}>⚠️ "Good quality"</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
-                <Typography sx={{ color: '#f08c00', fontWeight: 600 }}>⚠️ "Good quality"</Typography>
+                <Typography sx={{ color: '#f08c00', fontWeight: 700, fontSize: '1.1rem' }}>⚠️ "Good quality"</Typography>
                 <Typography variant="caption" color="text.secondary">(Mac only)</Typography>
               </Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ "Random House quality"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 700, fontSize: '1.1rem' }}>✅ "Random House quality"</Grid>
             </Grid>
           </Box>
         </Box>
@@ -2012,7 +2117,7 @@ const ComparisonTable = () => {
             💡 The Real Cost Breakdown:
           </Typography>
           <Typography variant="body1" sx={{ color: '#856404', lineHeight: 1.8 }}>
-            <strong>Word-to-PDF:</strong> Free, but your book looks amateur (costs you sales + credibility) • <strong>Professional Formatter:</strong> $2,500-5,000 per book (one book = 40-80 PublishJockey books) • <strong>Vellum:</strong> $250 but Mac only, no Word export (locked into Mac) • <strong>Atticus:</strong> $147 but no Word export, no CSV, no cover (need other tools) • <strong>PublishJockey:</strong> $63, any device, includes everything (format your entire backlist for less than Vellum)
+            <strong>Word-to-PDF:</strong> Free, but your book looks amateur (costs you sales + credibility) • <strong>Professional Formatter:</strong> $2,500-5,000 per book (one book = 40-80 PublishJockey books) • <strong>Vellum:</strong> $250 but Mac only, no Word export (locked into Mac) • <strong>Atticus:</strong> $147 but no Word export, no CSV, no cover (need other tools) • <Box component="span" sx={{ fontWeight: 700, fontSize: '1.1rem', color: '#4361ee' }}>PublishJockey: $63, any device, includes everything (format your entire backlist for less than Vellum)</Box>
           </Typography>
         </Box>
 
