@@ -128,6 +128,9 @@ const PublishJockeyLanding = () => {
       {/* Hero Section */}
       <Hero handleRegister={handleRegister} />
       
+      {/* Comparison Table */}
+      <ComparisonTable />
+      
       {/* Book Showcase */}
       <BookShowcase />
       
@@ -1312,7 +1315,7 @@ const Hero = ({ handleRegister }) => {
                     color: 'white',
                     fontSize: '0.9rem'
                   }}>
-                    {launchOfferActive ? 'Starting at $31' : 'Starting at $46'}
+                    {launchOfferActive ? '$63 for Any Size Book' : 'Starting at $46'}
                   </Typography>
                 </Box>
 
@@ -1657,6 +1660,389 @@ const MidPageCTA = ({ handleRegister }) => {
               <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.secondary' }}>BookBaby</Typography>
             </Grid>
           </Grid>
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+const ComparisonTable = () => {
+  return (
+    <Box
+      component="section"
+      sx={{
+        py: { xs: 8, md: 12 },
+        background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
+      }}
+    >
+      <Container maxWidth="lg">
+        {/* Header */}
+        <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Typography
+            variant="h3"
+            sx={{
+              fontWeight: 700,
+              mb: 2,
+              background: 'linear-gradient(135deg, #4361ee 0%, #3f37c9 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text'
+            }}
+          >
+            Your Book Formatting Options, Compared
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{
+              color: 'text.secondary',
+              maxWidth: '800px',
+              mx: 'auto',
+              mb: 4
+            }}
+          >
+            From DIY to Professional – What You Actually Get
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              color: 'text.secondary',
+              maxWidth: '900px',
+              mx: 'auto',
+              fontSize: '1.1rem'
+            }}
+          >
+            Most authors start with Word-to-PDF (it's free!), then realize why professional publishers never use Microsoft Word for book production...
+          </Typography>
+        </Box>
+
+        {/* Comparison Table */}
+        <Box
+          sx={{
+            overflowX: 'auto',
+            borderRadius: 3,
+            boxShadow: '0 8px 32px rgba(0,0,0,0.12)',
+            bgcolor: 'white'
+          }}
+        >
+          <Box sx={{ minWidth: '900px' }}>
+            {/* Table Header */}
+            <Grid
+              container
+              sx={{
+                bgcolor: '#f8f9fa',
+                borderBottom: '2px solid #dee2e6',
+                position: 'sticky',
+                top: 0,
+                zIndex: 10
+              }}
+            >
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 700, fontSize: '1.1rem' }}>
+                Feature / Service
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '1rem' }}>
+                  Word-to-PDF
+                </Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                  (DIY)
+                </Typography>
+              </Grid>
+              <Grid
+                item
+                xs={1.8}
+                sx={{
+                  p: 3,
+                  textAlign: 'center',
+                  background: 'linear-gradient(to bottom, #e7f5ff 0%, #d0ebff 100%)',
+                  position: 'relative'
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: -2,
+                    left: '50%',
+                    transform: 'translateX(-50%)',
+                    bgcolor: '#4361ee',
+                    color: 'white',
+                    px: 2,
+                    py: 0.5,
+                    borderRadius: '0 0 8px 8px',
+                    fontSize: '0.7rem',
+                    fontWeight: 700,
+                    letterSpacing: 0.5
+                  }}
+                >
+                  ⭐ BEST VALUE
+                </Box>
+                <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '1rem', mt: 2 }}>
+                  PublishJockey
+                </Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '1rem' }}>
+                  Atticus
+                </Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '1rem' }}>
+                  Vellum
+                </Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography variant="body2" sx={{ fontWeight: 700, fontSize: '1rem' }}>
+                  Professional
+                </Typography>
+                <Typography variant="caption" sx={{ color: 'text.secondary' }}>
+                  Formatter
+                </Typography>
+              </Grid>
+            </Grid>
+
+            {/* Price Row */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600, display: 'flex', alignItems: 'center' }}>
+                💰 Cost
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.2rem' }}>Free</Typography>
+                <Typography variant="caption" color="text.secondary">(but unprofessional)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.4rem', color: '#4361ee' }}>$63</Typography>
+                <Typography variant="caption" color="text.secondary">one-time</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.2rem' }}>$147</Typography>
+                <Typography variant="caption" color="text.secondary">lifetime</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.2rem' }}>$250</Typography>
+                <Typography variant="caption" color="text.secondary">one-time</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ fontWeight: 700, fontSize: '1.2rem' }}>$2,500+</Typography>
+                <Typography variant="caption" color="text.secondary">per book</Typography>
+              </Grid>
+            </Grid>
+
+            {/* Table of Contents */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📑 Table of Contents</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ "Error! Bookmark..."</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Perfect clickable TOC</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Works</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Works</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Perfect</Grid>
+            </Grid>
+
+            {/* Page Numbers */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>🔢 Page Numbers</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ 1, 2, 3 all through</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Roman numerals (ii, iii, iv)</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Roman numerals</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Roman numerals</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Roman numerals</Grid>
+            </Grid>
+
+            {/* Drop Caps */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>
+                🅰️ Drop Caps
+                <Typography variant="caption" display="block" color="text.secondary">(Large first letter)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ None</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ 11 elegant styles</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Manual setup</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Automatic</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Custom</Grid>
+            </Grid>
+
+            {/* Typography */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📐 Typography & Spacing</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Cramped edge-to-edge</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Publisher-grade spacing</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Typography>
+                <Typography variant="caption" color="text.secondary">(Mac only)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Custom professional</Grid>
+            </Grid>
+
+            {/* Copyright Page */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📄 Copyright Page</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Generic "Word doc"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Professional layout</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Good</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Custom</Grid>
+            </Grid>
+
+            {/* Formats */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📤 Formats Included</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>PDF only</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ PDF + EPUB + Word</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography>PDF + EPUB</Typography>
+                <Typography variant="caption" color="text.secondary">(No Word)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography>PDF + EPUB</Typography>
+                <Typography variant="caption" color="text.secondary">(No Word)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography>PDF + EPUB</Typography>
+                <Typography variant="caption" color="text.secondary">(usually)</Typography>
+              </Grid>
+            </Grid>
+
+            {/* Word Import */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📝 Word/Google Docs Import</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Manual copy-paste</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Seamless upload</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Limited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Manual</Grid>
+            </Grid>
+
+            {/* Tables/CSV */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📊 Tables / CSV Import</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Manual</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ CSV import</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ Manual</Grid>
+            </Grid>
+
+            {/* Cover Generation */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>🎨 Cover Generation</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Included</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ No</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Extra cost</Grid>
+            </Grid>
+
+            {/* Language Support */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>🌍 Language Support</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Limited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ 80+ languages</Typography>
+                <Typography variant="caption" color="text.secondary">(Tamil, Thai, Bengali)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>English/Euro only</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>English only</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Varies</Grid>
+            </Grid>
+
+            {/* Speed */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>⚡ Speed</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>5-10 minutes</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ 26 seconds</Typography>
+                <Typography variant="caption" color="text.secondary">(PDF ready)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>5-10 minutes</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>5-10 minutes</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>2-4 weeks</Grid>
+            </Grid>
+
+            {/* Platform */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>💻 Platform</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Any device</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ Any device</Typography>
+                <Typography variant="caption" color="text.secondary">(PC, Mac, Linux)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Any device</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ Mac only</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>Any device</Grid>
+            </Grid>
+
+            {/* Revisions */}
+            <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>✏️ Revisions</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography>Unlimited</Typography>
+                <Typography variant="caption" color="text.secondary">(errors remain)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Unlimited forever</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Unlimited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Unlimited</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>$$$ per edit</Grid>
+            </Grid>
+
+            {/* Overall Result */}
+            <Grid container sx={{ '&:hover': { bgcolor: '#f8f9fa' } }}>
+              <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>👁️ Overall Result</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ "Looks self-published"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ "Random House quality"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#f08c00', fontWeight: 600 }}>⚠️ "Good quality"</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center' }}>
+                <Typography sx={{ color: '#f08c00', fontWeight: 600 }}>⚠️ "Good quality"</Typography>
+                <Typography variant="caption" color="text.secondary">(Mac only)</Typography>
+              </Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ "Random House quality"</Grid>
+            </Grid>
+          </Box>
+        </Box>
+
+        {/* Cost Breakdown Note */}
+        <Box
+          sx={{
+            mt: 4,
+            p: 4,
+            bgcolor: '#fff3cd',
+            borderLeft: '4px solid #ffc107',
+            borderRadius: 2
+          }}
+        >
+          <Typography variant="h6" sx={{ fontWeight: 700, color: '#856404', mb: 2 }}>
+            💡 The Real Cost Breakdown:
+          </Typography>
+          <Typography variant="body1" sx={{ color: '#856404', lineHeight: 1.8 }}>
+            <strong>Word-to-PDF:</strong> Free, but your book looks amateur (costs you sales + credibility) • <strong>Professional Formatter:</strong> $2,500-5,000 per book (one book = 40-80 PublishJockey books) • <strong>Vellum:</strong> $250 but Mac only, no Word export (locked into Mac) • <strong>Atticus:</strong> $147 but no Word export, no CSV, no cover (need other tools) • <strong>PublishJockey:</strong> $63, any device, includes everything (format your entire backlist for less than Vellum)
+          </Typography>
+        </Box>
+
+        {/* CTA */}
+        <Box sx={{ textAlign: 'center', mt: 6 }}>
+          <Typography variant="h4" sx={{ fontWeight: 700, mb: 2 }}>
+            Skip the amateur mistakes and expensive alternatives
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'text.secondary', mb: 4 }}>
+            Start with professional quality. Upload your Word document and get a Random House-quality book in 26 seconds.
+          </Typography>
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => window.location.href = '#pricing'}
+            sx={{
+              px: 6,
+              py: 2,
+              fontSize: '1.2rem',
+              fontWeight: 700,
+              background: 'linear-gradient(135deg, #4361ee 0%, #3f37c9 100%)',
+              boxShadow: '0 8px 24px rgba(67, 97, 238, 0.4)',
+              '&:hover': {
+                transform: 'translateY(-2px)',
+                boxShadow: '0 12px 32px rgba(67, 97, 238, 0.5)',
+              }
+            }}
+          >
+            Format My Book - $63 →
+          </Button>
         </Box>
       </Container>
     </Box>
