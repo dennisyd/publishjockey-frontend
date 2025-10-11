@@ -20,6 +20,7 @@ import ImageMagic from './pages/ImageMagic';
 import About from './About';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
+import FAQ from './pages/FAQ';
 import HelpCenter from './pages/HelpCenter';
 import Privacy from './pages/Privacy';
 import Terms from './pages/Terms';
@@ -161,6 +162,7 @@ function App() {
                     <Route path="/about" element={<About />} />
                     <Route path="/blog" element={<Blog />} />
                     <Route path="/blog/:postId" element={<BlogPost />} />
+                    <Route path="/faq" element={<FAQ />} />
                     <Route path="/" element={<PublishJockeyLanding />} />
                     <Route path="/help-center" element={<HelpCenter />} />
                     <Route path="/privacy" element={<Privacy />} />
