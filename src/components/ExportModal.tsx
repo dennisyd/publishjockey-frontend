@@ -1106,9 +1106,19 @@ const ExportModal: React.FC<ExportModalProps> = ({
                         ))}
                       </Select>
                     </FormControl>
-                    <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 0.5 }}>
-                      🎨 Choose from 10 publisher-inspired title styles
-                    </Typography>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1 }}>
+                      <Button
+                        size="small"
+                        startIcon={<PreviewIcon />}
+                        onClick={() => window.open('https://publishjockey-export.onrender.com/samples/titlestyles.pdf', '_blank')}
+                        variant="outlined"
+                      >
+                        View All Title Styles
+                      </Button>
+                      <Typography variant="caption" color="text.secondary">
+                        🎨 See examples of all 10 styles
+                      </Typography>
+                    </Box>
                   </Box>
                 )}
 
@@ -1128,18 +1138,30 @@ const ExportModal: React.FC<ExportModalProps> = ({
                         <MenuItem value="elegant">Elegant (gray, small caps)</MenuItem>
                         <MenuItem value="bold">Bold (sans-serif, heavy)</MenuItem>
                         <MenuItem value="decorated">Decorated (border, background)</MenuItem>
+                        <MenuItem value="ornament">Ornament (illuminated manuscript)</MenuItem>
+                        <MenuItem value="colorized">Colorized (two-tone blue)</MenuItem>
+                        <MenuItem value="boxed">Boxed (magazine style)</MenuItem>
+                        <MenuItem value="oldstyle">Old-Style (vintage baseline)</MenuItem>
                       </Select>
                     </FormControl>
-                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', mt: 1, gap: 1, flexWrap: 'wrap' }}>
                       <Button
                         size="small"
                         startIcon={<PreviewIcon />}
                         onClick={() => setDropCapsPreviewOpen(true)}
-                        sx={{ mr: 1 }}
+                        variant="outlined"
                       >
                         Preview
                       </Button>
-                      <Typography variant="caption" color="text.secondary">
+                      <Button
+                        size="small"
+                        startIcon={<PreviewIcon />}
+                        onClick={() => window.open('https://publishjockey-export.onrender.com/samples/dropcaps.pdf', '_blank')}
+                        variant="outlined"
+                      >
+                        View All Drop Cap Styles
+                      </Button>
+                      <Typography variant="caption" color="text.secondary" sx={{ flexBasis: '100%' }}>
                         ✨ Add elegant drop caps to chapter openings
                       </Typography>
                     </Box>
