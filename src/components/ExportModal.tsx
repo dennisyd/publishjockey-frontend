@@ -19,7 +19,6 @@ import {
 import Alert from '@mui/material/Alert';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import PreviewIcon from '@mui/icons-material/Preview';
-import DropCapsPreview from './DropCapsPreview';
 import { useAuth } from '../contexts/AuthContext';
 import { useSettings } from '../contexts/SettingsContext';
 import { useTranslation } from 'react-i18next';
@@ -377,7 +376,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
   // State for fancy titles
   const [titleStyle, setTitleStyle] = useState<string>('standard');
   const [dropCapStyle, setDropCapStyle] = useState<string>('none');
-  const [dropCapsPreviewOpen, setDropCapsPreviewOpen] = useState<boolean>(false);
   const [availableTitleStyles, setAvailableTitleStyles] = useState<any>({});
   const [titleStylesLoading, setTitleStylesLoading] = useState<boolean>(false);
 
@@ -1110,13 +1108,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
                       <Button
                         size="small"
                         startIcon={<PreviewIcon />}
-                        onClick={() => window.open('https://publishjockey-export.onrender.com/samples/titlestyles.pdf', '_blank')}
+                        onClick={() => window.open('/samples/titlestyles.pdf', '_blank')}
                         variant="outlined"
                       >
                         View All Title Styles
                       </Button>
                       <Typography variant="caption" color="text.secondary">
-                        🎨 See examples of all 10 styles
+                        🎨 See examples of all 12 styles
                       </Typography>
                     </Box>
                   </Box>
@@ -1148,21 +1146,13 @@ const ExportModal: React.FC<ExportModalProps> = ({
                       <Button
                         size="small"
                         startIcon={<PreviewIcon />}
-                        onClick={() => setDropCapsPreviewOpen(true)}
-                        variant="outlined"
-                      >
-                        Preview
-                      </Button>
-                      <Button
-                        size="small"
-                        startIcon={<PreviewIcon />}
-                        onClick={() => window.open('https://publishjockey-export.onrender.com/samples/dropcaps.pdf', '_blank')}
+                        onClick={() => window.open('/samples/dropcaps.pdf', '_blank')}
                         variant="outlined"
                       >
                         View All Drop Cap Styles
                       </Button>
                       <Typography variant="caption" color="text.secondary" sx={{ flexBasis: '100%' }}>
-                        ✨ Add elegant drop caps to chapter openings
+                        ✨ Add elegant drop caps to chapter openings (10 styles)
                       </Typography>
                     </Box>
                   </Box>
@@ -1274,12 +1264,6 @@ const ExportModal: React.FC<ExportModalProps> = ({
         initialTab={settings.format}
       />
 
-      <DropCapsPreview
-        open={dropCapsPreviewOpen}
-        onClose={() => setDropCapsPreviewOpen(false)}
-        selectedStyle={dropCapStyle}
-        language={settings.language || 'en'}
-      />
     </Dialog>
   );
 };
