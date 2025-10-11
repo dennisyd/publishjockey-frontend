@@ -1,7 +1,7 @@
 // Launch offer configuration (promo mode)
 export const LAUNCH_OFFER_CONFIG = {
   // End date/time (local) — format: 'YYYY-MM-DD HH:mm:ss'
-  endDate: '2025-07-31 23:59:59',
+  endDate: '2025-12-31 23:59:59',
   // Optional start date to delay activation
   startDate: undefined,
 
