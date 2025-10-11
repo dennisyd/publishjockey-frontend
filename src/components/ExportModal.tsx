@@ -1122,9 +1122,12 @@ const ExportModal: React.FC<ExportModalProps> = ({
                         onChange={(e) => setDropCapStyle(e.target.value)}
                       >
                         <MenuItem value="none">None</MenuItem>
-                        <MenuItem value="traditional">Traditional</MenuItem>
-                        <MenuItem value="raised">Raised</MenuItem>
-                        <MenuItem value="decorated">Decorated</MenuItem>
+                        <MenuItem value="traditional">Traditional (3-line, classic)</MenuItem>
+                        <MenuItem value="raised">Raised (2-line, elevated)</MenuItem>
+                        <MenuItem value="large">Large (4-line, dramatic)</MenuItem>
+                        <MenuItem value="elegant">Elegant (gray, small caps)</MenuItem>
+                        <MenuItem value="bold">Bold (sans-serif, heavy)</MenuItem>
+                        <MenuItem value="decorated">Decorated (border, background)</MenuItem>
                       </Select>
                     </FormControl>
                     <Box sx={{ display: 'flex', alignItems: 'center', mt: 1 }}>
