@@ -1682,26 +1682,6 @@ const MidPageCTA = ({ handleRegister }) => {
             See How It Works
           </Button>
         </Box>
-        {/* Logos */}
-        <Box sx={{ mt: 8, opacity: 0.6 }}>
-          <Typography variant="overline" sx={{ display: 'block', mb: 3, letterSpacing: 1.5 }}>
-            TRUSTED BY PUBLISHERS WORLDWIDE
-          </Typography>
-          <Grid container spacing={4} justifyContent="center" alignItems="center">
-            <Grid item>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.secondary' }}>KDP</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.secondary' }}>IngramSpark</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.secondary' }}>Lulu</Typography>
-            </Grid>
-            <Grid item>
-              <Typography variant="h6" sx={{ fontWeight: 700, color: 'text.secondary' }}>BookBaby</Typography>
-            </Grid>
-          </Grid>
-        </Box>
       </Container>
     </Box>
   );
