@@ -2013,7 +2013,10 @@ const ComparisonTable = () => {
             <Grid container sx={{ borderBottom: '1px solid #e9ecef', '&:hover': { bgcolor: '#f8f9fa' } }}>
               <Grid item xs={3} sx={{ p: 3, fontWeight: 600 }}>📑 Table of Contents</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#c92a2a', fontWeight: 600 }}>❌ "Error! Bookmark..."</Grid>
-              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff', color: '#2b8a3e', fontWeight: 600 }}>✅ Perfect clickable TOC</Grid>
+              <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', bgcolor: '#f0f9ff' }}>
+                <Typography sx={{ color: '#2b8a3e', fontWeight: 600 }}>✅ Perfect EPUB TOC</Typography>
+                <Typography variant="caption" color="text.secondary">PDF TOC included</Typography>
+              </Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Works</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Works</Grid>
               <Grid item xs={1.8} sx={{ p: 3, textAlign: 'center', color: '#2b8a3e', fontWeight: 600 }}>✅ Perfect</Grid>
