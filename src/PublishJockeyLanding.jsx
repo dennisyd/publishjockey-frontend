@@ -2,49 +2,6 @@ import React from 'react'; // Yancy D. Dennis
 import { sanitizeHtml } from './utils/sanitizeHtml';
 import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-
-// Consistent Button Styles for CTAs
-const primaryCTAButtonSx = {
-  px: 6,
-  py: 2,
-  fontSize: { xs: '1rem', md: '1.2rem' },
-  fontWeight: 700,
-  borderRadius: '50px',
-  textTransform: 'none',
-  background: 'linear-gradient(135deg, #4361ee 0%, #3f37c9 100%)',
-  boxShadow: '0 8px 24px rgba(67, 97, 238, 0.4)',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    transform: 'translateY(-2px)',
-    boxShadow: '0 12px 32px rgba(67, 97, 238, 0.5)',
-  },
-  '&:focus': {
-    outline: '3px solid #4361ee',
-    outlineOffset: '4px',
-  }
-};
-
-const secondaryCTAButtonSx = {
-  px: 4,
-  py: 1.5,
-  fontSize: { xs: '0.95rem', md: '1.1rem' },
-  fontWeight: 600,
-  borderRadius: '50px',
-  textTransform: 'none',
-  border: '2px solid #4361ee',
-  color: '#4361ee',
-  transition: 'all 0.3s ease',
-  '&:hover': {
-    bgcolor: '#4361ee',
-    color: 'white',
-    transform: 'translateY(-1px)',
-    boxShadow: '0 8px 20px rgba(67, 97, 238, 0.3)',
-  },
-  '&:focus': {
-    outline: '3px solid #4361ee',
-    outlineOffset: '4px',
-  }
-};
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import EditIcon from '@mui/icons-material/Edit';
@@ -85,6 +42,27 @@ import { LAUNCH_OFFER_CONFIG, isLaunchOfferActive } from './config/launchOffer';
 import LaunchOfferCountdown from './components/LaunchOfferCountdown';
 import { http } from './services/http';
 import { tokenManager } from './utils/tokenManager';
+
+// Consistent Primary CTA Button Style
+const primaryCTAButtonSx = {
+  px: 6,
+  py: 2,
+  fontSize: { xs: '1rem', md: '1.2rem' },
+  fontWeight: 700,
+  borderRadius: '50px',
+  textTransform: 'none',
+  background: 'linear-gradient(135deg, #4361ee 0%, #3f37c9 100%)',
+  boxShadow: '0 8px 24px rgba(67, 97, 238, 0.4)',
+  transition: 'all 0.3s ease',
+  '&:hover': {
+    transform: 'translateY(-2px)',
+    boxShadow: '0 12px 32px rgba(67, 97, 238, 0.5)',
+  },
+  '&:focus': {
+    outline: '3px solid #4361ee',
+    outlineOffset: '4px',
+  }
+};
 
 /**
  * PublishJockey Landing Page Component
