@@ -1635,7 +1635,7 @@ const MidPageCTA = ({ handleRegister }) => {
             mx: 'auto'
           }}
         >
-          Join thousands of authors who have simplified their publishing workflow with Publish Jockey.
+          Transform your manuscript into a professional book in minutes, not months.
         </Typography>
         <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
           <Button 
