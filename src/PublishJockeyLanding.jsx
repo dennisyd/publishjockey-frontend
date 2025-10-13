@@ -1,4 +1,4 @@
-import React from 'react'; // Dr. Yancy D. Dennis
+import React from 'react'; // Dr. Yancy Dennis
 import { sanitizeHtml } from './utils/sanitizeHtml';
 import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
