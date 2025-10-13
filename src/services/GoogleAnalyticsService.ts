@@ -21,8 +21,8 @@ class GoogleAnalyticsService {
   initialize(): void {
     if (this.isInitialized) return;
     
-    // Only initialize if we have a measurement ID and not on localhost
-    this.measurementId = process.env.REACT_APP_GA_MEASUREMENT_ID || null;
+    // Use hardcoded measurement ID (environment variable wasn't working in build)
+    this.measurementId = process.env.REACT_APP_GA_MEASUREMENT_ID || 'G-E7MT5P1WHL';
     
     if (!this.measurementId || window.location.hostname === 'localhost') {
       console.log('📊 GA: Not initializing (no ID or localhost)');

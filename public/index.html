@@ -28,18 +28,18 @@
     
     <!-- Google Analytics -->
     <script>
-      // Only load GA if we have a measurement ID
-      if (window.location.hostname !== 'localhost' && '%REACT_APP_GA_MEASUREMENT_ID%' !== '' && '%REACT_APP_GA_MEASUREMENT_ID%' !== '%REACT_APP_GA_MEASUREMENT_ID%') {
+      // Only load GA if not on localhost
+      if (window.location.hostname !== 'localhost') {
         // Google tag (gtag.js)
         var script = document.createElement('script');
         script.async = true;
-        script.src = 'https://www.googletagmanager.com/gtag/js?id=%REACT_APP_GA_MEASUREMENT_ID%';
+        script.src = 'https://www.googletagmanager.com/gtag/js?id=G-E7MT5P1WHL';
         document.head.appendChild(script);
         
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', '%REACT_APP_GA_MEASUREMENT_ID%', {
+        gtag('config', 'G-E7MT5P1WHL', {
           send_page_view: false // We'll control page views manually
         });
       }
