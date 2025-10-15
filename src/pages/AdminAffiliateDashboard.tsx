@@ -122,10 +122,10 @@ const AdminAffiliateDashboard = () => {
       setError(null);
       
       const [statsRes, affiliatesRes, commissionsRes, revenueRes] = await Promise.all([
-        http.get('/admin/stats'),
+        http.get('/admin/affiliates/stats'),
         http.get('/admin/affiliates'),
-        http.get('/admin/commissions'),
-        http.get('/admin/revenue')
+        http.get('/admin/affiliates/commissions'),
+        http.get('/admin/affiliates/revenue')
       ]);
       
       console.log('Admin data responses:', {
@@ -216,7 +216,7 @@ const AdminAffiliateDashboard = () => {
   const handleProcessMonthlyPayouts = async () => {
     try {
       setLoading(true);
-      const response = await http.post('/api/admin/process-monthly-payouts');
+      const response = await http.post('/admin/affiliates/process-monthly-payouts');
       
       if (response.data.success) {
         await loadAdminData(); // Refresh data
