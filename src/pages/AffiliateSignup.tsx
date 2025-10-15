@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -26,10 +26,12 @@ import {
   CheckCircle
 } from '@mui/icons-material';
 import { http } from '../services/http';
+import tokenManager from '../utils/tokenManager';
 
 const AffiliateSignup = () => {
   const navigate = useNavigate();
   const [registerDialogOpen, setRegisterDialogOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [registrationData, setRegistrationData] = useState({
     paypalEmail: '',
     companyName: '',
@@ -40,7 +42,19 @@ const AffiliateSignup = () => {
   const [submissionStatus, setSubmissionStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [errorMessage, setErrorMessage] = useState('');
 
+  useEffect(() => {
+    // Check if user is logged in
+    const token = tokenManager.getAccessToken();
+    setIsLoggedIn(!!token && !tokenManager.isAccessTokenExpired());
+  }, []);
+
   const handleRegisterClick = () => {
+    // Check if user is logged in
+    if (!isLoggedIn) {
+      // Redirect to register page with message
+      navigate('/register?message=Please create an account to join our affiliate program&redirect=/affiliate-signup');
+      return;
+    }
     setRegisterDialogOpen(true);
   };
 
@@ -69,7 +83,7 @@ const AffiliateSignup = () => {
         setSubmissionStatus('success');
         setTimeout(() => {
           setRegisterDialogOpen(false);
-          navigate('/login?message=Please log in to access your affiliate dashboard');
+          navigate('/affiliate');
         }, 2000);
       } else {
         setSubmissionStatus('error');
