@@ -93,6 +93,11 @@ const AdminAffiliateDashboard = () => {
   const [selectedAffiliate, setSelectedAffiliate] = useState<any>(null);
   const [payoutLoading, setPayoutLoading] = useState(false);
   
+  // Edit/Approve affiliate
+  const [editDialogOpen, setEditDialogOpen] = useState(false);
+  const [editingAffiliate, setEditingAffiliate] = useState<any>(null);
+  const [newStatus, setNewStatus] = useState('');
+  
   // Filters
   const [statusFilter, setStatusFilter] = useState('all');
   const [dateFilter, setDateFilter] = useState('30');
@@ -170,6 +175,14 @@ const AdminAffiliateDashboard = () => {
     }
   };
 
+  const handleEditAffiliate = (affiliate: any) => {
+    console.log('Edit button clicked for affiliate:', affiliate);
+    setEditingAffiliate(affiliate);
+    setNewStatus(affiliate.status);
+    setEditDialogOpen(true);
+    console.log('Dialog should open now, editDialogOpen:', true);
+  };
+
   const handleProcessPayout = async (affiliate: any) => {
     setSelectedAffiliate(affiliate);
     setPayoutDialogOpen(true);
@@ -198,18 +211,28 @@ const AdminAffiliateDashboard = () => {
     }
   };
 
-  const handleStatusChange = async (affiliateId: string, newStatus: string) => {
+  const handleStatusChange = async () => {
+    if (!editingAffiliate) return;
+    
     try {
-      const response = await http.put(`/admin/affiliates/${affiliateId}/status`, {
+      setPayoutLoading(true);
+      const response = await http.put(`/admin/affiliates/${editingAffiliate._id}/status`, {
         status: newStatus
       });
       
       if (response.data.success) {
+        setEditDialogOpen(false);
+        setEditingAffiliate(null);
+        setError(null);
         await loadAdminData(); // Refresh data
+      } else {
+        setError(response.data.message || 'Failed to update affiliate status');
       }
     } catch (error: any) {
       console.error('Error updating affiliate status:', error);
       setError('Failed to update affiliate status');
+    } finally {
+      setPayoutLoading(false);
     }
   };
 
@@ -525,8 +548,8 @@ const AdminAffiliateDashboard = () => {
                     <TableCell>{formatCurrency(affiliate.totalCommissions)}</TableCell>
                     <TableCell>{formatCurrency(affiliate.expectedPayout || 0)}</TableCell>
                     <TableCell>
-                      <Tooltip title="Edit Affiliate">
-                        <IconButton size="small">
+                      <Tooltip title="Edit Status / Approve">
+                        <IconButton size="small" onClick={() => handleEditAffiliate(affiliate)}>
                           <Edit />
                         </IconButton>
                       </Tooltip>
@@ -605,6 +628,65 @@ const AdminAffiliateDashboard = () => {
           </TableContainer>
         </TabPanel>
       </Paper>
+
+      {/* Edit Affiliate Dialog */}
+      <Dialog open={editDialogOpen} onClose={() => setEditDialogOpen(false)} maxWidth="sm" fullWidth>
+        <DialogTitle>Edit Affiliate Status</DialogTitle>
+        <DialogContent>
+          {editingAffiliate && (
+            <Box sx={{ pt: 2 }}>
+              <Typography variant="body1" sx={{ mb: 3 }}>
+                Affiliate: <strong>{editingAffiliate.userId?.email}</strong>
+              </Typography>
+              
+              <FormControl fullWidth>
+                <InputLabel>Status</InputLabel>
+                <Select
+                  value={newStatus}
+                  onChange={(e) => setNewStatus(e.target.value)}
+                  label="Status"
+                >
+                  <MenuItem value="pending">Pending - Under Review</MenuItem>
+                  <MenuItem value="active">Active - Approved</MenuItem>
+                  <MenuItem value="suspended">Suspended - Temporarily Disabled</MenuItem>
+                  <MenuItem value="terminated">Terminated - Permanently Disabled</MenuItem>
+                </Select>
+              </FormControl>
+              
+              <Box sx={{ mt: 3, p: 2, bgcolor: 'grey.50', borderRadius: 1 }}>
+                <Typography variant="body2" sx={{ mb: 1 }}>
+                  <strong>Affiliate Details:</strong>
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Code: {editingAffiliate.affiliateCode}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Company: {editingAffiliate.companyName || 'N/A'}
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Website: {editingAffiliate.website || 'N/A'}
+                </Typography>
+                {editingAffiliate.marketingDescription && (
+                  <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
+                    Strategy: {editingAffiliate.marketingDescription}
+                  </Typography>
+                )}
+              </Box>
+            </Box>
+          )}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={() => setEditDialogOpen(false)}>Cancel</Button>
+          <Button 
+            onClick={handleStatusChange} 
+            variant="contained"
+            disabled={payoutLoading || newStatus === editingAffiliate?.status}
+            color={newStatus === 'active' ? 'success' : 'primary'}
+          >
+            {payoutLoading ? <CircularProgress size={20} /> : 'Update Status'}
+          </Button>
+        </DialogActions>
+      </Dialog>
 
       {/* Payout Processing Dialog */}
       <Dialog open={payoutDialogOpen} onClose={() => setPayoutDialogOpen(false)} maxWidth="sm" fullWidth>
