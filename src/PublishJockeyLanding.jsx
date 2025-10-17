@@ -789,7 +789,7 @@ const Hero = ({ handleRegister }) => {
               >
                 Registered Users print 12 pages FREE!
                 <br />
-                <span style={{ fontSize: '1.05em', fontWeight: 'bold', textDecoration: 'underline' }}>
+                <span style={{ fontSize: '1.05em', fontWeight: 'bold', textDecoration: 'underline', color: '#FFC107' }}>
                   NO CREDIT CARD/PURCHASE REQUIRED
                 </span>
               </Typography>
