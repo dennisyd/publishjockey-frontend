@@ -161,9 +161,14 @@ const FAQ = () => {
           answer: "You can easily create tables by importing a CSV file into the application. It will be automatically converted into a Markdown-formatted table. For best results, keep your tables compact due to the limited real estate in printed books."
         },
         {
+          id: "equation-support",
+          question: "Does PublishJockey support mathematical equations?",
+          answer: "Yes! PublishJockey offers perfect equation rendering in PDF exports through Word import. Simply write your equations using Microsoft Word's built-in equation editor, then import your document using SplitDoctor. PublishJockey preserves and renders all mathematical notation with professional LaTeX-quality typesetting in your final PDF—no LaTeX coding required.<br><br><strong>Perfect For:</strong><br><ul style='padding-left: 20px;'><li><strong>STEM Textbooks:</strong> Math, physics, chemistry, engineering</li><li><strong>Academic Papers:</strong> Research papers and journal submissions</li><li><strong>Course Materials:</strong> Lecture notes, problem sets, study guides</li><li><strong>Thesis & Dissertations:</strong> Graduate-level academic work</li></ul><br><strong>Note:</strong> Perfect equation rendering is guaranteed in PDF exports. EPUB and DOCX formats may have limited equation support depending on the reader's device."
+        },
+        {
           id: "panel13",
           question: "Can I use PublishJockey to publish textbooks or academic materials?",
-          answer: "We're actively developing enhanced academic publishing features! While our current platform excels at general book formatting, we recognize the unique needs of academic publishing. Enhanced support for thesis, dissertations, and textbooks—including complex mathematical equations, advanced footnoting, bibliography management, and academic citation styles—is currently in development. Stay tuned for these exciting new capabilities!"
+          answer: "Absolutely! PublishJockey already supports key academic features including perfect equation rendering from Word, professional table formatting, image placement, and multi-language support. We're also actively developing enhanced academic publishing features including advanced footnoting, bibliography management, and academic citation styles. Stay tuned for these exciting new capabilities!"
         },
         {
           id: "image-caption",
