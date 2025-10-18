@@ -770,7 +770,7 @@ const Hero = ({ handleRegister }) => {
       
       {/* Content */}
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Grid container spacing={3} alignItems="center">
+        <Grid container spacing={3} alignItems="flex-start">
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
               {/* Main heading - single line, large and prominent */}
