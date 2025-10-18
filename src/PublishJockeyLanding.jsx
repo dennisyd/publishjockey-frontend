@@ -953,7 +953,7 @@ const Hero = ({ handleRegister }) => {
                 position: 'relative',
                 transform: 'perspective(1200px) rotateY(-15deg) rotateX(5deg)',
                 transformOrigin: 'center center',
-                mt: { xs: 3, md: 5 },
+                mt: { xs: 5, md: 9 },
                 mb: 3,
                 '&:hover': {
                   transform: 'perspective(1200px) rotateY(-10deg) rotateX(2deg)',
