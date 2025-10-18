@@ -811,7 +811,7 @@ const Hero = ({ handleRegister }) => {
                 sx={{ 
                   fontSize: { xs: '0.9rem', md: '0.95rem' },
                   fontWeight: 600,
-                  color: '#d32f2f', // Red color for attention
+                  color: '#10b981', // Bright green for positive free offer
                   display: 'block',
                   mt: 1.5,
                   mb: 1.5,
