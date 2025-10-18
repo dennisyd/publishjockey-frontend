@@ -326,6 +326,87 @@ const FAQ = () => {
       ]
     },
     {
+      category: "IPA Support",
+      icon: <CodeIcon />,
+      questions: [
+        {
+          id: "what-is-ipa",
+          question: "What is the International Phonetic Alphabet (IPA)?",
+          answer: "The International Phonetic Alphabet is a standardized system of phonetic notation that represents the sounds of spoken language. IPA uses specific symbols to transcribe exactly how words are pronounced, regardless of their spelling in any particular language. For example, the English word \"thought\" is transcribed as /θɔːt/, while the German word \"ich\" is /ɪç/."
+        },
+        {
+          id: "who-needs-ipa",
+          question: "Who needs IPA support in their publications?",
+          answer: "IPA is essential for:<br><br><ul style='padding-left: 20px;'><li><strong>Linguistics researchers</strong> publishing phonetic and phonological studies</li><li><strong>Language teachers and textbook authors</strong> creating pronunciation guides</li><li><strong>Speech-language pathologists</strong> documenting speech patterns and disorders</li><li><strong>Dictionary publishers</strong> providing accurate pronunciation information</li><li><strong>Anthropologists</strong> documenting indigenous languages</li><li><strong>Language learning material creators</strong> developing pronunciation resources</li></ul>"
+        },
+        {
+          id: "ipa-challenges",
+          question: "Why is IPA support challenging in digital publishing?",
+          answer: "Most publishing platforms struggle with IPA because:<br><br><ul style='padding-left: 20px;'><li>Standard fonts often lack IPA symbols</li><li>Complex diacritics and combining characters render incorrectly</li><li>Export engines can't handle Unicode properly</li><li>Symbols break or display as boxes in final documents</li><li>Font substitution creates inconsistent appearance</li></ul>"
+        },
+        {
+          id: "ipa-pdf-support",
+          question: "How does PublishJockey handle IPA in PDF exports?",
+          answer: "PublishJockey's PDF engine provides professional-grade IPA support that:<br><br><ul style='padding-left: 20px;'><li><strong>Renders all IPA symbols correctly</strong> with embedded fonts</li><li><strong>Supports complex diacritics</strong> and combining characters</li><li><strong>Maintains consistent appearance</strong> across all devices</li><li><strong>Handles font fallbacks intelligently</strong> when symbols are missing</li><li><strong>Delivers print-ready quality</strong> matching professional linguistic publications</li></ul>"
+        },
+        {
+          id: "ipa-other-formats",
+          question: "What about EPUB and DOCX formats?",
+          answer: "For EPUB and DOCX exports, IPA symbol display depends on the reader's device and available fonts:<br><br><ul style='padding-left: 20px;'><li><strong>EPUB files</strong> may not display IPA correctly on all e-readers, as device font support varies</li><li><strong>DOCX documents</strong> require recipients to have IPA-compatible fonts installed</li><li><strong>For critical linguistic work</strong> requiring guaranteed IPA display, we recommend PDF export</li></ul><br>PDF remains the gold standard for academic and professional linguistic publishing where precise notation is essential."
+        },
+        {
+          id: "ipa-mixed-scripts",
+          question: "Can I mix IPA with other scripts and languages?",
+          answer: "Yes, in PDF exports. PublishJockey's multi-script support allows you to seamlessly combine:<br><br><ul style='padding-left: 20px;'><li>IPA notation with standard text</li><li>Multiple writing systems in the same document</li><li>Complex linguistic examples with proper formatting</li><li>Citations and references in various languages</li></ul><br>This is particularly valuable for comparative linguistics research and multilingual language documentation."
+        },
+        {
+          id: "ipa-symbols-supported",
+          question: "What IPA symbols and features are supported?",
+          answer: "PublishJockey supports the complete IPA character set in PDF exports, including:<br><br><ul style='padding-left: 20px;'><li><strong>All consonant and vowel symbols</strong> (pulmonic and non-pulmonic)</li><li><strong>Diacritics and combining marks</strong> (aspiration, nasalization, tone marks, etc.)</li><li><strong>Suprasegmental notation</strong> (stress marks, length markers, tone letters)</li><li><strong>Special symbols</strong> (word boundaries, syllable breaks, etc.)</li><li><strong>Extensions</strong> for disordered speech and other specialized notation</li></ul>"
+        },
+        {
+          id: "ipa-fonts-required",
+          question: "Do I need special fonts or software?",
+          answer: "No additional setup required for PDF publishing. PublishJockey:<br><br><ul style='padding-left: 20px;'><li><strong>Includes multiple IPA-compatible fonts</strong> for professional linguistics</li><li><strong>Handles font management automatically</strong></li><li><strong>Works with any device or browser</strong> - no special software needed</li><li><strong>Embeds fonts in PDFs</strong> so symbols display correctly everywhere</li></ul>"
+        },
+        {
+          id: "ipa-fonts-list",
+          question: "Which fonts support IPA?",
+          answer: "For complete IPA support, we recommend:<br><br><strong>Full IPA Support:</strong><br><ul style='padding-left: 20px;'><li><strong>Charis SIL</strong> - Comprehensive IPA coverage, designed specifically for linguistics</li><li><strong>Linux Libertine O</strong> - Excellent IPA support with professional appearance</li><li><strong>Gentium Plus</strong> - Another SIL font with full IPA character set</li></ul><br><strong>Limited or No IPA Support:</strong><br><ul style='padding-left: 20px;'><li><strong>Latin Modern Roman</strong> - Traditional academic font but lacks many IPA symbols</li><li><strong>TeX Gyre fonts</strong> (Pagella, Termes) - Limited IPA coverage</li><li><strong>Nimbus Roman</strong> - Basic font with minimal IPA support</li></ul><br>Always preview your document to ensure your chosen font displays all required IPA symbols correctly."
+        },
+        {
+          id: "ipa-display-guarantee",
+          question: "Will my IPA symbols display correctly for readers?",
+          answer: "For PDF exports, yes - guaranteed. When you export to PDF:<br><br><ul style='padding-left: 20px;'><li><strong>Fonts are embedded</strong> so symbols display on any device</li><li><strong>Print quality</strong> matches professional linguistic publications</li><li><strong>Symbols remain sharp</strong> at any zoom level</li><li><strong>Compatible with all PDF readers</strong> and printing systems</li></ul><br>For other formats, display quality depends on the reader's device capabilities."
+        },
+        {
+          id: "ipa-import-documents",
+          question: "Can I import existing documents with IPA symbols?",
+          answer: "Yes. PublishJockey's BookBuilder AI can:<br><br><ul style='padding-left: 20px;'><li><strong>Import documents</strong> containing IPA notation</li><li><strong>Preserve existing formatting</strong> and symbols during import</li><li><strong>Organize linguistic content</strong> intelligently</li><li><strong>Convert to our system</strong> while maintaining symbol integrity</li></ul><br>This makes it easy to migrate existing research or update previous publications."
+        },
+        {
+          id: "ipa-learning-curve",
+          question: "Is there a learning curve for using IPA in PublishJockey?",
+          answer: "The platform is designed for linguists by people who understand linguistics:<br><br><ul style='padding-left: 20px;'><li><strong>Familiar workflow</strong> - type IPA as you normally would</li><li><strong>Real-time preview</strong> shows exactly how symbols will appear in the final PDF</li><li><strong>No special codes</strong> or markup required</li><li><strong>Standard keyboard shortcuts</strong> work as expected</li><li><strong>Professional results</strong> without technical complexity</li></ul>"
+        },
+        {
+          id: "ipa-vs-latex",
+          question: "How does this compare to LaTeX for linguistic publishing?",
+          answer: "While LaTeX offers excellent IPA support, PublishJockey provides:<br><br><ul style='padding-left: 20px;'><li><strong>Faster publishing workflow</strong> - no compilation needed</li><li><strong>Immediate visual feedback</strong> instead of code-compile-preview cycle</li><li><strong>Multi-format output</strong> from single source (with PDF being IPA-optimized)</li><li><strong>Collaborative editing</strong> capabilities</li><li><strong>No technical setup</strong> or package management</li></ul><br>Perfect for researchers who want LaTeX-quality PDF output without the complexity."
+        },
+        {
+          id: "ipa-all-languages",
+          question: "Can I use IPA with all 80+ supported languages?",
+          answer: "Yes, in PDF exports. IPA notation works seamlessly with all supported languages, allowing you to:<br><br><ul style='padding-left: 20px;'><li><strong>Document pronunciations</strong> in any of the 80+ languages</li><li><strong>Create comparative studies</strong> across language families</li><li><strong>Publish field linguistics</strong> research in indigenous languages</li><li><strong>Maintain consistency</strong> in multilingual publications</li></ul><br>This is particularly valuable for researchers working with understudied or endangered languages."
+        },
+        {
+          id: "ipa-best-format",
+          question: "What's the best format for sharing IPA-heavy research?",
+          answer: "For professional and academic work requiring precise IPA display, PDF is the recommended format because:<br><br><ul style='padding-left: 20px;'><li><strong>Guaranteed symbol rendering</strong> on all devices</li><li><strong>Print-ready quality</strong> for journal submissions</li><li><strong>Universal compatibility</strong> with academic workflows</li><li><strong>Professional appearance</strong> meeting publication standards</li></ul><br>Other formats can be useful for drafts or broader distribution, but PDF ensures your phonetic notation appears exactly as intended."
+        }
+      ]
+    },
+    {
       category: "Account & Security",
       icon: <SettingsIcon />,
       questions: [

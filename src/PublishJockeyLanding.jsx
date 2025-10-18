@@ -873,6 +873,22 @@ const Hero = ({ handleRegister }) => {
                 <strong>Word/Google Docs/Markdown → Book</strong> (auto-split) • Images • Tables • Built-in Editor
               </Typography>
 
+              {/* IPA support callout */}
+              <Typography 
+                variant="body2" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '1rem' }, 
+                  fontWeight: 500, 
+                  opacity: 0.8, 
+                  mb: 1.2,
+                  lineHeight: 1.3,
+                  maxWidth: '450px'
+                }}
+              >
+                <strong>Research-Grade IPA</strong> in Professional PDFs
+              </Typography>
+
               {/* Language support - tighter spacing */}
               <Typography 
                 variant="body2" 
