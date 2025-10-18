@@ -786,7 +786,7 @@ const Hero = ({ handleRegister }) => {
                   whiteSpace: 'nowrap'
                 }}
               >
-                Publish Bookstore-Quality Books in Minutes.
+                Publish Bookstore-Quality Books in Minutes
               </Typography>
 
               {/* Subtitle - tighter spacing */}
@@ -945,7 +945,7 @@ const Hero = ({ handleRegister }) => {
               flexDirection: 'column',
               alignItems: 'center',
               position: 'relative',
-              mt: { xs: 2, md: 6 }
+              mt: { xs: 4, md: 8.5 }
             }}>
               {/* Book cover with 3D effect - showing page edges (better proportions) */}
               <Box sx={{
