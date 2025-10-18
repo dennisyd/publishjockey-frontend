@@ -726,16 +726,29 @@ const Hero = ({ handleRegister }) => {
           background: 'linear-gradient(90deg, #1b1464, #2b1a84)',
           color: 'rgba(255,255,255,0.95)',
           fontWeight: 500,
-          fontSize: { xs: '0.9rem', sm: '1rem' },
+          fontSize: { xs: '0.85rem', sm: '0.95rem' },
           textAlign: 'center',
           padding: '0.6rem 1rem',
-          letterSpacing: '0.3px',
+          letterSpacing: '0.2px',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          flexWrap: 'wrap',
+          gap: { xs: '0.4rem', sm: '0.5rem' },
           position: 'relative',
           zIndex: 2,
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
         }}
       >
-        Publish Bookstore-Quality Books in Minutes
+        <span>Minutes not Weeks</span>
+        <span style={{ color: '#a8a3ff' }}>•</span>
+        <span>Professional Quality</span>
+        <span style={{ color: '#a8a3ff' }}>•</span>
+        <span>$63 for Any Size Book</span>
+        <span style={{ color: '#a8a3ff' }}>•</span>
+        <span>Unlimited Revisions</span>
+        <span style={{ color: '#a8a3ff' }}>•</span>
+        <span>Unlimited Exports</span>
       </Box>
 
       {/* Subtle pattern overlay */}
@@ -760,17 +773,17 @@ const Hero = ({ handleRegister }) => {
         <Grid container spacing={3} alignItems="center">
           <Grid item xs={12} md={6}>
             <Box sx={{ textAlign: { xs: 'center', md: 'left' } }}>
-              {/* Main heading - tighter spacing */}
+              {/* Main heading - single line, large and prominent */}
               <Typography 
                 variant="h1" 
                 component="h1" 
                 sx={{ 
-                  fontSize: { xs: '2.5rem', md: '3.2rem' }, 
+                  fontSize: { xs: '1.5rem', sm: '2.5rem', md: '3.5rem' }, 
                   fontWeight: 700,
                   lineHeight: 1.1,
                   mb: 1.5,
                   color: 'white',
-                  maxWidth: '500px'
+                  whiteSpace: 'nowrap'
                 }}
               >
                 Publish Bookstore-Quality Books in Minutes.
