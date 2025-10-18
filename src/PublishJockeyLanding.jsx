@@ -886,7 +886,23 @@ const Hero = ({ handleRegister }) => {
                   maxWidth: '450px'
                 }}
               >
-                <strong>Research-Grade IPA</strong> in Professional PDFs
+                <strong>Research-Grade IPA</strong> in PDFs
+              </Typography>
+
+              {/* Equation rendering callout */}
+              <Typography 
+                variant="body2" 
+                component="p" 
+                sx={{ 
+                  fontSize: { xs: '0.9rem', md: '1rem' }, 
+                  fontWeight: 500, 
+                  opacity: 0.8, 
+                  mb: 1.2,
+                  lineHeight: 1.3,
+                  maxWidth: '450px'
+                }}
+              >
+                <strong>Perfect Equation Rendering</strong> in PDFs
               </Typography>
 
               {/* Language support - tighter spacing */}
