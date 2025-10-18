@@ -726,29 +726,16 @@ const Hero = ({ handleRegister }) => {
           background: 'linear-gradient(90deg, #1b1464, #2b1a84)',
           color: 'rgba(255,255,255,0.95)',
           fontWeight: 500,
-          fontSize: { xs: '0.85rem', sm: '0.95rem' },
+          fontSize: { xs: '0.9rem', sm: '1rem' },
           textAlign: 'center',
           padding: '0.6rem 1rem',
-          letterSpacing: '0.2px',
-          display: 'flex',
-          justifyContent: 'center',
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: { xs: '0.4rem', sm: '0.5rem' },
+          letterSpacing: '0.3px',
           position: 'relative',
           zIndex: 2,
           boxShadow: '0 2px 8px rgba(0,0,0,0.15)'
         }}
       >
-        <span>Minutes not Weeks</span>
-        <span style={{ color: '#a8a3ff' }}>•</span>
-        <span>Professional Quality</span>
-        <span style={{ color: '#a8a3ff' }}>•</span>
-        <span>$63 for Any Size Book</span>
-        <span style={{ color: '#a8a3ff' }}>•</span>
-        <span>Unlimited Revisions</span>
-        <span style={{ color: '#a8a3ff' }}>•</span>
-        <span>Unlimited Exports</span>
+        Publish Bookstore-Quality Books in Minutes
       </Box>
 
       {/* Subtle pattern overlay */}
