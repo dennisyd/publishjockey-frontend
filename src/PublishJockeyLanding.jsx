@@ -1300,7 +1300,7 @@ const Hero = ({ handleRegister }) => {
               <Box sx={{
                 position: 'absolute',
                 right: '5px',
-                top: '30px',
+                top: '60px',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: 1.5
