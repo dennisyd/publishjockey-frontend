@@ -945,7 +945,7 @@ const Hero = ({ handleRegister }) => {
               flexDirection: 'column',
               alignItems: 'center',
               position: 'relative',
-              mt: { xs: 4, md: 8.5 }
+              mt: { xs: 6, md: 10.5 }
             }}>
               {/* Book cover with 3D effect - showing page edges (better proportions) */}
               <Box sx={{
