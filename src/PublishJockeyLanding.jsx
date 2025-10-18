@@ -944,8 +944,7 @@ const Hero = ({ handleRegister }) => {
               display: 'flex', 
               flexDirection: 'column',
               alignItems: 'center',
-              position: 'relative',
-              mt: { xs: 6, md: 10.5 }
+              position: 'relative'
             }}>
               {/* Book cover with 3D effect - showing page edges (better proportions) */}
               <Box sx={{
@@ -954,6 +953,7 @@ const Hero = ({ handleRegister }) => {
                 position: 'relative',
                 transform: 'perspective(1200px) rotateY(-15deg) rotateX(5deg)',
                 transformOrigin: 'center center',
+                mt: { xs: 3, md: 5 },
                 mb: 3,
                 '&:hover': {
                   transform: 'perspective(1200px) rotateY(-10deg) rotateX(2deg)',
