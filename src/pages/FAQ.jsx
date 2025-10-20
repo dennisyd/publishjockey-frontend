@@ -226,6 +226,11 @@ const FAQ = () => {
           id: "ownership-rights",
           question: "Who owns the books I create with Publish Jockey?",
           answer: "You always retain 100% rights and ownership of your books and content. We never claim any publishing rights or royalties—everything you create belongs to you."
+        },
+        {
+          id: "copyright-protection",
+          question: "How does Publish Jockey handle copyright protection for my work?",
+          answer: "Copyright protection is a legal right, not a technical one. This means no software application can prevent others from copying or misusing your work — only the law can enforce copyright.<br><br>However, with our system, you retain full copyright and ownership of everything you upload and create. We never claim rights to your content, and we only use it to provide the services you've requested. Your materials remain your intellectual property at all times."
         }
       ]
     },
