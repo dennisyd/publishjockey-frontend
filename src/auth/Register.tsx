@@ -345,10 +345,10 @@ const Register: React.FC = () => {
               Registration Successful!
             </Typography>
             <Typography variant="body1" paragraph>
-              Thank you for registering. Please check your email for a verification link.
+              Thank you for registering. Your account has been created successfully.
             </Typography>
             <Typography variant="body2" paragraph>
-              You will need to verify your email before you can log in.
+              You can now log in and start using PublishJockey!
             </Typography>
             {registerResponse?.warning && (
               <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>
