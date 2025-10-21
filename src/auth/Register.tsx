@@ -27,6 +27,7 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 interface RegisterResponse {
   success: boolean;
   message: string;
+  warning?: string;
   user?: {
     id: string;
     name: string;
@@ -47,6 +48,7 @@ const Register: React.FC = () => {
   const [termsOpen, setTermsOpen] = useState(false);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
+  const [registerResponse, setRegisterResponse] = useState<RegisterResponse | null>(null);
   const { login, loading } = useAuth();
   const navigate = useNavigate();
   const termsContentRef = React.useRef<HTMLDivElement>(null);
@@ -118,8 +120,9 @@ const Register: React.FC = () => {
       return;
     }
     
-    // Clear any previous errors
+    // Clear any previous errors and responses
     setFormError('');
+    setRegisterResponse(null);
     
     try {
       console.log('Attempting registration with:', { name, email });
@@ -133,23 +136,28 @@ const Register: React.FC = () => {
       });
       
       if (registerResponse.data.success) {
+        // Store the response data for potential warning display
+        setRegisterResponse(registerResponse.data);
+
         // After successful registration, log the user in
         await login(email, password);
-        
+
         // Registration was successful, show success message
         setRegistrationSuccess(true);
         GoogleAnalyticsService.trackSignUp();
-        
+
         // Don't redirect yet, let user see the success message
         console.log('Registration successful - staying on page to show success message');
       } else {
         setFormError(registerResponse.data.message || 'Failed to create an account');
         setRegistrationSuccess(false);
+        setRegisterResponse(null);
       }
     } catch (err: any) {
       setFormError(err.response?.data?.message || 'Failed to create an account');
       console.error('Registration failed:', err);
       setRegistrationSuccess(false);
+      setRegisterResponse(null);
     }
   };
 
@@ -342,6 +350,11 @@ const Register: React.FC = () => {
             <Typography variant="body2" paragraph>
               You will need to verify your email before you can log in.
             </Typography>
+            {registerResponse?.warning && (
+              <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>
+                {registerResponse.warning}
+              </Alert>
+            )}
             <Button
               variant="contained"
               onClick={() => navigate('/login')}

@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 import React from 'react'; // Dr. Yancy Deleto Dennis
 import { sanitizeHtml } from './utils/sanitizeHtml';
 import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
@@ -95,7 +96,7 @@ const primaryCTAButtonSx = {
 
 const PublishJockeyLanding = () => {
   // Initialize analytics tracking
-  const { trackFeatureInteraction } = useAnalytics();
+  const { trackFeatureInteraction, trackNavigationClick } = useAnalytics();
 
   // Configure scroll tracking for main sections
   const scrollSections = [
@@ -500,13 +501,13 @@ const LandingHeader = ({ openTerms }) => {
                     onClose={handleProductMenuClose}
                     sx={{ mt: 1 }}
                   >
-                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('Features', 'product_menu'); window.location.href = '/#features'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose();  trackNavigationClick('Features', 'product_menu'); window.location.href = '/#features'; }}>
                       Features
                     </MenuItem>
-                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('How it Works', 'product_menu'); window.location.href = '/#how-it-works'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose();  trackNavigationClick('How it Works', 'product_menu'); window.location.href = '/#how-it-works'; }}>
                       How it Works
                     </MenuItem>
-                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('Pricing', 'product_menu'); window.location.href = '/pricing'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose();  trackNavigationClick('Pricing', 'product_menu'); window.location.href = '/pricing'; }}>
                       Pricing
                     </MenuItem>
                   </Menu>
@@ -530,10 +531,10 @@ const LandingHeader = ({ openTerms }) => {
                     onClose={handleResourcesMenuClose}
                     sx={{ mt: 1 }}
                   >
-                    <MenuItem onClick={() => { handleResourcesMenuClose(); trackNavigationClick('Blog', 'resources_menu'); window.location.href = '/blog'; }}>
+                    <MenuItem onClick={() => { handleResourcesMenuClose();  trackNavigationClick('Blog', 'resources_menu'); window.location.href = '/blog'; }}>
                       Blog
                     </MenuItem>
-                    <MenuItem onClick={() => { handleResourcesMenuClose(); trackNavigationClick('FAQ', 'resources_menu'); window.location.href = '/#faq'; }}>
+                    <MenuItem onClick={() => { handleResourcesMenuClose();  trackNavigationClick('FAQ', 'resources_menu'); window.location.href = '/#faq'; }}>
                       FAQ
                     </MenuItem>
                   </Menu>
@@ -543,7 +544,7 @@ const LandingHeader = ({ openTerms }) => {
                   {/* Expanded menu for anonymous visitors */}
                   <Button
                     href="/#features"
-                    onClick={() => trackNavigationClick('Features', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('Features', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -554,7 +555,7 @@ const LandingHeader = ({ openTerms }) => {
                   </Button>
                   <Button
                     href="/#how-it-works"
-                    onClick={() => trackNavigationClick('How it Works', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('How it Works', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -565,7 +566,7 @@ const LandingHeader = ({ openTerms }) => {
                   </Button>
                   <Button
                     href="/pricing"
-                    onClick={() => trackNavigationClick('Pricing', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('Pricing', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -576,7 +577,7 @@ const LandingHeader = ({ openTerms }) => {
                   </Button>
                   <Button
                     href="/blog"
-                    onClick={() => trackNavigationClick('Blog', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('Blog', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -587,7 +588,7 @@ const LandingHeader = ({ openTerms }) => {
                   </Button>
                   <Button
                     href="/#faq"
-                    onClick={() => trackNavigationClick('FAQ', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('FAQ', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -602,7 +603,7 @@ const LandingHeader = ({ openTerms }) => {
               {/* Common links for both authenticated and anonymous users */}
               <Button
                 href="/#testimonials"
-                onClick={() => trackNavigationClick('Testimonials', 'mobile_menu')}
+                onClick={() =>  trackNavigationClick('Testimonials', 'mobile_menu')}
                 sx={{
                   color: 'text.primary',
                   textTransform: 'none',
@@ -613,7 +614,7 @@ const LandingHeader = ({ openTerms }) => {
               </Button>
                                 <Button
                     href="/about"
-                    onClick={() => trackNavigationClick('About', 'mobile_menu')}
+                    onClick={() =>  trackNavigationClick('About', 'mobile_menu')}
                     sx={{
                       color: 'text.primary',
                       textTransform: 'none',
@@ -624,7 +625,7 @@ const LandingHeader = ({ openTerms }) => {
                   </Button>
                                      <Button
                      href="/affiliate-signup"
-                     onClick={() => trackNavigationClick('Affiliate Program', 'mobile_menu')}
+                     onClick={() =>  trackNavigationClick('Affiliate Program', 'mobile_menu')}
                      sx={{
                        color: 'text.primary',
                        textTransform: 'none',
@@ -636,7 +637,7 @@ const LandingHeader = ({ openTerms }) => {
                   {currentUser && (
                     <Button
                       href="/submit-testimonial"
-                      onClick={() => trackNavigationClick('Share Your Story', 'mobile_menu')}
+                      onClick={() =>  trackNavigationClick('Share Your Story', 'mobile_menu')}
                       sx={{
                         color: 'text.primary',
                         textTransform: 'none',
