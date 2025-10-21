@@ -1,6 +1,9 @@
 import React from 'react'; // Dr. Yancy Deleto Dennis
 import { sanitizeHtml } from './utils/sanitizeHtml';
 import { Button, Container, Typography, Box, Grid, Card, CardContent, Avatar, Divider, Accordion, AccordionSummary, AccordionDetails, AppBar, IconButton, Menu, MenuItem } from '@mui/material';
+import { TrackedButton } from './components/TrackedButton';
+import { useScrollTracking } from './hooks/useScrollTracking';
+import { useAnalytics } from './hooks/useAnalytics';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -91,11 +94,35 @@ const primaryCTAButtonSx = {
  */
 
 const PublishJockeyLanding = () => {
+  // Initialize analytics tracking
+  const { trackFeatureInteraction } = useAnalytics();
+
+  // Configure scroll tracking for main sections
+  const scrollSections = [
+    { id: 'hero', name: 'hero_section', threshold: 0.3 },
+    { id: 'comparison', name: 'comparison_section', threshold: 0.5 },
+    { id: 'features', name: 'features_section', threshold: 0.3 },
+    { id: 'pricing', name: 'pricing_section', threshold: 0.3 },
+    { id: 'faq', name: 'faq_section', threshold: 0.3 }
+  ];
+
+  const { trackSectionManually } = useScrollTracking({
+    sections: scrollSections,
+    trackOnMount: true
+  });
+
+  // Track FAQ accordion interactions
+  const handleFAQToggle = (faqId, isExpanded) => {
+    trackFeatureInteraction('faq_accordion', isExpanded ? 'expand' : 'collapse', {
+      faq_id: faqId
+    });
+  };
+
   // Add scroll padding when component mounts
   React.useEffect(() => {
     // Add scroll padding to account for fixed header and ensure section titles are visible
     document.documentElement.style.scrollPaddingTop = '80px';
-    
+
     // Force scrolling to be enabled
     document.documentElement.style.overflow = 'auto';
     document.documentElement.style.height = 'auto';
@@ -235,11 +262,14 @@ const PublishJockeyLanding = () => {
         >
           Ready to publish your book?
         </Typography>
-        <Button
+        <TrackedButton
           href="/register"
           variant="contained"
           color="primary"
           disableElevation
+          trackingText="Register Now"
+          trackingType="secondary_cta"
+          trackingLocation="terms_section"
           sx={{
             borderRadius: '50px',
             px: 4,
@@ -249,7 +279,7 @@ const PublishJockeyLanding = () => {
           }}
         >
           Register Now
-        </Button>
+        </TrackedButton>
       </Box>
       
       {/* Terms and Conditions Modal */}
@@ -470,13 +500,13 @@ const LandingHeader = ({ openTerms }) => {
                     onClose={handleProductMenuClose}
                     sx={{ mt: 1 }}
                   >
-                    <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/#features'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('Features', 'product_menu'); window.location.href = '/#features'; }}>
                       Features
                     </MenuItem>
-                    <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/#how-it-works'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('How it Works', 'product_menu'); window.location.href = '/#how-it-works'; }}>
                       How it Works
                     </MenuItem>
-                    <MenuItem onClick={() => { handleProductMenuClose(); window.location.href = '/pricing'; }}>
+                    <MenuItem onClick={() => { handleProductMenuClose(); trackNavigationClick('Pricing', 'product_menu'); window.location.href = '/pricing'; }}>
                       Pricing
                     </MenuItem>
                   </Menu>
@@ -500,10 +530,10 @@ const LandingHeader = ({ openTerms }) => {
                     onClose={handleResourcesMenuClose}
                     sx={{ mt: 1 }}
                   >
-                    <MenuItem onClick={() => { handleResourcesMenuClose(); window.location.href = '/blog'; }}>
+                    <MenuItem onClick={() => { handleResourcesMenuClose(); trackNavigationClick('Blog', 'resources_menu'); window.location.href = '/blog'; }}>
                       Blog
                     </MenuItem>
-                    <MenuItem onClick={() => { handleResourcesMenuClose(); window.location.href = '/#faq'; }}>
+                    <MenuItem onClick={() => { handleResourcesMenuClose(); trackNavigationClick('FAQ', 'resources_menu'); window.location.href = '/#faq'; }}>
                       FAQ
                     </MenuItem>
                   </Menu>
@@ -511,9 +541,10 @@ const LandingHeader = ({ openTerms }) => {
               ) : (
                 <>
                   {/* Expanded menu for anonymous visitors */}
-                  <Button 
+                  <Button
                     href="/#features"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('Features', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -521,9 +552,10 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     Features
                   </Button>
-                  <Button 
+                  <Button
                     href="/#how-it-works"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('How it Works', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -531,9 +563,10 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     How it Works
                   </Button>
-                  <Button 
+                  <Button
                     href="/pricing"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('Pricing', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -541,9 +574,10 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     Pricing
                   </Button>
-                  <Button 
+                  <Button
                     href="/blog"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('Blog', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -551,9 +585,10 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     Blog
                   </Button>
-                  <Button 
+                  <Button
                     href="/#faq"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('FAQ', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -565,9 +600,10 @@ const LandingHeader = ({ openTerms }) => {
               )}
 
               {/* Common links for both authenticated and anonymous users */}
-              <Button 
+              <Button
                 href="/#testimonials"
-                sx={{ 
+                onClick={() => trackNavigationClick('Testimonials', 'mobile_menu')}
+                sx={{
                   color: 'text.primary',
                   textTransform: 'none',
                   fontWeight: 600
@@ -575,9 +611,10 @@ const LandingHeader = ({ openTerms }) => {
               >
                 Testimonials
               </Button>
-                                <Button 
+                                <Button
                     href="/about"
-                    sx={{ 
+                    onClick={() => trackNavigationClick('About', 'mobile_menu')}
+                    sx={{
                       color: 'text.primary',
                       textTransform: 'none',
                       fontWeight: 600
@@ -585,9 +622,10 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     About
                   </Button>
-                                     <Button 
+                                     <Button
                      href="/affiliate-signup"
-                     sx={{ 
+                     onClick={() => trackNavigationClick('Affiliate Program', 'mobile_menu')}
+                     sx={{
                        color: 'text.primary',
                        textTransform: 'none',
                        fontWeight: 600
@@ -596,9 +634,10 @@ const LandingHeader = ({ openTerms }) => {
                      Affiliate Program
                    </Button>
                   {currentUser && (
-                    <Button 
+                    <Button
                       href="/submit-testimonial"
-                      sx={{ 
+                      onClick={() => trackNavigationClick('Share Your Story', 'mobile_menu')}
+                      sx={{
                         color: 'text.primary',
                         textTransform: 'none',
                         fontWeight: 600
@@ -673,13 +712,16 @@ const LandingHeader = ({ openTerms }) => {
                   >
                     Log in
                   </Button>
-                  <Button 
-                    href="/register" 
-                    variant="contained" 
-                    color="primary" 
-                    disableElevation 
-                    sx={{ 
-                      textTransform: 'none', 
+                  <TrackedButton
+                    href="/register"
+                    variant="contained"
+                    color="primary"
+                    disableElevation
+                    trackingText="Register"
+                    trackingType="header_cta"
+                    trackingLocation="header_nav"
+                    sx={{
+                      textTransform: 'none',
                       fontWeight: 600,
                       borderRadius: '50px',
                       px: 3,
@@ -692,7 +734,7 @@ const LandingHeader = ({ openTerms }) => {
                     }}
                   >
                     Register
-                  </Button>
+                  </TrackedButton>
                 </>
               )}
             </Box>
@@ -923,11 +965,14 @@ const Hero = ({ handleRegister }) => {
 
               {/* CTA Buttons */}
               <Box sx={{ display: 'flex', gap: 3, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap', mb: 2 }}>
-                <Button 
-                  href="/register" 
-                  variant="contained" 
+                <TrackedButton
+                  href="/register"
+                  variant="contained"
                   size="large"
-                  sx={{ 
+                  trackingText="Publish Now!"
+                  trackingType="primary_cta"
+                  trackingLocation="hero_section"
+                  sx={{
                     ...primaryCTAButtonSx,
                     '&:focus': {
                       outline: '3px solid white',
@@ -936,7 +981,7 @@ const Hero = ({ handleRegister }) => {
                   }}
                 >
                   Publish Now!
-                </Button>
+                </TrackedButton>
                 <Button 
                   href="#how-it-works" 
                   variant="outlined"
@@ -1706,13 +1751,16 @@ const MidPageCTA = ({ handleRegister }) => {
           Transform your manuscript into a professional book in minutes, not months.
         </Typography>
         <Box sx={{ display: 'flex', gap: 3, justifyContent: 'center', flexWrap: { xs: 'wrap', sm: 'nowrap' } }}>
-          <Button 
-            href="/register" 
-            variant="contained" 
+          <TrackedButton
+            href="/register"
+            variant="contained"
             size="large"
             disableElevation
             color="primary"
-            sx={{ 
+            trackingText="Register Now"
+            trackingType="mid_page_cta"
+            trackingLocation="mid_page_section"
+            sx={{
               fontWeight: 600,
               borderRadius: '50px',
               px: 5,
@@ -1728,13 +1776,16 @@ const MidPageCTA = ({ handleRegister }) => {
             }}
           >
             Register Now
-          </Button>
-          <Button 
-            href="#how-it-works" 
+          </TrackedButton>
+          <TrackedButton
+            href="#how-it-works"
             variant="outlined"
             size="large"
             color="primary"
-            sx={{ 
+            trackingText="See How It Works"
+            trackingType="secondary_cta"
+            trackingLocation="mid_page_section"
+            sx={{
               fontWeight: 600,
               borderRadius: '50px',
               px: 4,
@@ -1748,7 +1799,7 @@ const MidPageCTA = ({ handleRegister }) => {
             }}
           >
             See How It Works
-          </Button>
+          </TrackedButton>
         </Box>
       </Container>
     </Box>
@@ -1759,6 +1810,7 @@ const ComparisonTable = () => {
   return (
     <Box
       component="section"
+      id="comparison"
       sx={{
         py: { xs: 8, md: 12 },
         background: 'linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%)',
@@ -3329,11 +3381,14 @@ const HowItWorks = () => {
         </Box>
         
         <Box sx={{ mt: 8, textAlign: 'center' }}>
-          <Button 
-            href="/register" 
-            variant="contained" 
-            color="primary" 
+          <TrackedButton
+            href="/register"
+            variant="contained"
+            color="primary"
             size="large"
+            trackingText="Register Now"
+            trackingType="pricing_cta"
+            trackingLocation="pricing_section"
             sx={{
               px: 4,
               py: 1.5,
@@ -3349,7 +3404,7 @@ const HowItWorks = () => {
             }}
           >
             Start Publishing Now
-          </Button>
+          </TrackedButton>
         </Box>
       </Container>
     </Box>
@@ -4299,13 +4354,17 @@ const Pricing = ({ handleRegister }) => {
                   </CardContent>
                   
                   <Box sx={{ p: 4, pt: 0 }}>
-                    <Button
+                    <TrackedButton
                       fullWidth
                       variant={plan.buttonVariant}
                       color="primary"
                       onClick={() => handlePlanSelect(plan)}
                       disabled={loadingPlanId === plan.title}
                       size="large"
+                      trackingText={plan.buttonText}
+                      trackingType="pricing_plan"
+                      trackingLocation="pricing_section"
+                      trackingPlan={plan.title}
                       sx={{
                         py: 1.5,
                         borderRadius: '50px',
@@ -4320,7 +4379,7 @@ const Pricing = ({ handleRegister }) => {
                       }}
                     >
                       {loadingPlanId === plan.title ? 'Processing...' : plan.buttonText}
-                    </Button>
+                    </TrackedButton>
                   </Box>
                 </Card>
               </Box>

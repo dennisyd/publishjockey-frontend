@@ -170,6 +170,60 @@ class GoogleAnalyticsService {
       link_url: linkUrl
     });
   }
+
+  /**
+   * Track CTA button clicks with detailed context
+   */
+  trackCTAClick(buttonText: string, buttonType: string, location: string, planName?: string): void {
+    this.trackEvent('cta_click', {
+      button_text: buttonText,
+      button_type: buttonType,
+      location: location,
+      plan_name: planName || 'none'
+    });
+  }
+
+  /**
+   * Track feature interaction (accordion opens, video plays, etc.)
+   */
+  trackFeatureInteraction(featureName: string, action: string, details?: Record<string, any>): void {
+    this.trackEvent('feature_interaction', {
+      feature_name: featureName,
+      action: action,
+      ...details
+    });
+  }
+
+  /**
+   * Track navigation menu interactions
+   */
+  trackNavigationClick(menuItem: string, location: string): void {
+    this.trackEvent('navigation_click', {
+      menu_item: menuItem,
+      location: location
+    });
+  }
+
+  /**
+   * Track form interactions (focus, field completion, etc.)
+   */
+  trackFormInteraction(formName: string, action: string, fieldName?: string): void {
+    this.trackEvent('form_interaction', {
+      form_name: formName,
+      action: action,
+      field_name: fieldName || 'none'
+    });
+  }
+
+  /**
+   * Track scroll to specific sections
+   */
+  trackSectionView(sectionName: string, scrollDepth: number): void {
+    this.trackEvent('section_view', {
+      section_name: sectionName,
+      scroll_depth: scrollDepth
+    });
+  }
   
   /**
    * Track scroll depth
