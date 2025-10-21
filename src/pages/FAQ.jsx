@@ -231,6 +231,11 @@ const FAQ = () => {
           id: "copyright-protection",
           question: "How does Publish Jockey handle copyright protection for my work?",
           answer: "Copyright protection is a legal right, not a technical one. This means no software application can prevent others from copying or misusing your work — only the law can enforce copyright.<br><br>However, with our system, you retain full copyright and ownership of everything you upload and create. We never claim rights to your content, and we only use it to provide the services you've requested. Your materials remain your intellectual property at all times."
+        },
+        {
+          id: "copyright-registration",
+          question: "Should I register my copyright with the U.S. Copyright Office?",
+          answer: "When you publish your book, you automatically own the copyright from that moment—it's your original work. However, if you want the ability to sue for infringement in federal court and be eligible for statutory damages and attorney's fees, you can register your copyright with the U.S. Copyright Office. This is optional but provides stronger legal protection. Registration typically costs around $45–$65, depending on the filing method."
         }
       ]
     },
