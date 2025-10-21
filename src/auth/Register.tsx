@@ -27,7 +27,6 @@ import { Visibility, VisibilityOff } from '@mui/icons-material';
 interface RegisterResponse {
   success: boolean;
   message: string;
-  warning?: string;
   user?: {
     id: string;
     name: string;
@@ -48,7 +47,6 @@ const Register: React.FC = () => {
   const [termsOpen, setTermsOpen] = useState(false);
   const [hasScrolledToBottom, setHasScrolledToBottom] = useState(false);
   const [registrationSuccess, setRegistrationSuccess] = useState(false);
-  const [registerResponse, setRegisterResponse] = useState<RegisterResponse | null>(null);
   const { login, loading } = useAuth();
   const navigate = useNavigate();
   const termsContentRef = React.useRef<HTMLDivElement>(null);
@@ -120,9 +118,8 @@ const Register: React.FC = () => {
       return;
     }
     
-    // Clear any previous errors and responses
+    // Clear any previous errors
     setFormError('');
-    setRegisterResponse(null);
     
     try {
       console.log('Attempting registration with:', { name, email });
@@ -136,12 +133,6 @@ const Register: React.FC = () => {
       });
       
       if (registerResponse.data.success) {
-        // Store the response data for potential warning display
-        setRegisterResponse(registerResponse.data);
-
-        // After successful registration, log the user in
-        await login(email, password);
-
         // Registration was successful, show success message
         setRegistrationSuccess(true);
         GoogleAnalyticsService.trackSignUp();
@@ -151,13 +142,11 @@ const Register: React.FC = () => {
       } else {
         setFormError(registerResponse.data.message || 'Failed to create an account');
         setRegistrationSuccess(false);
-        setRegisterResponse(null);
       }
     } catch (err: any) {
       setFormError(err.response?.data?.message || 'Failed to create an account');
       console.error('Registration failed:', err);
       setRegistrationSuccess(false);
-      setRegisterResponse(null);
     }
   };
 
@@ -345,16 +334,11 @@ const Register: React.FC = () => {
               Registration Successful!
             </Typography>
             <Typography variant="body1" paragraph>
-              Thank you for registering. Your account has been created successfully.
+              Thank you for registering. Please check your email to verify your account.
             </Typography>
             <Typography variant="body2" paragraph>
-              You can now log in and start using PublishJockey!
+              Once verified, you can log in and start using PublishJockey!
             </Typography>
-            {registerResponse?.warning && (
-              <Alert severity="warning" sx={{ mt: 2, mb: 2 }}>
-                {registerResponse.warning}
-              </Alert>
-            )}
             <Button
               variant="contained"
               onClick={() => navigate('/login')}
