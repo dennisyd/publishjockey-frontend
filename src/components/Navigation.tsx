@@ -191,9 +191,6 @@ const Navigation: React.FC = () => {
                 <Button color="inherit" component={Link} to="/">
                   Home
                 </Button>
-                <Button color="inherit" component={Link} to="/dashboard">
-                  Dashboard
-                </Button>
                 <Button color="inherit" component={Link} to="/contact">
                   Contact
                 </Button>

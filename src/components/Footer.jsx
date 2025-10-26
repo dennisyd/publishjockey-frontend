@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Container, Grid, Typography, Divider } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
-import PublishJockeyLogo from '../assets/publishjockey_logo.png';
+import PublishJockeyLogo from '../assets/publishjockey_logo_white.png';
 
 const Footer = () => {
   const navigate = useNavigate();
