@@ -76,7 +76,9 @@
     "cross-env": "^7.0.3",
     "depcheck": "^1.4.5",
     "eslint-plugin-security": "^3.0.1",
+    "png-to-ico": "^3.0.1",
     "postcss": "^8.5.3",
+    "sharp": "^0.34.4",
     "tailwindcss": "^4.1.4",
     "ts-jest": "^29.4.1"
   },
